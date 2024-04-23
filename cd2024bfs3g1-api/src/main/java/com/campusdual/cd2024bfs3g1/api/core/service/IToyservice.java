@@ -17,3 +17,4 @@ public interface IToyservice {
 
     EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
 }
+//
