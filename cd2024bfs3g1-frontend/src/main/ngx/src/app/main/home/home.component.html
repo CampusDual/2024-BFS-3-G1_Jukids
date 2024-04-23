@@ -1,5 +1,12 @@
-<div fxLayout="row" layout-padding fxLayoutAlign="center center">
-  <p>
-    Ontimize web seed application home component
-  </p>
+<div fxLayout="row" layout-padding fxLayoutAlign="center center" fxflex>
+  <div>
+    <p>
+      Formulario de registro de juguetes
+    </p>
+  </div>
+  <o-form editable-detail="no" show-header="no">
+    <div fxFlex>
+      <o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no" fxFlex style="height: 500px;" (onClick)="onMapClick($event)" ></o-map>
+    </div>
+  </o-form>
 </div>

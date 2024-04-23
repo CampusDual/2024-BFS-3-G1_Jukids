@@ -2,14 +2,14 @@
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="TOYS" datasource="mainDataSource"
+                 catalog="" schema="${mainschema}" table="toys" datasource="mainDataSource"
                  sqlhandler="dbSQLStatementHandler">
     <!-- TODO: Comprobar que el nombre del id para comparar con la bd-->
     <DeleteKeys>
-        <Column>toy_id</Column>
+        <Column>toyid</Column>
     </DeleteKeys>
     <UpdateKeys>
-        <Column>toy_id</Column>
+        <Column>toyid</Column>
     </UpdateKeys>
-    <GeneratedKey>toy_id</GeneratedKey>
+    <GeneratedKey>toyid</GeneratedKey>
 </JdbcEntitySetup>

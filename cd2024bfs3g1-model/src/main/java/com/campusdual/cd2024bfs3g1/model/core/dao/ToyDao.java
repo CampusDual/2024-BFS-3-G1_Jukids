@@ -14,11 +14,12 @@ import java.util.Date;
         configurationFile = "dao/ToyDao.xml",
         configurationFilePlaceholder = "dao/placeholders.properties")
 public class ToyDao extends OntimizeJdbcDaoSupport{
-    private int toy_id;
+    private int toyid;
     private String name;
     private String description;
-    private Date date_added;
+    private Date dateadded;
     private BigDecimal price;
+    private Byte photo;
     private Double longitude;
     private Double latitude;
 
