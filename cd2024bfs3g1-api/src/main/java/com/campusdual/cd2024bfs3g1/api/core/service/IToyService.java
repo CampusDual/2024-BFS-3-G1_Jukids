@@ -6,7 +6,7 @@ import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import java.util.List;
 import java.util.Map;
 
-public interface IToyservice {
+public interface IToyService {
 
     //TOY
     EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;

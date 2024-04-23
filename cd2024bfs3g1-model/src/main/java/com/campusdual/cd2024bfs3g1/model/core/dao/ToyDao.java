@@ -5,9 +5,9 @@ import com.ontimize.jee.server.dao.jdbc.OntimizeJdbcDaoSupport;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
-@Repository("CandidateDao")
+@Repository("ToyDao.xml")
 @Lazy
-@ConfigurationFile(configurationFile = "dao/ToyDao.xml", configurationFilePlaceholder = "dao/placeholders.properties")
+@ConfigurationFile(configurationFile = "dao/ToyDao.xml.xml", configurationFilePlaceholder = "dao/placeholders.properties")
 public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_ID = "ID";
     public static final String ATTR_NAME = "NAME";
