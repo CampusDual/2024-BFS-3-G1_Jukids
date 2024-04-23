@@ -18,4 +18,6 @@ public class ToyRestController extends ORestController<IToyService> {
     public IToyService getService() {
         return this.toyService;
     }
+
+
 }

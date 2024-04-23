@@ -7,14 +7,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository("ToyDao.xml")
 @Lazy
-@ConfigurationFile(configurationFile = "dao/ToyDao.xml.xml", configurationFilePlaceholder = "dao/placeholders.properties")
+@ConfigurationFile(configurationFile = "dao/ToyDao.xml", configurationFilePlaceholder = "dao/placeholders.properties")
 public class ToyDao extends OntimizeJdbcDaoSupport {
-    public static final String ATTR_ID = "ID";
-    public static final String ATTR_NAME = "NAME";
-    public static final String ATTR_DESCRIPTION = "DESCRIPTION";
-    public static final String ATTR_DATE_ADDED= "DATE_ADDED";
-    public static final String ATTR_PRICE= "PRICE";
-    public static final String ATTR_PHOTO = "PHOTO";
-    public static final String ATTR_LATITUDE = "LATITUDE";
-    public static final String ATTR_LONGITUDE = "LONGITUDE";
+    public static final String ATTR_ID = "toyid";
+    public static final String ATTR_NAME = "name";
+    public static final String ATTR_DESCRIPTION = "description";
+    public static final String ATTR_DATE_ADDED= "dateadded";
+    public static final String ATTR_PRICE= "price";
+    public static final String ATTR_PHOTO = "photo";
+    public static final String ATTR_LATITUDE = "latitude";
+    public static final String ATTR_LONGITUDE = "longitude";
 }
