@@ -34,20 +34,20 @@ export class HomeComponent implements OnInit {
     this.longitude = e.latlng.lng
     console.log(this.longitude)
 
-    let date: Date = new Date();
+    // let date: Date = new Date();
 
-    const toy = {
-      "name": "",
-      "description": "",
-      "dateadded": date,
-      "price": 0,
-      "photo": "sdad",
-      "longitude": this.longitude,
-      "latitude": this.latitude
-    };
+    // const toy = {
+    //   "name": "",
+    //   "description": "",
+    //   "dateadded": date,
+    //   "price": 0,
+    //   "photo": "sdad",
+    //   "longitude": this.longitude,
+    //   "latitude": this.latitude
+    // };
 
-    console.log(toy); 
-    this.ontimizeService.insert(toy, 'toy');
+    // console.log(toy); 
+    // this.ontimizeService.insert(toy, 'toy');
 
 
   }
