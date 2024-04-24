@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
 
+
+
   onMapClick(e) {
     this.latitude = e.latlng.lat;
     console.log(this.latitude);
@@ -37,26 +39,31 @@ export class HomeComponent implements OnInit {
     let date: Date = new Date();
 
     const toy = {"data": {
-      "name": "",
-      "description": "",
-      "dateadded": date,
-      "price": 0,
+      "name": "Location",
+      "description": "Locationteam",
+      "dateadded": "2024-04-24",
+      "price": 23.12,
       "photo": "sdad",
-      "longitude": this.longitude,
-      "latitude": this.latitude
-    }};
-
-    // console.log(toy); 
-    // this.ontimizeService.insert(toy, 'toy');
-     
-      console.log(toy); 
-     // this.ontimizeService.insert(toy, 'toy');
-     fetch('http://localhost:8080/toys/toy', {
-              method: 'POST',
-              headers: {
-                'Authorization': 'Basic ' + btoa('testuser' + ":" + 'testuser'),
-              },
-              body: JSON.stringify(toy)
-          })
+      "longitude":  -8.7226400,
+      "latitude": 42.2328200
     }
+    }; 
+
+   
+
+    console.log(toy); 
+   // this.ontimizeService.insert(toy, 'toy');
+
+   fetch('http://localhost:8080/toys/toy', {
+
+            method: 'POST',
+            headers: {
+              'Authorization': 'Basic ' + btoa('admin' + ":" + 'adminuser'),
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(toy)
+        })
+
   }
+
+}
