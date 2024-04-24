@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OntimizeService } from 'ontimize-web-ngx';
-import { SharedModule, calculateDistanceFunction } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'home',
@@ -29,6 +28,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
 
+
+
   onMapClick(e) {
     this.latitude = e.latlng.lat;
     console.log(this.latitude);
@@ -37,32 +38,33 @@ export class HomeComponent implements OnInit {
 
     let date: Date = new Date();
 
-    const toy = {
-      "data": {
-        "name": "",
-        "description": "",
-        "dateadded": date,
-        "price": 0,
-        "photo": "sdad",
-        "longitude": this.longitude,
-        "latitude": this.latitude
-      }
+    const toy = {"data": {
+      "name": "Locationdate",
+      "description": "Locationteam",
+      "dateadded": date.toISOString().split('T')[0],
+      "price": 23.12,
+      "photo": "sdad",
+      "latitude": this.latitude,
+      "longitude":  this.longitude
+
+    }
     };
 
-    // console.log(toy); 
-    // this.ontimizeService.insert(toy, 'toy');
+
 
     console.log(toy);
-    // this.ontimizeService.insert(toy, 'toy');
-    fetch('http://localhost:8080/toys/toy', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Basic ' + btoa('testuser' + ":" + 'testuser'),
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(toy)
-    })
+   // this.ontimizeService.insert(toy, 'toy');
+
+   fetch('http://localhost:8080/toys/toy', {
+
+            method: 'POST',
+            headers: {
+              'Authorization': 'Basic ' + btoa('admin' + ":" + 'adminuser'),
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(toy)
+        })
+
   }
 
-  public calculateDistance = calculateDistanceFunction;
 }
