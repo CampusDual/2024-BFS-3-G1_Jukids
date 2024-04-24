@@ -1,26 +1,23 @@
-  <!--<o-form #form service="toys" entity="..." keys="ID" keys-sql-types="UUID" header-position="bottom"
-  ... stay-in-record-after-insert="true" header-actions="R;I;U;D">
 
-  <o-form show-header="yes" service="toys" entity="toy" keys="toyid">-->
-
-    <!--<o-form
-    show-header="yes"
-      [service]="'toys'"
-      [entity]="'toy'">
-      <div fxLayout="row" fxLayoutGap="8px">
-        <o-text-input fxFlex="15" attr="name"></o-text-input>
-        <o-date-input fxFlex="15" attr="description" ></o-date-input>
-        <o-text-input fxFlex="70" attr="dateadded"></o-text-input>
-        <o-text-input fxFlex="70" attr="price"></o-text-input>
-        <o-text-input fxFlex="70" attr="photo"></o-text-input>
-    </div>
-     <div fxFlex>
+  <div class="contenedor">
+    <div fxFlex>
       <o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no" fxFlex style="height: 500px;" (onClick)="onMapClick($event)" ></o-map>
-    </div> 
-    <button type="submit" (click)="onSubmitForm($event)">Enviar</button>
-  </o-form>-->
+    </div>
 
-
-  <div fxFlex>
-    <o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no" fxFlex style="height: 500px;" (onClick)="onMapClick($event)" ></o-map>
+    <o-form-layout-manager title="Toys" separator=" " mode="dialog" label-columns="toyid">
+      <o-table attr="accountsTable" service="toys" entity="toy" keys="toyid"
+          columns="name; description; dateadded; price; photo; longitude;latitude"
+          visible-columns="name; latitude"
+          query-rows="20">
+          <o-table-column attr="name" title="name" type="text"></o-table-column>
+          <o-table-column attr="price" title="price" type="number"></o-table-column>
+          <o-table-column attr="longitude" title="longitude" type="number"></o-table-column>
+          <o-table-column attr="latitude" title="latitude" type="number"></o-table-column>
+    
+          <!--<o-table-column-calculated attr="km" title="km"
+              [operation-function]="calculateDistance" type="number" decimal-separator="," content-align="center">
+          </o-table-column-calculated>-->
+        </o-table>
+    </o-form-layout-manager>
   </div>
+
