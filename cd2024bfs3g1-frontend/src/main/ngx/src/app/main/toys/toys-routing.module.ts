@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ToysNewComponent } from './toys-new/toys-new.component';
 
 const routes: Routes = [
+
   {
     path: "new",
     component: ToysNewComponent
