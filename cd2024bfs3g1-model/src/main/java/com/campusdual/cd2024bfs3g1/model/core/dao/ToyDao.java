@@ -15,7 +15,7 @@ import java.util.Date;
         configurationFilePlaceholder = "dao/placeholders.properties")
 public class ToyDao extends OntimizeJdbcDaoSupport{
     private int toyid;
-   private String name;
+    private String name;
     private String description;
     private Date dateadded;
     private BigDecimal price;

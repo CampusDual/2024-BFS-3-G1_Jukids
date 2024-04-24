@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OntimizeService } from 'ontimize-web-ngx';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'home',
@@ -29,7 +30,6 @@ export class HomeComponent implements OnInit {
   }
 
 
-
   onMapClick(e) {
     this.latitude = e.latlng.lat;
     console.log(this.latitude);
@@ -39,8 +39,8 @@ export class HomeComponent implements OnInit {
     let date: Date = new Date();
 
     const toy = {"data": {
-      "name": "Locationdate",
-      "description": "Locationteam",
+      "name": "Locationontimize",
+      "description": "Locationteamontimize",
       "dateadded": date.toISOString().split('T')[0],
       "price": 23.12,
       "photo": "sdad",
@@ -50,10 +50,24 @@ export class HomeComponent implements OnInit {
     }
     };
 
+   /* const headers = new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('admin:adminuser')
+    });
 
+    const basicauth = { headers: headers };
 
     console.log(toy);
-   // this.ontimizeService.insert(toy, 'toy');
+    this.ontimizeService.insert(toy, 'toy',basicauth).subscribe(
+      (Response)=>{
+        console.log('Insertado');
+    },
+    (Error) =>{
+      console.error('Error');
+ 
+    }
+
+  );*/
+    
 
    fetch('http://localhost:8080/toys/toy', {
 
