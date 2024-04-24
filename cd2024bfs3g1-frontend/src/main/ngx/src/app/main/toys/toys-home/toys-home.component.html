@@ -1,10 +1,11 @@
-<o-table attr="toysTable" service="toys" entity="toy" keys="toyid"
-    columns="photo;name;price"
-    visible-columns="photo;name;price" query-rows="20">
-    
-    <o-table-column attr="photo" title="photo" orderable="no" searchable="no" type="image" avatar="yes"
-        empty-image="assets/images/no-image.png" image-type="base64"></o-table-column>
-    <o-table-column attr="name" title="name" type="name" searchable="yes"></o-table-column>
-    <o-table-column attr="price" title="price" type="number"></o-table-column> 
-    
-</o-table>
+<o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
+    columns="photo;name;price" query-rows="20" page-size-options="20">
+    <o-grid-item *ngFor="let data of toysGrid.dataArray">
+        <div  fxLayout="column" fxLayoutAlign="space-evenly center"
+            class="mat-elevation-z1 toyCard">
+            <img [src]="data.photo" width="144rem" height="200rem" >
+            <span><strong>{{ data.name }}</strong></span>
+            <span><em>{{ data.price }}€</em></span>
+        </div>
+    </o-grid-item>
+</o-grid>
