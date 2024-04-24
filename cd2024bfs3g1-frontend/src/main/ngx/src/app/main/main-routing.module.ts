@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [AuthGuardService],
+    // Se retira el módulo AuthGuard para evitar un logeo forzoso
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
