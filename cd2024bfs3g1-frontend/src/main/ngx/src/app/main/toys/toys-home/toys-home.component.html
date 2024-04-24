@@ -1,5 +1,5 @@
 <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
-    columns="photo;name;price" query-rows="20" page-size-options="20">
+    columns="photo;name;price" query-rows="20" page-size-options="20" quick-filter-columns="name;price">
     <o-grid-item *ngFor="let data of toysGrid.dataArray">
         <div  fxLayout="column" fxLayoutAlign="space-evenly center"
             class="mat-elevation-z1 toyCard">
