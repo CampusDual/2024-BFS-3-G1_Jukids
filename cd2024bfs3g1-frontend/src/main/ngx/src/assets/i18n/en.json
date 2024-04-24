@@ -75,5 +75,15 @@
   "VALIDATOR.HASSMALLCASE": "Must contain at least 1 Letter in Small Case",
   "VALIDATOR.HASSPECIALCHARACTERS": "Must contain at least 1 Special Character",
   "VERSION": "Version",
-  "VIEW": "Views"
+  "VIEW": "Views",
+  "TOYS": "Toys",
+  "TOY_INFORMATION":"Toy information",
+  "photo": "Toy photo",
+  "name": "Name",
+  "description": "Description",
+  "price": "Price",
+  "dateadded":"Date added",
+  "longitude": "Longitude",
+  "latitude": "Latitude",
+  "NEW": "Sell toy"
 }
