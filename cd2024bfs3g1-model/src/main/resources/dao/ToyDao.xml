@@ -2,9 +2,9 @@
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="toysmap" datasource="mainDataSource"
+                 catalog="" schema="${mainschema}" table="toys" datasource="mainDataSource"
                  sqlhandler="dbSQLStatementHandler">
-    <!-- TODO: Comprobar que el nombre del id y cambiar tabla por la original para comparar con la bd-->
+    <!-- TODO: Comprobar que el nombre del id y para comparar con la bd-->
     <DeleteKeys>
         <Column>toyid</Column>
     </DeleteKeys>
