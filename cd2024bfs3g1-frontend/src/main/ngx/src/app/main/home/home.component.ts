@@ -39,19 +39,20 @@ export class HomeComponent implements OnInit {
     let date: Date = new Date();
 
     const toy = {"data": {
-      "name": "Location",
+      "name": "Locationdate",
       "description": "Locationteam",
-      "dateadded": "2024-04-24",
+      "dateadded": date.toISOString().split('T')[0],
       "price": 23.12,
       "photo": "sdad",
-      "longitude":  -8.7226400,
-      "latitude": 42.2328200
+      "latitude": this.latitude,
+      "longitude":  this.longitude
+
     }
-    }; 
+    };
 
-   
 
-    console.log(toy); 
+
+    console.log(toy);
    // this.ontimizeService.insert(toy, 'toy');
 
    fetch('http://localhost:8080/toys/toy', {
