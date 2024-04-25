@@ -45,7 +45,11 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.ontimize.jee</groupId>
+            <artifactId>ontimize-jee-server-rest</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>

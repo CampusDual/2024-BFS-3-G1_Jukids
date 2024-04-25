@@ -23,7 +23,7 @@
   "FOOTER_CREATED_BY": "Developed by Imatia Innovation",
   "FOOTER_RIGHTS": "All rights reserved",
   "FORGOT_MY_PASSWORD": "I forgot my password",
-  "HOME": "Home",
+  "HOME": "Catalogue",
   "LANG_en": "English",
   "LANG_es": "Spanish",
   "LANGUAGE_de": "German",
@@ -75,5 +75,8 @@
   "VALIDATOR.HASSMALLCASE": "Must contain at least 1 Letter in Small Case",
   "VALIDATOR.HASSPECIALCHARACTERS": "Must contain at least 1 Special Character",
   "VERSION": "Version",
-  "VIEW": "Views"
+  "VIEW": "Views", 
+  "photo": "photo", 
+  "name": "name",
+  "price": "price"
 }
