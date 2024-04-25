@@ -1,13 +1,15 @@
 
   <div class="contenedor">
+    
     <div fxFlex>
       <o-map #oMapBasic attr="basic-usage-map" center="42.240599, -8.720727" zoom="11" min-zoom="3" max-zoom="20" zoom-control="yes" search-control="no" fxFlex style="height: 500px;" (onClick)="onMapClick($event)" ></o-map>
     </div>
-
+   
     <o-form-layout-manager title="Toys" separator=" " mode="dialog" label-columns="toyid">
-      <o-table attr="accountsTable" service="toys" entity="toy" keys="toyid"
-          columns="name; description; dateadded; price; photo; longitude;latitude"
-          visible-columns="name; latitude"
+      <o-table attr="toys" service="toys" entity="toy" keys="toyid"
+          columns="name;description;dateadded;price;photo;longitude;latitude"
+          
+          visible-columns="name;price;longitude;latitude"
           query-rows="20">
           <o-table-column attr="name" title="name" type="text"></o-table-column>
           <o-table-column attr="price" title="price" type="number"></o-table-column>
