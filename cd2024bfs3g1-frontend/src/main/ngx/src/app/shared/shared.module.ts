@@ -5,18 +5,22 @@ import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
 import { OMapModule } from 'ontimize-web-ngx-map';
 
-export function calculateDistanceFunction(rowData: Array<any>) {
+// export function calculateDistanceFunction(rowData: Array<any>) {
+export function calculateDistanceFunction(lat1:number, lon1:number, rowData: Array<any>) {
   const R:number = 6371; // Radio de la Tierra en kilómetros
 
-  const lat1:number = 42.240599;
-    const lon1:number = -8.720727;
+  // const lat1:number = 42.240599;
+  //   const lon1:number = -8.720727;
 
   console.log("estamos en la funcion")
 
     let lat2:number = rowData['latitude'];
     let lon2:number = rowData['longitude'];
 
-    console.log(lat2)
+    console.log(lat1);
+    console.log(lat2);
+    console.log(lon1);
+    console.log(lon2);
 
 
 
