@@ -9,5 +9,10 @@ export const MENU_CONFIG: MenuRootItem[] = [
       { id: 'users', name: 'USERS', tooltip: 'USERS', route: '/main/admin/users', icon: 'person' },
     ]
   },
+  { id: 'toys', name: 'TOYS', icon: 'inventory', route: '/main/toys',
+    items: [
+      { id: 'new', name: 'NEW', tooltip: 'NEW', route: '/main/toys/new', icon: 'add' }
+    ]
+   },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' }
 ];

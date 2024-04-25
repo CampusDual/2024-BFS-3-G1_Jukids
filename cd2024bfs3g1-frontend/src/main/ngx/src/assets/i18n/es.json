@@ -76,7 +76,14 @@
   "VALIDATOR.HASSPECIALCHARACTERS": "Debe tener al menos un caracter especial",
   "VERSION": "Versión",
   "VIEW": "Vistas",
-  "photo": "Foto", 
+  "TOYS": "Juguetes",
+  "TOY_INFORMATION":"Información del juguete",
+  "photo": "Fotografía del juguete",
   "name": "Nombre",
-  "price": "Precio"
+  "description": "Descripción",
+  "price": "Precio",
+  "dateadded":"Fecha de añadido",
+  "longitude": "Longitud",
+  "latitude": "Latitud",
+  "NEW": "Vender juguete"
 }
