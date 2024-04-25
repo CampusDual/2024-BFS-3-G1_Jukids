@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OntimizeService } from 'ontimize-web-ngx';
 import { HttpHeaders } from '@angular/common/http';
+import { NumberValueAccessor } from '@angular/forms';
+import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'home',
@@ -13,6 +15,12 @@ export class HomeComponent implements OnInit {
   private latitude: any;
   private longitude: any;
 
+  private latitudeComprador: any = 3;
+  private longitudeComprador: any = 3;
+
+  public calculateDistance = calculateDistanceFunction;
+  // public calculateDistance = calculateDistanceFunction(this.latitudeComprador, this.longitudeComprador, e);
+  
   constructor(
     private router: Router,
     private actRoute: ActivatedRoute,
@@ -81,31 +89,43 @@ export class HomeComponent implements OnInit {
 
   }
 
-/*   function deg2rad(deg:number) {
+  deg2rad(deg:number):number {
     return deg * (Math.PI / 180);
+  } 
+
+  // calculateDistance(rowData: Array<any>):number {
+  //   const R:number = 6371; // Radio de la Tierra en kilómetros
+  //   const lat1:number = 42.240599;
+  //   const lon1:number = -8.720727;
+
+  //   let lat2:number = rowData['latitude'];
+  //   let lon2:number = rowData['longitude'];
+    
+  //   let dLat:number = this.deg2rad(lat2 - lat1);
+  //   let dLon:number = this.deg2rad(lon2 - lon1);
+  //   let a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+  //           + Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2))
+  //           * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  //   let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  //   let distance = R * c;
+
+  //   console.log(lat2-lat1);
+
+  //   return lat2-lat1;
+  //   //return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
+  // } 
+    
+
+  getPosition(e){
+    this.latitudeComprador = e.latlng.lat;
+    console.log("latitudeComprador"+this.latitudeComprador);
+    this.longitudeComprador = e.latlng.lng
+    console.log("longitudeComprador"+this.longitudeComprador)
   }
 
-  calculateDistanceFunction(lat1:number, lon1:number, lat2:number, lon2:number) {
-    const R:number = 6371; // Radio de la Tierra en kilómetros
-    let dLat:number = deg2rad(lat2 - lat1);
-    let dLon:number = deg2rad(lon2 - lon1);
-    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-            + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
-            * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    let distance = R * c;
-    return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
-  } */
-  
-/*    deg2rad(deg:number) {
-    return deg * (Math.PI / 180);
-  } */
-
-
-/*   calculateBenefit(rowData: any[]): number {
-
-    return (rowData['BALANCE'] * rowData['INTERESRATE']);
+  managerClick(e){
+    this.getPosition(e);
+    // this.calculateDistance = calculateDistanceFunction(this.latitudeComprador, this.longitudeComprador, e)
   }
- */
 
 }
