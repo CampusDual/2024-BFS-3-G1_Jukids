@@ -1,0 +1,12 @@
+CREATE TABLE toys (
+
+	toyid SERIAL PRIMARY KEY,
+	name VARCHAR (255) NOT NULL,
+	description VARCHAR (2255),
+	dateadded DATE NOT NULL,
+	price NUMERIC (10, 2) NOT NULL,
+	photo BYTEA NOT NULL,
+	longitude DOUBLE PRECISION NOT NULL,
+	latitude DOUBLE PRECISION NOT NULL
+
+	)

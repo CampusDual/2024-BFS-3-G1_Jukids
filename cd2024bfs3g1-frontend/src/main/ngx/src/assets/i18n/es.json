@@ -23,7 +23,7 @@
   "FOOTER_CREATED_BY": "Creado por Imatia Innovation",
   "FOOTER_RIGHTS": "Todos los derechos reservados",
   "FORGOT_MY_PASSWORD": "Olvidé mi contraseña",
-  "HOME": "Inicio",
+  "HOME": "Catálogo",
   "LANG_en": "Inglés",
   "LANG_es": "Español",
   "LANGUAGE_de": "Alemán",
@@ -75,5 +75,15 @@
   "VALIDATOR.HASSMALLCASE": "Debe tener al menos 1 minúscula",
   "VALIDATOR.HASSPECIALCHARACTERS": "Debe tener al menos un caracter especial",
   "VERSION": "Versión",
-  "VIEW": "Vistas"
+  "VIEW": "Vistas",
+  "TOYS": "Juguetes",
+  "TOY_INFORMATION":"Información del juguete",
+  "photo": "Fotografía del juguete",
+  "name": "Nombre",
+  "description": "Descripción",
+  "price": "Precio",
+  "dateadded":"Fecha de añadido",
+  "longitude": "Longitud",
+  "latitude": "Latitud",
+  "NEW": "Vender juguete"
 }
