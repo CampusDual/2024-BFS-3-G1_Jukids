@@ -4,7 +4,7 @@ export const SERVICE_CONFIG: Object = {
   },
   'toys': {
     'path': '/toys'
-  }, 
+  },
   permissions: {
     'path': '/permissions'
   },
