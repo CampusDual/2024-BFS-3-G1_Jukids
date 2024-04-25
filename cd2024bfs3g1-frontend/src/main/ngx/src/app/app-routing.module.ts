@@ -4,10 +4,11 @@ import { AuthGuardService } from 'ontimize-web-ngx';
 
 export const routes: Routes = [
   // Eliminado de path main canActivate: [AuthGuardService]
+  { path: 'toys', loadChildren: () => import('./toys/toys.module').then(m => m.ToysModule) },
   { path: 'main',  loadChildren: () => import('./main/main.module').then(m => m.MainModule) },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-  { path: '**', redirectTo: 'main', pathMatch: 'full' },
-  { path: '', redirectTo: 'main', pathMatch: 'full' }
+  { path: '**', redirectTo: 'toys', pathMatch: 'full' },
+  { path: '', redirectTo: 'toys', pathMatch: 'full' }
 ];
 
 const opt: ExtraOptions = {
