@@ -2,6 +2,8 @@
   <o-app-layout-header class="nav">
     <div class="nav-login">
       <button *ngIf="!isLogged()" class="btn-login" type="submit" (click)="redirect()">{{ 'LOGIN' | oTranslate }}</button>
+      <button *ngIf="!isLogged()" class="btn-register" type="submit" (click)="register()">Register</button>
+
     </div>
   </o-app-layout-header>
   <o-user-info-configuration show-profile="yes"> </o-user-info-configuration>
