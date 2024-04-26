@@ -49,6 +49,7 @@ export class TableToyComponent {
           console.log(this.location.latitude);
           }     
     }
+    this.toyGrid.reloadData();
     
   }
 
@@ -82,7 +83,6 @@ export class TableToyComponent {
         element.location = this.calculateDistance(element);
       })
       console.log(e);
-      this.toyGrid;
     }   
   }
 }
