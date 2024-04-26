@@ -1,3 +1,19 @@
+<o-form editable-detail="no" show-header="no">
+
+    <o-column title="{{ 'FILTERS' | oTranslate }}">
+      <o-row layout-align="space-between center">
+        <o-text-input attr="name" read-only="no" fxFlex="33"></o-text-input>
+      </o-row>
+  
+      <o-row layout-align="end">
+        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Filter" class="filter-button"></o-button>
+        <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"></o-button>
+      </o-row>
+    </o-column>
+    <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name" [target]="toysGrid"
+    query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
+</o-form>
+
 <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
     columns="photo;name;price" query-rows="20" page-size-options="20" quick-filter-columns="name;price">
     <o-grid-item *ngFor="let data of toysGrid.dataArray">
