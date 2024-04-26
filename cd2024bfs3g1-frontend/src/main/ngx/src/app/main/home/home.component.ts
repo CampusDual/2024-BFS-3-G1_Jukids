@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OntimizeService } from 'ontimize-web-ngx';
 import { HttpHeaders } from '@angular/common/http';
 import { NumberValueAccessor } from '@angular/forms';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -34,7 +35,7 @@ export class HomeComponent implements OnInit {
     this.ontimizeService.configureService(conf);
     this.latitudeComprador = 42.240599;
     this.longitudeComprador = -8.713697;
-    
+
   }
 
   ngOnInit() {
@@ -47,6 +48,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
 
+  @ViewChild('oMapBasic') oMapBasic: OMapComponent;
 
   onMapClick(e) {
     this.latitude = e.latlng.lat;
@@ -55,6 +57,17 @@ export class HomeComponent implements OnInit {
     console.log(this.longitude)
 
     let date: Date = new Date();
+
+    this.oMapBasic.addMarker(
+      1,
+      this.latitude,
+      this.longitude,
+      false,
+      true,
+      false,
+      false,
+      false
+    );
 
     const toy = {
       "data": {
@@ -72,9 +85,9 @@ export class HomeComponent implements OnInit {
     /* const headers = new HttpHeaders({
        'Authorization': 'Basic ' + btoa('admin:adminuser')
      });
- 
+
      const basicauth = { headers: headers };
- 
+
      console.log(toy);
      this.ontimizeService.insert(toy, 'toy',basicauth).subscribe(
        (Response)=>{
@@ -82,9 +95,9 @@ export class HomeComponent implements OnInit {
      },
      (Error) =>{
        console.error('Error');
- 
+
      }
- 
+
    );*/
 
 
@@ -106,10 +119,21 @@ export class HomeComponent implements OnInit {
         {
           this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
 
+        this.oMapBasic.addMarker(
+         1,
+         e.latlng.lat,
+         e.latlng.lng,
+         false,
+         true,
+         false,
+         false,
+         false
+    );
+
           console.log(this.location.latitude);
-          }     
+          }
     }
-    
+
   }
 
   managerClick(e) {
