@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
+import { OMapComponent, OMapLayerComponent } from 'ontimize-web-ngx-map';
+import { OMapBaseLayerComponent } from 'ontimize-web-ngx-map';
 
 @Component({
   selector: 'app-table-toy',
@@ -39,6 +41,9 @@ export class TableToyComponent {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
 
+  @ViewChild('oMapBasic') oMapBasic: OMapComponent;
+  @ViewChild('oMapLayer') oMapLayer: OMapLayerComponent;
+
   //Obtencion de latitud y longitud del mapa y llamada al servicio para pasarle los datos
   getPosition(e) {
     if (this.dialogService) {
@@ -46,9 +51,53 @@ export class TableToyComponent {
         {
           this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
 
+          this.oMapBasic.addMarker(
+            1,
+            e.latlng.lat,
+            e.latlng.lng,
+            false,
+            true,
+            false,
+            false,
+            false
+          );
+
+          /* const layerConf = {
+            layerId: 'circleLayer',
+            layerGroupId: '', 
+            type: 'circle',
+            center: { latitude: e.latlng.lat, longitude: e.latlng.lng },
+            radius: 10000, 
+            fillColor: 'rgba(255, 140, 0, 0.7)',
+            strokeColor: '#FFA500',
+            strokeWeight: 2,
+            points: [],
+            bounds: null,
+            popup: null,
+            menuLabel: 'Radio de Compra', 
+            menuLabelSecondary: '', 
+            service: null, 
+            baseUrl: '', 
+            popupUrl: '', 
+            popupOptions: null, 
+            style: null,
+            url: '', 
+            attribution: '', 
+            options: {}, 
+            showInMenu: '', 
+            selected: true, 
+            visible: true, 
+            inWS: false, 
+            contextmenu: null 
+          };
+
+          this.oMapLayer.createMapLayer(layerConf);*/
+          
           console.log(this.location.latitude);
+          
           }     
     }
+
     this.toyGrid.reloadData();
     
   }

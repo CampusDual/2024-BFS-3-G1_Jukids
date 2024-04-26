@@ -5,7 +5,8 @@
             (onClick)="getPosition($event)"></o-map>
     </div>
 
-    <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"orderable="yes" sortable-columns="location:asc;price:asc" sort-column="location"
+    <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
+    orderable="yes" sortable-columns="price:asc;location:asc" sort-column="location"
         columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
         quick-filter-columns="name;price;location" (onDataLoaded)="addLocation($event)">
         <o-grid-item *ngFor="let data of toysGrid.dataArray">
