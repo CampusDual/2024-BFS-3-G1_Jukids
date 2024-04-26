@@ -1,6 +1,7 @@
 import { Component,OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 
@@ -12,7 +13,20 @@ import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 
 export class TableToyComponent {
   @ViewChild('toysGrid') protected toyGrid: OGridComponent;
+  @ViewChild('oMapBasic') oMapBasic: OMapComponent;
   private location: any;
+
+
+
+  public rangeArray = [{
+    code: 1,
+    range: "menos de 5km"
+  },
+  {
+    code: 2,
+    range: "menos de 10km"
+  }
+]
   
   constructor(    
     private router: Router,
@@ -44,6 +58,17 @@ export class TableToyComponent {
     if (this.dialogService) {
         if(window.confirm('¿Desea buscar para esta ubicación?'))
         {
+          this.oMapBasic.addMarker(
+            1,
+            e.latlng.lat,
+            e.latlng.lng,
+            false,
+            true,
+            false,
+            false,
+            false
+          );
+
           this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
 
           console.log(this.location.latitude);
@@ -85,5 +110,6 @@ export class TableToyComponent {
       console.log(e);
     }   
   }
+
 }
 

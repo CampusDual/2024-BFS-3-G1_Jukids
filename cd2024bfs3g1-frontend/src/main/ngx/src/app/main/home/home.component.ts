@@ -13,6 +13,8 @@ import { OMapComponent } from 'ontimize-web-ngx-map';
 })
 export class HomeComponent implements OnInit {
 
+  
+
   private latitude: any;
   private longitude: any;
   private location: any;
