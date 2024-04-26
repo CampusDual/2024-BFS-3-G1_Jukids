@@ -1,11 +1,11 @@
-import { Component,OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
-import { OMapComponent } from 'ontimize-web-ngx-map';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 import { OMapComponent, OMapLayerComponent } from 'ontimize-web-ngx-map';
 import { OMapBaseLayerComponent } from 'ontimize-web-ngx-map';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-table-toy',
@@ -15,29 +15,37 @@ import { OMapBaseLayerComponent } from 'ontimize-web-ngx-map';
 
 export class TableToyComponent {
   @ViewChild('toysGrid') protected toyGrid: OGridComponent;
-  @ViewChild('oMapBasic') oMapBasic: OMapComponent;
   private location: any;
 
+  private arrayData: Array<any> = [];
+  private arrayFilter: Array<any> = [];
 
-
+  public selectedAll = 0
   public rangeArray = [{
-    code: 1,
-    range: "menos de 5km"
+    code: 0,
+    range: "Ver todos"
   },
   {
-    code: 2,
-    range: "menos de 10km"
+    code: 50,
+    range: "a menos de 50km"
+  },
+  {
+    code: 100,
+    range: "a menos de 100km"
+  },
+  {
+    code: 200,
+    range: "a menos de 200km"
   }
-]
-  
-  constructor(    
+  ]
+
+  constructor(
     private router: Router,
     private actRoute: ActivatedRoute,
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
-    private toysMapService: ToysMapService    
-  ) 
-  {
+    private toysMapService: ToysMapService
+  ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
@@ -56,82 +64,70 @@ export class TableToyComponent {
   }
 
   @ViewChild('oMapBasic') oMapBasic: OMapComponent;
-  @ViewChild('oMapLayer') oMapLayer: OMapLayerComponent;
+  @ViewChild('oMapBasic') oMapLayer: OMapLayerComponent;
 
   //Obtencion de latitud y longitud del mapa y llamada al servicio para pasarle los datos
   getPosition(e) {
     if (this.dialogService) {
-        if(window.confirm('¿Desea buscar para esta ubicación?'))
-        {
-          this.oMapBasic.addMarker(
-            1,
-            e.latlng.lat,
-            e.latlng.lng,
-            false,
-            true,
-            false,
-            false,
-            false
-          );
+      if (window.confirm('¿Desea buscar para esta ubicación?')) {
+        this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
 
-          this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
+        this.oMapBasic.addMarker(
+          1,
+          e.latlng.lat,
+          e.latlng.lng,
+          false,
+          true,
+          false,
+          false,
+          false
+        );
 
-          this.oMapBasic.addMarker(
-            1,
-            e.latlng.lat,
-            e.latlng.lng,
-            false,
-            true,
-            false,
-            false,
-            false
-          );
+        // const layerConf = {
+        //   layerId: 'circleLayer',
+        //   layerGroupId: '',
+        //   type: 'circle',
+        //   center: { latitude: e.latlng.lat, longitude: e.latlng.lng },
+        //   radius: 10000,
+        //   fillColor: 'rgba(255, 140, 0, 0.7)',
+        //   strokeColor: '#FFA500',
+        //   strokeWeight: 2,
+        //   points: [],
+        //   bounds: null,
+        //   popup: null,
+        //   menuLabel: 'Radio de Compra',
+        //   menuLabelSecondary: '',
+        //   service: null,
+        //   baseUrl: '',
+        //   popupUrl: '',
+        //   popupOptions: null,
+        //   style: null,
+        //   url: '',
+        //   attribution: '',
+        //   options: {},
+        //   showInMenu: '',
+        //   selected: true,
+        //   visible: true,
+        //   inWS: false,
+        //   contextmenu: null
+        // };
 
-          /* const layerConf = {
-            layerId: 'circleLayer',
-            layerGroupId: '', 
-            type: 'circle',
-            center: { latitude: e.latlng.lat, longitude: e.latlng.lng },
-            radius: 10000, 
-            fillColor: 'rgba(255, 140, 0, 0.7)',
-            strokeColor: '#FFA500',
-            strokeWeight: 2,
-            points: [],
-            bounds: null,
-            popup: null,
-            menuLabel: 'Radio de Compra', 
-            menuLabelSecondary: '', 
-            service: null, 
-            baseUrl: '', 
-            popupUrl: '', 
-            popupOptions: null, 
-            style: null,
-            url: '', 
-            attribution: '', 
-            options: {}, 
-            showInMenu: '', 
-            selected: true, 
-            visible: true, 
-            inWS: false, 
-            contextmenu: null 
-          };
+        // this.oMapLayer.createMapLayer(layerConf);
 
-          this.oMapLayer.createMapLayer(layerConf);*/
-          
-          console.log(this.location.latitude);
-          
-          }     
+      }
     }
 
     this.toyGrid.reloadData();
-    
+
   }
 
   //Se calcula la distancia a la que se encuentra el objeto al punto del mapa que sea a seleccionado previamente
-  calculateDistance(rowData: any): number {    
-    const R: number = 6371; // Radio de la Tierra en kilómetros      
-    let lat1:number = this.location.latitude;    
-    let lon1: number = this.location.longitude;
+  calculateDistance(rowData: any): number {
+    const R: number = 6371; // Radio de la Tierra en kilómetros 
+    let isset = this.location != undefined;
+      let lat1: number =(isset)?this.location.latitude:0;
+      let lon1: number =(isset)?this.location.longitude:0;
+    
 
     let lat2: number = rowData['latitude'];
     let lon2: number = rowData['longitude'];
@@ -151,14 +147,44 @@ export class TableToyComponent {
   }
 
   //Se añade una localización a los datos recogidos del grid y existe un punto en el mapa
-  addLocation(e){    
-    if(this.location.latitude != undefined || this.location.longitude != undefined){
-      e.forEach(element =>{
+  addLocation(e) {
+    this.arrayData = e;
+    if (this.location != undefined){
+      e.forEach(element => {
         element.location = this.calculateDistance(element);
       })
-      console.log(e);
-    }   
+    }
+    
   }
+
+  getValue(e) {
+    console.log(e);
+    console.log("esto es getValue en rango")
+  }
+
+
+  filterKm(num: number) {
+    console.log(num);
+    
+    this.arrayFilter = [];
+    this.arrayData.forEach(element => {
+      if (element.location !== undefined && num != 0) {
+        console.log("hol")
+        if (element.location <= num) {
+          this.arrayFilter.push(element);
+        }
+      } else {
+        this.arrayFilter.push(element);
+      }
+    });
+
+    //se cambia la data del grid por los que coinciden con el filtro, pero toy grid tiene una variable interna (dataResponseArray) que hace que en memoria siempre esten todos los datos (por ello siempre podemos darle a ver mas)
+    this.toyGrid.dataArray = this.arrayFilter;
+    console.log(this.toyGrid)
+  }
+
+
+
 
 }
 
