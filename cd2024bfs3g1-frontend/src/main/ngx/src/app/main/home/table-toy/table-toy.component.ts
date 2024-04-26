@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { OntimizeService } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
@@ -14,6 +14,7 @@ export class TableToyComponent {
   private latComprador = 42.240599;
   private longComprador = -8.713697;
 
+  @ViewChild('toysGrid')
   // public  calculateDistance = this.toysMapService.calculateDistanceFunction;
 
   private location: any;
@@ -29,20 +30,20 @@ export class TableToyComponent {
   }
 
   ngOnInit() {
-    this.toysMapService.location.subscribe(data => {
+    this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
     this.toysMapService.setLocation(this.latComprador, this.longComprador);    
     console.log("latitud table-toy: " + this.location);
   }
 
-  calculateDistance(rowData: Array<any>): any {
+  calculateDistance(rowData: any): any {
     const R: number = 6371; // Radio de la Tierra en kilómetros
-    console.log(rowData);
+    
     // console.log("latitud table-toy: " + this.location.latitude);
     // let lat1:number = this.toysMapService.getLatBuyerNum();  
-    let lat1:number = this.latComprador;    
-    let lon1: number = this.longComprador;
+    let lat1:number = this.location.latitude;    
+    let lon1: number = this.location.longitude;
 
     let lat2: number = rowData['latitude'];
     let lon2: number = rowData['longitude'];
@@ -76,6 +77,15 @@ export class TableToyComponent {
     console.log (element)
     });
   
+  }
+
+  algo(e){
+    // console.log(e);
+    e.forEach(element =>{
+      element.location = this.calculateDistance(element);
+    })
+    console.log(e);
+
   }
 }
 

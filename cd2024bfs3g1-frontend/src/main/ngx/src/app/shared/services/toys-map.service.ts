@@ -20,6 +20,22 @@ export class ToysMapService {
   public setLocation(latitude: number = this.latBuyer, longitude: number = this.lngBuyer){
     this.location$.next({latitude: latitude, longitude: longitude});
   }
+  getLocation():Observable<any>{
+    return this.location;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   public setLatBuyer(value: number): void {
