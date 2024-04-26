@@ -4,7 +4,7 @@ import { DialogService, OntimizeService } from 'ontimize-web-ngx';
 import { HttpHeaders } from '@angular/common/http';
 import { NumberValueAccessor } from '@angular/forms';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
-
+import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
   private latitudeComprador: any = 42.240599;
   private longitudeComprador: any = -8.713697;
 
+  private location;
+
   // public calculateDistance = calculateDistanceFunction;
   // public calculateDistance = calculateDistanceFunction(this.latitudeComprador, this.longitudeComprador, e);
 
@@ -25,15 +27,20 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private actRoute: ActivatedRoute,
     private ontimizeService: OntimizeService,
-    protected dialogService: DialogService
+    protected dialogService: DialogService,
+    private  toysMapService: ToysMapService
   ) {
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
     this.latitudeComprador = 42.240599;
     this.longitudeComprador = -8.713697;
+    
   }
 
   ngOnInit() {
+    this.toysMapService.location.subscribe(data => {
+      this.location = data;
+    });
   }
 
   navigate() {
@@ -97,11 +104,9 @@ export class HomeComponent implements OnInit {
     if (this.dialogService) {
         if(window.confirm('¿Desea buscar para esta ubicación?'))
         {
-          this.latitudeComprador = e.latlng.lat;
-          console.log("latitudeComprador" + this.latitudeComprador);
-          this.longitudeComprador = e.latlng.lng
-          console.log("longitudeComprador" + this.longitudeComprador)
-                    
+          this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
+
+          console.log(this.location.latitude);
           }     
     }
     

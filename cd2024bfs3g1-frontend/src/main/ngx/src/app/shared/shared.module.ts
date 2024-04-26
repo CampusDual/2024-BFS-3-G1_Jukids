@@ -22,8 +22,6 @@ export function calculateDistanceFunction(lat1:number, lon1:number, rowData: Arr
     console.log(lon1);
     console.log(lon2);
 
-
-
   let dLat:number = deg2rad(lat2 - lat1);
   let dLon:number = deg2rad(lon2 - lon1);
   let a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
