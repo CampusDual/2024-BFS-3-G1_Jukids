@@ -1,6 +1,6 @@
-import { Component, Inject, ViewChild } from '@angular/core';
-import { OntimizeService } from 'ontimize-web-ngx';
-import { Subscription } from 'rxjs';
+import { Component,OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DialogService, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 
@@ -11,37 +11,50 @@ import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 })
 
 export class TableToyComponent {
-  private latComprador = 42.240599;
-  private longComprador = -8.713697;
-
-  @ViewChild('toysGrid')
-  // public  calculateDistance = this.toysMapService.calculateDistanceFunction;
-
+  @ViewChild('toysGrid') protected toyGrid: OGridComponent;
   private location: any;
-
+  
   constructor(    
+    private router: Router,
+    private actRoute: ActivatedRoute,
     private ontimizeService: OntimizeService,
+    protected dialogService: DialogService,
     private toysMapService: ToysMapService    
   ) 
   {
+    //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
 
   }
 
   ngOnInit() {
+    //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
-    this.toysMapService.setLocation(this.latComprador, this.longComprador);    
-    console.log("latitud table-toy: " + this.location);
   }
 
-  calculateDistance(rowData: any): any {
-    const R: number = 6371; // Radio de la Tierra en kilómetros
+  navigate() {
+    this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
+  }
+
+  //Obtencion de latitud y longitud del mapa y llamada al servicio para pasarle los datos
+  getPosition(e) {
+    if (this.dialogService) {
+        if(window.confirm('¿Desea buscar para esta ubicación?'))
+        {
+          this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
+
+          console.log(this.location.latitude);
+          }     
+    }
     
-    // console.log("latitud table-toy: " + this.location.latitude);
-    // let lat1:number = this.toysMapService.getLatBuyerNum();  
+  }
+
+  //Se calcula la distancia a la que se encuentra el objeto al punto del mapa que sea a seleccionado previamente
+  calculateDistance(rowData: any): number {    
+    const R: number = 6371; // Radio de la Tierra en kilómetros      
     let lat1:number = this.location.latitude;    
     let lon1: number = this.location.longitude;
 
@@ -62,30 +75,15 @@ export class TableToyComponent {
     return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
   }
 
-
-
-  hazAlgo(rowData: Array<any>){
-    console.log("latitud table-toy: " + typeof(rowData['latitude']));
-
-    alert(calculateDistanceFunction(this.location.latitude, this.location.longitude, rowData));
-  
-  }
-
-  cal(){
-    let array = document.querySelectorAll('.km');
-    array.forEach((element)=>{
-    console.log (element)
-    });
-  
-  }
-
-  algo(e){
-    // console.log(e);
-    e.forEach(element =>{
-      element.location = this.calculateDistance(element);
-    })
-    console.log(e);
-
+  //Se añade una localización a los datos recogidos del grid y existe un punto en el mapa
+  addLocation(e){    
+    if(this.location.latitude != undefined || this.location.longitude != undefined){
+      e.forEach(element =>{
+        element.location = this.calculateDistance(element);
+      })
+      console.log(e);
+      this.toyGrid;
+    }   
   }
 }
 

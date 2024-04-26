@@ -14,14 +14,7 @@ export class HomeComponent implements OnInit {
 
   private latitude: any;
   private longitude: any;
-
-  private latitudeComprador: any = 42.240599;
-  private longitudeComprador: any = -8.713697;
-
-  private location;
-
-  // public calculateDistance = calculateDistanceFunction;
-  // public calculateDistance = calculateDistanceFunction(this.latitudeComprador, this.longitudeComprador, e);
+  private location: any;
 
   constructor(
     private router: Router,
@@ -30,15 +23,16 @@ export class HomeComponent implements OnInit {
     protected dialogService: DialogService,
     private  toysMapService: ToysMapService
   ) {
+     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
-    this.latitudeComprador = 42.240599;
-    this.longitudeComprador = -8.713697;
+    
     
   }
 
   ngOnInit() {
-    this.toysMapService.location.subscribe(data => {
+    //Se escuchan los cambios del servicio
+    this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
   }
@@ -48,6 +42,7 @@ export class HomeComponent implements OnInit {
   }
 
 
+  //Insercion de la longuitud y la latitud del punto marcado en el mapa
   onMapClick(e) {
     this.latitude = e.latlng.lat;
     console.log(this.latitude);
@@ -99,56 +94,5 @@ export class HomeComponent implements OnInit {
     })
 
   }
-
-  getPosition(e) {
-    if (this.dialogService) {
-        if(window.confirm('¿Desea buscar para esta ubicación?'))
-        {
-          this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
-
-          console.log(this.location.latitude);
-          }     
-    }
-    
-  }
-
-  managerClick(e) {
-    this.getPosition(e);
-    // this.calculateDistance = calculateDistanceFunction(this.latitudeComprador, this.longitudeComprador, e)
-  }
-
-  calculateDistance(rowData: Array<any>){
-    let latComprador = 42.240599;
-    let longComprador = -8.713697;
-
-    return calculateDistanceFunction(this.latitudeComprador, this.longitudeComprador, rowData);
-  }
-
-
-
-
-
-  // calculateDistance(rowData: Array<any>): number {
-  //   const R: number = 6371; // Radio de la Tierra en kilómetros
-  //   let lat1: number = this.latitudeComprador;
-  //   let lon1: number = this.longitudeComprador;
-
-  //   let lat2: number = rowData['latitude'];
-  //   let lon2: number = rowData['longitude'];
-
-  //   function deg2rad(deg: number): number {
-  //     return deg * (Math.PI / 180);
-  //   }
-
-  //   let dLat: number = deg2rad(lat2 - lat1);
-  //   let dLon: number = deg2rad(lon2 - lon1);
-  //   let a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-  //     + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
-  //     * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  //   let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  //   let distance = R * c;
-  //   return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
-  // }
-
 
 }
