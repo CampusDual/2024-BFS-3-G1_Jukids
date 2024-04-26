@@ -6,7 +6,7 @@
 
     <div class="wrapp-login">
       <div fxFill fxLayout="column" fxLayoutAlign="center center" class="login-inner-container">
-        <h1 class="slogan">Encuentra la pieza que te falta</h1>
+        <h1 class="slogan">{{ 'SLOGAN' | oTranslate }}</h1>
         <form [formGroup]="loginForm" (ngSubmit)="login()">
 
           <div class="login-title-container" fxLayout="column">
