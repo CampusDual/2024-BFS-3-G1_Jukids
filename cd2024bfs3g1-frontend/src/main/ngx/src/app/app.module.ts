@@ -10,6 +10,7 @@ import { CONFIG } from './app.config';
 import { MainService } from './shared/services/main.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegisterComponent } from './register/register.component';
 
 // Standard providers...
 // Defining custom providers (if needed)...

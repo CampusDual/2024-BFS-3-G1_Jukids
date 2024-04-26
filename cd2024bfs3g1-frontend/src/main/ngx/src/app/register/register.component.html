@@ -1,0 +1,5 @@
+<o-form-layout-manager attr="usersHome" title="{{'users' | oTranslate }}" separator=" " mode="dialog" label-columns="usr_name">
+    <o-table attr="usersTable" service="register" entity="register" keys="usr_id"
+        columns="usr_login;usr_name;usr_surname;usr_email;usr_password" visible-columns="usr_login;usr_name;usr_surname;usr_password" query-rows="15">
+    </o-table>
+</o-form-layout-manager>
