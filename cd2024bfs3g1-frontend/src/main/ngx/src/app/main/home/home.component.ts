@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OntimizeService } from 'ontimize-web-ngx';
 import { HttpHeaders } from '@angular/common/http';
 import { NumberValueAccessor } from '@angular/forms';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
 
+  @ViewChild('oMapBasic') oMapBasic: OMapComponent;
 
   //Insercion de la longuitud y la latitud del punto marcado en el mapa
   onMapClick(e) {
@@ -50,6 +52,17 @@ export class HomeComponent implements OnInit {
     console.log(this.longitude)
 
     let date: Date = new Date();
+
+    this.oMapBasic.addMarker(
+      1,
+      this.latitude,
+      this.longitude,
+      false,
+      true,
+      false,
+      false,
+      false
+    );
 
     const toy = {
       "data": {
@@ -67,9 +80,9 @@ export class HomeComponent implements OnInit {
     /* const headers = new HttpHeaders({
        'Authorization': 'Basic ' + btoa('admin:adminuser')
      });
- 
+
      const basicauth = { headers: headers };
- 
+
      console.log(toy);
      this.ontimizeService.insert(toy, 'toy',basicauth).subscribe(
        (Response)=>{
@@ -77,9 +90,9 @@ export class HomeComponent implements OnInit {
      },
      (Error) =>{
        console.error('Error');
- 
+
      }
- 
+
    );*/
 
 
