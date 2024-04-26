@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DialogService, OntimizeService } from 'ontimize-web-ngx';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { OntimizeService } from 'ontimize-web-ngx';
+import { Subscription } from 'rxjs';
+import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 
 @Component({
@@ -8,35 +9,44 @@ import { calculateDistanceFunction } from 'src/app/shared/shared.module';
   templateUrl: './table-toy.component.html',
   styleUrls: ['./table-toy.component.css']
 })
+
 export class TableToyComponent {
   private latComprador = 42.240599;
   private longComprador = -8.713697;
 
-  constructor(
-    private router: Router,
-    private actRoute: ActivatedRoute,
+  @ViewChild('toysGrid')
+  // public  calculateDistance = this.toysMapService.calculateDistanceFunction;
+
+  private location: any;
+
+  constructor(    
     private ontimizeService: OntimizeService,
-    protected dialogService: DialogService
-  ) {
+    private toysMapService: ToysMapService    
+  ) 
+  {
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
-  }
-  ngOnInit() {
+
   }
 
-  
-    calculateDistance(rowData: Array<any>): number {    
+  ngOnInit() {
+    this.toysMapService.getLocation().subscribe(data => {
+      this.location = data;
+    });
+    this.toysMapService.setLocation(this.latComprador, this.longComprador);    
+    console.log("latitud table-toy: " + this.location);
+  }
+
+  calculateDistance(rowData: any): any {
     const R: number = 6371; // Radio de la Tierra en kilómetros
-    let lat1: number = this.latComprador;
-    let lon1: number = this.longComprador;
+    
+    // console.log("latitud table-toy: " + this.location.latitude);
+    // let lat1:number = this.toysMapService.getLatBuyerNum();  
+    let lat1:number = this.location.latitude;    
+    let lon1: number = this.location.longitude;
 
     let lat2: number = rowData['latitude'];
     let lon2: number = rowData['longitude'];
-
-    console.log(lat1);
-    console.log(lat2);
-    console.log(lon1);
-    console.log(lon2);
 
     function deg2rad(deg: number): number {
       return deg * (Math.PI / 180);
@@ -51,4 +61,31 @@ export class TableToyComponent {
     let distance = R * c;
     return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
   }
+
+
+
+  hazAlgo(rowData: Array<any>){
+    console.log("latitud table-toy: " + typeof(rowData['latitude']));
+
+    alert(calculateDistanceFunction(this.location.latitude, this.location.longitude, rowData));
+  
+  }
+
+  cal(){
+    let array = document.querySelectorAll('.km');
+    array.forEach((element)=>{
+    console.log (element)
+    });
+  
+  }
+
+  algo(e){
+    // console.log(e);
+    e.forEach(element =>{
+      element.location = this.calculateDistance(element);
+    })
+    console.log(e);
+
+  }
 }
+

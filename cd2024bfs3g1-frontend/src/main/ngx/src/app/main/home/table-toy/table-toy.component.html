@@ -1,16 +1,32 @@
-<o-form-layout-manager title="Toys" separator=" " mode="dialog" label-columns="toyid">
+<!--<o-form-layout-manager title="Toys" separator=" " mode="dialog" label-columns="toyid">
     <o-table attr="toys" service="toys" entity="toy" keys="toyid"
         columns="name;description;dateadded;price;photo;longitude;latitude"
-        
-        visible-columns="name;price;longitude;latitude;km"
-        query-rows="20">
+        visible-columns="name;price;longitude;latitude;km;distanceKm" query-rows="20">
+        <o-table-button attr="hazAlgo" label="hazAlgo" (onClick)="cal()" icon="update"></o-table-button>
+
+
         <o-table-column attr="name" title="name" type="text"></o-table-column>
         <o-table-column attr="price" title="price" type="number"></o-table-column>
         <o-table-column attr="longitude" title="longitude" type="number"></o-table-column>
-        <o-table-column attr="latitude" title="latitude" type="number"></o-table-column>  
-        <o-table-column-calculated attr="km" title="km"
-            [operation-function]="calculateDistance" type="number" decimal-separator="," content-align="center">
+        <o-table-column attr="latitude" title="latitude" type="number"></o-table-column>
+        <o-table-column-calculated attr="km" title="km" [operation-function]="calculateDistance" type="number"
+            decimal-separator="," content-align="center" class="km">
         </o-table-column-calculated>
-      </o-table>
-      
-  </o-form-layout-manager>
+        <o-table-column attr="distanceKm" title="distanceKm" width="64px">
+            <o-table-cell-renderer-action (onClick)="hazAlgo($event)" icon="storage"></o-table-cell-renderer-action>
+          </o-table-column>
+    </o-table>
+</o-form-layout-manager>-->
+
+<o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
+    columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" quick-filter-columns="name;price;location" (onDataLoaded)="algo($event)">
+    <o-grid-item *ngFor="let data of toysGrid.dataArray">
+        <div  fxLayout="column" fxLayoutAlign="space-evenly center"
+            class="mat-elevation-z1 toyCard">
+            <img [src]="data.photo" width="144rem" height="200rem" >
+            <span><strong>{{ data.name }}</strong></span>
+            <span><em>{{ data.price }}€</em></span>            
+            <span>{{data.location}} Km</span>
+        </div>
+    </o-grid-item>
+</o-grid>

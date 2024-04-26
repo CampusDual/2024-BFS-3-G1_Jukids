@@ -1,19 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OntimizeService } from 'ontimize-web-ngx';
 import { HttpHeaders } from '@angular/common/http';
 import { NumberValueAccessor } from '@angular/forms';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
-import { OntimizeService } from 'ontimize-web-ngx';
-import { OMapComponent } from 'ontimize-web-ngx-map';
-import { OTableComponent } from 'ontimize-web-ngx';
-
+import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-
 export class HomeComponent implements OnInit {
 
   private latitude: any;
@@ -22,6 +18,8 @@ export class HomeComponent implements OnInit {
   private latitudeComprador: any = 42.240599;
   private longitudeComprador: any = -8.713697;
 
+  private location;
+
   // public calculateDistance = calculateDistanceFunction;
   // public calculateDistance = calculateDistanceFunction(this.latitudeComprador, this.longitudeComprador, e);
 
@@ -29,50 +27,44 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private actRoute: ActivatedRoute,
     private ontimizeService: OntimizeService,
-    protected dialogService: DialogService
+    protected dialogService: DialogService,
+    private  toysMapService: ToysMapService
   ) {
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
     this.latitudeComprador = 42.240599;
     this.longitudeComprador = -8.713697;
+    
   }
 
   ngOnInit() {
+    this.toysMapService.location.subscribe(data => {
+      this.location = data;
+    });
   }
 
   navigate() {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
 
-  @ViewChild('oMapBasic') oMapBasic: OMapComponent;
-  @ViewChild(OTableComponent) oTable: OTableComponent;
 
   onMapClick(e) {
-
     this.latitude = e.latlng.lat;
+    console.log(this.latitude);
     this.longitude = e.latlng.lng
-
-    this.oMapBasic.addMarker(
-      1,
-      this.latitude,
-      this.longitude,
-      false,
-      true,
-      false,
-      false,
-      false
-    );
+    console.log(this.longitude)
 
     let date: Date = new Date();
 
-    const toy = {"data": {
-      "name": "Locationontimize2",
-      "description": "Locationteamontimize",
-      "dateadded": date.toISOString().split('T')[0],
-      "price": 19.99,
-      "photo": "sdad",
-      "latitude": this.latitude,
-      "longitude":  this.longitude
+    const toy = {
+      "data": {
+        "name": "Locationontimize",
+        "description": "Locationteamontimize",
+        "dateadded": date.toISOString().split('T')[0],
+        "price": 23.12,
+        "photo": "sdad",
+        "latitude": this.latitude,
+        "longitude": this.longitude
 
       }
     };
@@ -80,9 +72,9 @@ export class HomeComponent implements OnInit {
     /* const headers = new HttpHeaders({
        'Authorization': 'Basic ' + btoa('admin:adminuser')
      });
-
+ 
      const basicauth = { headers: headers };
-
+ 
      console.log(toy);
      this.ontimizeService.insert(toy, 'toy',basicauth).subscribe(
        (Response)=>{
@@ -90,38 +82,34 @@ export class HomeComponent implements OnInit {
      },
      (Error) =>{
        console.error('Error');
-
+ 
      }
-
+ 
    );*/
 
-    },
-    };
 
     fetch('http://localhost:8080/toys/toy', {
 
-    method: 'POST',
-    headers: {
-      'Authorization': 'Basic ' + btoa('admin' + ":" + 'adminuser'),
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(toy)
-})
+      method: 'POST',
+      headers: {
+        'Authorization': 'Basic ' + btoa('admin' + ":" + 'adminuser'),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(toy)
+    })
 
-this.oTable.reloadData();
+  }
 
   getPosition(e) {
     if (this.dialogService) {
         if(window.confirm('¿Desea buscar para esta ubicación?'))
         {
-          this.latitudeComprador = e.latlng.lat;
-          console.log("latitudeComprador" + this.latitudeComprador);
-          this.longitudeComprador = e.latlng.lng
-          console.log("longitudeComprador" + this.longitudeComprador)
+          this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
 
-          }
+          console.log(this.location.latitude);
+          }     
     }
-
+    
   }
 
   managerClick(e) {
@@ -132,26 +120,6 @@ this.oTable.reloadData();
   calculateDistance(rowData: Array<any>){
     let latComprador = 42.240599;
     let longComprador = -8.713697;
-
-   /* const options = {
-      headers:{
-      'Authorization': 'Basic ' + btoa('admin' + ':' + 'adminuser'),
-      'Content-Type': 'application/json'
-    }
-  };
-
-    console.log(toy);
-
-    this.ontimizeService.insert(toy, 'toy',options).pipe(
-      map(respuesta =>{
-        console.log('Insertado');
-        return respuesta;
-    }),
-    catchError(error =>{
-      console.error('Error');
-      return null;
-
-    })
 
     return calculateDistanceFunction(this.latitudeComprador, this.longitudeComprador, rowData);
   }
@@ -184,10 +152,3 @@ this.oTable.reloadData();
 
 
 }
-  ).subscribe();*/
-
-  }
- }
-
-
-
