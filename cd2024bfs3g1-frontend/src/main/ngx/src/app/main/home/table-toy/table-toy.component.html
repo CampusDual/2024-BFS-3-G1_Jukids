@@ -1,4 +1,4 @@
-<o-form-layout-manager title="Toys" separator=" " mode="dialog" label-columns="toyid">
+<!--<o-form-layout-manager title="Toys" separator=" " mode="dialog" label-columns="toyid">
     <o-table attr="toys" service="toys" entity="toy" keys="toyid"
         columns="name;description;dateadded;price;photo;longitude;latitude"
         visible-columns="name;price;longitude;latitude;km;distanceKm" query-rows="20">
@@ -15,8 +15,18 @@
         <o-table-column attr="distanceKm" title="distanceKm" width="64px">
             <o-table-cell-renderer-action (onClick)="hazAlgo($event)" icon="storage"></o-table-cell-renderer-action>
           </o-table-column>
-
-
     </o-table>
+</o-form-layout-manager>-->
 
-</o-form-layout-manager>
+<o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
+    columns="photo;name;price" query-rows="20" page-size-options="20" quick-filter-columns="name;price">
+    <o-grid-item *ngFor="let data of toysGrid.dataArray">
+        <div  fxLayout="column" fxLayoutAlign="space-evenly center"
+            class="mat-elevation-z1 toyCard">
+            <img [src]="data.photo" width="144rem" height="200rem" >
+            <span><strong>{{ data.name }}</strong></span>
+            <span><em>{{ data.price }}€</em></span>            
+            <span>{{calculateDistance(data)}}</span>
+        </div>
+    </o-grid-item>
+</o-grid>

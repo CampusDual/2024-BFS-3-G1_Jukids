@@ -13,6 +13,7 @@ import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 export class TableToyComponent {
   private latComprador = 42.240599;
   private longComprador = -8.713697;
+
   // public  calculateDistance = this.toysMapService.calculateDistanceFunction;
 
   private location: any;
@@ -35,9 +36,9 @@ export class TableToyComponent {
     console.log("latitud table-toy: " + this.location);
   }
 
-  calculateDistance(rowData: Array<any>): number {
+  calculateDistance(rowData: Array<any>): any {
     const R: number = 6371; // Radio de la Tierra en kilómetros
-    
+    console.log(rowData);
     // console.log("latitud table-toy: " + this.location.latitude);
     // let lat1:number = this.toysMapService.getLatBuyerNum();  
     let lat1:number = this.latComprador;    
