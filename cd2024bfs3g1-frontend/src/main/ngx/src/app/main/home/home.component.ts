@@ -17,8 +17,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  navigate() {
-    this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
-  }
+   navigate() {
+     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
+   }
 
 }
