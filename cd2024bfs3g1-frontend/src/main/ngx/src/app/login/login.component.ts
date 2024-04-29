@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   public pwdCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
 
   public sessionExpired = false;
-  private redirect = '/main';
+  private redirect = '/toys';
 
   constructor(
     private actRoute: ActivatedRoute,

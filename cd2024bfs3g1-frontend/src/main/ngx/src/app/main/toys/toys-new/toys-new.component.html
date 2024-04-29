@@ -1,0 +1,26 @@
+<o-form attr="toysNew" service="toys" entity="toy" keys="toyid" header-actions="R;I;U;D"
+    show-header-navigation="no">
+    <div fxLayout="row" fxLayoutGap="8px">
+        <div>
+            <o-image id="toy_photo" attr="photo" empty-image="assets/images/no-image.png"
+                sql-type="OTHER"></o-image>
+        </div>
+        <o-column fxFlex title="TOY_INFORMATION">
+            <div fxLayout="column" fxLayoutGap="8px">
+                <o-text-input fxFlex="40" attr="name" required="yes"></o-text-input>
+                <o-textarea-input attr="description" required="yes"></o-textarea-input>
+            </div>
+            <div fxLayout="row" fxLayoutGap="8px">
+            <o-real-input attr="price" label="price" enabled="yes"min-decimal-digits="2" max-decimal-digits="2"
+            min="0" max="9999999" required="yes"></o-real-input>
+                <o-date-input fxFlex="20" attr="dateadded" required="yes"></o-date-input>
+            </div>
+            <div fxLayout="row" fxLayoutGap="8px">
+                <o-real-input fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
+                    min-decimal-digits="0" required="yes"></o-real-input>
+                <o-real-input fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
+                    min-decimal-digits="0" required="yes"></o-real-input>
+            </div>
+        </o-column>
+    </div>
+</o-form>

@@ -33,9 +33,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  navigate() {
-    this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
-  }
+   navigate() {
+     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
+   }
 
   @ViewChild('oMapBasic') oMapBasic: OMapComponent;
 
