@@ -21,7 +21,7 @@ public appLayout: OAppLayoutComponent;
   }
 
   register(){
-    this.router.navigateByUrl('/register');
+    this.router.navigateByUrl('/login/new');
   }
 
   isLogged(){
