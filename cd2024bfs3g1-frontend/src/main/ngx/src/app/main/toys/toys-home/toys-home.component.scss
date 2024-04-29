@@ -3,26 +3,27 @@
     width: 20rem;
     height: 18rem;
     background-color: #f5f3f1ac;
-    
+
     color: #333;
-    font-family: Arial, sans-serif; 
+    font-family: Arial, sans-serif;
     float: left;
-    border: 0.125rem solid #ffa366; 
-    box-shadow: 0.250rem 0.250rem 0.313rem #ff5439; 
+    border: 0.125rem solid #ffa366;
+    box-shadow: 0.250rem 0.250rem 0.313rem #ff5439;
 }
 #grid{
     background-color: #ff5439;
 }
 
-.img{
-    margin-top: 5rem;   
-}
-.toyCard span:first-child {
-    font-size: 2rem; 
+.imagen{
+    margin: 1rem; max-width: 60%; max-height: 70%;
 }
 
-.toyCard span:last-child {
-    font-size: 1rem;
+.toyCard span {
+    color: #333; font-weight: bold;
+}
+
+grid{
+    background-color: #ff5439;
 }
 
 .filter-button {
