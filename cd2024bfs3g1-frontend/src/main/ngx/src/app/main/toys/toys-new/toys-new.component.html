@@ -1,4 +1,4 @@
-<o-form attr="toysNew" service="toys" entity="toy" keys="toyid" header-actions="R;I;U;D"
+<o-form #NewToy attr="toysNew" service="toys" entity="toy" keys="toyid" header-actions="R;I;U;D"
     show-header-navigation="no">
     <div fxLayout="row" fxLayoutGap="8px">
         <div>
@@ -16,10 +16,15 @@
                 <o-date-input fxFlex="20" attr="dateadded" required="yes"></o-date-input>
             </div>
             <div fxLayout="row" fxLayoutGap="8px">
-                <o-real-input fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
-                    min-decimal-digits="0" required="yes"></o-real-input>
-                <o-real-input fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
-                    min-decimal-digits="0" required="yes"></o-real-input>
+
+            <app-pop-up-map (click)="handleCoordinates($event)"></app-pop-up-map>
+                
+                
+            <o-real-input #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
+                min-decimal-digits="0" required="yes"></o-real-input>
+            <o-real-input #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
+                min-decimal-digits="0" required="yes"></o-real-input>
+
             </div>
         </o-column>
     </div>
