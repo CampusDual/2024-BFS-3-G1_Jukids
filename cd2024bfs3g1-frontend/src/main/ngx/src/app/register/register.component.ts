@@ -1,8 +1,8 @@
 import { DomSanitizer } from '@angular/platform-browser';
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, NavigationService, ServiceResponse, OUserInfoService } from 'ontimize-web-ngx';
+import { AuthService, NavigationService, ServiceResponse, OUserInfoService, OFormComponent } from 'ontimize-web-ngx';
 import { Observable } from 'rxjs';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   public registerForm: UntypedFormGroup = new UntypedFormGroup({});
   public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
   public pwdCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
+  @ViewChild('form') form: OFormComponent;
 
   public sessionExpired = false;
   private redirect = '/toys';

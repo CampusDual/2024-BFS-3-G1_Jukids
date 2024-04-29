@@ -1,5 +1,10 @@
-<o-form-layout-manager attr="usersHome" title="{{'users' | oTranslate }}" separator=" " mode="dialog" label-columns="usr_name">
-    <o-table attr="usersTable" service="register" entity="register" keys="usr_id"
-        columns="usr_login;usr_name;usr_surname;usr_email;usr_password" visible-columns="usr_login;usr_name;usr_surname;usr_password" query-rows="15">
-    </o-table>
-</o-form-layout-manager>
+<o-form attr="usr_user" service="UserAndRoleService" entity="users" keys="usr_id"
+show-header-navigation="no" editable-detail="true">
+    <div fxLayout="column" fxLayoutGap="8px">
+        <o-text-input fxFlex="20" attr="usr_name" required="yes"></o-text-input>
+        <o-text-input fxFlex="20" attr="usr_surname" required="yes"></o-text-input>
+        <o-email-input attr="email" label="Email" fxFlex="20" attr="usr_email" required="yes"></o-email-input>
+        <o-password-input fxFlex="20" attr="usr_password" label="Password" required="yes" show-password-button="yes"></o-password-input>
+    </div>
+</o-form>
+
