@@ -14,8 +14,8 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_ID = "toyid";
     public static final String ATTR_NAME = "name";
     public static final String ATTR_DESCRIPTION = "description";
-    public static final String ATTR_DATE_ADDED= "dateadded";
-    public static final String ATTR_PRICE= "price";
+    public static final String ATTR_DATE_ADDED = "dateadded";
+    public static final String ATTR_PRICE = "price";
     public static final String ATTR_PHOTO = "photo";
     public static final String ATTR_LATITUDE = "latitude";
     public static final String ATTR_LONGITUDE = "longitude";
@@ -30,7 +30,7 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
 //    private Double longitude;
 
 
-    public ToyDao(){
+    public ToyDao() {
 
     }
 }
