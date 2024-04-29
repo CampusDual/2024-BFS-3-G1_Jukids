@@ -4,6 +4,7 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
 import { OMapModule } from 'ontimize-web-ngx-map';
+import { PopUpMapComponent } from './components/pop-up-map/pop-up-map.component';
 
 // export function calculateDistanceFunction(rowData: Array<any>) {
 export function calculateDistanceFunction(lat1:number, lon1:number, rowData: Array<any>) {
@@ -43,7 +44,8 @@ function deg2rad(deg:number) {
   ],
   declarations: [
     FilterComponent,
-    HomeToolbarComponent
+    HomeToolbarComponent,
+    PopUpMapComponent
   ],
   exports: [
     CommonModule,

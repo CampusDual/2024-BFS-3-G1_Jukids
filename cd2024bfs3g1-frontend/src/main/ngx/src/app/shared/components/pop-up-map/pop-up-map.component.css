@@ -1,0 +1,12 @@
+.pop-up-map-card {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(234, 170, 124);
+}
+
+.pop-up-span {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /* background-color: rgb(234, 170, 124); */
+}

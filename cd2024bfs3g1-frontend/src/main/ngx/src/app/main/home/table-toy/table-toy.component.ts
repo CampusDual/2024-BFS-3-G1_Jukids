@@ -1,8 +1,11 @@
 import { Component,OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogService, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, OGridComponent, OntimizeService, ODialogConfig } from 'ontimize-web-ngx';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
+import { PopUpMapComponent } from 'src/app/shared/components/pop-up-map/pop-up-map.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-table-toy',
@@ -11,7 +14,11 @@ import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 })
 
 export class TableToyComponent {
+
+  subscription:Subscription;
+
   @ViewChild('toysGrid') protected toyGrid: OGridComponent;
+
   private location: any;
   
   constructor(    
@@ -19,7 +26,8 @@ export class TableToyComponent {
     private actRoute: ActivatedRoute,
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
-    private toysMapService: ToysMapService    
+    private toysMapService: ToysMapService,
+    protected dialog: MatDialog
   ) 
   {
     //Configuración del servicio para poder ser usado
@@ -31,8 +39,14 @@ export class TableToyComponent {
   ngOnInit() {
     //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
+      console.log("Dentro de OnInit")
       this.location = data;
+      this.toyGrid.reloadData();
     });
+
+  //   this.subscription = this.toysMapService.handleCordinates$.subscribe(data => {
+  //     this.location = data;
+  //   })
   }
 
   navigate() {
@@ -45,13 +59,26 @@ export class TableToyComponent {
         if(window.confirm('¿Desea buscar para esta ubicación?'))
         {
           this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
-
           console.log(this.location.latitude);
-          }     
+          this.toyGrid.reloadData();
+        }     
     }
-    this.toyGrid.reloadData();
-    
+
+    // this.dialog.getDialogById('mapa').close;
+
   }
+  // getPosition(e) {
+  //   if (this.dialogService) {
+  //       if(window.confirm('¿Desea buscar para esta ubicación?'))
+  //       {
+  //         this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
+
+  //         console.log(this.location.latitude);
+  //         }     
+  //   }
+  //   this.toyGrid.reloadData();
+    
+  // }
 
   //Se calcula la distancia a la que se encuentra el objeto al punto del mapa que sea a seleccionado previamente
   calculateDistance(rowData: any): number {    
@@ -84,6 +111,29 @@ export class TableToyComponent {
       })
       console.log(e);
     }   
+  }
+
+
+  // openMap(evt: any) {
+  //   if (this.dialogService) {
+  //     const config: ODialogConfig = {
+  //       icon: 'alarm',
+  //       okButtonText: 'It rocks!'
+  //     };
+  //     this.dialogService.alert('Custom dialog title', 'This is an amazing "Custom" dialog', config);
+  //   }
+  // }
+
+  public openMap(data: any): void {
+    this.dialog.open(PopUpMapComponent, {
+      height: '400px',
+      width: '600px',
+      data: {
+        id: 'mapa',
+        grid:this.toyGrid,
+        service: this.toysMapService
+      }
+    });
   }
 }
 
