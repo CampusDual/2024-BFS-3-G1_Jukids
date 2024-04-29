@@ -1,0 +1,16 @@
+.btn-login{
+    width: 5rem;
+    background-color: #ffcc99;
+    border: 2px solid #ffa366;
+    box-shadow: -3px 3px 0px rgba($color: #ff5349, $alpha: 1.0);
+    color: white;
+    border-radius: 1.5rem;
+    position: absolute;
+    top: 1%;
+    right: 10%;
+  }
+  .btn-login:hover{
+    opacity: 0.8;
+    cursor: pointer;
+
+  }
