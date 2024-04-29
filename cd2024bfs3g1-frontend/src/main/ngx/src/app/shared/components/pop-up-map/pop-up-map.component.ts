@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, ViewRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { OntimizeService, DialogService, OGridComponent } from 'ontimize-web-ngx';
+import { Component, ViewChild } from '@angular/core';
+import { OntimizeService, DialogService } from 'ontimize-web-ngx';
 import { ToysMapService } from '../../services/toys-map.service';
-import { TableToyComponent } from 'src/app/main/home/table-toy/table-toy.component';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 
 @Component({
   selector: 'app-pop-up-map',
@@ -11,6 +10,7 @@ import { TableToyComponent } from 'src/app/main/home/table-toy/table-toy.compone
 })
 export class PopUpMapComponent{
   private location: any;
+  @ViewChild('PopUpMap') oMapBasic: OMapComponent;
 
   constructor(    
     private ontimizeService: OntimizeService,
@@ -21,7 +21,6 @@ export class PopUpMapComponent{
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
-
   }
 
   ngOnInit() {
@@ -31,25 +30,23 @@ export class PopUpMapComponent{
     });
   }
 
-  closePopUpMap() {
-    let a = this.dialogService;
-  }
-
   getPosition(e) {
-    console.log("En getPosition en el PopUp");
-    console.log(e.latlng.lat)
-    console.log(e.latlng.lng)
     if (this.dialogService) {
         if(window.confirm('¿Desea buscar para esta ubicación?'))
         {
           // this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
           this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
-          console.log(this.location.latitude);
-          console.log(this.location.longitude);
-          close();
-          }
+          this.oMapBasic.addMarker(
+            1,
+            e.latlng.lat,
+            e.latlng.lng,
+            false,
+            true,
+            false,
+            false,
+            false
+          );
+        }
     }
-    // this.closePopUpMap();
-    // this.toyGrid.reloadData();    
   }
 }

@@ -1,20 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OntimizeService } from 'ontimize-web-ngx';
-import { HttpHeaders } from '@angular/common/http';
-import { NumberValueAccessor } from '@angular/forms';
-import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
-import { OMapLayerComponent } from 'ontimize-web-ngx-map';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  
 
   private latitude: any;
   private longitude: any;
@@ -30,8 +24,6 @@ export class HomeComponent implements OnInit {
      //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
-
-
   }
 
   ngOnInit() {
@@ -50,10 +42,7 @@ export class HomeComponent implements OnInit {
   //Insercion de la longuitud y la latitud del punto marcado en el mapa
   onMapClick(e) {
     this.latitude = e.latlng.lat;
-    console.log(this.latitude);
-    this.longitude = e.latlng.lng
-    console.log(this.longitude)
-
+    this.longitude = e.latlng.lng;
     let date: Date = new Date();
 
     this.oMapBasic.addMarker(
@@ -80,25 +69,6 @@ export class HomeComponent implements OnInit {
       }
     };
 
-    /* const headers = new HttpHeaders({
-       'Authorization': 'Basic ' + btoa('admin:adminuser')
-     });
-
-     const basicauth = { headers: headers };
-
-     console.log(toy);
-     this.ontimizeService.insert(toy, 'toy',basicauth).subscribe(
-       (Response)=>{
-         console.log('Insertado');
-     },
-     (Error) =>{
-       console.error('Error');
-
-     }
-
-   );*/
-
-
     fetch('http://localhost:8080/toys/toy', {
 
       method: 'POST',
@@ -109,5 +79,4 @@ export class HomeComponent implements OnInit {
       body: JSON.stringify(toy)
     })
   }
-
 }
