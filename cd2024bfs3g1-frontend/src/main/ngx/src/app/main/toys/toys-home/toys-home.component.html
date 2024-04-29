@@ -3,16 +3,15 @@
     <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
       <o-row layout-align="space-between center">
 
-        <o-text-input attr="Search" read-only="no" fxFlex="100"></o-text-input>
-        
+        <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
+
 
         <o-row layout-align="end center" class="btn-container">
           <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button" ></o-button>
           <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"></o-button>
         </o-row>
-      
+
       </o-row>
-  
     </o-column>
     <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
