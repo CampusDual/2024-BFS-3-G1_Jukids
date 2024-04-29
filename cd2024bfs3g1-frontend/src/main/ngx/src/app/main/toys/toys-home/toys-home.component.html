@@ -3,7 +3,7 @@
     <o-grid-item *ngFor="let data of toysGrid.dataArray">
         <div  fxLayout="column" fxLayoutAlign="space-evenly center"
             class="mat-elevation-z1 toyCard">
-            <img [src]="data.photo" width="144rem" height="200rem" >
+            <o-image class="imagen" attr="image" [data]="data.photo" show-controls="no" read-only="yes" ></o-image>
             <span><strong>{{ data.name }}</strong></span>
             <span><em>{{ data.price }}€</em></span>
         </div>
