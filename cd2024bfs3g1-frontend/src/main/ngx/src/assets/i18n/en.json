@@ -86,5 +86,8 @@
   "longitude": "Longitude",
   "latitude": "Latitude",
   "NEW": "Sell toy",
-  "SLOGAN": "Find whatever you're missing"
+  "SLOGAN": "Find whatever you're missing",
+  "Search": "Search",
+  "Clear": "Clear",
+  "SEARCH_BAR": "Search bar"
 }
