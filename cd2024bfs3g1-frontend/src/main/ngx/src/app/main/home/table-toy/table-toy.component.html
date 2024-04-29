@@ -7,18 +7,33 @@
 
     <o-button attr="confirm" type="RAISED" label="ELIGE UNA UBICACIÓN" layout-padding (click)="openMap($event)"></o-button>
 
-    <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"orderable="yes" 
-        sortable-columns="location:asc;price:asc" sort-column="location"
-        columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
-        quick-filter-columns="name;price;location" (onDataLoaded)="addLocation($event)">
-        <o-grid-item *ngFor="let data of toysGrid.dataArray">
-            <div fxLayout="column" fxLayoutAlign="space-evenly center" class="mat-elevation-z1 toyCard">
-                <img [src]="data.photo" width="144rem" height="200rem">
-                <span><strong>{{ data.name }}</strong></span>
-                <span><em>{{ data.price }}€</em></span>
-                <span *ngIf="data.location != null">{{data.location}} Km</span>
+    <o-form header-position="no" >
+        <button (click)="filterKm($event)">haz esto</button>
+        
+        <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid" orderable="yes"
+            sortable-columns="location:asc;price:asc" sort-column="location"
+            columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
+            quick-filter-columns="name;price" (onDataLoaded)="addLocation($event)">
+
+            <o-combo o-grid-toolbar position="start" attr="combo-editable" label="Filtra por distancia"
+                [static-data]="rangeArray" value-column="code" columns="code;range" visible-columns="range" required="yes" [data]="selectedAll"
+                fxFlex width="100px" (onChange)="filterKm($event)">
+            </o-combo>
+
+           <div o-grid-toolbar position="start" layout-padding>
+                <label class="input-comp-title">Distancia</label>
+                <o-slider read-only="no" color="warn" min="0" max="100" step="20" thumb-label="true" [data]="selectedAll" (onChange)="getValue($event)" ></o-slider>
             </div>
-        </o-grid-item>
-    </o-grid>
+
+            <o-grid-item *ngFor="let data of toysGrid.dataArray">
+                <div fxLayout="column" fxLayoutAlign="space-evenly center" class="mat-elevation-z1 toyCard">
+                    <img [src]="data.photo" width="144rem" height="200rem">
+                    <span><strong>{{ data.name }}</strong></span>
+                    <span><em>{{ data.price }}€</em></span>
+                    <span *ngIf="data.location != null">{{data.location}} Km</span>
+                </div>
+            </o-grid-item>
+        </o-grid>
+    </o-form>
 
 </div>

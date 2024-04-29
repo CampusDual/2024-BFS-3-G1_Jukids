@@ -6,12 +6,15 @@ import { NumberValueAccessor } from '@angular/forms';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
+import { OMapLayerComponent } from 'ontimize-web-ngx-map';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  
 
   private latitude: any;
   private longitude: any;
@@ -27,8 +30,8 @@ export class HomeComponent implements OnInit {
      //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
-    
-    
+
+
   }
 
   ngOnInit() {
@@ -105,7 +108,6 @@ export class HomeComponent implements OnInit {
       },
       body: JSON.stringify(toy)
     })
-
   }
 
 }
