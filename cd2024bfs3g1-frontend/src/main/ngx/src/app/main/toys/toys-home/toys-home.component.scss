@@ -14,13 +14,16 @@
     background-color: #ff5439;
 }
 
-.img{
-    margin-top: 5rem;   
-}
-.toyCard span:first-child {
-    font-size: 2rem; 
+.imagen{ 
+    margin: 1rem; max-width: 60%; max-height: 70%; 
 }
 
-.toyCard span:last-child {
-    font-size: 1rem;
+.toyCard span { 
+    color: #333; font-weight: bold; 
 }
+
+grid{ 
+    background-color: #ff5439; 
+}
+
+
