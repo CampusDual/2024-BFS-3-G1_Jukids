@@ -1,7 +1,7 @@
 import { Component, ViewChild} from '@angular/core';
+import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { ORealInputComponent, OntimizeService } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
-import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 
 @Component({
   selector: 'app-toys-new',
@@ -9,13 +9,12 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
   styleUrls: ['./toys-new.component.css']
 })
 export class ToysNewComponent{
+  private location: any;
+  subscription:Subscription;
   
   @ViewChild('NewToy') protected formToy: any;
   @ViewChild('latitude') protected lat: ORealInputComponent;
   @ViewChild('longitude') protected lon: ORealInputComponent;
-
-  private location: any;
-  subscription:Subscription;
 
   constructor(
     private ontimizeService: OntimizeService,

@@ -34,7 +34,6 @@ export class PopUpMapComponent{
     if (this.dialogService) {
         if(window.confirm('¿Desea buscar para esta ubicación?'))
         {
-          // this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
           this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
           this.oMapBasic.addMarker(
             1,

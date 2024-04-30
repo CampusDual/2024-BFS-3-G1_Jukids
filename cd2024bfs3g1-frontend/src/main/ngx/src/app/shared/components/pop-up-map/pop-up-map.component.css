@@ -1,7 +1,6 @@
 .pop-up-map-card {
     display: flex;
     flex-direction: column;
-    background-color: rgb(234, 170, 124);
 }
 
 .pop-up-span {

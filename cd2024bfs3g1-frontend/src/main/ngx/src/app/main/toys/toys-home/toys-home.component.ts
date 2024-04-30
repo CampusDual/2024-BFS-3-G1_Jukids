@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { OGridComponent, OntimizeService, DialogService } from 'ontimize-web-ngx';
+import { OGridComponent, OntimizeService, DialogService, SQLOrder } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { Subscription } from 'rxjs';
 import { PopUpMapComponent } from 'src/app/shared/components/pop-up-map/pop-up-map.component';
@@ -13,13 +13,13 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
   styleUrls: ['./toys-home.component.scss']
 })
 export class ToysHomeComponent {
-  subscription:Subscription;
+  subscription: Subscription;
 
   @ViewChild('toysGrid') protected toyGrid: OGridComponent;
 
   private location: any;
 
-  private arrayData: Array<any> = [];
+  public arrayData: Array<any> = [];
   private arrayFilter: Array<any> = [];
 
   public selectedAll = 0;
@@ -30,7 +30,7 @@ export class ToysHomeComponent {
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
     private toysMapService: ToysMapService,
-protected dialog: MatDialog
+    protected dialog: MatDialog
   ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
@@ -41,9 +41,11 @@ protected dialog: MatDialog
   ngOnInit() {
     //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
-      this.location = data;
+      this.location = data;      
       this.toyGrid.reloadData();
     });
+
+
   }
 
   navigate() {
@@ -56,8 +58,8 @@ protected dialog: MatDialog
   calculateDistance(rowData: any): number {
     const R: number = 6371; // Radio de la Tierra en kilómetros 
     let isset = this.location != undefined;
-    let lat1: number =(isset)?this.location.latitude:0;
-    let lon1: number =(isset)?this.location.longitude:0;
+    let lat1: number = (isset) ? this.location.latitude : 0;
+    let lon1: number = (isset) ? this.location.longitude : 0;
 
     let lat2: number = rowData['latitude'];
     let lon2: number = rowData['longitude'];
@@ -77,24 +79,16 @@ protected dialog: MatDialog
   }
 
   //Se añade una localización a los datos recogidos del grid y existe un punto en el mapa
-  addLocation(e) {
-    this.arrayData = e;
-    if (this.location != undefined){
+  addLocation(e) {    
+    if (this.location != undefined) {
       e.forEach(element => {
         element.location = this.calculateDistance(element);
       })
+      e.sort((a, b) => a.location - b.location);
     }
+    this.arrayData = e;
+    console.log(this.arrayData);
+    this.toyGrid.dataArray = this.arrayData;
   }
-
-  public openMap(data: any): void {
-    this.dialog.open(PopUpMapComponent, {
-      height: '400px',
-      width: '600px',
-      data: {
-        id: 'mapa',
-        grid:this.toyGrid,
-        service: this.toysMapService
-      }
-    });
-  }
+ 
 }
