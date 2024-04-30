@@ -3,6 +3,7 @@ package com.campusdual.cd2024bfs3g1.model.core.service;
 import com.campusdual.cd2024bfs3g1.api.core.service.IRegisterService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.ols.l.LSystem;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -24,8 +25,11 @@ public class RegisterService implements IRegisterService {
     @Override
     public EntityResult registerInsert(Map<?, ?> attrMap) throws OntimizeJEERuntimeException {
         if(!validaEmail((String) attrMap.get("usr_login"))){
-            System.out.println("Email invalido");
-            return null;
+            //System.out.println("Email invalido");
+            EntityResult error = new EntityResultMapImpl();
+            error.setCode(EntityResult.OPERATION_WRONG);
+            error.setMessage("El correo electrónico no es correcto");
+            return error;
         }
 
         return this.daoHelper.insert(this.userDao,attrMap);
