@@ -14,15 +14,12 @@ import { PopUpMapComponent } from 'src/app/shared/components/pop-up-map/pop-up-m
   declarations: [
     ToysHomeComponent,
     ToysNewComponent,
-
     PopUpMapComponent
   ],
   imports: [
     CommonModule,
     OntimizeWebModule,
     ToysRoutingModule,
-    OMapModule,
-
     SharedModule
   ]
 })
