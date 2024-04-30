@@ -13,8 +13,6 @@ export function calculateDistanceFunction(lat1:number, lon1:number, rowData: Arr
   // const lat1:number = 42.240599;
   //   const lon1:number = -8.720727;
 
-  console.log("estamos en la funcion")
-
     let lat2:number = rowData['latitude'];
     let lon2:number = rowData['longitude'];
 
@@ -44,8 +42,8 @@ function deg2rad(deg:number) {
   ],
   declarations: [
     FilterComponent,
-    HomeToolbarComponent,
-    PopUpMapComponent
+    HomeToolbarComponent
+    // PopUpMapComponent
   ],
   exports: [
     CommonModule,
