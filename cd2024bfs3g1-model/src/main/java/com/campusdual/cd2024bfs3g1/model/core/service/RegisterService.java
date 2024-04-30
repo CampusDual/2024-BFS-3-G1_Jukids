@@ -9,8 +9,10 @@ import com.ontimize.jee.common.ols.l.LSystem;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,6 +24,9 @@ public class RegisterService implements IRegisterService {
     private UserDao userDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     @Override
     public EntityResult registerInsert(Map<?, ?> attrMap) throws OntimizeJEERuntimeException {
         if(!validaEmail((String) attrMap.get("usr_login"))){
@@ -32,6 +37,15 @@ public class RegisterService implements IRegisterService {
             return error;
         }
 
+        if (existsEmail((String) attrMap.get("usr_login"))) {
+            System.out.println("Ya existe");
+            EntityResult existe = new EntityResultMapImpl();
+            existe.setCode(EntityResult.OPERATION_WRONG);
+            existe.setMessage("Ya existe una cuenta con este correo");
+            return existe;
+        }
+
+
         return this.daoHelper.insert(this.userDao,attrMap);
     }
 
@@ -41,5 +55,16 @@ public class RegisterService implements IRegisterService {
         return matcher.matches();
     }
 
-    
+    public boolean existsEmail (String email) {
+        String sqlStatement = "SELECT COUNT(*) FROM usr_user WHERE usr_login = ? ";
+
+        try {
+            int count = jdbcTemplate.queryForObject(sqlStatement, Integer.class, email);
+            return count > 0;
+        } catch (Exception e) {
+            System.out.println("No se pudo ejecutar la sentencia: " + e.getMessage());
+        }
+
+        return false;
+    }
 }
