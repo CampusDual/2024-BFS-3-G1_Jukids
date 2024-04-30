@@ -5,6 +5,7 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { calculateDistanceFunction } from 'src/app/shared/shared.module';
 import { OMapComponent, OMapLayerComponent } from 'ontimize-web-ngx-map';
 import { OMapBaseLayerComponent } from 'ontimize-web-ngx-map';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-table-toy',
