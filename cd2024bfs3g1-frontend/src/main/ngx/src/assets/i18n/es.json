@@ -86,5 +86,8 @@
   "longitude": "Longitud",
   "latitude": "Latitud",
   "NEW": "Vender juguete",
-  "SLOGAN": "Encuentra la pieza que te falta"
+  "SLOGAN": "Encuentra la pieza que te falta",
+  "Search": "Buscar",
+  "Clear": "Limpiar",
+  "SEARCH_BAR": "Buscador"
 }

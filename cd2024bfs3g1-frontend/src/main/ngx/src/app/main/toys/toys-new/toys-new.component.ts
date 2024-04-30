@@ -4,7 +4,7 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 @Component({
   selector: 'app-toys-new',
   templateUrl: './toys-new.component.html',
-  styleUrls: ['./toys-new.component.css']
+  styleUrls: ['./toys-new.component.scss']
 })
 export class ToysNewComponent{
   private location: any;
