@@ -32,7 +32,7 @@ export class TableToyComponent {
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
     private toysMapService: ToysMapService,
-protected dialog: MatDialog
+    protected dialog: MatDialog
   ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');

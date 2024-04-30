@@ -1,4 +1,4 @@
-<o-form #NewToy attr="toysNew" service="toys" entity="toy" keys="toyid" header-actions="R;I;U;D"
+<o-form id="newtoy" #NewToy attr="toysNew" service="toys" entity="toy" keys="toyid" header-actions="R;I;U;D"
     show-header-navigation="no">
     <div fxLayout="row" fxLayoutGap="8px">
         <div>
@@ -11,21 +11,17 @@
                 <o-textarea-input attr="description" required="yes"></o-textarea-input>
             </div>
             <div fxLayout="row" fxLayoutGap="8px">
-            <o-real-input attr="price" label="price" enabled="yes"min-decimal-digits="2" max-decimal-digits="2"
-            min="0" max="9999999" required="yes"></o-real-input>
-                <o-date-input fxFlex="20" attr="dateadded" required="yes"></o-date-input>
+                <o-real-input attr="price" label="price" enabled="yes"min-decimal-digits="2" max-decimal-digits="2"
+                min="0" max="9999999" required="yes"></o-real-input>
+                    <o-date-input fxFlex="20" attr="dateadded" required="yes"></o-date-input>
             </div>
-            <div fxLayout="row" fxLayoutGap="8px">
-
-            <app-pop-up-map (click)="handleCoordinates($event)"></app-pop-up-map>
-                
-                
-            <o-real-input #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
-                min-decimal-digits="0" required="yes"></o-real-input>
-            <o-real-input #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
-                min-decimal-digits="0" required="yes"></o-real-input>
-
+            <div class="map-container">
+                <app-pop-up-map (click)="handleMapClick($event)"></app-pop-up-map>
             </div>
+            <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
+                min-decimal-digits="0" required="yes"></o-real-input>
+            <o-real-input style="display: none" id="latitude" #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
+                min-decimal-digits="0" required="yes"></o-real-input>
         </o-column>
     </div>
 </o-form>
