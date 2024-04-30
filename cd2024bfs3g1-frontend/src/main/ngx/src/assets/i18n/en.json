@@ -89,5 +89,7 @@
   "SLOGAN": "Find whatever you're missing",
   "Search": "Search",
   "Clear": "Clear",
-  "SEARCH_BAR": "Search bar"
+  "SEARCH_BAR": "Search bar",
+  "VIEW_MAP": "View map",
+  "SELECT_POINT_ON_MAP":"Select a point"
 }

@@ -16,7 +16,7 @@
                     <o-email-input fxFlex="50" attr="email" required="yes" label="usr_email"></o-email-input>
             </div>
             <div class="map-container">
-                <app-pop-up-map (click)="handleMapClick($event)"></app-pop-up-map>
+                <location-map (click)="handleMapClick($event)"></location-map>
             </div>
             <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
                 min-decimal-digits="0" required="yes"></o-real-input>

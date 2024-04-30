@@ -17,15 +17,15 @@
                     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 
-<div class="contenedor">
-    <o-column-collapsible title="{{ 'CHOOSE LOCATION OF TOYS ON MAP' | oTranslate }}" appearance="legacy" expanded="no" icon="location_on" class="collapsible">
-        <app-pop-up-map></app-pop-up-map>
+<div>
+    <o-column-collapsible title="{{ 'VIEW_MAP' | oTranslate }}" appearance="legacy" expanded="no" icon="location_on" class="collapsible">
+        <location-map></location-map>
     </o-column-collapsible>
 
      <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
         orderable="yes" sortable-columns="location:asc;price:asc" sort-column="location"
         columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
-        quick-filter-columns="name;price;location" (onDataLoaded)="addLocation($event)">
+        quick-filter-columns="name;price" (onDataLoaded)="addLocation($event)">
         <o-grid-item  *ngFor="let data of toysGrid.dataArray">
             <div fxLayout="column" fxLayoutAlign="space-evenly center"
                 class="mat-elevation-z1 toyCard">
