@@ -4,6 +4,7 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { ToysRoutingModule } from './toys-routing.module';
 import { ToysHomeComponent } from './toys-home/toys-home.component';
 import { ToysNewComponent } from './toys-new/toys-new.component';
+import { OMapModule } from "ontimize-web-ngx-map";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ToysNewComponent } from './toys-new/toys-new.component';
   imports: [
     CommonModule,
     OntimizeWebModule,
-    ToysRoutingModule
+    ToysRoutingModule,
+    OMapModule
   ]
 })
 export class ToysModule { }
