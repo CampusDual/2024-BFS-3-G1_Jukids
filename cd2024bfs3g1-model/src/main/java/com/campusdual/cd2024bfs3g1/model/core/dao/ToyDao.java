@@ -4,8 +4,6 @@ import com.ontimize.jee.server.dao.common.ConfigurationFile;
 import com.ontimize.jee.server.dao.jdbc.OntimizeJdbcDaoSupport;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-import java.math.BigDecimal;
-import java.util.Date;
 
 @Repository("ToyDao.xml")
 @Lazy
@@ -14,25 +12,9 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_ID = "toyid";
     public static final String ATTR_NAME = "name";
     public static final String ATTR_DESCRIPTION = "description";
-    public static final String ATTR_DATE_ADDED = "dateadded";
-    public static final String ATTR_PRICE = "price";
+    public static final String ATTR_EMAIL= "email";
+    public static final String ATTR_PRICE= "price";
     public static final String ATTR_PHOTO = "photo";
     public static final String ATTR_LATITUDE = "latitude";
     public static final String ATTR_LONGITUDE = "longitude";
-
-//    private int toyid;
-//    private String name;
-//    private String description;
-//    private Date dateadded;
-//    private BigDecimal price;
-//    private String photo;
-//    private Double latitude;
-//    private Double longitude;
-
-
-    public ToyDao() {
-
-    }
 }
-
-

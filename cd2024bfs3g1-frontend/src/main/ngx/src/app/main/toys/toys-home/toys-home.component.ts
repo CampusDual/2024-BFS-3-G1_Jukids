@@ -1,12 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Expression, FilterExpressionUtils } from 'ontimize-web-ngx';
+import { OntimizeService, OGridComponent} from 'ontimize-web-ngx';
+import { OMapModule } from "ontimize-web-ngx-map";
+import { OMapComponent, OMapLayerComponent } from 'ontimize-web-ngx-map';
+import { OMapBaseLayerComponent } from 'ontimize-web-ngx-map';
+import { ToysMapService } from 'src/app/shared/services/toys-map.service';
+import { DialogService, ODialogConfig } from 'ontimize-web-ngx';
+import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { OGridComponent, OntimizeService, DialogService, SQLOrder } from 'ontimize-web-ngx';
-import { OMapComponent } from 'ontimize-web-ngx-map';
-import { Subscription } from 'rxjs';
-import { PopUpMapComponent } from 'src/app/shared/components/pop-up-map/pop-up-map.component';
-import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-
 @Component({
   selector: 'app-toys-home',
   templateUrl: './toys-home.component.html',
@@ -90,5 +92,32 @@ export class ToysHomeComponent {
     console.log(this.arrayData);
     this.toyGrid.dataArray = this.arrayData;
   }
- 
+
+
+
+  createFilter(values: Array<{ attr, value }>): Expression {
+    //Valores de ingreso.
+    console.log("values", values);
+    //Array de expresiones para ejecutar
+    let filters: Array<Expression> = [];
+    //Generacion de expresion y guardado en array filters
+    values.forEach(fil => {
+      if (fil.value) {
+        filters.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+      }
+    });
+
+    //Ver la consulta generada, Key-Value (Columna-Valor)
+    console.log("filters", filters);
+    // Build complex expression
+
+    if (filters.length > 0) {
+      //Realiza la consulta concatenando los key-value (Columna-Valor) del array filters
+      return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
+    } else {
+      return null;
+    }
+  }
+
+
 }
