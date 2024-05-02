@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { AuthService, NavigationService, ServiceResponse, OUserInfoService } from 'ontimize-web-ngx';
+import { AuthService, NavigationService, ServiceResponse, OUserInfoService, OFormComponent } from 'ontimize-web-ngx';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MainService } from '../../shared/services/main.service';
 import { UserInfoService } from '../../shared/services/user-info.service';
@@ -14,6 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./register-user.component.css']
 })
 export class RegisterUserComponent implements OnInit{
+  @ViewChild('form') form: OFormComponent;
   public registerForm: UntypedFormGroup = new UntypedFormGroup({});
   public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
   public pwdCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
@@ -30,7 +31,7 @@ export class RegisterUserComponent implements OnInit{
     @Inject(DomSanitizer) private domSanitizer: DomSanitizer,
     @Inject(OUserInfoService) private oUserInfoService: OUserInfoService,
   ) {
-    
+
   }
 
   ngOnInit(): any {
@@ -47,8 +48,9 @@ export class RegisterUserComponent implements OnInit{
   }
 
   public login() {
-    const userName = this.registerForm.value.email;
-    const password = this.registerForm.value.password;
+    const userName = this.form.getFieldValue("usr_login");
+    const password = this.form.getFieldValue("usr_password");
+
     if (userName && userName.length > 0 && password && password.length > 0) {
       const self = this;
       this.authService.login(userName, password)

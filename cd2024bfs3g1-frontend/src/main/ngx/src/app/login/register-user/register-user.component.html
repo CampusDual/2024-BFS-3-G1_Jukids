@@ -1,4 +1,4 @@
-<o-form attr="usersNew" service="registers" entity="register" keys="usr_id" show-header-navigation="no" header-actions="R;I;U;D">
+<o-form #form attr="usersNew" (onInsert)="login()" service="registers" entity="register" keys="usr_id" show-header-navigation="no" header-actions="R;I;U;D">
     <div fxLayout="column" fxLayoutGap="8px">
         <o-text-input fxFlex="20" attr="usr_name" required="yes"></o-text-input>
         <o-text-input fxFlex="20" attr="usr_surname" required="yes"></o-text-input>
