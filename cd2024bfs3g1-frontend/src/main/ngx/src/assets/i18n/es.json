@@ -90,5 +90,7 @@
   "Search": "Buscar",
   "Clear": "Limpiar",
   "SEARCH_BAR": "Buscador",
-  "MAX_SIZE": "Máximo tamaño permitido 4MB"
+  "MAX_SIZE": "Máximo tamaño permitido 4MB",
+  "VIEW_MAP": "Ver mapa",
+  "SELECT_POINT_ON_MAP":"Seleccione un punto"
 }
