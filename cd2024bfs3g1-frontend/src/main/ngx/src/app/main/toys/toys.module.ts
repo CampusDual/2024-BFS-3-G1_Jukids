@@ -4,17 +4,20 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { ToysRoutingModule } from './toys-routing.module';
 import { ToysHomeComponent } from './toys-home/toys-home.component';
 import { ToysNewComponent } from './toys-new/toys-new.component';
-
+import { SharedModule } from 'src/app/shared/shared.module';
+import { LocationMapComponent } from 'src/app/shared/components/location-map/location-map.component';
 
 @NgModule({
   declarations: [
     ToysHomeComponent,
-    ToysNewComponent
+    ToysNewComponent,
+    LocationMapComponent
   ],
   imports: [
     CommonModule,
     OntimizeWebModule,
-    ToysRoutingModule
+    ToysRoutingModule,
+    SharedModule
   ]
 })
 export class ToysModule { }
