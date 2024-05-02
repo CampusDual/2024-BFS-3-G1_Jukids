@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IRegisterService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -29,7 +30,7 @@ public class RegisterService implements IRegisterService {
 
     @Override
     public EntityResult registerInsert(Map<?, ?> attrMap) throws OntimizeJEERuntimeException {
-        if(!validaEmail((String) attrMap.get("usr_login"))){
+        if(!Utils.validaEmail((String) attrMap.get("usr_login"))){
             //System.out.println("Email invalido");
             EntityResult error = new EntityResultMapImpl();
             error.setCode(EntityResult.OPERATION_WRONG);
@@ -38,7 +39,7 @@ public class RegisterService implements IRegisterService {
         }
 
         if (existsEmail((String) attrMap.get("usr_login"))) {
-            System.out.println("Ya existe");
+            //System.out.println("Ya existe");
             EntityResult existe = new EntityResultMapImpl();
             existe.setCode(EntityResult.OPERATION_WRONG);
             existe.setMessage("Ya existe una cuenta con este correo");
@@ -47,12 +48,6 @@ public class RegisterService implements IRegisterService {
 
 
         return this.daoHelper.insert(this.userDao,attrMap);
-    }
-
-    public static Boolean validaEmail (String email) {
-        Pattern pattern = Pattern.compile("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$");
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     public boolean existsEmail (String email) {

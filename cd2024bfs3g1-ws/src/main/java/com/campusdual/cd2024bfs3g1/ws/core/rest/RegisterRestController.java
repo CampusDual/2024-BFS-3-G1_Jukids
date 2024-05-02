@@ -26,15 +26,4 @@ public class RegisterRestController extends ORestController<IRegisterService> {
     public IRegisterService getService() {
         return this.registerService;
     }
-
-    /*
-    @RequestMapping(
-            value = "/register",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EntityResult> login(){
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-    */
 }
