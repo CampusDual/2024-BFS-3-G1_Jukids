@@ -48,9 +48,9 @@ public class RegisterService implements IRegisterService {
             return existe;
         }
 
-
-        //Insertamos registro con contraseña encriptada
+//Insertamos registro con contraseña encriptada
         return this.daoHelper.insert(this.userDao,userAndRole.encryptPassword(attrMap));
+
     }
 
     public boolean existsEmail (String email) {
