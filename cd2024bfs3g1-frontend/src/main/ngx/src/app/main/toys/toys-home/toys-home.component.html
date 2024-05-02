@@ -25,7 +25,7 @@
 
     <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
         columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
-        refresh-button="no" quick-filter="no" (onDataLoaded)="addLocation($event)" gutter-size="00px">
+        refresh-button="no" quick-filter="no" (onDataLoaded)="addLocation($event)">
     <o-grid-item  *ngFor="let data of toysGrid.dataArray">
       <o-column layout-padding class="toy-card">
         <o-image class="img-toy" show-controls="false" enabled="false" read-only="true" [data]="data.photo"  style="margin-top:8px;"></o-image>
