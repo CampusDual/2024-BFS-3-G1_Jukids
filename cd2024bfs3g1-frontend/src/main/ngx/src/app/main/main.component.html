@@ -1,9 +1,8 @@
-<o-app-layout #appLayout show-language-selector="yes">
+<o-app-layout #appLayout show-language-selector="yes" class="language">
   <o-app-layout-header class="nav">
     <div class="nav-login">
       <button *ngIf="!isLogged()" class="btn-login" type="submit" (click)="redirect()">{{ 'LOGIN' | oTranslate }}</button>
       <button *ngIf="!isLogged()" class="btn-register" type="submit" (click)="register()">{{ 'REGISTER' | oTranslate }}</button>
-
     </div>
   </o-app-layout-header>
   <o-user-info-configuration show-profile="yes"> </o-user-info-configuration>
