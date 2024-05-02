@@ -24,8 +24,8 @@
 
 
     <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
-        orderable="yes" sortable-columns="location:asc;price:asc" sort-column="location"
         columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
+        refresh-button="no"
         quick-filter="no" (onDataLoaded)="addLocation($event)" gutter-size="00px">
     <o-grid-item  *ngFor="let data of toysGrid.dataArray">
       <o-column layout-padding class="toy-card">
@@ -40,7 +40,7 @@
               <mat-icon *ngIf="data.location != null">connect_without_contact</mat-icon>
             </div>
             <div fxLayout="column" fxLayoutAlign="start start">
-              <span>{{ data.price }}</span>
+              <span>{{ data.price }} €</span>
               <span *ngIf="data.location != null">{{data.location}} Km</span>
             </div>
           </div>
