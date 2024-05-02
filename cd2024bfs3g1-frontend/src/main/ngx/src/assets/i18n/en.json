@@ -89,5 +89,6 @@
   "SLOGAN": "Find whatever you're missing",
   "Search": "Search",
   "Clear": "Clear",
-  "SEARCH_BAR": "Search bar"
+  "SEARCH_BAR": "Search bar",
+  "MAX_SIZE": "Maximum size allowed 4MB"
 }
