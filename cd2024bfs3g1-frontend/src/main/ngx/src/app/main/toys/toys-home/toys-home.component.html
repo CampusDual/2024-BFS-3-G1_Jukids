@@ -22,19 +22,31 @@
         <location-map></location-map>
     </o-column-collapsible>
 
-     <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
+
+    <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
         orderable="yes" sortable-columns="location:asc;price:asc" sort-column="location"
         columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
-        quick-filter-columns="name;price" (onDataLoaded)="addLocation($event)">
-        <o-grid-item  *ngFor="let data of toysGrid.dataArray">
-            <div fxLayout="column" fxLayoutAlign="space-evenly center"
-                class="mat-elevation-z1 toyCard">
-                <o-image class="imagen" attr="image" [data]="data.photo" show-controls="no" read-only="yes" ></o-image>
-                <span><strong>{{ data.name }}</strong></span>
-                <span><em>{{ data.price }}€</em></span>
-                <span *ngIf="data.location != null">{{data.location}} Km</span>
+        quick-filter="no" (onDataLoaded)="addLocation($event)" gutter-size="00px">
+    <o-grid-item  *ngFor="let data of toysGrid.dataArray">
+      <o-column layout-padding class="toy-card">
+        <o-image class="img-toy" show-controls="false" enabled="false" read-only="true" [data]="data.photo"  style="margin-top:8px;"></o-image>
+ 
+        <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
+          <h4 class="toy-title">{{ data.name }}</h4>
+ 
+          <div fxLayout="row" fxLayoutGap=".5em">
+            <div fxLayout="column" fxLayoutAlign="start center">
+              <mat-icon>credit_card</mat-icon>
+              <mat-icon *ngIf="data.location != null">connect_without_contact</mat-icon>
             </div>
-        </o-grid-item>
-    </o-grid>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <span>{{ data.price }}</span>
+              <span *ngIf="data.location != null">{{data.location}} Km</span>
+            </div>
+          </div>
+        </div>
+      </o-column>
+    </o-grid-item>
+  </o-grid>
 </div>
 
