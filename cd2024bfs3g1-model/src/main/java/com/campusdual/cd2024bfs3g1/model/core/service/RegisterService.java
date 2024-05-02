@@ -27,6 +27,8 @@ public class RegisterService implements IRegisterService {
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private UserAndRoleService userAndRole;
 
     @Override
     public EntityResult registerInsert(Map<?, ?> attrMap) throws OntimizeJEERuntimeException {
@@ -47,7 +49,8 @@ public class RegisterService implements IRegisterService {
         }
 
 
-        return this.daoHelper.insert(this.userDao,attrMap);
+        //Insertamos registro con contraseña encriptada
+        return this.daoHelper.insert(this.userDao,userAndRole.encryptPassword(attrMap));
     }
 
     public boolean existsEmail (String email) {
@@ -62,4 +65,6 @@ public class RegisterService implements IRegisterService {
 
         return false;
     }
+
+
 }
