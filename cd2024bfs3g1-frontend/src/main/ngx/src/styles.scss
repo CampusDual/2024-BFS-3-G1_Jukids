@@ -42,3 +42,24 @@
     }
   }
 }
+
+.register-container button{
+  background-color: #ffcc99!important;
+  border: 2px solid #ffa366!important;
+  box-shadow: -3px 5px 0px #ff5349!important;
+  color: #ff5349!important;
+  border-radius: 1.5rem!important;
+}
+
+.register-container mat-icon{
+  color: #ff5349!important;
+}
+
+.register-form{
+  mat-toolbar {
+      box-shadow: none !important;
+  }
+  .mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: transparent;
+  }
+}
