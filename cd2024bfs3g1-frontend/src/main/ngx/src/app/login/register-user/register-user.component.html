@@ -10,7 +10,7 @@
                 <h1 class="title_text">{{ 'REGISTER' | oTranslate }}:</h1>
 
 
-                <o-form class="register-form" attr="usersNew" service="registers" entity="register" keys="usr_id" header-actions="R;I;U;D" show-header="no" show-header-navigation="no">
+                <o-form #form class="register-form" attr="usersNew" (onInsert)="login()" service="registers" entity="register" keys="usr_id" header-actions="R;I;U;D" show-header="no" show-header-navigation="no">
                     <div fxLayout="column" fxLayoutGap="8px" class="form-container">
                         <o-text-input class="inputData" fxFlex="20" attr="usr_name" required="yes"></o-text-input>
                         <o-text-input class="inputData" fxFlex="20" attr="usr_surname" required="yes"></o-text-input>
