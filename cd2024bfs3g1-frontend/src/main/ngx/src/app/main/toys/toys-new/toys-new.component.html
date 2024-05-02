@@ -1,13 +1,13 @@
 <o-form attr="toysNew" service="toys" entity="toy" keys="toyid" show-header="no" show-header-navigation="no" undo-button="no" header-actions="I">
-    <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-md="row">
-        <div>
-            <o-image id="toy_photo" attr="photo" empty-image="assets/images/no-image.png"
-                sql-type="OTHER" required="yes"></o-image>
+    <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
+        <div fxFlex.gt-sm="35%">
+            <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo" empty-image="assets/images/no-image.png"
+                max-file-size="4194304" sql-type="OTHER" required="yes"></o-image>
         </div>
         <o-column fxFlex title="TOY_INFORMATION">
             <div fxLayout="column" fxLayoutGap="8px">
                 <o-text-input fxFlex="40" attr="name" required="yes"></o-text-input>
-                <o-textarea-input attr="description" required="yes"></o-textarea-input>
+                <o-textarea-input attr="description" required="yes" max-length="2000"></o-textarea-input>
             </div>
             <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
                 <o-real-input fxFlex.gt-sm="50" attr="price" label="price" enabled="yes"min-decimal-digits="2" max-decimal-digits="2"
