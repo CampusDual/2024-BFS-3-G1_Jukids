@@ -3,12 +3,12 @@ on:
   push:
     paths-ignore:
       - 'charts/**'
-    branches: [ "develop" ]
+    branches: [ "develop", "devdeploy" ]
 env:
   REPO_NAME: ${{ github.event.repository.name }}  
   TAG_PREFIX: "dev"
   TAG_SUFFIX: ${{github.run_id}}.${{github.run_attempt}}
-  VALUES_FILE: "values.yaml"
+  VALUES_FILE: "values-dev.yaml"
   REGISTRY: "ghcr.io"  
   CHARTS_FOLDER: "cd2024bfs3g1"  
 permissions:
