@@ -14,6 +14,7 @@
 /* Form toolbar background color */
 .o-form-toolbar .o-form-toolbar-header.mat-toolbar {
   background-color: transparent;
+  padding: 0 54px
 }
 
 
@@ -62,4 +63,33 @@
   .mdc-text-field--filled:not(.mdc-text-field--disabled){
     background-color: transparent;
   }
+
+  @media(max-width:450px) {
+    button.mat-mdc-button-base.mat-mdc-outlined-button{
+      height: 26px;
+    }
+
+    .o-form .o-form-toolbar button.mat-mdc-outlined-button, 
+    .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons 
+    .o-table-button button.mat-mdc-outlined-button{
+      padding: 0 10px;
+    }
+
+    button.mat-mdc-button-base.mat-mdc-button, button.mat-mdc-button-base.mat-mdc-unelevated-button,
+     button.mat-mdc-button-base.mat-mdc-raised-button, 
+     button.mat-mdc-button-base.mat-mdc-outlined-button{
+      min-width: 52px;
+    }
+
+  }
+
+}
+
+
+::-webkit-scrollbar-thumb{
+  display: none;
+}
+
+::-webkit-scrollbar-track{
+  display: none;
 }
