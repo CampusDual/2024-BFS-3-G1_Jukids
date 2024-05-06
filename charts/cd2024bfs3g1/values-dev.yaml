@@ -107,7 +107,7 @@ service:
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: nginx   ## comment to deploy when not in aws clusters
+    kubernetes.io/ingress.class: traefik   ## comment to deploy when not in aws clusters
     kubernetes.io/tls-acme: "true" ## comment to deploy when not in aws clusters
     cert-manager.io/cluster-issuer: cert-manager-letsencrypt-production-route53 # use cert-manager-letsencrypt-staging-route53 for testing environments
   host: cd2024bfs3g1-dev.dev.campusdual.com # restricted to *dev.imatia.com by default in development clusters
