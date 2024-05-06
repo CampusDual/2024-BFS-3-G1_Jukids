@@ -90,7 +90,9 @@
   "Search": "Search",
   "Clear": "Clear",
   "SEARCH_BAR": "Search bar",
+  "REGISTER": "Register",
   "MAX_SIZE": "Maximum size allowed 4MB",
   "VIEW_MAP": "View map",
   "SELECT_POINT_ON_MAP":"Select a point"
+
 }

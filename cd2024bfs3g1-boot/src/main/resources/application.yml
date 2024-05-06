@@ -30,7 +30,7 @@ ontimize:
       upper-like: true
   security:
     mode: default
-    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/toys/**'
+    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/toys/**,/registers/**'
     role-information-service:
       role-repository: RoleDao
       role-name-column: rol_name
@@ -70,7 +70,7 @@ spring:
   application:
     name: cd2024bfs3g1
   flyway:
-    enabled: true
+    enabled: ${FLYWAY_ENABLED:true}
     locations: classpath:/db/migration/
   liquibase:
     enabled: false

@@ -1,0 +1,113 @@
+.register-container{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(125% 125% at 50% 10%, rgba(255, 255, 255, .4), #b73919 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+        .mat-stroked-button{
+            background-color: #fc9;
+            border: 2px solid #ffa366;
+            box-shadow: -3px 5px #ff5349;
+            color: #ff5349;
+            border-radius: 1.5rem;
+        }
+    
+    
+        .register-outer-container {
+            width: 100%;
+            height: 100%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+            overflow: auto;
+
+
+                .title_text{
+                    margin-top: 64px;
+                    flex: auto;
+                    color: #ff5349;
+                    text-align: center;
+                    padding: 0rem;
+                    font-weight: 800;
+                }
+            
+              }
+
+            .register-bg-container {
+                background-image: url('^assets/images/jukids_logo.webp');
+                width: calc(100% - 640px);
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                z-index: 1;
+            }
+            
+            .register-bg-container::before {
+                display: block;
+                position: absolute;
+                z-index: -1;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background: rgba(0, 0, 0, .1);
+                opacity: .8;
+            }
+
+            .wrapp-login {
+                width: 640px;
+                min-height: 100%;
+            }
+            
+            .form-container{
+                width: 100%;
+                flex-direction: column;
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+                flex-wrap: wrap;
+            }
+            
+      
+              .mat-mdc-text-field-wrapper{
+                border-radius: 1.5rem;
+                background-color: #fedac1;
+                box-shadow: -3px 5px 0px rgba($color: #ff5349, $alpha: 1.0);
+              }
+      
+              .matinput{
+                color: #ff5349;
+              }
+      
+              ::placeholder{
+                color:#ff5349;
+              }
+                
+            .inputData{
+                border-radius: 1.5rem;
+                background-color: #fedac1;
+                box-shadow: -3px 5px #ff5349;
+                padding: 0 20px;
+                margin: 50px;
+            }
+        }
+
+      
+
+         
+        
+
+
+

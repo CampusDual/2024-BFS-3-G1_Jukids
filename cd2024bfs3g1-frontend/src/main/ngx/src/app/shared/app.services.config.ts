@@ -5,6 +5,9 @@ export const SERVICE_CONFIG: Object = {
   'toys': {
     'path': '/toys'
   },
+  'registers': {
+    'path': '/registers'
+  },
   permissions: {
     'path': '/permissions'
   },
