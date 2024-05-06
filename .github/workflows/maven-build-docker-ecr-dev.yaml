@@ -3,7 +3,7 @@ on:
   push:
     paths-ignore:
       - 'charts/**'
-    branches: [ "develop", "devdeploy" ]
+    branches: [ "develop" ]
 env:
   REPO_NAME: ${{ github.event.repository.name }}  
   TAG_PREFIX: "dev"
