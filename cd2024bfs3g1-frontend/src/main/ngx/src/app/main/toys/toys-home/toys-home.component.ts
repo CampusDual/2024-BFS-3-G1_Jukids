@@ -1,20 +1,24 @@
-import { Component, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils } from 'ontimize-web-ngx';
-import { OntimizeService, OGridComponent} from 'ontimize-web-ngx';
-import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { DialogService, ODialogConfig } from 'ontimize-web-ngx';
-import { Subscription } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Expression, FilterExpressionUtils } from "ontimize-web-ngx";
+import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
+import { ToysMapService } from "src/app/shared/services/toys-map.service";
+import { DialogService, ODialogConfig } from "ontimize-web-ngx";
+import { Subscription } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
+import { Router, ActivatedRoute } from "@angular/router";
+import { ToysDetailComponent } from "../toys-detail/toys-detail.component";
+import { DomSanitizer } from "@angular/platform-browser";
+
 @Component({
-  selector: 'app-toys-home',
-  templateUrl: './toys-home.component.html',
-  styleUrls: ['./toys-home.component.scss']
+  selector: "app-toys-home",
+  templateUrl: "./toys-home.component.html",
+  styleUrls: ["./toys-home.component.scss"],
 })
-export class ToysHomeComponent {
+export class ToysHomeComponent implements OnInit{
+ 
   subscription: Subscription;
 
-  @ViewChild('toysGrid') protected toyGrid: OGridComponent;
+  @ViewChild("toysGrid") protected toyGrid: OGridComponent;
 
   private location: any;
   public arrayData: Array<any> = [];
@@ -25,35 +29,46 @@ export class ToysHomeComponent {
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
     private toysMapService: ToysMapService,
-    protected dialog: MatDialog
+    protected dialog: MatDialog,
+    protected sanitizer:DomSanitizer
   ) {
     //Configuración del servicio para poder ser usado
-    const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
+    const conf = this.ontimizeService.getDefaultServiceConfiguration("toys");
     this.ontimizeService.configureService(conf);
   }
 
   ngOnInit() {
     //Se escuchan los cambios del servicio
-    this.toysMapService.getLocation().subscribe(data => {
+    this.toysMapService.getLocation().subscribe((data) => {
       this.location = data;
       //Recargar el grid con las tarjetas
       this.toyGrid.reloadData();
     });
   }
-
+ 
+  public openDetail(data: any): void {
+    this.dialog.open(ToysDetailComponent, {
+      height: '330px',
+      width: '520px',
+      data: data
+    });
+  }
+  public getImageSrc(base64: any): any {
+    return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64.bytes) : './assets/images/no-image-transparent.png';
+  }
   navigate() {
-    this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
+    this.router.navigate(["../", "login"], { relativeTo: this.actRoute });
   }
 
   //Se calcula la distancia a la que se encuentra el objeto al punto del mapa que sea a seleccionado previamente
   calculateDistance(rowData: any): number {
     const R: number = 6371; // Radio de la Tierra en kilómetros
     let isset = this.location != undefined;
-    let lat1: number = (isset) ? this.location.latitude : 0;
-    let lon1: number = (isset) ? this.location.longitude : 0;
+    let lat1: number = isset ? this.location.latitude : 0;
+    let lon1: number = isset ? this.location.longitude : 0;
 
-    let lat2: number = rowData['latitude'];
-    let lon2: number = rowData['longitude'];
+    let lat2: number = rowData["latitude"];
+    let lon2: number = rowData["longitude"];
 
     function deg2rad(deg: number): number {
       return deg * (Math.PI / 180);
@@ -61,9 +76,12 @@ export class ToysHomeComponent {
 
     let dLat: number = deg2rad(lat2 - lat1);
     let dLon: number = deg2rad(lon2 - lon1);
-    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-      + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
-      * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    let a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     let distance = R * c;
     return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
@@ -72,9 +90,9 @@ export class ToysHomeComponent {
   //Se añade una localización a los datos recogidos del grid y existe un punto en el mapa
   addLocation(e) {
     if (this.location != undefined) {
-      e.forEach(element => {
+      e.forEach((element) => {
         element.location = this.calculateDistance(element);
-      })
+      });
       //Ordenar el array por distancia
       e.sort((a, b) => a.location - b.location);
     }
@@ -83,24 +101,30 @@ export class ToysHomeComponent {
     this.toyGrid.dataArray = this.arrayData;
   }
 
-  createFilter(values: Array<{ attr, value }>): Expression {
+  createFilter(values: Array<{ attr; value }>): Expression {
     //Array de expresiones para ejecutar
     let filters: Array<Expression> = [];
     //Generacion de expresion y guardado en array filters
-    values.forEach(fil => {
+    values.forEach((fil) => {
       if (fil.value) {
-        filters.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+        filters.push(
+          FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
+        );
       }
     });
 
     // Construir la expresion compleja
     if (filters.length > 0) {
       //Realiza la consulta concatenando los key-value (Columna-Valor) del array filters
-      return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
+      return filters.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_OR
+        )
+      );
     } else {
       return null;
     }
   }
-
-
 }
