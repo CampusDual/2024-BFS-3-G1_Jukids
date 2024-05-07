@@ -10,6 +10,9 @@ import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +28,15 @@ public class ToyService implements IToyService {
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
          return this.daoHelper.query(this.toyDao, keyMap, attrList);
+    }
+
+    //Prueba mia
+    @Override
+    public EntityResult byemailQuery(String email) throws OntimizeJEERuntimeException{
+        Map<String, Object> keyMap = new HashMap<>();
+        keyMap.put("email",email);
+        List<String> attrList = Arrays.asList("toyid","name","price");
+        return this.toyQuery(keyMap, attrList);
     }
 
     @Override
