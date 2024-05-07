@@ -12,8 +12,11 @@ export class ProfileComponent implements OnInit {
   constructor(public userInfoService: UserInfoService) {
     this.userInfo = this.userInfoService.getUserInfo();
   }
-
+  
   ngOnInit() {
   }
-
+  
+  edit() {
+  alert("Editar");
+  }
 }

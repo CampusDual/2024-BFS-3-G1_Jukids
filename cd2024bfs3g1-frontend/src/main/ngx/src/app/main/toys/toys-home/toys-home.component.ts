@@ -28,7 +28,7 @@ export class ToysHomeComponent {
     protected dialog: MatDialog
   ) {
     //Configuración del servicio para poder ser usado
-    const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
+    const conf = this.ontimizeService.getDefaultServiceConfiguration('byuser');
     this.ontimizeService.configureService(conf);
   }
 
