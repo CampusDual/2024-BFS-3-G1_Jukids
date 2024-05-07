@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
         private IToyService toyService;
 
         //Prueba Mia
-        @RequestMapping("/byuserid")
+        @RequestMapping(value = "/byuser")
         public EntityResult byUserIdQuery(@RequestParam("usr_id") int usr_id) {
             return this.getService().byUserIdQuery(usr_id);
         }
@@ -27,4 +27,3 @@ import org.springframework.web.bind.annotation.RestController;
         }
 
     }
-
