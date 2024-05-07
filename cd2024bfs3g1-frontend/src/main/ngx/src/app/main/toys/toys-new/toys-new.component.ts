@@ -16,7 +16,7 @@ export class ToysNewComponent {
   @ViewChild('NewToy') protected formToy: any;
   @ViewChild('latitude') protected lat: ORealInputComponent;
   @ViewChild('longitude') protected lon: ORealInputComponent;
-  @ViewChild('usrid') protected usrid: ORealInputComponent;
+  @ViewChild('usr_id') protected usr_id: ORealInputComponent;
 
   constructor(
     private ontimizeService: OntimizeService,
@@ -37,9 +37,9 @@ export class ToysNewComponent {
 
     if (this.authService.isLoggedIn()) {  
         this.mainService.getUserInfo().subscribe((data)=>{
-          const usr = data.data.usr_id
+          const usr = data.data.usr_id;
           console.log(usr);
-          // this.usrid.setValue(usr)
+          this.usr_id.setValue(usr);
         })
     }
   }
