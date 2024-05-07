@@ -1,3 +1,47 @@
-.detail-cont{
-    background-color: blue;
+
+.toys-detail-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+ 
+    .image-container {
+        width: 30%; // Ancho para la imagen
+        min-width: 360px; // Ancho mínimo de la imagen
+        
+    }
+
+    .data-container {
+        width: 70%; // Ancho para los datos del juguete
+        padding-left: 20px; // Espacio a la izquierda para separar la imagen de los datos
+    }
+
+    .data-column {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; // Espacio entre los elementos de los datos del juguete
+
+        .o-form-field {
+            width: 100%; // Asegura que los campos de datos ocupen todo el ancho disponible
+        }
+    }
+    .input-detail{
+        margin: 22px 0;
+    }
+}
+
+// Media query para ajustar el diseño en pantallas más pequeñas
+@media screen and (max-width: 1000px) {
+    .toys-detail-container {
+        flex-direction: column; // Cambiamos a dirección de columna en pantallas pequeñas
+     
+        .image-container {
+            width: 100%; // La imagen ocupa todo el ancho en pantallas pequeñas
+            min-width: auto; // Eliminamos el ancho mínimo para adaptarse mejor al diseño responsivo
+        }
+
+        .data-container {
+            width: 100%; // Los datos ocupan todo el ancho en pantallas pequeñas
+            padding-left: 0; // Eliminamos el espacio a la izquierda en pantallas pequeñas
+        }
+    }
 }
