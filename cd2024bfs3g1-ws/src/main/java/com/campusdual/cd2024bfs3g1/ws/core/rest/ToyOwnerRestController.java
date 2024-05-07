@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
         private IToyService toyService;
 
         //Prueba Mia
-        @RequestMapping("/byemail")
-        public EntityResult byemailQuery(@RequestParam("email") String email) {
-            return this.getService().byemailQuery(email);
+        @RequestMapping("/byuserid")
+        public EntityResult byUserIdQuery(@RequestParam("usr_id") int usr_id) {
+            return this.getService().byUserIdQuery(usr_id);
         }
 
         @Override

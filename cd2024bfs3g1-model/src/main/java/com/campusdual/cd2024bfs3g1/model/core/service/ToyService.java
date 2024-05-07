@@ -32,9 +32,9 @@ public class ToyService implements IToyService {
 
     //Prueba mia
     @Override
-    public EntityResult byemailQuery(String email) throws OntimizeJEERuntimeException{
+    public EntityResult byUserIdQuery(int usr_id) throws OntimizeJEERuntimeException{
         Map<String, Object> keyMap = new HashMap<>();
-        keyMap.put("email",email);
+        keyMap.put("usr_id",usr_id);
         List<String> attrList = Arrays.asList("toyid","name","price");
         return this.toyQuery(keyMap, attrList);
     }

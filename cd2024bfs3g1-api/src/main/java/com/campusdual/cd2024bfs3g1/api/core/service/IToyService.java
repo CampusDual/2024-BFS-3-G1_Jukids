@@ -12,7 +12,7 @@ public interface IToyService {
     EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
     //Prueba mia
-    EntityResult byemailQuery(String email) throws OntimizeJEERuntimeException;
+    EntityResult byUserIdQuery(int usr_id) throws OntimizeJEERuntimeException;
 
     EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
 
