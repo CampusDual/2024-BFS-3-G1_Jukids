@@ -15,12 +15,6 @@ public class ToyRestController extends ORestController<IToyService> {
     @Autowired
     private IToyService toyService;
 
-    //Prueba Mia
-    @RequestMapping("/byemail")
-    public EntityResult byemailQuery(@RequestParam("email") String email) {
-        return this.getService().byemailQuery(email);
-    }
-
     @Override
     public IToyService getService() {
         return this.toyService;
