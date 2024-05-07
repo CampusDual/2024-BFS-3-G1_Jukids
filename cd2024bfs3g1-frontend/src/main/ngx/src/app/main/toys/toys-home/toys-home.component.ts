@@ -47,11 +47,10 @@ export class ToysHomeComponent implements OnInit{
   }
  
   public openDetail(data: any): void {
-    this.dialog.open(ToysDetailComponent, {
-      height: '330px',
-      width: '520px',
-      data: data
-    });
+    // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
+    const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
+  
+    this.router.navigate(["/toysDetail", toyId]);
   }
   public getImageSrc(base64: any): any {
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64.bytes) : './assets/images/no-image-transparent.png';
@@ -87,6 +86,7 @@ export class ToysHomeComponent implements OnInit{
     return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
   }
 
+ 
   //Se añade una localización a los datos recogidos del grid y existe un punto en el mapa
   addLocation(e) {
     if (this.location != undefined) {

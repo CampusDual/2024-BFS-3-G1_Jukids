@@ -1,4 +1,5 @@
-<div fxFill fxLayout="column" fxLayoutAlign="space-evenly center">
+<!-- 
+<div fxFill attr="toyid" fxLayout="column" fxLayoutAlign="space-evenly center">
     <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
         <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="4px" class="toys">
             <img [src]="getImageSrc(data.photo)" width="144px" height="200px">
@@ -6,9 +7,27 @@
             <span><strong>Price: </strong>{{ data.price }}</span>
             <span><strong>Latitude: </strong>{{ data.latitude }}</span>
             <span><strong>Longitude: </strong>{{ data.longitude }}</span>
-            <!-- Agrega más campos aquí según sea necesario -->
+             Agrega más campos aquí según sea necesario 
             <mat-divider></mat-divider>
         </div>
     </div>
     <span layout-margin-right fxFlexAlign="end"><mat-icon>domain</mat-icon>{{ data.location }}</span>
 </div>
+-->
+<o-form attr="toysDetail" service="toys" entity="toy" keys="toyid" header-actions="R" show-header-navigation="no">
+    <o-text-input attr="toyid" sql-type="INTEGER" enabled="no"></o-text-input>
+    <div fxLayout="column">
+        <div>
+            <o-image attr="photo" empty-image="assets/images/no-image.png" sql-type="OTHER"></o-image>
+        </div>
+        <o-column fxFlex title="TOYS_INFORMATION">
+            <div fxLayout="row" fxLayoutGap="8px">
+                <o-text-input fxFlex="40" attr="name" required="yes"></o-text-input>
+                <o-text-input fxFlex="40" attr="description" required="yes"></o-text-input>
+                <o-email-input fxFlex="20" attr="email"></o-email-input>
+                <o-text-input fxFlex="40" attr="price"></o-text-input>
+            </div>
+        </o-column>
+    </div>
+</o-form>
+ 

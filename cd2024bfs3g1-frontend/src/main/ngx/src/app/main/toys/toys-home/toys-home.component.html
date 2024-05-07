@@ -17,20 +17,20 @@
                     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 
-<div>
+
     <o-column-collapsible title="{{ 'VIEW_MAP' | oTranslate }}" appearance="legacy" expanded="no" icon="location_on" class="collapsible">
         <location-map></location-map>
     </o-column-collapsible>
 
 
-    <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
-        columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
+    <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
+        columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
         refresh-button="no" quick-filter="no" (onDataLoaded)="addLocation($event)">
-    <o-grid-item (click)="openDetail(data)" *ngFor="let data of toysGrid.dataArray">
+    <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)" >
       <o-column layout-padding class="toy-card">
         <o-image class="img-toy" show-controls="false" enabled="false" read-only="true" [data]="data.photo"  style="margin-top:8px;"></o-image>
  
-        <div  class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
+        <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
           <h4 class="toy-title">{{ data.name }}</h4>
  
           <div fxLayout="row" fxLayoutGap=".5em">
@@ -47,5 +47,5 @@
       </o-column>
     </o-grid-item>
   </o-grid>
-</div>
+
 
