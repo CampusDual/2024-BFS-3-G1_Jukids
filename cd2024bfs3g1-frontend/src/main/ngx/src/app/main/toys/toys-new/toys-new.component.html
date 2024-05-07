@@ -1,4 +1,5 @@
-<o-form id="newtoy" #NewToy attr="toysNew" service="toys" entity="toy" keys="toyid" show-header="no" show-header-navigation="no" undo-button="no" header-actions="I">
+<o-form id="newtoy" #NewToy attr="toysNew" service="toys" entity="toy" keys="toyid" show-header="no" show-header-navigation="no" undo-button="no" header-actions="I"
+(onInsert)="insertRedirect()">
     <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
         <div fxFlex.gt-sm="35%">
             <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo" empty-image="assets/images/no-image.png"
