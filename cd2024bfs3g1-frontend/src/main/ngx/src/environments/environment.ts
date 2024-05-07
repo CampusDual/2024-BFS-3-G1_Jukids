@@ -4,7 +4,8 @@
 
 export const environment = {
   apiEndpoint: 'http://localhost:8080',
-  production: false
+  production: false,
+  stripe_public_key: 'pk_test_51PBat3RpYL4S8tgEy69BoMSpHv1UraxL3lY3CYurMK5mx3InDvRCbu6Uzf9SxAz08C1V2Lr6K1gR7eYJSORYQxE600WVFUPXcv'
 };
 
 /*

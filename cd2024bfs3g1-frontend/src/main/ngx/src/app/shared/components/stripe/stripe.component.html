@@ -1,0 +1,14 @@
+<div class="modal">
+
+  <o-form #stripeForm editable-detail="no" show-header="no" class="form">
+    <o-column title="Stripe Checkout" class="stripe-checkout" fxLayout="column">
+      <o-text-input attr="product" read-only="no" label="Producto"></o-text-input>
+      <o-email-input attr="email" read-only="no" label="Email"></o-email-input>
+      <o-currency-input attr="amount" read-only="no" label="Monto"></o-currency-input>
+      <div class="stripe-input">
+        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions" />
+      </div>
+      <o-button type="RAISED" label="Pagar" fxFlex="100" (click)="pay()"></o-button>
+    </o-column>
+  </o-form>
+</div>
