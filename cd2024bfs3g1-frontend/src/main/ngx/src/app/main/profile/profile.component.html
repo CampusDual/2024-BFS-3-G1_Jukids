@@ -1,5 +1,31 @@
 <mat-tab-group>
-  <mat-tab label="Info Personal"> Content 1 </mat-tab>
-  <mat-tab label="Preferencias"> Content 2 </mat-tab>
-  <mat-tab label="Flujo personal"> Content 3 </mat-tab>
+  <mat-tab label="{{ 'YOUR_PRODUCTS' | oTranslate }}">
+
+    <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid"
+    columns="photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
+    refresh-button="no" quick-filter="no">
+<o-grid-item  *ngFor="let data of toysGrid.dataArray">
+  <o-column layout-padding class="toy-card">
+    <o-image class="img-toy" show-controls="false" enabled="false" read-only="true" [data]="data.photo"  style="margin-top:8px;"></o-image>
+
+    <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
+      <h4 class="toy-title">{{ data.name }}</h4>
+
+      <div fxLayout="row" fxLayoutGap=".5em">
+        <div fxLayout="column" fxLayoutAlign="start center">
+          <mat-icon>credit_card</mat-icon>
+          <mat-icon *ngIf="data.location != null">connect_without_contact</mat-icon>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <span>{{ data.price }} €</span>
+          <span *ngIf="data.location != null">{{data.location}} Km</span>
+        </div>
+      </div>
+    </div>
+  </o-column>
+</o-grid-item>
+</o-grid>
+  
+  </mat-tab>
+  <mat-tab label="{{ 'MY_PROFILE' | oTranslate }}"> Content 2 </mat-tab>
 </mat-tab-group>
