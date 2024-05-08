@@ -30,7 +30,7 @@ ontimize:
       upper-like: true
   security:
     mode: default
-    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/toys/**,/registers/**'
+    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/toys/**,/registers/**,/payments/**'
     role-information-service:
       role-repository: RoleDao
       role-name-column: rol_name
@@ -90,5 +90,8 @@ spring:
   autoconfigure:
     exclude: |
       org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration, org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.FallbackWebSecurityAutoConfiguration
+stripe:
+  public-key: pk_test_51PDhh3RsFWaWOlVnI6AhcVCx2Bq0nBRn5dBWuPaNDiSv0xxrCEPvQD6nqZlZD5LQ2lsTs9GfkxgaQHgsWVRQJS1100jeJvduKO
+  secret-key: sk_test_51PDhh3RsFWaWOlVnF8S5tDq18o7ykWpLQnXfLs22lyhTp0v5nJoXSkP3OByPm0cvtLoc1k8RNPdkOrsvbLAq94hc00215SLYb5
 environment:
   profile: ${ENVIRONMENT_PROFILE:#{'production'}}
