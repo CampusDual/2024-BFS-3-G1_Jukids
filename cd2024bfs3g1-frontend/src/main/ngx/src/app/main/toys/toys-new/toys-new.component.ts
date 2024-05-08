@@ -1,8 +1,9 @@
-import { Component, ViewChild} from '@angular/core';
+import { Component, ViewChild, Inject} from '@angular/core';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { ORealInputComponent, OntimizeService } from 'ontimize-web-ngx';
+import { ORealInputComponent, OntimizeService,OUserInfoService, AuthService } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { MainService } from 'src/app/shared/services/main.service';
 
 @Component({
   selector: 'app-toys-new',
@@ -22,8 +23,11 @@ export class ToysNewComponent{
   constructor(
     private router: Router,
     private ontimizeService: OntimizeService,
-    private toysMapService: ToysMapService
-  ){
+    private toysMapService: ToysMapService,
+    private authService: AuthService,
+    @Inject(MainService) private mainService: MainService,
+  ) {
+
   //Configuración del servicio para poder ser usado
   const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
   this.ontimizeService.configureService(conf);
@@ -34,6 +38,14 @@ export class ToysNewComponent{
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
+
+    if (this.authService.isLoggedIn()) {  
+      this.mainService.getUserInfo().subscribe((data)=>{
+        const usr = data.data.usr_id;
+        console.log(usr);
+        this.usr_id.setValue(usr);
+      })
+  }
 
 
   }

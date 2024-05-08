@@ -9,7 +9,7 @@
     <mat-card *ngFor="let row of toysList.dataArray" [o-list-item]="row">
       <mat-card-header>
       <div mat-card-avatar>
-        <img src="{{ row.photo }}" fxFill />
+        <o-image class="img-toy" show-controls="false" enabled="false" [data]="row.photo"></o-image>
       </div>
       <mat-card-title>{{ row.name }}</mat-card-title>
       <mat-card-subtitle>{{ row.description }}</mat-card-subtitle>
