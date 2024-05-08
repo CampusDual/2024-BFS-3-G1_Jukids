@@ -1,6 +1,7 @@
 
 .toys-detail-container {
     margin-top: 30px;
+    margin-left: 130px;
     display: flex;
     flex-direction: row;
  
@@ -25,7 +26,9 @@
         }
     }
     .input-detail{
+        //Para ajustar el tamaño de los inputs
         margin: 22px 0;
+        max-width: 600px; 
     }
 }
 
@@ -33,6 +36,7 @@
 @media screen and (max-width: 1000px) {
     .toys-detail-container {
         flex-direction: column; // Cambiamos a dirección de columna en pantallas pequeñas
+        margin-left: 30px;
      
         .image-container {
             width: 100%; // La imagen ocupa todo el ancho en pantallas pequeñas
@@ -43,5 +47,10 @@
             width: 100%; // Los datos ocupan todo el ancho en pantallas pequeñas
             padding-left: 0; // Eliminamos el espacio a la izquierda en pantallas pequeñas
         }
+
+        .input-detail{
+            max-width: 100%; 
+        }
+
     }
 }
