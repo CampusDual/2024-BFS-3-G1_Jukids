@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { StripeCardElementOptions, StripeElementsOptions, PaymentIntent } from '@stripe/stripe-js';
 import { StripeCardComponent, StripeService } from 'ngx-stripe';
-import { OFormComponent, Observable } from 'ontimize-web-ngx';
+import { OFormComponent, Observable, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
+import { PaymentIntentDto } from './dto/payment-intent-dto';
 
 @Component({
   selector: 'app-stripe',
@@ -36,10 +37,21 @@ export class StripeComponent {
     }
   };
 
+  ontimizeService: OntimizeService;
+
   constructor(
-    private http: HttpClient,
-    private stripeService: StripeService
-  ) { }
+    private stripeService: StripeService,
+    protected injector: Injector
+  ) {
+    this.ontimizeService = this.injector.get(OntimizeService);
+    this.configureService();
+
+  }
+  protected configureService() {
+    // Configure the service using the configuration defined in the `app.services.config.ts` file
+    const conf = this.ontimizeService.getDefaultServiceConfiguration('test');
+    this.ontimizeService.configureService(conf);
+  }
 
   elementsOptions: StripeElementsOptions = {
     locale: 'es',
@@ -48,6 +60,51 @@ export class StripeComponent {
     mode: 'payment'
   };
 
+
+  pay() {
+    let name = this.stripeForm.getFieldValue('product');
+    let amount = this.stripeForm.getFieldValue('amount');
+
+    this.ontimizeService.doRequest({
+      method: 'GET',
+      url: 'http://localhost:8080/test'     
+    })
+      // .subscribe( (resp ) => {
+      //   console.log("doRequest:", );
+      // })
+      .subscribe({
+        next: (resp: ServiceResponse) => {
+          console.log("doRequest:", resp.data);
+        }, error: (err) => {
+          console.log("error:", err);
+        }
+      })
+
+    // this.stripeService.createToken(this.cardElement.element, { name })
+    //   .subscribe((result) => {
+    //     if (result.token) {
+    //       // Use the token
+    //       let paymentIntentDto: PaymentIntentDto = {
+    //         token: result.token.id,
+    //         description: 'Descripcion test',
+    //         amount: amount,
+    //         currency: 'EUR'
+    //       }
+
+    //       this.paymentService.pagar(paymentIntentDto).subscribe(
+    //         data => {
+    //           this.abrirModal(data[`id`], this.nombre, data[`description`], data[`amount`]);
+    //           this.router.navigate(['/']);
+    //         }
+    //       );
+    //       this.error = undefined;
+    //     } else if (result.error) {
+    //       this.error = result.error.message;
+    //     }
+    //   });
+
+    // console.log("name", name);
+  }
 
 
   // pay(): void {
@@ -79,7 +136,7 @@ export class StripeComponent {
   //           }
   //         }
   //       });
-    
+
   // }
 
   // createPaymentIntent(amount: number): Observable<PaymentIntent> {
@@ -98,7 +155,7 @@ export class StripeComponent {
 
 
 
-   // ====================== STRIPE SIMPLE TOKENPK CARD ======================
+  // ====================== STRIPE SIMPLE TOKENPK CARD ======================
   // Replace with your own public key
   // stripe = injectStripe("pk_test_51PBat3RpYL4S8tgEy69BoMSpHv1UraxL3lY3CYurMK5mx3InDvRCbu6Uzf9SxAz08C1V2Lr6K1gR7eYJSORYQxE600WVFUPXcv");
 
@@ -108,7 +165,7 @@ export class StripeComponent {
   //   let name = this.stripeForm.getFieldValues(['product']).product;
   //   let email = this.stripeForm.getFieldValues(['email']);
   //   let amount:number = parseInt(this.stripeForm.getFieldValues(['amount']).amount);
- 
+
   //   console.log("Product: ", name);
   //   this.stripe
   //   .createToken(this.cardElement.element, { name })
@@ -123,18 +180,18 @@ export class StripeComponent {
   //     }
   //   });
 
-    // this.stripe
-    //   .createToken(this.cardElement.element, { name: product, currency: 'eur' })
-    //   .subscribe((result) => {
-    //     if (result.token) {
-    //       // Use the token
-    //       console.log(result.token);
-    //       console.log(result.token.id);
-    //     } else if (result.error) {
-    //       // Error creating the token
-    //       console.log(result.error.message);
-    //     }
-    //   });
+  // this.stripe
+  //   .createToken(this.cardElement.element, { name: product, currency: 'eur' })
+  //   .subscribe((result) => {
+  //     if (result.token) {
+  //       // Use the token
+  //       console.log(result.token);
+  //       console.log(result.token.id);
+  //     } else if (result.error) {
+  //       // Error creating the token
+  //       console.log(result.error.message);
+  //     }
+  //   });
   // }
 
 
