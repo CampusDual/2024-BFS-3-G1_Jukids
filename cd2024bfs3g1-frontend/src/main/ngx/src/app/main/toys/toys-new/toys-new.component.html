@@ -1,10 +1,9 @@
-<o-form id="newtoy" #NewToy attr="toysNew" service="toys" entity="toy" keys="toyid" show-header="no"
-    show-header-navigation="no" undo-button="no" header-actions="I">
+<o-form id="newtoy" #NewToy attr="toysNew" service="toys" entity="toy" keys="toyid" show-header="no" show-header-navigation="no" undo-button="no" header-actions="I"
+(onInsert)="insertRedirect()">
     <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
         <div fxFlex.gt-sm="35%">
-            <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo"
-                empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER"
-                required="yes"></o-image>
+            <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo" empty-image="assets/images/no-image.png"
+                max-file-size="4194304" sql-type="OTHER" required="yes"></o-image>
         </div>
         <o-column fxFlex title="TOY_INFORMATION">
             <div fxLayout="column" fxLayoutGap="8px">
@@ -12,19 +11,19 @@
                 <o-textarea-input attr="description" required="yes" max-length="2255"></o-textarea-input>
             </div>
             <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
-                <o-real-input fxFlex.gt-sm="50" attr="price" label="price" enabled="yes" min-decimal-digits="2"
-                    max-decimal-digits="2" min="0" max="9999999" required="yes"></o-real-input>
+                <o-real-input fxFlex.gt-sm="50" attr="price" label="price" enabled="yes"min-decimal-digits="2" max-decimal-digits="2"
+                min="0" max="9999999" required="yes"></o-real-input>
                 <o-email-input fxFlex.gt-sm="50" attr="email" required="yes" label="usr_email"></o-email-input>
             </div>
             <div class="map-container">
                 <location-map (click)="handleMapClick($event)"></location-map>
             </div>
-            <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude"
-                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes"></o-real-input>
-            <o-real-input style="display: none" id="latitude" #latitude fxFlex="50" attr="latitude"
-                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes"></o-real-input>
+            <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
+                min-decimal-digits="0" required="yes"></o-real-input>
+            <o-real-input style="display: none" id="latitude" #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
+                min-decimal-digits="0" required="yes"></o-real-input>
             <o-real-input id="usr_id" #usr_id fxFlex="50" attr="usr_id" max-decimal-digits="0"
-                min-decimal-digits="0"></o-real-input>
+                               min-decimal-digits="0"></o-real-input>
         </o-column>
     </div>
     <o-form-toolbar></o-form-toolbar>
