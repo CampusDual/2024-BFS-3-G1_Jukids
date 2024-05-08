@@ -5,8 +5,8 @@
       <button *ngIf="!isLogged()" class="btn-register" type="submit" (click)="register()">{{ 'REGISTER' | oTranslate }}</button>
     </div>
   </o-app-layout-header>
-  <o-user-info-configuration show-profile="yes">
-    <o-user-info-configuration-item name="Ver tus productos" 
+  <o-user-info-configuration show-profile="no" show-settings="no">
+    <o-user-info-configuration-item name="{{ 'VIEW_MY_PRODUCTS' | oTranslate }}"
                                     icon="format_list_bulleted" 
                                     route="/main/profile"></o-user-info-configuration-item>
   </o-user-info-configuration>

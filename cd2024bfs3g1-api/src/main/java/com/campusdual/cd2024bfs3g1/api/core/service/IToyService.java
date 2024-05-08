@@ -11,13 +11,7 @@ public interface IToyService {
     //TOY
     EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
-    //Prueba mia
-    EntityResult byUserIdQuery(int usr_id) throws OntimizeJEERuntimeException;
-
     EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
 
-    EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
-
-    EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
-}
+    }
 //
