@@ -14,6 +14,7 @@ export class ToysNewComponent implements OnInit{
   private location: any;
   subscription:Subscription;
   private redirect = '/toys';
+  public toyService: string;
 
   @ViewChild('NewToy') protected formToy: any;
   @ViewChild('latitude') protected lat: ORealInputComponent;
@@ -28,25 +29,17 @@ export class ToysNewComponent implements OnInit{
     @Inject(MainService) private mainService: MainService,
   ) {
 
-  //Configuración del servicio para poder ser usado
-  const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
-  this.ontimizeService.configureService(conf);
+    this.toyService = this.authService.isLoggedIn() ? 'toyowner' : 'toys';
+    
   }
 
   ngOnInit() {
+    const serviceConfig = this.ontimizeService.getDefaultServiceConfiguration(this.toyService);
+    this.ontimizeService.configureService(serviceConfig);
     //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
-
-   /* if (this.authService.isLoggedIn()) {  
-      this.mainService.getUserInfo().subscribe((data)=>{
-        const usr = data.data.usr_id;
-        console.log(usr);
-        this.usr_id.setValue(usr);
-      })
-  }*/
-
 
   }
 
