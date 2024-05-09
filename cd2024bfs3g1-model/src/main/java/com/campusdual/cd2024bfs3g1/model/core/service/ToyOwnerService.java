@@ -30,7 +30,6 @@ public class ToyOwnerService implements IToyOwnerService {
     private DefaultOntimizeDaoHelper daoHelper;
 
     @Override
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
         Authentication auth= SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
@@ -61,7 +60,6 @@ public class ToyOwnerService implements IToyOwnerService {
     }
 
     @Override
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

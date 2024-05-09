@@ -30,7 +30,6 @@ public class ToyService implements IToyService {
     @Override
     public EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
         if (!Utils.validaEmail((String) attrMap.get("email"))) {
-            //System.out.println("Email invalido");
             EntityResult error = new EntityResultMapImpl();
             error.setCode(EntityResult.OPERATION_WRONG);
             error.setMessage("El correo electrónico no es correcto");
