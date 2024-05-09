@@ -18,12 +18,10 @@
             <div class="map-container">
                 <location-map (click)="handleMapClick($event)"></location-map>
             </div>
-            <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
+            <o-real-input #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
                 min-decimal-digits="0" required="yes"></o-real-input>
-            <o-real-input style="display: none" id="latitude" #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
+            <o-real-input #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
                 min-decimal-digits="0" required="yes"></o-real-input>
-            <o-real-input style="display: none" id="usr_id" #usr_id fxFlex="50" attr="usr_id" max-decimal-digits="0"
-                               min-decimal-digits="0"></o-real-input>
         </o-column>
     </div>
     <o-form-toolbar></o-form-toolbar>

@@ -1,4 +1,4 @@
-import { Component, ViewChild, Inject} from '@angular/core';
+import { Component, ViewChild, Inject, OnInit} from '@angular/core';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { ORealInputComponent, OntimizeService,OUserInfoService, AuthService } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { MainService } from 'src/app/shared/services/main.service';
   templateUrl: './toys-new.component.html',
   styleUrls: ['./toys-new.component.scss']
 })
-export class ToysNewComponent{
+export class ToysNewComponent implements OnInit{
   private location: any;
   subscription:Subscription;
   private redirect = '/toys';
@@ -39,13 +39,13 @@ export class ToysNewComponent{
       this.location = data;
     });
 
-    if (this.authService.isLoggedIn()) {  
+   /* if (this.authService.isLoggedIn()) {  
       this.mainService.getUserInfo().subscribe((data)=>{
         const usr = data.data.usr_id;
         console.log(usr);
         this.usr_id.setValue(usr);
       })
-  }
+  }*/
 
 
   }
