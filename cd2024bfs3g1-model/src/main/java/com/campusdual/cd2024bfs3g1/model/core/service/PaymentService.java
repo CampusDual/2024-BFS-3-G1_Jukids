@@ -34,19 +34,23 @@ public class PaymentService implements IPaymentService {
         return finalResult;
     }
 
-    public PaymentIntent confirm (String id) throws StripeException {
+    public EntityResult confirm (String id) throws StripeException {
         Stripe.apiKey = secretKey;
         PaymentIntent paymentIntent = PaymentIntent.retrieve(id);
         Map<String, Object> params = new HashMap<>();
         params.put("payment_method", "pm_card_visa");
         paymentIntent.confirm(params);
-        return paymentIntent;
+        EntityResult finalConfirm = new EntityResultMapImpl();
+        finalConfirm.put("payment", paymentIntent.toJson());
+        return finalConfirm;
     }
 
-    public PaymentIntent cancel (String id) throws StripeException {
+    public EntityResult cancel (String id) throws StripeException {
         Stripe.apiKey = secretKey;
         PaymentIntent paymentIntent = PaymentIntent.retrieve(id);
         paymentIntent.cancel();
-        return paymentIntent;
+        EntityResult finalCancel = new EntityResultMapImpl();
+        finalCancel.put("payment", paymentIntent.toJson());
+        return finalCancel;
     }
 }
