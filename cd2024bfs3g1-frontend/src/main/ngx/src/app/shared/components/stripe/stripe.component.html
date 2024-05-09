@@ -2,14 +2,24 @@
 
   <o-form #stripeForm editable-detail="no" show-header="no" class="form">
     <o-column title="Stripe Checkout" class="stripe-checkout" fxLayout="column">
-      <o-text-input attr="product" read-only="no" label="Producto"></o-text-input>
+      <o-text-input attr="product" read-only="yes" label="Producto" [data]="product"></o-text-input>
       <!-- <o-email-input attr="email" read-only="no" label="Email"></o-email-input> -->
-      <o-currency-input  attr="amount" read-only="no" label="price" enabled="yes" min-decimal-digits="2" max-decimal-digits="2"
-      min="0" max="9999999" required="yes"></o-currency-input>
+      <o-currency-input  attr="amount" read-only="yes" label="{{'price' | oTranslate}}+5%" enabled="yes" min-decimal-digits="2" max-decimal-digits="2"
+      min="0" max="9999999" required="yes" [data]="amount"></o-currency-input>
       <div class="stripe-input">
         <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions" />
       </div>
-      <o-button type="RAISED" label="Pagar" fxFlex="100" (click)="pay()"></o-button>
+
+      <ng-container *ngIf="loading">
+        <div fxLayoutAlign="center center" fxLayout="column">
+          <mat-spinner  diameter="40"></mat-spinner>
+          <span>Iniciando Pago</span>
+        </div>
+      </ng-container>
+
+      <o-button *ngIf="!loading" #payButton type="RAISED" label="Pagar" fxFlex="100" (click)="pay()"></o-button>
     </o-column>
   </o-form>
+
+
 </div>
