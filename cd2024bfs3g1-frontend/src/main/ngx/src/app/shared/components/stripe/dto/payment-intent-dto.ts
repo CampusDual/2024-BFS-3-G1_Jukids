@@ -1,5 +1,5 @@
 export interface PaymentIntentDto {
-    token: string;
+    // token: string;
     description: string;
     amount: number;
     currency: string;

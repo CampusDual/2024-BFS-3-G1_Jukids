@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { StripeCardElementOptions, StripeElementsOptions, PaymentIntent } from '@stripe/stripe-js';
 import { StripeCardComponent, StripeService } from 'ngx-stripe';
-import { OFormComponent, Observable, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
+import { DialogService, ODialogConfig, OFormComponent, Observable, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { PaymentIntentDto } from './dto/payment-intent-dto';
 
 @Component({
@@ -11,7 +11,6 @@ import { PaymentIntentDto } from './dto/payment-intent-dto';
   styleUrls: ['./stripe.component.css']
 })
 export class StripeComponent {
-
 
 
   // ====================== SIMPLE CARD ELEMENT ======================
@@ -41,67 +40,90 @@ export class StripeComponent {
 
   constructor(
     private stripeService: StripeService,
-    protected injector: Injector
+    protected injector: Injector,
+    protected dialogService: DialogService
   ) {
     this.ontimizeService = this.injector.get(OntimizeService);
     this.configureService();
-
   }
   protected configureService() {
     // Configure the service using the configuration defined in the `app.services.config.ts` file
-    const conf = this.ontimizeService.getDefaultServiceConfiguration('test');
+    const conf = this.ontimizeService.getDefaultServiceConfiguration('payments');
     this.ontimizeService.configureService(conf);
   }
 
   elementsOptions: StripeElementsOptions = {
-    locale: 'es',
-    currency: 'eur',
-    amount: 5000,
-    mode: 'payment'
+    locale: 'es'
   };
 
 
   pay() {
+
     let name = this.stripeForm.getFieldValue('product');
     let amount = this.stripeForm.getFieldValue('amount');
 
-    this.ontimizeService.doRequest({
-      method: 'GET',
-      url: 'http://localhost:8080/test'     
-    })
-      // .subscribe( (resp ) => {
-      //   console.log("doRequest:", );
-      // })
-      .subscribe({
-        next: (resp: ServiceResponse) => {
-          console.log("doRequest:", resp.data);
-        }, error: (err) => {
-          console.log("error:", err);
+
+
+    this.stripeService.createToken(this.cardElement.element, { name })
+      .subscribe((result) => {
+        if (result.token) {
+
+          // Use the token        
+          let paymentIntentObject: PaymentIntentDto = {
+            // token: result.token.id,
+            description: name,
+            amount: (amount * 100),
+            currency: 'EUR'
+          }
+
+          console.log("paymentIntentObject:", paymentIntentObject);
+          //Stringify object
+          let strJson = JSON.stringify(paymentIntentObject)    
+
+          try {
+
+            this.ontimizeService.doRequest({
+              method: 'POST',
+              url: 'http://localhost:8080/payments/paymentIntent',
+              body: strJson,
+              options: {
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }
+            }).subscribe({
+              next: (resp: ServiceResponse) => {
+
+                console.log(resp)
+                this.showCustom("verified", "Cerrar", "Payment Intent Success", "Pago realizado!");
+              }, error: (err) => {
+
+                this.showCustom("report", "Cerrar", "Payment Intent Error", "Error al realizar el pago");                
+              }
+            })
+
+          } catch (error) {
+
+            console.log("error:", error);
+          }
+
         }
-      })
+      });
 
-    // this.stripeService.createToken(this.cardElement.element, { name })
-    //   .subscribe((result) => {
-    //     if (result.token) {
-    //       // Use the token
-    //       let paymentIntentDto: PaymentIntentDto = {
-    //         token: result.token.id,
-    //         description: 'Descripcion test',
-    //         amount: amount,
-    //         currency: 'EUR'
-    //       }
 
-    //       this.paymentService.pagar(paymentIntentDto).subscribe(
-    //         data => {
-    //           this.abrirModal(data[`id`], this.nombre, data[`description`], data[`amount`]);
-    //           this.router.navigate(['/']);
-    //         }
-    //       );
-    //       this.error = undefined;
-    //     } else if (result.error) {
-    //       this.error = result.error.message;
+    //   this.paymentService.pagar(paymentIntentDto).subscribe(
+    //     data => {
+    //       this.abrirModal(data[`id`], this.nombre, data[`description`], data[`amount`]);
+    //       this.router.navigate(['/']);
     //     }
-    //   });
+    //   );
+    //   this.error = undefined;
+    // } else if (result.error) {
+    //   this.error = result.error.message;
+    // }
+
+
+
 
     // console.log("name", name);
   }
@@ -194,6 +216,24 @@ export class StripeComponent {
   //   });
   // }
 
+
+  // ============================= CUSTOM DIALOG =============================
+
+  
+  showCustom(
+    icon: string = 'info',
+    btnText: string,
+    dialogTitle: string,
+    dialogText: string,
+  ) {
+    if (this.dialogService) {
+      const config: ODialogConfig = {
+        icon: icon,
+        okButtonText: btnText
+      };
+      this.dialogService.alert(dialogTitle, dialogText, config);
+    }
+  }
 
 
 
