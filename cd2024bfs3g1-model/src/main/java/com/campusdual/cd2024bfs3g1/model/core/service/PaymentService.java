@@ -7,6 +7,7 @@ import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
+import com.stripe.model.Token;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +35,28 @@ public class PaymentService implements IPaymentService {
         return finalResult;
     }
 
-    public EntityResult confirm (String id) throws StripeException {
+    public EntityResult confirm (String id, HashMap<String, Object> cardToken) throws StripeException {
         Stripe.apiKey = secretKey;
+        //Recuperas pago
         PaymentIntent paymentIntent = PaymentIntent.retrieve(id);
+
+//        //Recuperar info Card
+//        Token infoCard = Token.retrieve(
+//                cardToken.get("token").toString()
+//        );
+//
+
+//        //Obtenemos el ID de la tarjeta
+//        String cardId = infoCard.getCard().getId();
+
+        /*
+        * Por el momento se utiliza "pm_card_visa" para asignacion directa.
+        * Se tiene que revisar a futuro el flujo a procucción.
+        * */
+
+        //Generar Objeto de confirmacion
         Map<String, Object> params = new HashMap<>();
+
         params.put("payment_method", "pm_card_visa");
         paymentIntent.confirm(params);
         EntityResult finalConfirm = new EntityResultMapImpl();

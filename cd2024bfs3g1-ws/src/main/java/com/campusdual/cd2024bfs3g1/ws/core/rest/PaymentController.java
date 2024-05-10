@@ -31,12 +31,16 @@ public class PaymentController {
     //String paymentStr = paymentIntent.toJson();
     //return new ResponseEntity<String>(paymentStr, HttpStatus.OK);
     //}
-    @PostMapping("/confirm/{id}")
-    public ResponseEntity<EntityResult> confirm(@PathVariable("id") String id) throws StripeException {
-        return new ResponseEntity<EntityResult>(paymentService.confirm(id), HttpStatus.OK);
+
+    //@PostMapping("/confirm/{id}")
+    @RequestMapping( value = "/confirm/{id}", method = RequestMethod.POST )
+    public ResponseEntity<EntityResult> confirm( @PathVariable("id") String id, @RequestBody HashMap<String, Object> cardToken ) throws StripeException {
+        System.out.println("ID :" + id );
+        return new ResponseEntity<EntityResult>(paymentService.confirm(id, cardToken), HttpStatus.OK);
     }
 
-    @PostMapping("/cancel/{id}")
+    //@PostMapping("/cancel/{id}")
+    @RequestMapping( value = "/cancel/{id}", method = RequestMethod.POST )
     public ResponseEntity<EntityResult> cancel(@PathVariable("id") String id) throws StripeException {
         return new ResponseEntity<EntityResult>(paymentService.cancel(id), HttpStatus.OK);
     }

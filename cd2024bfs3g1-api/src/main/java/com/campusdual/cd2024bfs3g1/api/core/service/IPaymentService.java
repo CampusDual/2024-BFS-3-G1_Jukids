@@ -9,7 +9,7 @@ import java.util.HashMap;
 public interface IPaymentService {
     EntityResult paymentIntent(HashMap<String, Object> paymentData) throws StripeException;
 
-    EntityResult confirm(String id) throws StripeException;
+    EntityResult confirm(String id, HashMap<String, Object> cardToken ) throws StripeException;
 
     EntityResult cancel(String id) throws StripeException;
 }
