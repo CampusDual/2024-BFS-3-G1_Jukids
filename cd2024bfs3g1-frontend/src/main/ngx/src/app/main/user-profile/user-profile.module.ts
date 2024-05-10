@@ -5,6 +5,7 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { UserProfileHomeComponent } from './user-profile-home/user-profile-home.component';
 import { UserProfileToylistComponent } from './user-profile-toylist/user-profile-toylist.component';
 import { MyToyDetailComponent } from './my-toy-detail/my-toy-detail.component';
+import { EditToyComponent } from './edit-toy/edit-toy.component';
 
 
 
@@ -12,7 +13,8 @@ import { MyToyDetailComponent } from './my-toy-detail/my-toy-detail.component';
   declarations: [
     UserProfileHomeComponent,
     UserProfileToylistComponent,
-    MyToyDetailComponent
+    MyToyDetailComponent,
+    EditToyComponent
   ],
   imports: [
     CommonModule,

@@ -19,16 +19,12 @@ export class UserProfileToylistComponent {
 
   ngOnInit() {
   }
-  
-  edit() {
-  alert("Editar");
-  }
 
-  public openToyDetail(): void {
-    //  console.log("***********");
-    //  console.log(toyid);
-    //  console.log("***********");
-     this.router.navigate(["/main/user-profile/toydetail"]);
+  public openToyEdit(toyid:number): void {
+     console.log("***********");
+     console.log(toyid);
+     console.log("***********");
+     this.router.navigate(["/main/user-profile/edit-toy", toyid]);
   }
   
 }

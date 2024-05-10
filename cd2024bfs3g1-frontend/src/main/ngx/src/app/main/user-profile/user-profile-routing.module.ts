@@ -3,23 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserProfileToylistComponent } from './user-profile-toylist/user-profile-toylist.component';
 import { MyToyDetailComponent } from './my-toy-detail/my-toy-detail.component';
 import { UserProfileHomeComponent } from './user-profile-home/user-profile-home.component';
+import { EditToyComponent } from './edit-toy/edit-toy.component';
 
 const routes: Routes = [
   // { path: '', component: UserProfileHomeComponent },
   { path: '', component: UserProfileToylistComponent },
-  { path: 'toydetail', component: MyToyDetailComponent }
-
-//   { path: '', component: UserProfileHomeComponent },
-//   { 
-//     path: 'toylist', 
-//     component: UserProfileToylistComponent,
-//     children: [
-//      { path: 'toydetail',
-//       component: MyToyDetailComponent}
-//     ] 
-//   },
-// ];
-
+  { path: 'toydetail/:toyid', component: MyToyDetailComponent },
+  { path: 'edit-toy/:toyid', component: EditToyComponent }
 ] 
 
 @NgModule({
