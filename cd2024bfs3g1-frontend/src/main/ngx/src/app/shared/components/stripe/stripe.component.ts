@@ -11,14 +11,15 @@ import { switchMap } from 'rxjs';
   templateUrl: './stripe.component.html',
   styleUrls: ['./stripe.component.css']
 })
-export class StripeComponent  {
+export class StripeComponent implements OnInit {
 
   // ====================== Variables ======================
   public loading: boolean = false;
 
   // ====================== Inputs ======================
+  @Input('toyId') toyId: string;
   @Input('product') product: string;
-  // @Input('email') email: string = "";
+  @Input('email') email: string;
   @Input('amount') amount: number;
 
 
@@ -63,8 +64,9 @@ export class StripeComponent  {
     this.ontimizeService.configureService(conf);
   }
 
-
-
+  ngOnInit(): void {
+    console.log("STRIPE TOYID:", this.toyId);
+  }
 
   elementsOptions: StripeElementsOptions = {
     locale: 'es'
