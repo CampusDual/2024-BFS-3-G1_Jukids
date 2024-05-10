@@ -56,10 +56,11 @@
   color: #ff5349!important;
 }
 
-.register-form{
+
   mat-toolbar {
       box-shadow: none !important;
   }
+.register-form{
   .mdc-text-field--filled:not(.mdc-text-field--disabled){
     background-color: transparent;
   }
