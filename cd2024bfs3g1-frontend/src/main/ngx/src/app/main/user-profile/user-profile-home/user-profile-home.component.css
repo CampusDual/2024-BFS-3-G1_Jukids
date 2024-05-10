@@ -1,0 +1,18 @@
+.user-profile-home-card {
+    text-align: center;
+    height: 200px;
+    background-color: white;
+    width: 200px;
+}
+
+.image-container {
+    background-image: url('^assets/images/horsetoy.jpg');
+    background-color: bisque;
+    width: calc(100% - 640px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200px;
+    width: 200px;
+    background-position: center;
+    
+}

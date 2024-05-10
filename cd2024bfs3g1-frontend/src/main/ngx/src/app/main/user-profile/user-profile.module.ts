@@ -4,7 +4,6 @@ import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { UserProfileHomeComponent } from './user-profile-home/user-profile-home.component';
 import { UserProfileToylistComponent } from './user-profile-toylist/user-profile-toylist.component';
-import { MyToyDetailComponent } from './my-toy-detail/my-toy-detail.component';
 import { EditToyComponent } from './edit-toy/edit-toy.component';
 
 
@@ -13,7 +12,6 @@ import { EditToyComponent } from './edit-toy/edit-toy.component';
   declarations: [
     UserProfileHomeComponent,
     UserProfileToylistComponent,
-    MyToyDetailComponent,
     EditToyComponent
   ],
   imports: [

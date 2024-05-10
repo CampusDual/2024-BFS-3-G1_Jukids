@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile-home',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-profile-home.component.css']
 })
 export class UserProfileHomeComponent {
+
+  constructor( private router: Router){};
+
+  toToyList() {
+    this.router.navigate(["/main/user-profile/toylist"]);
+  }
 
 }
