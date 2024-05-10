@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { MainComponent } from './main.component';
-import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -15,7 +13,6 @@ export const routes: Routes = [
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
       { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
       { path: 'toys', loadChildren: () => import('./toys/toys.module').then(m => m.ToysModule)},
-      { path: 'profile', component: ProfileComponent },
     ]
   }
 ];
