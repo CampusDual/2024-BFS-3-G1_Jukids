@@ -14,6 +14,7 @@ export const routes: Routes = [
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
       { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
       { path: 'toys', loadChildren: () => import('./toys/toys.module').then(m => m.ToysModule)},
+      { path: 'user-profile', loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule)},
       { path: 'profile', component: ProfileComponent },
     ]
   }

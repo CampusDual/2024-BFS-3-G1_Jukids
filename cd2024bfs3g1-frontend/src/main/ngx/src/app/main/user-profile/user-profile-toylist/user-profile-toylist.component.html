@@ -1,0 +1,31 @@
+<mat-tab-group>
+    <mat-tab label="{{ 'YOUR_PRODUCTS' | oTranslate }}">
+  
+      <o-list #toysList attr="toysList" title="" service="toyowner" entity="toy" keys="toyid" selectable="false"
+      columns="toyid;name;description;price;photo" query-rows="20" page-size-options="20"
+      refresh-button="no" delete-button="no" quick-filter="no" row-height="medium" detail-mode="yes" 
+      pagination-controls="true" edit-button-in-row="true" edit-button-in-row-icon="edit" insert-button-position="bottom">
+      
+      <mat-card class="mat-card-size-adjust" *ngFor="let row of toysList.dataArray" [o-list-item]="row">
+  
+        <div class="row-container">
+  
+          <div class="o-image-container">
+            <o-image class="image-at-profile" show-controls="false" enabled="false" read-only="true" [data]="row.photo"></o-image>
+          </div>
+  
+          <mat-card-header class="info-container">
+            <mat-card-title>{{ row.name }}</mat-card-title>
+            <mat-card-subtitle>{{ row.description }}</mat-card-subtitle>
+            <mat-card-subtitle>{{ row.price  + "€" }}</mat-card-subtitle>
+            <mat-card-subtitle>{{ row.toyid  + "€" }}</mat-card-subtitle>
+  
+            <mat-card-actions class="mat-card-actions-buttons">
+              <button icon="edit-button" class="edit-button" (click)="openToyDetail()">Detalle</button>
+            </mat-card-actions>
+          </mat-card-header>
+        </div>
+        
+      </mat-card>
+      
+    </o-list>

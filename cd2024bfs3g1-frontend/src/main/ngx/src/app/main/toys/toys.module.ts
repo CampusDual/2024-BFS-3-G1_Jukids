@@ -21,5 +21,8 @@ import { ToysDetailComponent } from './toys-detail/toys-detail.component';
     ToysRoutingModule,
     SharedModule
   ]
+  // exports: [
+  //   ToysDetailComponent
+  // ]
 })
 export class ToysModule { }

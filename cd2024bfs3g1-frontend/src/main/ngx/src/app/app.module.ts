@@ -10,6 +10,10 @@ import { CONFIG } from './app.config';
 import { MainService } from './shared/services/main.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToysDetailComponent } from './main/toys/toys-detail/toys-detail.component';
+import { ToysModule } from './main/toys/toys.module';
+import { MyToyDetailComponent } from './main/user-profile/my-toy-detail/my-toy-detail.component';
+import { UserProfileModule } from './main/user-profile/user-profile.module';
 
 // Standard providers...
 // Defining custom providers (if needed)...
@@ -26,6 +30,9 @@ export const customProviders: any = [
     OntimizeWebModule.forRoot(CONFIG),
     OntimizeWebModule,
     AppRoutingModule,
+    // ToysModule,
+    // UserProfileModule,
+
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   declarations: [
