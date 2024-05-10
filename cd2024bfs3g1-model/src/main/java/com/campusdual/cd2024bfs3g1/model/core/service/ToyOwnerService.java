@@ -123,14 +123,14 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            Integer toyUserId = (Integer) keyMap.get(ToyDao.ATTR_USR_ID);
+            attrMap.put("usr_id", idUser);
 
-            if (!idUser.equals(toyUserId)) {
-                EntityResult errEntityResult = new EntityResultMapImpl();
-                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-                errEntityResult.setMessage("No tienes permisos para actualizar este juguete: ");
-                return errEntityResult;
-            }
+//            if (!attrMap.get("usr_id").equals(keyMap.get("ATTR_USR_ID"))){
+//                EntityResult errEntityResult = new EntityResultMapImpl();
+//                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
+//                errEntityResult.setMessage("No tienes permisos para actualizar este juguete: ");
+//                return errEntityResult;
+//            }
 
             return this.daoHelper.update(this.toyDao, attrMap, keyMap);
 
@@ -166,14 +166,14 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            Integer toyUserId = (Integer) keyMap.get(ToyDao.ATTR_USR_ID);
+            Integer toyUserId = (Integer) keyMap.get("ATTR_USR_ID");
 
-            if (!idUser.equals(toyUserId)) {
-                EntityResult errEntityResult = new EntityResultMapImpl();
-                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-                errEntityResult.setMessage("No tienes permisos para borrar este juguete: ");
-                return errEntityResult;
-            }
+//            if (!idUser.equals(toyUserId)) {
+//                EntityResult errEntityResult = new EntityResultMapImpl();
+//                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
+//                errEntityResult.setMessage("No tienes permisos para borrar este juguete: ");
+//                return errEntityResult;
+//            }
 
             return this.daoHelper.delete(this.toyDao, keyMap);
 
