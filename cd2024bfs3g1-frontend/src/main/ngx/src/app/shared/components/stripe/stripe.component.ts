@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injector, Input, OnInit, ViewChild } from '@angular/core';
 import { StripeCardElementOptions, StripeElementsOptions, PaymentIntent } from '@stripe/stripe-js';
 import { StripeCardComponent, StripeService } from 'ngx-stripe';
 import { DialogService, OButtonComponent, ODialogConfig, OFormComponent, Observable, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { PaymentIntentDto } from './dto/payment-intent-dto';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-stripe',
@@ -14,13 +15,13 @@ export class StripeComponent  {
 
   // ====================== Variables ======================
   public loading: boolean = false;
-  
-  // ====================== Inputs ======================
-  @Input('product') product: string= "Test juguete input";
-  // @Input('email') email: string = "";
-  @Input('amount') amount: number = 15.42;
 
-  
+  // ====================== Inputs ======================
+  @Input('product') product: string;
+  // @Input('email') email: string = "";
+  @Input('amount') amount: number;
+
+
 
   // ====================== SIMPLE CARD ELEMENT ======================
   @ViewChild(StripeCardComponent) cardElement!: StripeCardComponent;
@@ -63,151 +64,177 @@ export class StripeComponent  {
   }
 
 
+
+
   elementsOptions: StripeElementsOptions = {
     locale: 'es'
   };
 
+  //====================== STRIPE JS =======================
 
   pay() {
 
-    this.loading = true;
-    this.payButton.enabled = false;
+    let cardState = this.cardElement.stripeElementRef.nativeElement.classList;
 
-    let name = this.stripeForm.getFieldValue('product');
-    let amount = this.stripeForm.getFieldValue('amount');
+    // console.log(this.cardElement.stripeElementRef.nativeElement);
+    // console.log(cardState.contains("StripeElement--complete"));
 
-    let tokenCardID: string;
+    if (cardState.contains("StripeElement--complete")) {
 
-    //Inicio del pago con stripe
-    this.stripeService.createToken(this.cardElement.element, { name })
-      .subscribe((result) => {
-        //Resultado de la generacion del token en la tarjeta
-        if (result.token) {
-
-          console.log("Card gen result:", result);
+      this.loading = true;
+      this.payButton.enabled = false;
 
 
-          tokenCardID = result.token.card.id;
+      let name = this.stripeForm.getFieldValue('product');
+      let amount = this.stripeForm.getFieldValue('amount');
 
-          // Generacion del objeto para el pago
-          let paymentIntentObject: PaymentIntentDto = {
-            // token: result.token.id,
-            description: name,
-            amount: (amount * 100),
-            currency: 'EUR'
-          }
 
-          console.log("paymentIntentObject:", paymentIntentObject);
 
-          // Parseo del json a String con Stringify object
-          let strJson = JSON.stringify(paymentIntentObject)
+      let tokenCardID: string;
 
-          try {
+      //Inicio del pago con stripe
+      this.stripeService.createToken(this.cardElement.element, { name })
+        .subscribe({
+          next: (result) => {
+            //Resultado de la generacion del token en la tarjeta
+            if (result.token) {
 
-            // Llamada al servicio de pago - Payment Intent
-            this.ontimizeService.doRequest({
-              method: 'POST',
-              url: 'http://localhost:8080/payments/paymentIntent',
-              body: strJson,
-              options: {
-                headers: {
-                  'Content-Type': 'application/json'
-                }
+              console.log("Card gen result:", result);
+
+
+              tokenCardID = result.token.card.id;
+
+              // Generacion del objeto para el pago
+              let paymentIntentObject: PaymentIntentDto = {
+                // token: result.token.id,
+                description: name,
+                amount: (amount * 100),
+                currency: 'EUR'
               }
-            }).subscribe({
 
-              //Si es correcto obtenemos la respuesta
-              next: (resp: ServiceResponse) => {
+              console.log("paymentIntentObject:", paymentIntentObject);
 
-                console.log(resp)
+              // Parseo del json a String con Stringify object
+              let strJson = JSON.stringify(paymentIntentObject)
 
-                let payment = JSON.parse(resp.data.payment)
+              try {
 
-                console.log("payment", payment);
-                console.log("payment ID", payment.id);
-
-                //Al obtener la respuesta del servidor procedemos a confirmar el pago o cancelarlo
-                this.dialogService.confirm('Confirmación de pago', 'Desea realizar la compra?', {
-                  okButtonText: 'Confirmar', cancelButtonText: 'Cancelar',
-                }).then((result) => {
-
-                  //=================== CONFIRMAR PAGO =====================
-
-                  //Si el usuario confirma el pago en la ventana de dialogo.
-                  if (result === true) {
-
-                    //Se realiza la confirmacion del pago con el endpont - Payment Intent Confirm
-                    this.ontimizeService.doRequest({
-                      method: 'POST',
-                      url: `http://localhost:8080/payments/confirm/${payment.id}`,
-                      body: { token: tokenCardID },
-                      options: {
-                        headers: {
-                          'Content-Type': 'application/json'
-                        }
-                      }
-                    }).subscribe({
-
-                      //Si es correcto obtenemos lanzamos ventana de success
-                      next: (resp: ServiceResponse) => {
-                        this.showCustom("verified", "Cerrar", "Payment Intent Confirmation Success", "Pago realizado!");
-                        this.loading = false;
-                      },
-
-                      //Si hay un error lanzamos ventana de error
-                      error: (err) => {
-                        console.log("Payment Intent Confirmation ERROR:", err);
-                        this.showCustom("report", "Cerrar", "Payment Intent Confirmation Error", "Error al realizar el pago");
-                        this.loading = false;
-                      }
-                    });
-
-
-                  } else {
-
-                    //=================== CANCELAR PAGO =====================
-
-                    this.ontimizeService.doRequest({
-                      method: 'POST',
-                      url: `http://localhost:8080/payments/cancel/${payment.id}`,
-                      options: {
-                        headers: {
-                          'Content-Type': 'application/json'
-                        }
-                      }
-                    }).subscribe({
-                      next: (resp: ServiceResponse) => {
-                        console.log("Payment Intent Cancel:", resp);                      
-                        this.showCustom("report", "Cerrar", "Payment Intent Cancelled", "El pago fue cancelado");
-                        this.loading = false;
-
-                      },
-                      error: (err) => {
-                        console.log("Payment Intent Cancel ERROR:", err);
-                        this.loading = false;
-                      }
-                    });
-                    //Si el usuario cancela el pago, por el momento una ventana de aviso. Falta Logica futura
-
+                // Llamada al servicio de pago - Payment Intent
+                this.ontimizeService.doRequest({
+                  method: 'POST',
+                  url: 'http://localhost:8080/payments/paymentIntent',
+                  body: strJson,
+                  options: {
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
                   }
+                }).subscribe({
 
-                });
+                  //Si es correcto obtenemos la respuesta
+                  next: (resp: ServiceResponse) => {
 
-                //Error del payment intent
-              }, error: (err) => {
+                    console.log(resp)
 
-                this.showCustom("report", "Cerrar", "Payment Intent Error", "Error al realizar el pago");
-                this.loading = false;
+                    let payment = JSON.parse(resp.data.payment)
+
+                    console.log("payment", payment);
+                    console.log("payment ID", payment.id);
+
+                    //Al obtener la respuesta del servidor procedemos a confirmar el pago o cancelarlo
+                    this.dialogService.confirm('Confirmación de pago', 'Desea realizar la compra?', {
+                      okButtonText: 'Confirmar', cancelButtonText: 'Cancelar',
+                    }).then((result) => {
+
+                      //=================== CONFIRMAR PAGO =====================
+
+                      //Si el usuario confirma el pago en la ventana de dialogo.
+                      if (result === true) {
+
+                        //Se realiza la confirmacion del pago con el endpont - Payment Intent Confirm
+                        this.ontimizeService.doRequest({
+                          method: 'POST',
+                          url: `http://localhost:8080/payments/confirm/${payment.id}`,
+                          body: { token: tokenCardID },
+                          options: {
+                            headers: {
+                              'Content-Type': 'application/json'
+                            }
+                          }
+                        }).subscribe({
+
+                          //Si es correcto obtenemos lanzamos ventana de success
+                          next: (resp: ServiceResponse) => {
+                            this.showCustom("verified", "Cerrar", "Payment Intent Confirmation Success", "Pago realizado!");
+                            this.loading = false;
+                          },
+
+                          //Si hay un error lanzamos ventana de error
+                          error: (err) => {
+                            console.log("Payment Intent Confirmation ERROR:", err);
+                            this.showCustom("report", "Cerrar", "Payment Intent Confirmation Error", "Error al realizar el pago");
+                            this.loading = false;
+                          }
+                        });
+
+
+                      } else {
+
+                        //=================== CANCELAR PAGO =====================
+
+                        this.ontimizeService.doRequest({
+                          method: 'POST',
+                          url: `http://localhost:8080/payments/cancel/${payment.id}`,
+                          options: {
+                            headers: {
+                              'Content-Type': 'application/json'
+                            }
+                          }
+                        }).subscribe({
+                          next: (resp: ServiceResponse) => {
+                            console.log("Payment Intent Cancel:", resp);
+                            this.showCustom("report", "Cerrar", "Payment Intent Cancelled", "El pago fue cancelado");
+                            this.loading = false;
+
+                          },
+                          error: (err) => {
+                            console.log("Payment Intent Cancel ERROR:", err);
+                            this.loading = false;
+                          }
+                        });
+                        //Si el usuario cancela el pago, por el momento una ventana de aviso. Falta Logica futura
+
+                      }
+
+                    });
+
+                    //Error del payment intent
+                  }, error: (err) => {
+
+                    this.showCustom("report", "Cerrar", "Payment Intent Error", "Error al realizar el pago");
+                    this.loading = false;
+                  }
+                })
+
+              } catch (error) {
+
+                console.log("error:", error);
               }
-            })
 
-          } catch (error) {
+            }
+          },
 
-            console.log("error:", error);
+          error: (err) => {
+            this.showCustom("report", "Cerrar", "Payment Intent Error", err.message);
+            this.loading = false;
           }
+        });
 
-        }
-      });
+    }
+
+
+
+    // 
 
 
     //   this.paymentService.pagar(paymentIntentDto).subscribe(
@@ -226,6 +253,38 @@ export class StripeComponent  {
 
     // console.log("name", name);
   }
+
+
+  //====================== STRIPE CHECKOUT JS =======================
+
+  ckeckout(): void {
+
+    // this.ontimizeService.doRequest({
+    //   method: 'POST',
+    //   url: 'http://localhost:8080/payments/create-checkout-session',
+    //   options: {
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     }
+    //   }
+    // }).pipe(
+    //   switchMap(session => {
+    //     return this.stripeService.redirectToCheckout({ sessionId: session.id })
+    //   })
+    // ).subscribe({
+    //   next: (result) => {
+    //     console.log(result);
+    //   },
+    //   error: (err) => { 
+
+    //   }
+    // })
+
+
+
+  }
+
+
 
 
   // pay(): void {
