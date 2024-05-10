@@ -16,7 +16,6 @@ export class ToysNewComponent implements OnInit{
   private redirect = '/toys';
   public toyService: string;
 
-  @ViewChild('NewToy') protected formToy: any;
   @ViewChild('latitude') protected lat: ORealInputComponent;
   @ViewChild('longitude') protected lon: ORealInputComponent;
   @ViewChild('usr_id') protected usr_id: ORealInputComponent;
@@ -30,7 +29,7 @@ export class ToysNewComponent implements OnInit{
   ) {
 
     this.toyService = this.authService.isLoggedIn() ? 'toyowner' : 'toys';
-    
+
   }
 
   ngOnInit() {
