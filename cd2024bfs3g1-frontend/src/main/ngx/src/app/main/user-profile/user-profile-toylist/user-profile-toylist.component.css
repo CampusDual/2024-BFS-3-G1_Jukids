@@ -57,12 +57,13 @@ mat-card-header mat-card-title{
     /* background-color: aquamarine; */
 }
 
-mat-card-header mat-card-subtitle {
+/* mat-card-header mat-card-subtitle {
     /* width: max-content; */
+
+.title-container {
+    margin-bottom: -5em;
 }
 
-/* mat-card-header mat-card-title && mat-card-subtitle {
-    width: max-content;
-} */
-
-
+.list-container {
+    margin-top: 5px;
+}

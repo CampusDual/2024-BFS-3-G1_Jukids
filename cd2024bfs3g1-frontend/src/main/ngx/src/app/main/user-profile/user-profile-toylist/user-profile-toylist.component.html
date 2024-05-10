@@ -1,6 +1,10 @@
-<mat-tab-group>
-    <mat-tab label="{{ 'YOUR_PRODUCTS' | oTranslate }}">
-  
+<!-- <mat-tab-group> -->
+    <!-- <mat-tab label="{{ 'MY_TOYS' | oTranslate }}" > -->
+      <div class="title-container">
+        <h2>{{ 'MY_TOYS' | oTranslate }}</h2>
+      </div>
+      
+      <div class="list-container">
       <o-list #toysList attr="toysList" title="" service="toyowner" entity="toy" keys="toyid" selectable="false"
       columns="toyid;name;description;price;photo" query-rows="20" page-size-options="20"
       refresh-button="no" delete-button="no" quick-filter="no" row-height="medium" detail-mode="yes" 
@@ -28,3 +32,4 @@
       </mat-card>
       
     </o-list>
+  </div>
