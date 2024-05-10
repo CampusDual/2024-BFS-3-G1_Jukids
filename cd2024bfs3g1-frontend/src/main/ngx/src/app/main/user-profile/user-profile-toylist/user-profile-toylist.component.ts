@@ -28,7 +28,7 @@ export class UserProfileToylistComponent {
     //  console.log("***********");
     //  console.log(toyid);
     //  console.log("***********");
-     this.router.navigate(["http://localhost:4299/main/user-profile/toydetail"]);
+     this.router.navigate(["/main/user-profile/toydetail"]);
   }
   
 }
