@@ -1,13 +1,15 @@
-<o-form class="form" attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no" show-header="no" fxLayout="row">
+<o-form class="form" attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="no" show-header="yes" fxLayout="column" header-actions="U"
+label-header="{{ 'EDIT_YOUR_TOY' | oTranslate }}">
     <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
     <div class="toys-detail-container">
-      <o-image class="image-container" auto-fit="yes" attr="photo" read-only="yes" empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
+      <o-image class="image-container" auto-fit="yes" attr="photo" read-only="no" empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
       <div class="data-container" fxLayout="column" fxLayoutGap="8px">
-        <o-text-input class="input-detail" read-only="yes" fxFlex="40" attr="name"></o-text-input>
-        <o-textarea-input class="input-detail" read-only="yes" fxFlex="40" attr="description"></o-textarea-input>
-        <o-email-input class="input-detail" read-only="yes" fxFlex="20" attr="email"></o-email-input>
-        <o-text-input class="input-detail" read-only="yes" fxFlex="40" attr="price"></o-text-input>
+        <o-text-input class="input-detail" read-only="no" fxFlex="40" attr="name"></o-text-input>
+        <o-textarea-input class="input-detail" read-only="no" fxFlex="40" attr="description"></o-textarea-input>
+        <o-email-input class="input-detail" read-only="no" fxFlex="20" attr="email"></o-email-input>
+        <o-text-input class="input-detail" read-only="no" fxFlex="40" attr="price"></o-text-input>
       </div>
+      <o-button type="edit"></o-button>
     </div>
   </o-form>
   
