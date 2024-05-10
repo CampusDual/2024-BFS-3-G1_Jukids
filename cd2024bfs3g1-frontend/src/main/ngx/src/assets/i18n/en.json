@@ -97,5 +97,9 @@
   "YOUR_PRODUCTS":"My products",
   "MY_PROFILE":"My profile",
   "VIEW_MY_PRODUCTS": "View My products",
-  "EDIT_YOUR_TOY": "Edit your toy"
+  "EDIT_YOUR_TOY": "Edit your toy",
+  "BACKBTN": "Back",
+  "TITLE_DESCRIPTION": "DESCRIPTION",
+  "TITLE_CONTACT": "CONTACT"
+
 }
