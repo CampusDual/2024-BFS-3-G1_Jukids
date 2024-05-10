@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { OFormComponent, ORealInputComponent, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -22,18 +22,16 @@ export class ToysNewComponent {
   @ViewChild('latitude') protected lat: ORealInputComponent;
   @ViewChild('longitude') protected lon: ORealInputComponent;
 
-
-  
- 
   constructor(
     private router: Router,
     private ontimizeService: OntimizeService,
-    private toysMapService: ToysMapService
+    private toysMapService: ToysMapService,
+    protected dialogService: DialogService,
+    private translate: OTranslateService
   ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
-
   }
 
   ngOnInit() {
@@ -51,32 +49,87 @@ export class ToysNewComponent {
     this.lon.setValue(longitude);
 
     this.isMapLatLongSelected = true;
-    
+
   }
 
 
   newSubmit() {
 
+    console.log("Ingresa en newSubmit()");
     //Valores del formulario
-    const getFieldValues: any = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude']);
-    
+    let arrayErrores: any [] = [];
+    const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude']);
+    console.log(getFieldValues);
+
+    let errorPhoto = "ERROR_PHOTO_VALIDATION";
+    let errorName = "ERROR_NAME_VALIDATION";
+    let errorDescription = "ERROR_DESCRIPTION_VALIDATION";
+    let errorPrice = "ERROR_PRICE_VALIDATION";
+    let errorNegativePrice = "ERROR_NEGATIVE_PRICE_VALIDATION";
+    let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION"
+    let errorEmail = "ERROR_EMAIL_VALIDATION";
+    let errorLocation = "ERROR_LOCATION_VALIDATION";
+    var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
+
+
     //TODO: En base a las corroboraciones de los campos. Agregar las excepciones en un array.
     //Al mostrar en el dialog. Itear cada elemento del array y lo muestre.
     //Si hay un error, mostrarlo en el dialog
     //Si no hay valores en el array, se ejecuta el this.formToy.insert()
 
-
-
-
-    
-    // if(this.lat.isEmpty() || this.lon.isEmpty()){ 
-    //   alert('Please select a location on the map');
-    // } else {
-    //   console.log(
-    //     this.formToy.insert()
-    //   )
-    // }
+    if(getFieldValues.photo === undefined  ){
+      arrayErrores.push(this.translate.get(errorPhoto));
+    }
+    if(getFieldValues.name === undefined || getFieldValues.name.trim() === ""){
+      arrayErrores.push(this.translate.get(errorName));
+    }
+    if(getFieldValues.description === undefined || getFieldValues.description.trim() === ""){
+      arrayErrores.push(this.translate.get(errorDescription));
+    }
+    if(getFieldValues.price === undefined){
+      arrayErrores.push(this.translate.get(errorPrice));
+    }
+    if(getFieldValues.price < 0){
+      arrayErrores.push(this.translate.get(errorNegativePrice));
+    }
+    if(getFieldValues.price > 9999999){
+      arrayErrores.push(this.translate.get(errorHigherThanTenMillionPrice));
+    }
+    if(getFieldValues.email === undefined || getFieldValues.email.trim() === "" || !regExpEmail.test(getFieldValues.email.trim())){
+      arrayErrores.push(this.translate.get(errorEmail));
+    }
+    if(getFieldValues.longitude === undefined || getFieldValues.latitude === undefined){
+      arrayErrores.push(this.translate.get(errorLocation));
+    }
+    if(arrayErrores.length > 0 ) {
+      let stringErrores = "";
+      console.log("Hay erroes:", arrayErrores);
+      for(let i = 0; i < arrayErrores.length; i++){
+        stringErrores += "</br>" + (arrayErrores[i] + "</br>");
+      }
+      this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
+    }else{
+      console.log("Intenta insertar");
+      console.log(arrayErrores.length);
+      this.formToy.insert();
+    }
   }
+
+  showCustom(
+    icon: string,
+    btnText: string,
+    dialogTitle: string,
+    dialogText: string,
+  ) {
+    if (this.dialogService) {
+      const config: ODialogConfig = {
+        icon: icon,
+        okButtonText: btnText
+      };
+      this.dialogService.info(dialogTitle, dialogText, config);
+    }
+  }
+
 
   insertRedirect() {
     const self = this;

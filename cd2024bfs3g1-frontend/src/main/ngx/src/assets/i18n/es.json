@@ -93,5 +93,14 @@
   "REGISTER": "Registrar",
   "MAX_SIZE": "Máximo tamaño permitido 4MB",
   "VIEW_MAP": "Ver mapa",
-  "SELECT_POINT_ON_MAP":"Seleccione un punto"
+  "SELECT_POINT_ON_MAP":"Seleccione un punto",
+  "ERROR_PHOTO_VALIDATION": "Seleccione una foto",
+  "COMPLETE_FIELDS_VALIDATION": "Completa los campos vacíos",
+  "ERROR_NAME_VALIDATION": "Introduzca el nombre",
+  "ERROR_DESCRIPTION_VALIDATION": "Introduzca la descripción",
+  "ERROR_LOCATION_VALIDATION": "Introduzca la ubicación",
+  "ERROR_PRICE_VALIDATION": "Introduzca el precio",
+  "ERROR_NEGATIVE_PRICE_VALIDATION": "El precio debe ser positivo",
+  "ERROR_EMAIL_VALIDATION": "Introduzca un email válido",
+  "ERROR_HIGHER_MILLION_VALIDATION": "El precio no puede superar los 10 millones de €"
 }
