@@ -11,7 +11,11 @@
   "projects": {
     "app": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -51,6 +55,7 @@
               "node_modules/ontimize-web-ngx-map/styles.scss",
               "src/styles.scss"
             ],
+            "inlineStyleLanguage": "scss",
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -217,8 +222,8 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/styles.css"
-            ],
+              "src/styles.scss"
+            ],            
             "scripts": []
           }
         },
