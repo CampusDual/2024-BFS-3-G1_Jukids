@@ -1,11 +1,10 @@
+<div>
+    <h2>{{ 'MY_PROFILE' | oTranslate }}</h2>
+</div>
 
-
-<div class="user-profile-home-card" (click)="toToyList()">
-
-    <h2>{{ 'YOUR_TOYS' | oTranslate }}</h2>
-
-    <div class="image-container">
-
+<div class="card-container">
+    <div class="user-profile-home-listcard" (click)="toToyList()">
+        <img class="icon-image" src="assets/images/horsetoy.jpg">
+        <h2 style="margin-left: 10px;">{{ 'MY_TOYS' | oTranslate }}</h2>
     </div>
-
 </div>

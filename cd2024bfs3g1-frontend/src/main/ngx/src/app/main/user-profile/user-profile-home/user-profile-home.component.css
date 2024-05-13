@@ -1,18 +1,23 @@
-.user-profile-home-card {
-    text-align: center;
-    height: 200px;
-    background-color: white;
-    width: 200px;
+.card-container :hover {
+    scale: 102%;
 }
 
-.image-container {
-    background-image: url('^assets/images/horsetoy.jpg');
-    background-color: bisque;
-    width: calc(100% - 640px);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 200px;
-    width: 200px;
-    background-position: center;
-    
+.user-profile-home-listcard  {
+    border-radius: 1.25em;
+    box-shadow: -3px 3px 0px #ff5349;
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    width: 500px;
+    background-color: white;
+    border-radius: 5px;
+}
+.user-profile-home-listcard  :hover{
+    scale: 100%;
+}
+
+.icon-image {
+    align-self: center;
+    width: 66px;
+    height: 50px;
 }
