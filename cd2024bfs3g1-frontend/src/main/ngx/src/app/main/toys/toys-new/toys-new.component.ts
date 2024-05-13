@@ -17,7 +17,6 @@ export class ToysNewComponent {
 
   isMapLatLongSelected: boolean = false;
 
-
   @ViewChild('NewToy') protected formToy: OFormComponent;
   @ViewChild('latitude') protected lat: ORealInputComponent;
   @ViewChild('longitude') protected lon: ORealInputComponent;
@@ -49,17 +48,12 @@ export class ToysNewComponent {
     this.lon.setValue(longitude);
 
     this.isMapLatLongSelected = true;
-
   }
-
 
   newSubmit() {
 
-    console.log("Ingresa en newSubmit()");
-    //Valores del formulario
     let arrayErrores: any [] = [];
     const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude']);
-    console.log(getFieldValues);
 
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
@@ -70,12 +64,6 @@ export class ToysNewComponent {
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     let errorLocation = "ERROR_LOCATION_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
-
-
-    //TODO: En base a las corroboraciones de los campos. Agregar las excepciones en un array.
-    //Al mostrar en el dialog. Itear cada elemento del array y lo muestre.
-    //Si hay un error, mostrarlo en el dialog
-    //Si no hay valores en el array, se ejecuta el this.formToy.insert()
 
     if(getFieldValues.photo === undefined  ){
       arrayErrores.push(this.translate.get(errorPhoto));
@@ -103,14 +91,11 @@ export class ToysNewComponent {
     }
     if(arrayErrores.length > 0 ) {
       let stringErrores = "";
-      console.log("Hay erroes:", arrayErrores);
       for(let i = 0; i < arrayErrores.length; i++){
         stringErrores += "</br>" + (arrayErrores[i] + "</br>");
       }
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
     }else{
-      console.log("Intenta insertar");
-      console.log(arrayErrores.length);
       this.formToy.insert();
     }
   }
@@ -129,7 +114,6 @@ export class ToysNewComponent {
       this.dialogService.info(dialogTitle, dialogText, config);
     }
   }
-
 
   insertRedirect() {
     const self = this;
