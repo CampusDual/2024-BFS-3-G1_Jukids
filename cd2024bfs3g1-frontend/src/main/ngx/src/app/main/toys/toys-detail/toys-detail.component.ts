@@ -14,10 +14,10 @@ export class ToysDetailComponent {
   @ViewChild('toyEmail') toyEmail: OEmailInputComponent;
   @ViewChild('toyPrice') toyPrice: OTextInputComponent;
 
-  private stripeToyId: string;
-  private stripeToyProduct: string;
-  private stripeToyEmail: string;
-  private stripeToyPrice: number;
+  protected stripeToyId: string;
+  protected stripeToyProduct: string;
+  protected stripeToyEmail: string;
+  protected stripeToyPrice: number;
 
 
   constructor() { }

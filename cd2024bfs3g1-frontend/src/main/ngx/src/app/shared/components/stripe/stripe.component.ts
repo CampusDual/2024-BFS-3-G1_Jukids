@@ -9,7 +9,7 @@ import { switchMap } from 'rxjs';
 @Component({
   selector: 'app-stripe',
   templateUrl: './stripe.component.html',
-  styleUrls: ['./stripe.component.css']
+  styleUrls: ['./stripe.component.scss']
 })
 export class StripeComponent implements OnInit {
 
@@ -145,7 +145,9 @@ export class StripeComponent implements OnInit {
 
                     //Al obtener la respuesta del servidor procedemos a confirmar el pago o cancelarlo
                     this.dialogService.confirm('Confirmación de pago', 'Desea realizar la compra?', {
-                      okButtonText: 'Confirmar', cancelButtonText: 'Cancelar',
+                      icon: "shopping_cart",
+                      okButtonText: 'Confirmar', 
+                      cancelButtonText: 'Cancelar',
                     }).then((result) => {
 
                       //=================== CONFIRMAR PAGO =====================
