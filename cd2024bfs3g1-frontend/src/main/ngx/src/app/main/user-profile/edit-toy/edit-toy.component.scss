@@ -37,9 +37,15 @@
         flex-direction: column !important;
     }
 
-    o-column {
-        max-width: 100% !important;
+    .total-column {
+        max-width: 100% !important; 
+        margin-right: 0 !important;       
     }
+
+    .descInput{
+        height: auto !important;
+    }
+    
 }
 
 
