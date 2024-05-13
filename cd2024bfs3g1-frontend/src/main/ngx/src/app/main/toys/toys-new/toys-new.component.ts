@@ -16,6 +16,7 @@ export class ToysNewComponent {
   private redirect = '/toys';
 
   isMapLatLongSelected: boolean = true;
+  public locationSelected = false;
 
   @ViewChild('NewToy') protected formToy: OFormComponent;
   @ViewChild('latitude') protected lat: ORealInputComponent;
@@ -46,6 +47,8 @@ export class ToysNewComponent {
 
     this.lat.setValue(latitude);
     this.lon.setValue(longitude);
+
+    this.locationSelected = true;
 
     this.isMapLatLongSelected = true;
   }

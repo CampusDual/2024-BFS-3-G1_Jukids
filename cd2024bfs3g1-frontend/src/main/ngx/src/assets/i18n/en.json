@@ -94,7 +94,7 @@
   "MAX_SIZE": "Maximum size allowed 4MB",
   "VIEW_MAP": "View map",
   "SELECT_POINT_ON_MAP":"Select a point",
-  "ERROR_PHOTO_VALIDATION": "Select a photo",
+  "ERROR_PHOTO_VALIDATION": "Photo not found or max size exceeded",
   "COMPLETE_FIELDS_VALIDATION": "Complete the empty fields",
   "ERROR_NAME_VALIDATION": "Enter product's name",
   "ERROR_DESCRIPTION_VALIDATION": "Enter product's description",

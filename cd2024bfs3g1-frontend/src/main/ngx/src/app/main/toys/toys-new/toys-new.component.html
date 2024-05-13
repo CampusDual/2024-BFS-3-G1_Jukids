@@ -20,7 +20,7 @@
                 <div class="pop-up-span">
                     <span>{{ 'SELECT_POINT_ON_MAP' | oTranslate }}</span>
                     <mat-icon class="mat-icon-error" *ngIf="!isMapLatLongSelected">error</mat-icon>
-                    <mat-icon class="mat-icon-done" *ngIf="isMapLatLongSelected">done</mat-icon>
+                    <mat-icon class="mat-icon-done" *ngIf="locationSelected">done</mat-icon>
                 </div>
                 <location-map (click)="handleMapClick($event)"></location-map>
             </div>
