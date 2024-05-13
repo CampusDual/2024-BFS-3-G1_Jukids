@@ -5,17 +5,18 @@
 
 <div class="box">
   <o-form class="form" attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="no"
-  show-header="yes" fxLayout="column" header-actions="U" label-header="{{ 'EDIT_YOUR_TOY' | oTranslate }}" undo-button="no">
+    show-header="yes" fxLayout="column" header-actions="U;I;D" label-header="{{ 'EDIT_YOUR_TOY' | oTranslate }}"
+    undo-button="no" (onDataLoaded)="onFormDataLoaded($event)">
     <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
-    <o-column >
+    <o-column>
       <div fxLayoutGap="25px" fxLayout="row" class="toys-detail-column">
         <o-column fxFlex="30">
           <o-image class="image-container" auto-fit="yes" attr="photo" read-only="no"
             empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
         </o-column>
 
-        <o-column class="vertical-column">
+        <o-column class="inf-column">
 
           <div>
             <div>
@@ -27,25 +28,38 @@
             </div>
           </div>
 
-          <div>
-            <p class="title">{{'TITLE_DESCRIPTION' | oTranslate}}</p>
-            <div>
-              <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no"></o-textarea-input>
+          <div fxLayout="row" fxLayoutGap="20px">
+            <div fxFlex="60">
+              <div>
+                <p class="title">{{'TITLE_DESCRIPTION' | oTranslate}}</p>
+                <div>
+                  <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no" class="descInput"></o-textarea-input>
+                </div>
+              </div>
+              <div>
+                <p class="title">{{'TITLE_CONTACT' | oTranslate}}</p>
+                <div>
+                  <o-email-input #emailInput attr="email" fxFlex="100" read-only="no"></o-email-input>
+                </div>
+              </div>
+            </div>
+            <div style="width: 100%;">
+              <p class="title">{{'TITLE_MAP' | oTranslate}}</p>
+              <div>
+                <location-map (click)="handleMapClick($event)"></location-map>
+              </div>
             </div>
           </div>
 
           <div>
-            <p class="title">{{'TITLE_CONTACT' | oTranslate}}</p>
-            <div>
-              <o-email-input #emailInput attr="email" fxFlex="100" read-only="no"></o-email-input>
-            </div>
+            <o-real-input #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
+              min-decimal-digits="0" required="yes" oHidden></o-real-input>
+            <o-real-input #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
+              min-decimal-digits="0" required="yes" oHidden></o-real-input>
           </div>
 
         </o-column>
-
       </div>
     </o-column>
-
-    <o-form-toolbar></o-form-toolbar>
   </o-form>
 </div>
