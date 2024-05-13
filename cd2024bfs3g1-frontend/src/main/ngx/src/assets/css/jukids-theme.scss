@@ -49,8 +49,7 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 }
 
 // Cuadricula de juguetes
-.o-grid .mat-grid-tile{
-  padding-top:calc(100% - 960px)!important;
+.o-grid {
 
   .div{
     position: relative;
