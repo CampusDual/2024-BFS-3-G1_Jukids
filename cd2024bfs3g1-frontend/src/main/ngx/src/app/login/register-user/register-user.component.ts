@@ -11,7 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
-  //styleUrls: ['./register-user.component.scss']
+  styleUrls: ['./register-user.component.scss']
 })
 export class RegisterUserComponent implements OnInit{
   @ViewChild('form') form: OFormComponent;

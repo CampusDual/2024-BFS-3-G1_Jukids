@@ -1,13 +1,14 @@
 <o-form class="form" editable-detail="no" show-header="no">
 
-  <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
+  <o-column>
     <o-row layout-align="space-between center">
 
       <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
 
-
       <o-row layout-align="end center" class="btn-container">
-        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button" ></o-button>
+        <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button">
+          <mat-icon class="material-icons">search</mat-icon>
+        </button>
         <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"></o-button>
       </o-row>
 
@@ -23,9 +24,8 @@
     </o-column-collapsible>
 
     <div>
-      <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
-        columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
-        refresh-button="no" quick-filter="no" (onDataLoaded)="addLocation($event)"  gutter-size="1rem">
+      <o-grid #toysGrid attr="toysGrid" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
+        columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" refresh-button="no" quick-filter="no" (onDataLoaded)="addLocation($event)" grid-item-height="4:3" gutter-size="1rem">
         <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)" >
           <o-column class="toy-card">
             <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo"  style="margin-top:8px;"></o-image>

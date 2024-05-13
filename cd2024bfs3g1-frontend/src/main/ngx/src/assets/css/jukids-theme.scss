@@ -25,7 +25,13 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 
 .mat-icon{
     font-family: 'Material Icons' !important;
+}
+
+.sidenav-toggle-container{
+  .mat-icon{
+    font-family: 'Material Icons' !important;
   }
+}
 
 // Barra lateral
 .mat-sidenav-content{

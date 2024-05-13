@@ -9,7 +9,7 @@ import { UserInfoService } from '../shared/services/user-info.service';
 
 @Component({
   selector: 'login',
-  //styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss'],
   templateUrl: './login.component.html',
   encapsulation: ViewEncapsulation.None
 })
