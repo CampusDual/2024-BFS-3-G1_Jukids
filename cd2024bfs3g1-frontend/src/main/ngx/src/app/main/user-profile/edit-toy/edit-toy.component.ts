@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ORealInputComponent, OntimizeService } from 'ontimize-web-ngx';
+import { Router } from '@angular/router';
+import { AuthService, ORealInputComponent, OntimizeService } from 'ontimize-web-ngx';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 
 @Component({
@@ -8,13 +9,23 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
   styleUrls: ['./edit-toy.component.scss']
 })
 export class EditToyComponent implements OnInit {
+  private redirect = '/toys';
   private location: any;
   public longitude;
   public latitude;
   @ViewChild('latitude') protected lat: ORealInputComponent;
   @ViewChild('longitude') protected lon: ORealInputComponent;
 
-  constructor(private ontimizeService: OntimizeService, private toysMapService: ToysMapService){
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private ontimizeService: OntimizeService, 
+    private toysMapService: ToysMapService)
+    {
+      if (!this.authService.isLoggedIn()) {
+        const self = this;
+        self.router.navigate([this.redirect]);
+      }
 
   }
   

@@ -16,8 +16,6 @@ export class LocationMapComponent {
 
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
 
-
-
   constructor(
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,

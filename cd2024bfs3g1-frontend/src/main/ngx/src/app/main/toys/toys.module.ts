@@ -12,7 +12,7 @@ import { ToysDetailComponent } from './toys-detail/toys-detail.component';
   declarations: [
     ToysHomeComponent,
     ToysNewComponent,
-    LocationMapComponent,
+    // LocationMapComponent,
     ToysDetailComponent
   ],
   imports: [

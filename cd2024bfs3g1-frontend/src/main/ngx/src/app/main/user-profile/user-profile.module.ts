@@ -6,6 +6,7 @@ import { UserProfileHomeComponent } from './user-profile-home/user-profile-home.
 import { UserProfileToylistComponent } from './user-profile-toylist/user-profile-toylist.component';
 import { EditToyComponent } from './edit-toy/edit-toy.component';
 import { LocationMapComponent } from 'src/app/shared/components/location-map/location-map.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -14,12 +15,13 @@ import { LocationMapComponent } from 'src/app/shared/components/location-map/loc
     UserProfileHomeComponent,
     UserProfileToylistComponent,
     EditToyComponent,
-    LocationMapComponent,
+    // LocationMapComponent,
   ],
   imports: [
     CommonModule,
     OntimizeWebModule,
-    UserProfileRoutingModule
+    UserProfileRoutingModule,
+    SharedModule
     ]
 })
 export class UserProfileModule { }
