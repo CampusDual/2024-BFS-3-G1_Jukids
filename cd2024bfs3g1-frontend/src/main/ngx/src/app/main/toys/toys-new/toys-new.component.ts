@@ -61,6 +61,7 @@ export class ToysNewComponent {
     let errorPrice = "ERROR_PRICE_VALIDATION";
     let errorNegativePrice = "ERROR_NEGATIVE_PRICE_VALIDATION";
     let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION"
+    let errorLowerThanOneCentPrice = "ERROR_LOWER_CENT_VALIDATION"
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     let errorLocation = "ERROR_LOCATION_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
@@ -82,6 +83,9 @@ export class ToysNewComponent {
     }
     if(getFieldValues.price > 9999999){
       arrayErrores.push(this.translate.get(errorHigherThanTenMillionPrice));
+    }
+    if(getFieldValues.price == 0 ){
+      arrayErrores.push(this.translate.get(errorLowerThanOneCentPrice));
     }
     if(getFieldValues.email === undefined || getFieldValues.email.trim() === "" || !regExpEmail.test(getFieldValues.email.trim())){
       arrayErrores.push(this.translate.get(errorEmail));
