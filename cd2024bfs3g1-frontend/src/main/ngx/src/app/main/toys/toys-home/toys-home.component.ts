@@ -11,7 +11,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: "app-toys-home",
   templateUrl: "./toys-home.component.html",
-  //styleUrls: ["./toys-home.component.scss"],
+  styleUrls: ["./toys-home.component.scss"],
 })
 export class ToysHomeComponent implements OnInit{
   subscription: Subscription;

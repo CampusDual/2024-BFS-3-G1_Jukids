@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-toys-new',
   templateUrl: './toys-new.component.html',
- // styleUrls: ['./toys-new.component.scss']
+  styleUrls: ['./toys-new.component.scss']
 })
 export class ToysNewComponent{
   private location: any;
