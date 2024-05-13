@@ -15,7 +15,7 @@ export class ToysNewComponent {
   subscription: Subscription;
   private redirect = '/toys';
 
-  isMapLatLongSelected: boolean = false;
+  isMapLatLongSelected: boolean = true;
 
   @ViewChild('NewToy') protected formToy: OFormComponent;
   @ViewChild('latitude') protected lat: ORealInputComponent;
@@ -87,6 +87,7 @@ export class ToysNewComponent {
       arrayErrores.push(this.translate.get(errorEmail));
     }
     if(getFieldValues.longitude === undefined || getFieldValues.latitude === undefined){
+      this.isMapLatLongSelected = false;
       arrayErrores.push(this.translate.get(errorLocation));
     }
     if(arrayErrores.length > 0 ) {
