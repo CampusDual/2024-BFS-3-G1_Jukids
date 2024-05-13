@@ -12,6 +12,8 @@ export class LocationMapComponent {
   private location: any;
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
 
+  isMapLatLongSelected: boolean = false;
+
   constructor(
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
@@ -41,6 +43,8 @@ export class LocationMapComponent {
       false,
       false
     );
+
+    this.isMapLatLongSelected = true;
   }
 
 }
