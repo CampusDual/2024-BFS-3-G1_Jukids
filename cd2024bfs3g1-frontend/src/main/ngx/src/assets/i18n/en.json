@@ -102,5 +102,6 @@
   "ERROR_PRICE_VALIDATION": "Enter product's price",
   "ERROR_NEGATIVE_PRICE_VALIDATION": "The price must be positive",
   "ERROR_EMAIL_VALIDATION": "Enter a valid email",
-  "ERROR_HIGHER_MILLION_VALIDATION": "The price can't be higher than 10 million €"
+  "ERROR_HIGHER_MILLION_VALIDATION": "The price can't be higher than 10 million €",
+  "ERROR_LOWER_CENT_VALIDATION": "The price can't be lower than 1 cent €"
 }
