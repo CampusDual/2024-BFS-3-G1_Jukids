@@ -1,15 +1,51 @@
-<o-form class="form" attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="no" show-header="yes" fxLayout="column" header-actions="U"
-label-header="{{ 'EDIT_YOUR_TOY' | oTranslate }}">
+<button class="backBtn" mat-flat-button [routerLink]="['/main/user-profile/']">
+  <mat-icon>arrow_back_ios_new</mat-icon>
+  {{'BACKBTN' | oTranslate}}
+</button>
+
+<div class="box">
+  <o-form class="form" attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="no"
+  show-header="yes" fxLayout="column" header-actions="U" label-header="{{ 'EDIT_YOUR_TOY' | oTranslate }}" undo-button="no">
     <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
-    <div class="toys-detail-container">
-      <o-image class="image-container" auto-fit="yes" attr="photo" read-only="no" empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
-      <div class="data-container" fxLayout="column" fxLayoutGap="8px">
-        <o-text-input class="input-detail" read-only="no" fxFlex="40" attr="name"></o-text-input>
-        <o-textarea-input class="input-detail" read-only="no" fxFlex="40" attr="description"></o-textarea-input>
-        <o-email-input class="input-detail" read-only="no" fxFlex="20" attr="email"></o-email-input>
-        <o-text-input class="input-detail" read-only="no" fxFlex="40" attr="price"></o-text-input>
+
+    <o-column >
+      <div fxLayoutGap="25px" fxLayout="row" class="toys-detail-column">
+        <o-column fxFlex="30">
+          <o-image class="image-container" auto-fit="yes" attr="photo" read-only="no"
+            empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
+        </o-column>
+
+        <o-column class="vertical-column">
+
+          <div>
+            <div>
+              <o-text-input #nameInput attr="name" fxFlex="100" read-only="no"></o-text-input>
+            </div>
+            <div class="price">
+              <o-currency-input #priceInput attr="price" fxFlex="100" read-only="no" min-decimal-digits="2"
+                max-decimal-digits="2"></o-currency-input>
+            </div>
+          </div>
+
+          <div>
+            <p class="title">{{'TITLE_DESCRIPTION' | oTranslate}}</p>
+            <div>
+              <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no"></o-textarea-input>
+            </div>
+          </div>
+
+          <div>
+            <p class="title">{{'TITLE_CONTACT' | oTranslate}}</p>
+            <div>
+              <o-email-input #emailInput attr="email" fxFlex="100" read-only="no"></o-email-input>
+            </div>
+          </div>
+
+        </o-column>
+
       </div>
-      <o-button type="edit"></o-button>
-    </div>
+    </o-column>
+
+    <o-form-toolbar></o-form-toolbar>
   </o-form>
-  
+</div>
