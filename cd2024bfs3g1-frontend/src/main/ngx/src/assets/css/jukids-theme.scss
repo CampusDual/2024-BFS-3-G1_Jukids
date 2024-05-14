@@ -28,9 +28,7 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 .mat-icon{
     font-family: 'Material Icons' !important;
 }
-// .mat-drawer-inner-container{
-//   background-color:#ffa366 ;
-// }
+
 
 .sidenav-toggle-container{
   .mat-icon{
@@ -72,7 +70,6 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
         width:16rem;
         height:11rem;
         object-fit:contain;
-
         .o-image-content.o-image-auto-fit .o-image-display-container>img{
           border-radius: 10px;
         }
@@ -82,3 +79,7 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
       margin:0  0 .5rem 0;
     }
 }
+o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav, o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav{
+  background: #ffa366;
+}
+

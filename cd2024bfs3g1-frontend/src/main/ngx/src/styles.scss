@@ -75,8 +75,11 @@
   }
 
   @media (max-width: 450px) {
+    .register-outer-container {
+     
+    }
     /* Estilos específicos para dispositivos con un ancho máximo de 450px */
-
+    
     button.mat-mdc-button-base.mat-mdc-outlined-button {
       height: 26px; /* Establecer la altura del botón */
     }
@@ -93,8 +96,4 @@
       min-width: 52px; /* Establecer el ancho mínimo del botón */
     }
   }
- 
-
- 
-
 }
