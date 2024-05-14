@@ -21,6 +21,9 @@ public class PaymentService implements IPaymentService {
     @Value("${stripe.secret-key}")
     String secretKey;
 
+    @Value("${environment.url}")
+    String baseUrl;
+
     @Autowired
     IToyService toyService;
 
@@ -79,6 +82,9 @@ public class PaymentService implements IPaymentService {
             return errorResult;
         }
 
+        System.out.println("BASE URL ============> " + baseUrl);
+
+
         //Producto encontrado
 
         HashMap<String, Object> toyData = (HashMap<String, Object>) result.getRecordValues(0);
@@ -122,12 +128,7 @@ public class PaymentService implements IPaymentService {
                         )
                         .setMode(SessionCreateParams.Mode.PAYMENT)
                         .setUiMode(SessionCreateParams.UiMode.EMBEDDED)
-                        .setReturnUrl(toyUrl)
-
-                        // Referencia url de retorno con Checkout SessionID
-                        //.setReturnUrl("http://localhost:4299/" + "/return.html?session_id={CHECKOUT_SESSION_ID}")
-
-
+                        .setReturnUrl( baseUrl + "checkout?session_id={CHECKOUT_SESSION_ID}")
                         .build();
 
 
