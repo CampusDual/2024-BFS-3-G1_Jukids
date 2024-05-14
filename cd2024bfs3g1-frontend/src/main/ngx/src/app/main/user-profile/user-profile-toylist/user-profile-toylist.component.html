@@ -2,14 +2,17 @@
 <o-table #table fxFlex attr="toysList" title="{{ 'MY_TOYS' | oTranslate }}" keys="toyid" columns="toyid;name;description;price;photo"
 visible-columns="photo;name;description;price;action" sort-columns="name" query-on-init="true" quick-filter="true"
 filter-case-sensitive="false" service="toyowner" entity="toy" insert-button="true" export-button="true"
-columns-visibility-button="true" delete-button="true" edit-button="true" refresh-button="true"
+edit-button="true" refresh-button="true"
 select-all-checkbox="false" show-buttons-text="true" controls="true" show-title="true"
 pagination-controls="no" horizontal-scroll="false" auto-adjust="true" virtual-scroll="no" show-charts-on-demand-option="no">
+
+
+<!-- delete-button="true" columns-visibility-button="true"-->
 
 <!-- Filter columns -->
 <o-table-columns-filter columns="name;description;price"></o-table-columns-filter>
 <!-- Custom definition button -->
-<o-table-button attr="action1" (onClick)="openToyEdit($event)" label="{{ 'EDIT' | oTranslate }}" icon="edit"></o-table-button>
+<!-- <o-table-button attr="action1" (onClick)="openToyEdit($event)" label="{{ 'EDIT' | oTranslate }}" icon="edit"></o-table-button> -->
 <!-- Custom definition columns -->
 <o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
 <o-table-column attr="photo" orderable="no" searchable="no" width="100px">
@@ -18,8 +21,11 @@ pagination-controls="no" horizontal-scroll="false" auto-adjust="true" virtual-sc
 <o-table-column attr="name" title="Name" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
 <o-table-column attr="description" title="Description" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
 <o-table-column attr="price" title="Price" multiline="no" width="300px" tooltip="yes"></o-table-column>
-<o-table-column attr="action" width="64px">
-  <o-table-cell-renderer-action (onClick)="openToyEdit($event)" icon="storage"></o-table-cell-renderer-action>
+<!-- <o-table-column attr="action" width="64px">
+  <o-table-cell-renderer-action (onClick)="openToyEdit($event)" icon="edit"></o-table-cell-renderer-action>
+</o-table-column> -->
+<o-table-column attr="edit-btn" width="64px" (onClick)="openToyEdit($event)" >
+  <button attr="edit" (onClick)="openToyEdit($event)" icon="edit"></button>
 </o-table-column>
 </o-table>
 
