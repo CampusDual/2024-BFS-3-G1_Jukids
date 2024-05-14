@@ -43,12 +43,7 @@
             </div>
             <div style="width: 100%;">
               <p class="title">{{'TITLE_MAP' | oTranslate}}</p>
-              <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
-                <div class="pop-up-span">
-                  <span>{{ 'SELECT_POINT_ON_MAP' | oTranslate }}</span>
-                  <mat-icon class="mat-icon-error" *ngIf="!isMapLatLongSelected">error</mat-icon>
-                  <mat-icon class="mat-icon-done" *ngIf="locationSelected">done</mat-icon>
-              </div>
+              <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">                
                 <location-map (click)="handleMapClick($event)" ></location-map>
               </div>
             </div>
