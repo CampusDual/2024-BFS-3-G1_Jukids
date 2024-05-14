@@ -1,0 +1,12 @@
+
+/* Estilos para el contenedor de la cuadrícula */
+.o-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important; /* Define el ancho mínimo de las celdas */
+  gap: 2rem !important; /* Ajusta el espacio entre las celdas */
+}
+
+/* Estilos para los elementos de la cuadrícula */
+.o-grid-item {
+  margin-bottom: 2rem !important; /* Añade margen inferior para separar los elementos */
+}
