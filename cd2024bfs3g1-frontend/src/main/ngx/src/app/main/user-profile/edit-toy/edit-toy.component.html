@@ -1,15 +1,10 @@
-<!-- <button class="backBtn" mat-flat-button [routerLink]="['/main/user-profile/toylist']">
-  <mat-icon>arrow_back_ios_new</mat-icon>
-  {{'BACKBTN' | oTranslate}}
-</button> -->
-
 <div class="title-container">
   <h2>{{ 'EDIT_OR_DELETE_YOUR_TOY' | oTranslate }}</h2>
 </div>
 
 <div class="box">
-  <o-form class="form" #formToyEdit attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="no"
-    show-header="yes" fxLayout="column" header-actions="D" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)" (onDelete)="redirectList()" (onUpdate)="redirectList()">
+  <o-form class="form" id="formToyEdit" #formToyEdit attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="true" show-header="true"
+   fxLayout="column" header-actions="D" show-header-actions-text="false" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)" (onDelete)="redirectList()" (onUpdate)="redirectList()">
     <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
     <o-column>
@@ -73,8 +68,7 @@
     <div o-form-toolbar-buttons>
       <button type="button" class="o-form-toolbar-button" mat-stroked-button (click)="newSubmit()"
         attr="updateButton">
-        <mat-icon>done</mat-icon>
-        <span>{{'BUTTON_UPDATE' | oTranslate}}</span>
+        <mat-icon>save</mat-icon>
       </button>
      </div>
 
