@@ -1,99 +1,93 @@
-/* Puedes agregar estilos globales a este archivo y también importar otros archivos de estilos */
-
-/* Estilos para el administrador de diseño de formularios */
+/* You can add global styles to this file, and also import other style files */
 .o-form-layout-manager {
   .o-form {
     form {
-      height: 100%; /* Establecer la altura al 100% */
-      border-radius: 1.5rem; /* Establecer el radio de borde */
+      height: 100%;
+
     }
   }
 }
 
-/* Color de fondo de la barra de herramientas del formulario */
+/* Form toolbar background color */
 .o-form-toolbar .o-form-toolbar-header.mat-toolbar {
-  background-color: transparent; /* Establecer el color de fondo transparente */
-  padding: 0 54px; /* Establecer el relleno en los lados */
+  background-color: transparent;
+  padding: 0 54px
 }
 
-/* Ajustes de relleno para los contenedores de columnas y filas */
+
 .o-column > div.o-container .o-container-scroll.o-container-gap,
 .o-row > div.o-container .o-container-scroll.o-container-gap {
-  padding: 15px; /* Establecer el relleno */
+  padding: 15px;
 }
 
-/* Estilos para la imagen del avatar */
 .avatar.o-image {
-  width: 200px; /* Establecer el ancho */
-  height: 200px; /* Establecer la altura */
+  width: 200px;
+  height: 200px;
 
   .o-image-content.o-image-auto-fit {
     .o-image-display-container {
       img {
-        border-radius: 50%; /* Establecer el radio de borde para la imagen */
-        width: 200px; /* Establecer el ancho */
-        height: 200px; /* Establecer la altura */
+        border-radius: 50%;
+        aspect-ratio: auto 200/200;
+        width: 200px;
+        height: 200px;
       }
     }
 
     .o-image-form-field {
-      position: absolute; /* Establecer la posición absoluta */
-      bottom: -42px; /* Mover hacia abajo */
+      position: absolute;
+      bottom: -42px;
     }
   }
 }
 
-/* Estilos para los botones en el contenedor de registro */
-.register-container button {
-  border-radius: 1.5rem !important; /* Establecer el radio de borde */
+.register-container button{
   background-color: #ffcc99!important;
   border: 2px solid #ffa366!important;
   box-shadow: -3px 5px 0px #ff5349!important;
   color: #ff5349!important;
+  border-radius: 1.5rem!important;
 }
 
-/* Estilos para los iconos en el contenedor de registro */
-.register-container mat-icon {
-  color: #ff5349 !important; /* Establecer el color del icono */
+.register-container mat-icon{
+  color: #ff5349!important;
 }
 
-/* Estilos para el formulario de registro */
-.register-form {
-  button{
-    background-color: #ffcc99;
-    border: 2px solid #ffa366;
-    box-shadow: -3px 5px 0px rgba($color: #ff5349, $alpha: 1.0);
-    color: #ff5349;
-    border-radius: 1.5rem;
-}
-
+.register-form{
   mat-toolbar {
-    box-shadow: none !important; /* Eliminar la sombra de la barra de herramientas */
+      box-shadow: none !important;
   }
-  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-    background-color: transparent; /* Establecer el fondo transparente para los campos de texto llenos */
+  .mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: transparent;
   }
 
-  @media (max-width: 450px) {
-    .register-outer-container {
-     
-    }
-    /* Estilos específicos para dispositivos con un ancho máximo de 450px */
-    
-    button.mat-mdc-button-base.mat-mdc-outlined-button {
-      height: 26px; /* Establecer la altura del botón */
+
+  @media(max-width:450px) {
+    button.mat-mdc-button-base.mat-mdc-outlined-button{
+      height: 26px;
     }
 
     .o-form .o-form-toolbar button.mat-mdc-outlined-button,
-    .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button.mat-mdc-outlined-button {
-      padding: 0 10px; /* Establecer el relleno del botón en los lados */
+    .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons
+    .o-table-button button.mat-mdc-outlined-button{
+      padding: 0 10px;
     }
 
-    button.mat-mdc-button-base.mat-mdc-button,
-    button.mat-mdc-button-base.mat-mdc-unelevated-button,
-    button.mat-mdc-button-base.mat-mdc-raised-button,
-    button.mat-mdc-button-base.mat-mdc-outlined-button {
-      min-width: 52px; /* Establecer el ancho mínimo del botón */
+    button.mat-mdc-button-base.mat-mdc-button, button.mat-mdc-button-base.mat-mdc-unelevated-button,
+     button.mat-mdc-button-base.mat-mdc-raised-button,
+     button.mat-mdc-button-base.mat-mdc-outlined-button{
+      min-width: 52px;
     }
+
+  }
+
+
+.mat-grid-list {
+  padding: 1rem;
+
+  .mat-grid-tile{
+    padding: 1rem;
   }
 }
+}
+

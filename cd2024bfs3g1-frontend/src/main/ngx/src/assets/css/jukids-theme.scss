@@ -38,11 +38,11 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 // Menu hamburguesa
 .mat-sidenav-content{
   background-color: #ffa366c4;
-  
+
 }
 .navMenu{
     background-color: #ffa366;
-   
+
   }
 
 // Cuadricula de juguetes
@@ -79,6 +79,15 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
       margin:0  0 .5rem 0;
     }
 }
+
+
+o-app-sidenav.o-app-sidenav .o-app-sidenav-container
+mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
+o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container
+mat-sidenav.mat-drawer.o-app-sidenav-sidenav{
+  background: #ffa366;
+}
+
 o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav, o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav{
   background: #ffa366;
 }
