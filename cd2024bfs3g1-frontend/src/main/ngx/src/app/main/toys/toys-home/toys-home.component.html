@@ -6,12 +6,13 @@
       <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
 
       <o-row layout-align="end center" class="btn-container">
-        <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button">
+        <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button" matTooltip="{{ 'Search' | oTranslate }}">
           <mat-icon class="material-icons">search</mat-icon>
         </button>
-        <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"></o-button>
+        <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"  matTooltip="{{ 'Clean' | oTranslate }}">
+          <mat-icon class="material-icons">clear</mat-icon>
+        </button>
       </o-row>
-
     </o-row>
   </o-column>
   <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name" [target]="toysGrid"
