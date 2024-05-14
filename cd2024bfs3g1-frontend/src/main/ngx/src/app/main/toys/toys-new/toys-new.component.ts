@@ -41,12 +41,12 @@ export class ToysNewComponent implements OnInit{
       this.location = data;
     });
 
-    if (this.authService.isLoggedIn()) {  
+    setTimeout(() => {
       this.mainService.getUserInfo().subscribe((data)=>{
-        const usr = data.data.usr_login;
-        this.usr_email.setValue(usr);
-      })
-   }
+          const usr = data.data.usr_login;
+          this.usr_email.setValue(usr);
+      });
+    }, 100); 
   }
 
   handleMapClick(e) {
