@@ -91,3 +91,9 @@
 }
 }
 
+.o-app-sidenav .o-app-sidenav-menu-group:not([disabled=true]) a:hover,
+.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a:hover{
+  background-color: #ffa366c4;
+  border-left: 8px solid #ff5439;
+
+}
