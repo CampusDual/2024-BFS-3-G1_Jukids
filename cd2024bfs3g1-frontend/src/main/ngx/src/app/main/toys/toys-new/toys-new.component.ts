@@ -1,7 +1,7 @@
 import { Component, ViewChild, Inject, OnInit} from '@angular/core';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { DialogService, ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
-import { ORealInputComponent, OntimizeService,OUserInfoService, AuthService, OEmailInputComponent } from 'ontimize-web-ngx';
+import { OUserInfoService, AuthService, OEmailInputComponent } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MainService } from 'src/app/shared/services/main.service';
@@ -31,18 +31,15 @@ export class ToysNewComponent implements OnInit{
     private ontimizeService: OntimizeService,
     private toysMapService: ToysMapService,
     protected dialogService: DialogService,
-    private translate: OTranslateService
-  ) {
-    //Configuración del servicio para poder ser usado
-    const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
-    this.ontimizeService.configureService(conf);
-    private toysMapService: ToysMapService,
+    private translate: OTranslateService,
     private authService: AuthService,
-    @Inject(MainService) private mainService: MainService,
+    @Inject(MainService) private mainService: MainService
   ) {
 
     this.toyService = this.authService.isLoggedIn() ? 'toyowner' : 'toys';
-
+   //Configuración del servicio para poder ser usado
+   const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
+   this.ontimizeService.configureService(conf);
   }
 
   ngOnInit() {
@@ -106,9 +103,6 @@ export class ToysNewComponent implements OnInit{
     if(getFieldValues.price > 9999999){
       arrayErrores.push(this.translate.get(errorHigherThanTenMillionPrice));
     }
-    if(getFieldValues.price == 0 ){
-      arrayErrores.push(this.translate.get(errorLowerThanOneCentPrice));
-    }
     if(getFieldValues.email === undefined || getFieldValues.email.trim() === "" || !regExpEmail.test(getFieldValues.email.trim())){
       arrayErrores.push(this.translate.get(errorEmail));
     }
@@ -146,5 +140,5 @@ export class ToysNewComponent implements OnInit{
     const self = this;
       self.router.navigate([this.redirect]);
   }
-}
+  }
 

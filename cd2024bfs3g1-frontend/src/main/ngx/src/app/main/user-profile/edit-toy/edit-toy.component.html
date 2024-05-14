@@ -8,26 +8,26 @@
 </div>
 
 <div class="box">
-  <o-form class="form" attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="no"
-    show-header="yes" fxLayout="column" header-actions="U;D" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)" (onDelete)="redirectList()" (onUpdate)="redirectList()">
+  <o-form class="form" #formToyEdit attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="no"
+    show-header="yes" fxLayout="column" header-actions="D" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)" (onDelete)="redirectList()" (onUpdate)="redirectList()">
     <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
     <o-column>
       <div fxLayoutGap="25px" fxLayout="row" class="toys-detail-column">
         <o-column fxFlex="30" class="total-column">
           <o-image class="image-container" auto-fit="yes" attr="photo" read-only="no"
-            empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
+            empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER" show-controls="no" required="yes"></o-image>
         </o-column>
 
         <o-column class="inf-column total-column">
 
           <div>
             <div>
-              <o-text-input #nameInput attr="name" fxFlex="100" read-only="no"></o-text-input>
+              <o-text-input #nameInput attr="name" fxFlex="100" read-only="no" required="yes" max-length="150"></o-text-input>
             </div>
             <div class="price">
               <o-currency-input #priceInput attr="price" fxFlex="100" read-only="no" min-decimal-digits="2"
-                max-decimal-digits="2"></o-currency-input>
+                max-decimal-digits="2" min="0.00" max="9999999" required="yes"></o-currency-input>
             </div>
           </div>
 
@@ -36,20 +36,25 @@
               <div>
                 <p class="title">{{'TITLE_DESCRIPTION' | oTranslate}}</p>
                 <div>
-                  <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no" class="descInput"></o-textarea-input>
+                  <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no" class="descInput" required="yes" max-length="700"></o-textarea-input>
                 </div>
               </div>
               <div>
                 <p class="title">{{'TITLE_CONTACT' | oTranslate}}</p>
                 <div>
-                  <o-email-input #emailInput attr="email" fxFlex="100" read-only="no"></o-email-input>
+                  <o-email-input id="usr_email" #usr_email attr="email" fxFlex="100" read-only="no" required="yes" label="usr_email"></o-email-input>
                 </div>
               </div>
             </div>
             <div style="width: 100%;">
               <p class="title">{{'TITLE_MAP' | oTranslate}}</p>
-              <div>
-                <location-map (click)="handleMapClick($event)"></location-map>
+              <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
+                <div class="pop-up-span">
+                  <span>{{ 'SELECT_POINT_ON_MAP' | oTranslate }}</span>
+                  <mat-icon class="mat-icon-error" *ngIf="!isMapLatLongSelected">error</mat-icon>
+                  <mat-icon class="mat-icon-done" *ngIf="locationSelected">done</mat-icon>
+              </div>
+                <location-map (click)="handleMapClick($event)" ></location-map>
               </div>
             </div>
           </div>
@@ -64,5 +69,14 @@
         </o-column>
       </div>
     </o-column>
+
+    <div o-form-toolbar-buttons>
+      <button type="button" class="o-form-toolbar-button" mat-stroked-button (click)="newSubmit()"
+        attr="updateButton">
+        <mat-icon>done</mat-icon>
+        <span>{{'BUTTON_UPDATE' | oTranslate}}</span>
+      </button>
+     </div>
+
   </o-form>
 </div>

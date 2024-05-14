@@ -102,7 +102,6 @@
   "ERROR_NEGATIVE_PRICE_VALIDATION": "El precio debe ser positivo",
   "ERROR_EMAIL_VALIDATION": "Introduzca un email válido",
   "ERROR_HIGHER_MILLION_VALIDATION": "El precio no puede superar los 10 millones de €",
-  "ERROR_LOWER_CENT_VALIDATION": "El precio no puede ser menor que un céntimo €",
   "SELECT_POINT_ON_MAP":"Seleccione un punto",
   "YOUR_PRODUCTS":"Mis productos",
   "MY_PROFILE":"Mi perfil",
@@ -115,5 +114,6 @@
   "BACKBTN": "Volver",
   "TITLE_DESCRIPTION": "DESCRIPCIÓN",
   "TITLE_CONTACT": "CONTACTO",
-  "TITLE_MAP": "LOCALIZACIÓN"
+  "TITLE_MAP": "LOCALIZACIÓN",
+  "BUTTON_UPDATE": "Actualizar Producto"
 }
