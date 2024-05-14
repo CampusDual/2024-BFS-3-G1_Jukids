@@ -1,20 +1,22 @@
-import { Component, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils } from 'ontimize-web-ngx';
-import { OntimizeService, OGridComponent} from 'ontimize-web-ngx';
-import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { DialogService, ODialogConfig } from 'ontimize-web-ngx';
-import { Subscription } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Expression, FilterExpressionUtils } from "ontimize-web-ngx";
+import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
+import { ToysMapService } from "src/app/shared/services/toys-map.service";
+import { DialogService, ODialogConfig } from "ontimize-web-ngx";
+import { Subscription } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
+import { Router, ActivatedRoute } from "@angular/router";
+import { DomSanitizer } from "@angular/platform-browser";
+
 @Component({
-  selector: 'app-toys-home',
-  templateUrl: './toys-home.component.html',
-  styleUrls: ['./toys-home.component.scss']
+  selector: "app-toys-home",
+  templateUrl: "./toys-home.component.html",
+  styleUrls: ["./toys-home.component.scss"],
 })
-export class ToysHomeComponent {
+export class ToysHomeComponent implements OnInit{
   subscription: Subscription;
 
-  @ViewChild('toysGrid') protected toyGrid: OGridComponent;
+  @ViewChild("toysGrid") protected toyGrid: OGridComponent;
 
   private location: any;
   public arrayData: Array<any> = [];
@@ -25,7 +27,8 @@ export class ToysHomeComponent {
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
     private toysMapService: ToysMapService,
-    protected dialog: MatDialog
+    protected dialog: MatDialog,
+    protected sanitizer:DomSanitizer
   ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
@@ -41,6 +44,15 @@ export class ToysHomeComponent {
     });
   }
 
+  public openDetail(data: any): void {
+    // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
+    const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
+
+    this.router.navigate(["/toysDetail", toyId]);
+  }
+  public getImageSrc(base64: any): any {
+    return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64.bytes) : './assets/images/no-image-transparent.png';
+  }
   navigate() {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
@@ -68,6 +80,7 @@ export class ToysHomeComponent {
     let distance = R * c;
     return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
   }
+
 
   //Se añade una localización a los datos recogidos del grid y existe un punto en el mapa
   addLocation(e) {
@@ -101,6 +114,4 @@ export class ToysHomeComponent {
       return null;
     }
   }
-
-
 }

@@ -30,25 +30,20 @@ public class ToyService implements IToyService {
     @Override
     public EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
+        if(((Number) attrMap.get("price")).floatValue() < 0){
+            EntityResult errorPrice = new EntityResultMapImpl();
+            errorPrice.setCode(EntityResult.OPERATION_WRONG);
+            errorPrice.setMessage("El precio no puede ser negativo");
+            return errorPrice;
+        }
+
         if(!Utils.validaEmail((String) attrMap.get("email"))) {
-            //System.out.println("Email invalido");
             EntityResult error = new EntityResultMapImpl();
             error.setCode(EntityResult.OPERATION_WRONG);
             error.setMessage("El correo electrónico no es correcto");
             return error;
         }
-
         return this.daoHelper.insert(this.toyDao,attrMap);
-    }
-
-    @Override
-    public EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-        return this.daoHelper.update(this.toyDao, attrMap, keyMap);
-    }
-
-    @Override
-    public EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
-        return this.daoHelper.delete(this.toyDao, keyMap);
     }
 }
 
