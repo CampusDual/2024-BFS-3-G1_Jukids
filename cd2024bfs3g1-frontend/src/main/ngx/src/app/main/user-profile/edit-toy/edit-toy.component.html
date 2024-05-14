@@ -5,7 +5,7 @@
 
 <div class="box">
   <o-form class="form" attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="no"
-    show-header="yes" fxLayout="column" header-actions="U;I;D" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)">
+    show-header="yes" fxLayout="column" header-actions="U;D" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)" (onDelete)="redirectList()" (onUpdate)="redirectList()">
     <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
     <o-column>
