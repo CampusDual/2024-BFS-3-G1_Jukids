@@ -123,8 +123,11 @@ public class PaymentService implements IPaymentService {
                         .setMode(SessionCreateParams.Mode.PAYMENT)
                         .setUiMode(SessionCreateParams.UiMode.EMBEDDED)
                         .setReturnUrl(toyUrl)
-//                        .setSuccessUrl("https://example.com/success")
-//                        .setCancelUrl( toyUrl )
+
+                        // Referencia url de retorno con Checkout SessionID
+                        //.setReturnUrl("http://localhost:4299/" + "/return.html?session_id={CHECKOUT_SESSION_ID}")
+
+
                         .build();
 
 

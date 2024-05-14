@@ -7,6 +7,7 @@ import { OMapModule } from 'ontimize-web-ngx-map';
 import { StripeComponent } from './components/stripe/stripe.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
+import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { environment } from 'src/environments/environment';
   declarations: [
     FilterComponent,
     HomeToolbarComponent,
-    StripeComponent
+    StripeComponent,
+    CheckoutComponent
   ],
   exports: [
     CommonModule,
