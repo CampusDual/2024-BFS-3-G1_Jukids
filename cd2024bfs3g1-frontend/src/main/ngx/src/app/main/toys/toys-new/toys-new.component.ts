@@ -1,6 +1,6 @@
 import { Component, ViewChild, Inject, OnInit} from '@angular/core';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { ORealInputComponent, OntimizeService,OUserInfoService, AuthService } from 'ontimize-web-ngx';
+import { ORealInputComponent, OntimizeService,OUserInfoService, AuthService, OEmailInputComponent } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MainService } from 'src/app/shared/services/main.service';
@@ -19,6 +19,7 @@ export class ToysNewComponent implements OnInit{
   @ViewChild('latitude') protected lat: ORealInputComponent;
   @ViewChild('longitude') protected lon: ORealInputComponent;
   @ViewChild('usr_id') protected usr_id: ORealInputComponent;
+  @ViewChild('usr_email') protected usr_email: OEmailInputComponent;
 
   constructor(
     private router: Router,
@@ -40,6 +41,12 @@ export class ToysNewComponent implements OnInit{
       this.location = data;
     });
 
+    if (this.authService.isLoggedIn()) {  
+      this.mainService.getUserInfo().subscribe((data)=>{
+        const usr = data.data.usr_login;
+        this.usr_email.setValue(usr);
+      })
+   }
   }
 
   handleMapClick(e) {
