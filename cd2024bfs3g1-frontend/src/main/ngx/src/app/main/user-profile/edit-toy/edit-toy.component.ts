@@ -9,7 +9,7 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
   styleUrls: ['./edit-toy.component.scss']
 })
 export class EditToyComponent implements OnInit {
-  private redirect = '/toys';
+  private redirect = '/main/user-profile/toylist'
   private location: any;
   public longitude;
   public latitude;
@@ -24,7 +24,7 @@ export class EditToyComponent implements OnInit {
     {
       if (!this.authService.isLoggedIn()) {
         const self = this;
-        self.router.navigate([this.redirect]);
+        self.router.navigate(["/toys"]);
       }
 
   }
@@ -36,10 +36,6 @@ export class EditToyComponent implements OnInit {
   }
 
   onFormDataLoaded(data: any) {
-
-    console.log("hola")
-    console.log(this.lat.getValue())
-    console.log(this.lon.getValue())
     this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue())
   }
 
@@ -49,5 +45,10 @@ export class EditToyComponent implements OnInit {
 
     this.lat.setValue(latitude);
     this.lon.setValue(longitude);
+  }
+
+  redirectList(){
+    const self = this;
+      self.router.navigate([this.redirect]);
   }
 }

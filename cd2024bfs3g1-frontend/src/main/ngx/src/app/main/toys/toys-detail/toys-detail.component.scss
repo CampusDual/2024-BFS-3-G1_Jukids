@@ -46,7 +46,7 @@
             font-weight: bold;
             color: #ff5349;
             margin-top: 0.25em;
-            margin-bottom: 0.75em;
+            margin-bottom: 0.05em;
             padding-right: 0.5em;
             text-transform: capitalize;
         }
@@ -69,7 +69,8 @@
         }
 
         .longDescr {
-            max-height: 83%;
+            height: fit-content;
+            max-height: 80%;
             overflow-y: scroll;
         }
 
