@@ -93,5 +93,6 @@
   "REGISTER": "Registrar",
   "MAX_SIZE": "Máximo tamaño permitido 4MB",
   "VIEW_MAP": "Ver mapa",
-  "SELECT_POINT_ON_MAP":"Seleccione un punto"
+  "SELECT_POINT_ON_MAP":"Seleccione un punto",
+  "Email": "Correo"
 }

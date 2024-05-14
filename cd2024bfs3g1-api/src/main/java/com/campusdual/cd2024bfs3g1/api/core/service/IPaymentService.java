@@ -7,14 +7,9 @@ import com.stripe.model.PaymentIntent;
 import java.util.HashMap;
 
 public interface IPaymentService {
-    EntityResult paymentIntent(HashMap<String, Object> paymentData) throws StripeException;
 
-    EntityResult confirm(String id, HashMap<String, Object> cardToken ) throws StripeException;
-
-    EntityResult cancel(String id) throws StripeException;
+    EntityResult createStripeCustomer(String emailBuyer, String emailSeller) throws StripeException;
 
     EntityResult createCheckoutSession( HashMap<String, Object> checkoutData ) throws StripeException;
-
-
 
 }

@@ -7,8 +7,7 @@ import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
-import com.stripe.model.PaymentIntent;
-import com.stripe.model.Token;
+import com.stripe.model.Customer;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,67 +24,28 @@ public class PaymentService implements IPaymentService {
     @Autowired
     IToyService toyService;
 
-
-
-
-    public EntityResult paymentIntent (HashMap<String, Object> paymentData) throws StripeException {
+    //Método para crear un ID único de Cliente a la hora de realizar el pago, recoge email en el pago y accede al email
+    // del vendedor mediante el id del juguete que se compra, genera un ID del comprador que va incluido en el Token de pago
+    // para mostrar en el Dashboard de Stripe en la seccion "Cliente".
+    public EntityResult createStripeCustomer(String emailBuyer, String emailSeller) throws StripeException {
         Stripe.apiKey = secretKey;
-        Integer toyid = null;
-        if(paymentData.containsKey(ToyDao.ATTR_ID)){
-            toyid = (Integer) paymentData.remove(ToyDao.ATTR_ID);
-        }
-        ArrayList payment_method_types = new ArrayList<>();
-        payment_method_types.add("card");
-        paymentData.put("payment_method_types", payment_method_types);
-        PaymentIntent result = PaymentIntent.create(paymentData);
-        EntityResult finalResult = new EntityResultMapImpl();
-        finalResult.put("payment", result.toJson());
-        return finalResult;
-    }
 
-    public EntityResult confirm (String id, HashMap<String, Object> cardToken) throws StripeException {
-        Stripe.apiKey = secretKey;
-        //Recuperas pago
-        PaymentIntent paymentIntent = PaymentIntent.retrieve(id);
+        Map<String, Object> customerData = new HashMap <>();
+        customerData.put("buyer", emailBuyer);
+        customerData.put("email",ToyDao.ATTR_EMAIL);
 
-//        //Recuperar info Card
-//        Token infoCard = Token.retrieve(
-//                cardToken.get("token").toString()
-//        );
-//
-
-//        //Obtenemos el ID de la tarjeta
-//        String cardId = infoCard.getCard().getId();
-
-        /*
-        * Por el momento se utiliza "pm_card_visa" para asignacion directa.
-        * Se tiene que revisar a futuro el flujo a procucción.
-        * */
-
-        //Generar Objeto de confirmacion
-        Map<String, Object> params = new HashMap<>();
-
-        params.put("payment_method", "pm_card_visa");
-        paymentIntent.confirm(params);
-        EntityResult finalConfirm = new EntityResultMapImpl();
-        finalConfirm.put("payment", paymentIntent.toJson());
-        return finalConfirm;
-    }
-
-    public EntityResult cancel (String id) throws StripeException {
-        Stripe.apiKey = secretKey;
-        PaymentIntent paymentIntent = PaymentIntent.retrieve(id);
-        paymentIntent.cancel();
-        EntityResult finalCancel = new EntityResultMapImpl();
-        finalCancel.put("payment", paymentIntent.toJson());
-        return finalCancel;
+        Customer customer = Customer.create(customerData);
+        EntityResult finalCustomer = new EntityResultMapImpl();
+        finalCustomer.put("customerId", customer.getId());
+        finalCustomer.put("customer", customer.toJson());
+        return finalCustomer;
     }
 
     @Override
     public EntityResult createCheckoutSession( HashMap<String, Object> checkoutData) throws StripeException {
 
         Stripe.apiKey = secretKey;
-        
+
         Integer toyid = null;
         String toyUrl = null;
         if(checkoutData.containsKey(ToyDao.ATTR_ID)){
@@ -174,9 +134,6 @@ public class PaymentService implements IPaymentService {
         EntityResult checkoutSession = new EntityResultMapImpl();
         checkoutSession.put("session", session.toJson());
 
-
         return checkoutSession;
     }
-
-
 }
