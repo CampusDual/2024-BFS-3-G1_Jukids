@@ -1,39 +1,14 @@
-<!-- ======================  STRIPE CHECKOUT JS ======================= -->
+<o-button type="STROKED" (click)="ckeckout()" label="Checkout"></o-button>
 
-<!-- <o-button type="STROKED" (click)="ckeckout()" label="Checkout"></o-button> -->
-
-
-
-
-<!-- ======================  STRIPE JS ======================= -->
-<div class="modal">
-
-  <o-form #stripeForm editable-detail="no" show-header="no" fxLayout="column" 
-    fxFlex="100" 
-    fxFlex.gt-sm="50" 
-    fxFlex.gt-md="30" class="form">
-    <div class="stripe-checkout" fxLayout="column" fxLayoutGap="14px">
-      <h2 fxLayoutAlign="center center">Jukids - Checkout</h2>
-      <o-text-input attr="product" read-only="yes" label="Producto" [data]="product"></o-text-input>
-      <o-email-input attr="email" read-only="yes" label="{{'Email' | oTranslate}} Vendedor" [data]="email" ></o-email-input>
-      <o-email-input attr="emailComprador" read-only="no" label="{{'Email' | oTranslate}} Comprador"></o-email-input>
-      <o-currency-input attr="amount" read-only="yes" label="{{'price' | oTranslate}}+5%" enabled="yes"
-        min-decimal-digits="2" max-decimal-digits="2" min="0" max="9999999" required="yes"
-        [data]="amount"></o-currency-input>
-      <div class="stripe-input">
-        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions" />
+<div *ngIf="isCheckingOut" class="modal">
+  <div>
+    <ng-container *ngIf="loading">
+      <div fxLayoutAlign="center center" fxLayout="column">
+        <mat-spinner diameter="70"></mat-spinner>
+        <span>Iniciando Pago</span>
       </div>
-
-      <ng-container *ngIf="loading">
-        <div fxLayoutAlign="center center" fxLayout="column">
-          <mat-spinner diameter="40"></mat-spinner>
-          <span>Iniciando Pago</span>
-        </div>
-      </ng-container>
-
-      <o-button *ngIf="!loading" #payButton type="RAISED" label="Pagar" fxFlex="100" (click)="pay()"></o-button>
-    </div>
-  </o-form>
-
+    </ng-container>
+  </div>
+  <div id="checkout" class="checkout"></div>
 
 </div>

@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
+import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
@@ -8,17 +9,24 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.model.Token;
+import com.stripe.model.checkout.Session;
+import com.stripe.param.checkout.SessionCreateParams;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PaymentService implements IPaymentService {
     @Value("${stripe.secret-key}")
     String secretKey;
+
+    @Autowired
+    IToyService toyService;
+
+
+
 
     public EntityResult paymentIntent (HashMap<String, Object> paymentData) throws StripeException {
         Stripe.apiKey = secretKey;
@@ -72,4 +80,103 @@ public class PaymentService implements IPaymentService {
         finalCancel.put("payment", paymentIntent.toJson());
         return finalCancel;
     }
+
+    @Override
+    public EntityResult createCheckoutSession( HashMap<String, Object> checkoutData) throws StripeException {
+
+        Stripe.apiKey = secretKey;
+        
+        Integer toyid = null;
+        String toyUrl = null;
+        if(checkoutData.containsKey(ToyDao.ATTR_ID)){
+            toyid = (Integer) checkoutData.remove(ToyDao.ATTR_ID);
+        }
+        if(checkoutData.containsKey("toyUrl")) {
+            toyUrl = (String) checkoutData.remove("toyUrl");
+        }
+
+        HashMap<String, Object> getProdQuery = new HashMap<>();
+
+        getProdQuery.put( ToyDao.ATTR_ID, toyid);
+
+        System.out.println("================= PRODUCT ID: " + toyid );
+
+        //Consulta
+        EntityResult result = toyService.toyQuery(
+                getProdQuery,
+                Arrays.asList( ToyDao.ATTR_NAME, ToyDao.ATTR_DESCRIPTION, ToyDao.ATTR_PRICE, ToyDao.ATTR_PHOTO )
+        );
+
+        if( result.isWrong() ) {
+            //Error
+            return result;
+        }
+
+        if(result.isEmpty()) {
+            EntityResult errorResult = new EntityResultMapImpl();
+            errorResult.setCode( EntityResult.OPERATION_WRONG );
+            errorResult.setMessage("Error: No se encontró el producto.");
+            return errorResult;
+        }
+
+        //Producto encontrado
+
+        HashMap<String, Object> toyData = (HashMap<String, Object>) result.getRecordValues(0);
+
+        System.out.println(toyData.get( ToyDao.ATTR_NAME ) );
+        System.out.println(toyData.get( ToyDao.ATTR_DESCRIPTION ) );
+        System.out.println(toyData.get( ToyDao.ATTR_PRICE ) );
+        //System.out.println(toyData.get( ToyDao.ATTR_PHOTO ) );  //Demasiado grande para pasar como argumento
+        System.out.println("TOYURL: " + toyUrl);
+
+//
+//        System.out.println( "ENTITY RESULT TOY: " + toy);
+
+        SessionCreateParams params =
+                SessionCreateParams.builder()
+                        .addLineItem(
+                                SessionCreateParams.LineItem.builder()
+                                        .setPriceData(
+                                                SessionCreateParams.LineItem.PriceData.builder()
+                                                        .setCurrency("EUR")
+                                                        .setProductData(
+                                                                SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                                                        .setName(
+                                                                                (String) toyData.get( ToyDao.ATTR_NAME )
+                                                                        )
+                                                                        .setDescription(
+                                                                                (String) toyData.get( ToyDao.ATTR_DESCRIPTION )
+                                                                        )
+                                                                        .addImage(
+                                                                                "https://st4.depositphotos.com/2495409/19919/i/450/depositphotos_199193024-stock-photo-new-product-concept-illustration-isolated.jpg"
+                                                                        )
+                                                                        .build()
+                                                        )
+                                                        .setUnitAmount(
+                                                                ( ( (Number) toyData.get( ToyDao.ATTR_PRICE ) ).longValue() * 100 ) //Precio
+                                                        )
+                                                        .build()
+                                        )
+                                        .setQuantity(1L) //Cantidad del producto
+                                        .build()
+                        )
+                        .setMode(SessionCreateParams.Mode.PAYMENT)
+                        .setUiMode(SessionCreateParams.UiMode.EMBEDDED)
+                        .setReturnUrl(toyUrl)
+//                        .setSuccessUrl("https://example.com/success")
+//                        .setCancelUrl( toyUrl )
+                        .build();
+
+
+        Session session = Session.create(params);
+
+
+        EntityResult checkoutSession = new EntityResultMapImpl();
+        checkoutSession.put("session", session.toJson());
+
+
+        return checkoutSession;
+    }
+
+
 }

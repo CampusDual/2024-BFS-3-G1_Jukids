@@ -2,8 +2,13 @@ package com.campusdual.cd2024bfs3g1.ws.core.rest;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
+import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
+import com.stripe.model.checkout.Session;
+import com.stripe.param.checkout.SessionCreateParams;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,4 +49,13 @@ public class PaymentController {
     public ResponseEntity<EntityResult> cancel(@PathVariable("id") String id) throws StripeException {
         return new ResponseEntity<EntityResult>(paymentService.cancel(id), HttpStatus.OK);
     }
+
+    // ChecoutSession de Stripe
+    @RequestMapping( value = "/create-checkout-session", method = RequestMethod.POST )
+    public ResponseEntity<EntityResult> checkoutSession(
+            @RequestBody HashMap<String, Object> checkoutData
+    ) throws StripeException {
+        return new ResponseEntity<EntityResult>(  paymentService.createCheckoutSession( checkoutData ), HttpStatus.OK );
+    }
+
 }

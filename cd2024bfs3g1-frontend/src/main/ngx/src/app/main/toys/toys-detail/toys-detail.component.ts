@@ -1,5 +1,6 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, Inject, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { OEmailInputComponent, OFormComponent, OIntegerInputComponent, OTextInputComponent, OntimizeService } from 'ontimize-web-ngx';
+import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 
 @Component({
   selector: 'app-toys-detail',
@@ -13,6 +14,7 @@ export class ToysDetailComponent {
   @ViewChild('toyName') toyName: OTextInputComponent;
   @ViewChild('toyEmail') toyEmail: OEmailInputComponent;
   @ViewChild('toyPrice') toyPrice: OTextInputComponent;
+  @ViewChild('stripe') stripe: StripeComponent;
 
   protected stripeToyId: string;
   protected stripeToyProduct: string;
@@ -23,17 +25,11 @@ export class ToysDetailComponent {
   constructor() { }
 
 
-  openCheckout() {
-
-    this.stripeToyId = this.toyId.getValue();
-    this.stripeToyProduct = this.toyName.getValue();
-    this.stripeToyEmail = this.toyEmail.getValue();
-    this.stripeToyPrice = parseFloat(this.toyPrice.getValue());
-
-    console.log( "this.stripeToyId: " + this.stripeToyId );
-
-    this.showCheckout = true;
+  setStripe(): void {
+    this.stripe.toyId = this.toyId.getValue();
+    this.stripe.product = this.toyName.getValue();
+    this.stripe.email = this.toyEmail.getValue();
+    this.stripe.amount = parseFloat(this.toyPrice.getValue());
   }
-
 
 }

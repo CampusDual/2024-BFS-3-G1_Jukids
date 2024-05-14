@@ -12,4 +12,9 @@ public interface IPaymentService {
     EntityResult confirm(String id, HashMap<String, Object> cardToken ) throws StripeException;
 
     EntityResult cancel(String id) throws StripeException;
+
+    EntityResult createCheckoutSession( HashMap<String, Object> checkoutData ) throws StripeException;
+
+
+
 }
