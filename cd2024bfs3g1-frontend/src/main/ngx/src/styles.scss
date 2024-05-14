@@ -46,6 +46,10 @@
 /* Estilos para los botones en el contenedor de registro */
 .register-container button {
   border-radius: 1.5rem !important; /* Establecer el radio de borde */
+  background-color: #ffcc99!important;
+  border: 2px solid #ffa366!important;
+  box-shadow: -3px 5px 0px #ff5349!important;
+  color: #ff5349!important;
 }
 
 /* Estilos para los iconos en el contenedor de registro */
@@ -55,6 +59,14 @@
 
 /* Estilos para el formulario de registro */
 .register-form {
+  button{
+    background-color: #ffcc99;
+    border: 2px solid #ffa366;
+    box-shadow: -3px 5px 0px rgba($color: #ff5349, $alpha: 1.0);
+    color: #ff5349;
+    border-radius: 1.5rem;
+}
+
   mat-toolbar {
     box-shadow: none !important; /* Eliminar la sombra de la barra de herramientas */
   }
