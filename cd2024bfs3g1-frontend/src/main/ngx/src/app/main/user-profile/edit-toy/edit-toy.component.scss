@@ -76,3 +76,14 @@
 .descInput{
     height: 190px;
 }
+
+#saveButton{
+    border-color: rgba(0, 0, 0, 0.32);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 2px;
+    line-height: 30px;
+}
+#saveButton:hover{
+    border-style: none;
+}
