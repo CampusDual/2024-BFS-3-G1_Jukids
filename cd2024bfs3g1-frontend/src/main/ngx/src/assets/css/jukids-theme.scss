@@ -12,12 +12,15 @@ $primary: mat.define-palette($mat-custom-primary);
 $accent:$primary;
 $primary-dark: mat.define-palette($mat-custom-primary-dark);
 $accent-dark: $primary-dark;
+$secondary-color: #ffffff;
 
 /* Light theme */
 $theme: ontimize-style.o-mat-light-theme($primary, $accent);
 
 /* Dark theme */
 $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
+
+
 
 *{
     font-family: Arial, Helvetica, sans-serif !important; /* Establece la tipografía para todo el texto */
@@ -37,6 +40,16 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 .mat-sidenav-content{
   background-color: #ffa366c4;
 }
+
+.application-layout-content-wrapper {
+  background: $secondary-color;
+}
+
+/* Color de fondo para los contenedores */
+div .o-container-scroll.o-scroll {
+  background-color: $secondary-color;
+}
+
 
 // Menu hamburguesa
 .navMenu{
@@ -63,7 +76,7 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 }
 
 .o-grid .o-column{
-    background-color: #f5f3f1ac;
+    //background-color: #ffffff;
     color: #333;
     font-family: Arial, sans-serif;
     border: 0.125rem solid #ffa366;
@@ -79,7 +92,12 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
         width:16rem;
         height:11rem;
         object-fit:contain;
+
+        .o-image-content.o-image-auto-fit .o-image-display-container>img{
+          border-radius: 10px;
+        }
     }
+
     .h4{
       margin:0  0 .5rem 0;
     }
