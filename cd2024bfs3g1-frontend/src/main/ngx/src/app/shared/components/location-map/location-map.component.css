@@ -1,11 +1,23 @@
 .pop-up-map-card {
     display: flex;
     flex-direction: column;
+    padding: 5px;
 }
 
 .pop-up-span {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
     text-align: center;
     margin-top: 5px;
     margin-bottom: 5px;
     /* background-color: rgb(234, 170, 124); */
+}
+
+.mat-icon-error {
+    color: red;    
+}
+
+.mat-icon-done {
+    color: green;
 }

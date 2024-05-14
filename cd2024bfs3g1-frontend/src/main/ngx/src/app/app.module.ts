@@ -36,9 +36,10 @@ export const customProviders: any = [
     AppComponent
   ],
   providers: [
-    { provide: APP_CONFIG, useValue: CONFIG },
+    { provide: APP_CONFIG, useValue: CONFIG },  
     ONTIMIZE_PROVIDERS,
-    ...customProviders
+    ...customProviders,
+
   ],
 })
 export class AppModule { }
