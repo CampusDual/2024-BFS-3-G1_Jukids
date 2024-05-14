@@ -1,7 +1,11 @@
-<button class="backBtn" mat-flat-button [routerLink]="['/main/user-profile/toylist']">
+<!-- <button class="backBtn" mat-flat-button [routerLink]="['/main/user-profile/toylist']">
   <mat-icon>arrow_back_ios_new</mat-icon>
   {{'BACKBTN' | oTranslate}}
-</button>
+</button> -->
+
+<div class="title-container">
+  <h2>{{ 'EDIT_OR_DELETE_YOUR_TOY' | oTranslate }}</h2>
+</div>
 
 <div class="box">
   <o-form class="form" attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="no"
