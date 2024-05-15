@@ -1,5 +1,6 @@
 // Define your custom theme or choose predefined theme
-@use 'ontimize-web-ngx/theming/themes/ontimize.scss' as theme;
+/*@use 'ontimize-web-ngx/theming/themes/ontimize.scss' as theme; TEMA PREDEFINIDO ONTIMIZE*/
+@use './jukids-theme.scss' as theme; /* TEMA PERSONALIZADO DE PRUEBA */
 @use 'ontimize-web-ngx/theming/ontimize-style.scss';
 @use '../../app/login/login.theme.scss' as login;
 
@@ -14,3 +15,5 @@
 .o-dark {
   @include ontimize-style.ontimize-theme-all-component-color(theme.$dark-theme);
 }
+
+

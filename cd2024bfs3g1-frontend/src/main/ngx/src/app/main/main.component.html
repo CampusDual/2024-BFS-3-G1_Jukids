@@ -1,8 +1,13 @@
-<o-app-layout #appLayout show-language-selector="yes" class="language">
+<o-app-layout #appLayout show-language-selector="yes" mode="mobile">
   <o-app-layout-header class="nav">
     <div class="nav-login">
-      <button *ngIf="!isLogged()" class="btn-login" type="submit" (click)="redirect()">{{ 'LOGIN' | oTranslate }}</button>
-      <button *ngIf="!isLogged()" class="btn-register" type="submit" (click)="register()">{{ 'REGISTER' | oTranslate }}</button>
+      <div class="title">
+        <p>JuKids</p>
+      </div>
+      <div>
+        <button *ngIf="!isLogged()" class="btn-login" type="submit" (click)="redirect()">{{ 'LOGIN' | oTranslate }}</button>
+        <button *ngIf="!isLogged()" class="btn-register" type="submit" (click)="register()">{{ 'REGISTER' | oTranslate }}</button>
+      </div>
     </div>
   </o-app-layout-header>
   <o-user-info-configuration show-profile="no" show-settings="no">
