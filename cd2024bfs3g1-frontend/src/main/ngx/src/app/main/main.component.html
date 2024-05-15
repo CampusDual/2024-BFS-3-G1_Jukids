@@ -1,6 +1,12 @@
 <o-app-layout #appLayout show-language-selector="yes" mode="mobile">
   <o-app-layout-header class="nav">
     <div class="nav-login">
+      
+      <div class="title">
+       
+        <p>JuKids</p>
+      </div>
+      
       <button *ngIf="!isLogged()" class="btn-login" type="submit" (click)="redirect()">{{ 'LOGIN' | oTranslate }}</button>
       <button *ngIf="!isLogged()" class="btn-register" type="submit" (click)="register()">{{ 'REGISTER' | oTranslate }}</button>
     </div>

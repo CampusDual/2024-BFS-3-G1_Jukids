@@ -24,11 +24,17 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 *{
     font-family: Arial, Helvetica, sans-serif !important; /* Establece la tipografía para todo el texto */
 }
+
+.o-app-header nav{
+  background-color: #ffa366;
+}
+
+
 div .navMenu,
 div .sidenav-toggle-container,
 .o-app-sidenav-menuitem,
 nav {
-  background-color: #ffa366c4;
+  background-color: #ffa366;
 }
 .mat-icon{
     font-family: 'Material Icons' !important;
@@ -42,7 +48,7 @@ nav {
 }
 // Menu hamburguesa
 .mat-sidenav-content{
-  background-color: #ffa366c4;
+  background-color: #fff;
 
 }
 .navMenu{

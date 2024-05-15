@@ -1,3 +1,4 @@
+
 .nav{
     width: 100%;
   }
@@ -8,16 +9,28 @@
   }
   .btn-login, .btn-register{
       width: 5rem;
-      background-color: #ffcc99;
+      background-color: #fff;
       border: 2px solid #ffa366;
-      box-shadow: -3px 3px 0px rgba($color: #ff5349, $alpha: 1.0);
-      color: white;
-      border-radius: 1.5rem;
+      box-shadow: 1.5px 1.5px 0px rgba($color: #ff5349, $alpha: 1.0);
+      color: #ffa366;
+      border-radius: 0.5rem;
       padding: 0.2rem;
       margin: 0.2rem;
-      font-weight: bold;
     }
     .btn-login:hover, .btn-register:hover {
       opacity: 0.8;
       cursor: pointer;
+      color: #ff5349;
+      transition: 0.5s;
+      box-shadow: 3px 3px 0px rgba($color: #ff5349, $alpha: 1.0);
   }
+
+  .title p{
+    color: #fff;
+    font-size: x-large;
+    position: absolute;
+    left: 50px;
+    bottom: 200px;
+  }
+
+
