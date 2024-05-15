@@ -19,7 +19,7 @@ import { CheckoutComponent } from './components/stripe/checkout/checkout.compone
   declarations: [
     FilterComponent,
     HomeToolbarComponent,
-    LocationMapComponent
+    LocationMapComponent,
     HomeToolbarComponent,
     StripeComponent,
     CheckoutComponent
@@ -29,7 +29,7 @@ import { CheckoutComponent } from './components/stripe/checkout/checkout.compone
     FilterComponent,
     HomeToolbarComponent,
     OMapModule,
-    LocationMapComponent
+    LocationMapComponent,
     OMapModule,
     StripeComponent
   ]
