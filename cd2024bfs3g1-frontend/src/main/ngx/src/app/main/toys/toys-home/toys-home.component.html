@@ -1,18 +1,16 @@
 <o-form class="form" editable-detail="no" show-header="no">
 
-  <o-column>
+  <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
     <o-row layout-align="space-between center">
 
       <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
 
+
       <o-row layout-align="end center" class="btn-container">
-        <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button" matTooltip="{{ 'Search' | oTranslate }}">
-          <mat-icon class="material-icons">search</mat-icon>
-        </button>
-        <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"  matTooltip="{{ 'Clean' | oTranslate }}">
-          <mat-icon class="material-icons">clear</mat-icon>
-        </button>
+        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button" ></o-button>
+        <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"></o-button>
       </o-row>
+
     </o-row>
   </o-column>
   <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name" [target]="toysGrid"
@@ -24,30 +22,30 @@
         <location-map></location-map>
     </o-column-collapsible>
 
-    <div>
-      <o-grid #toysGrid attr="toysGrid" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
-        columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" refresh-button="no" quick-filter="no" (onDataLoaded)="addLocation($event)" gutter-size="1rem">
-        <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)" >
-          <o-column class="toy-card">
-            <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo"  style="margin-top:8px;"></o-image>
 
-            <div class="body" fxLayout="column" fxLayoutAlign="start center">
-              <h4 class="toy-title">{{ data.name }}</h4>
+    <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
+        columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
+        refresh-button="no" quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64" (onDataLoaded)="addLocation($event)">
+    <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
+      <o-column layout-padding class="toy-card">
+        <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo"  style="margin-top:8px;"></o-image>
 
-              <div fxLayout="row" fxLayoutGap=".5em">
-                <div fxLayout="column" fxLayoutAlign="start center">
-                  <mat-icon>credit_card</mat-icon>
-                  <mat-icon *ngIf="data.location != null">connect_without_contact</mat-icon>
-                </div>
-                <div fxLayout="column" fxLayoutAlign="start start">
-                  <span>{{ data.price }} €</span>
-                  <span *ngIf="data.location != null">{{data.location}} Km</span>
-                </div>
-              </div>
+        <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
+          <h4 class="toy-title">{{ data.name }}</h4>
+
+          <div fxLayout="row" fxLayoutGap=".5em">
+            <div fxLayout="column" fxLayoutAlign="start center">
+              <mat-icon>credit_card</mat-icon>
+              <mat-icon *ngIf="data.location != null">connect_without_contact</mat-icon>
             </div>
-          </o-column>
-        </o-grid-item>
-      </o-grid>
-    </div>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <span>{{ data.price }} €</span>
+              <span *ngIf="data.location != null">{{data.location}} Km</span>
+            </div>
+          </div>
+        </div>
+      </o-column>
+    </o-grid-item>
+  </o-grid>
 
 
