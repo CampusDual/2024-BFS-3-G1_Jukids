@@ -24,41 +24,43 @@ public class ToyOwnerService implements IToyOwnerService {
     private UserDao userDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
 
-       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-       String email = auth.getName();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
 
-       if (email != null) {
-           HashMap<String, Object> keysValues = new HashMap<>();
-           keysValues.put(UserDao.LOGIN, email);
-           List<String> attributes = Arrays.asList(UserDao.USR_ID);
-           EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+        if (email != null) {
+            HashMap<String, Object> keysValues = new HashMap<>();
+            keysValues.put(UserDao.LOGIN, email);
+            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
-           if (userData.isWrong()) {
-               return userData;
-           }
+            if (userData.isWrong()) {
+                return userData;
+            }
 
-           if (userData.isEmpty()) {
-               EntityResult errEntityResult = new EntityResultMapImpl();
-               errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-               errEntityResult.setMessage("No se encuentra el usuario: " + email);
-               return errEntityResult;
-           }
+            if (userData.isEmpty()) {
+                EntityResult errEntityResult = new EntityResultMapImpl();
+                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
+                errEntityResult.setMessage("No se encuentra el usuario: " + email);
+                return errEntityResult;
+            }
 
-           Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-           keyMap.put("usr_id", idUser);
+            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+            keyMap.put("usr_id", idUser);
 
-           return this.daoHelper.query(this.toyDao, keyMap, attrList);
+            return this.daoHelper.query(this.toyDao, keyMap, attrList);
 
         }else{
+
            EntityResult errEntityResult = new EntityResultMapImpl();
            errEntityResult.setCode(EntityResult.OPERATION_WRONG);
            errEntityResult.setMessage("No estas logeado");
            return errEntityResult;
-         }
-     }
+        }
+    }
 
     @Override
     public EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
@@ -146,6 +148,7 @@ public class ToyOwnerService implements IToyOwnerService {
             return errEntityResult;
         }
      }
+
     @Override
     public EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

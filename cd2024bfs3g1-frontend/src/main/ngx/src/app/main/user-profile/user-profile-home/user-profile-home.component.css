@@ -4,14 +4,17 @@
 
 .user-profile-home-listcard  {
     border-radius: 1.25em;
-    box-shadow: -3px 3px 0px #ff5349;
+    box-shadow: 5px 5px 0px #ff52497c;
     display: flex;
     flex-direction: row;
     height: 60px;
-    width: 400px;
+    width: fit-content;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 0.75em;
+    padding: 0 0.75em 0 0.5em;
+    align-items: center;
 }
+
 .user-profile-home-listcard  :hover{
     scale: 100%;
 }

@@ -3,7 +3,7 @@
 </div>
 
 <div class="box">
-  <o-form class="form" id="formToyEdit" #formToyEdit attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="true" show-header="true"
+  <o-form class="form" id="formToyEdit" #formToyEdit attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="false" show-header="true"
    fxLayout="column" header-actions="D" show-header-actions-text="false" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)" (onDelete)="redirectList()" (onUpdate)="redirectList()">
     <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
@@ -31,7 +31,7 @@
               <div>
                 <p class="title">{{'TITLE_DESCRIPTION' | oTranslate}}</p>
                 <div>
-                  <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no" class="descInput" required="yes" max-length="700"></o-textarea-input>
+                  <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no" class="descInput no-resize" required="yes" max-length="700"></o-textarea-input>
                 </div>
               </div>
               <div>
@@ -43,7 +43,7 @@
             </div>
             <div style="width: 100%;">
               <p class="title">{{'TITLE_MAP' | oTranslate}}</p>
-              <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">                
+              <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
                 <location-map (click)="handleMapClick($event)" ></location-map>
               </div>
             </div>
