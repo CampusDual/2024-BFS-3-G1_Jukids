@@ -1,0 +1,1 @@
+ALTER TABLE toys ADD COLUMN usr_id INTEGER REFERENCES usr_user(usr_id);
