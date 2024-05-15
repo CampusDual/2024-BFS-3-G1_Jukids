@@ -25,16 +25,8 @@ export class UserProfileToylistComponent {
     }
   }
 
-  ngOnInit() {
-  }
-
   public openToyEdit(e:any): void {
      console.log(e.toyid);
     this.router.navigate(["/main/user-profile/edit-toy", e.toyid]);
   }
-
-  public saySomething() {
-    alert('samanté');
-  }
-  
 }
