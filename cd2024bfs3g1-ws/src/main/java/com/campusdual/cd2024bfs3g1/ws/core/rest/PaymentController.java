@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfs3g1.ws.core.rest;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,22 @@ public class PaymentController {
     public ResponseEntity<EntityResult> checkoutSession(
             @RequestBody HashMap<String, Object> checkoutData
     ) throws StripeException {
-        return new ResponseEntity<EntityResult>(  paymentService.createCheckoutSession( checkoutData ), HttpStatus.OK );
+
+        ResponseEntity<EntityResult> response;
+
+        try {
+            response =  new ResponseEntity<>(paymentService.createCheckoutSession( checkoutData ), HttpStatus.OK);
+
+        } catch ( StripeException stripeException ) {
+
+            //System.out.println("ERROR: =============> " + stripeException.getStripeError().getMessage() );
+
+            EntityResult exception = new EntityResultMapImpl();
+            exception.put( "error", stripeException.getStripeError().getMessage() );
+            response = new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
     }
 
     @RequestMapping( value = "/session-status", method = RequestMethod.GET )

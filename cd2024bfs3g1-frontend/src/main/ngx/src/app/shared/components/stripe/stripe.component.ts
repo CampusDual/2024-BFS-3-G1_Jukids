@@ -1,4 +1,5 @@
 import { Component, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { StripeEmbeddedCheckout } from '@stripe/stripe-js';
 import { StripeCardComponent, StripeService } from 'ngx-stripe';
 import { DialogService, OButtonComponent, ODialogConfig, OFormComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
@@ -34,7 +35,8 @@ export class StripeComponent implements OnInit, OnDestroy {
   constructor(
     private stripeService: StripeService,
     protected injector: Injector,
-    protected dialogService: DialogService
+    protected dialogService: DialogService,
+    private router: Router
   ) {
     this.ontimizeService = this.injector.get(OntimizeService);
     this.configureService();
@@ -75,6 +77,9 @@ export class StripeComponent implements OnInit, OnDestroy {
       }
     }).subscribe({
       next: async (session: ServiceResponse) => {
+
+        console.log("session:", session);
+
         let sesiondata = JSON.parse(session.data.session);
 
         console.log("session:", session.data);
@@ -82,29 +87,35 @@ export class StripeComponent implements OnInit, OnDestroy {
 
         await this.stripeService.getInstance().initEmbeddedCheckout({
           clientSecret: sesiondata.client_secret
-        }).then( (checkout: StripeEmbeddedCheckout) => {
+        }).then((checkout: StripeEmbeddedCheckout) => {
           this.checkout = checkout;
           this.checkout.mount('#checkout');
           this.loading = false;
         }).catch((err) => {
           console.log(err);
-          this.showCustom( 'error', 'OK', 'Error en embedded checkout', err.error.message);
+          this.showCustom('error', 'OK', 'Error en embedded checkout', err);
 
         });
 
 
 
       },
-      error: (err) => {
-        this.showCustom( 'error', 'OK', 'Error en endpoint', err.error.message);
+      error: (err: any) => {
         console.log(err);
+        this.showCustom('error', 'OK', 'Error en endpoint', err.error.data.error, "/");
+
       }
     })
 
   }
 
   ngOnDestroy(): void {
-    this.checkout.destroy();
+    try {
+      this.checkout.destroy();
+    } catch (e ){
+      // console.log("ERROR: ngOnDestory: ", e)
+    }
+
   }
 
   // =============================  DIALOGS =============================
@@ -114,6 +125,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     btnText: string,
     dialogTitle: string,
     dialogText: string,
+    redirectUrl?: string
   ) {
     if (this.dialogService) {
       const config: ODialogConfig = {
@@ -122,6 +134,13 @@ export class StripeComponent implements OnInit, OnDestroy {
       };
 
       this.dialogService.alert(dialogTitle, dialogText, config);
+      this.dialogService.dialogRef.afterClosed().subscribe( result => {
+        console.log("result:", result);
+        if(result) {
+          this.router.navigate(["main"], { replaceUrl: true });          
+        }
+      });
+
     }
   }
 
