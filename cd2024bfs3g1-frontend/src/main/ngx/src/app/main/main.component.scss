@@ -1,12 +1,23 @@
-
 .nav{
     width: 100%;
   }
+
 .nav-login {
     display: flex;
-    justify-content:flex-end;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
   }
+
+.title p{
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+  color: #fff;
+  font-size: x-large;
+  }
+
+
   .btn-login, .btn-register{
       width: 5rem;
       background-color: #fff;
@@ -17,6 +28,7 @@
       padding: 0.2rem;
       margin: 0.2rem;
     }
+
     .btn-login:hover, .btn-register:hover {
       opacity: 0.8;
       cursor: pointer;
@@ -24,13 +36,4 @@
       transition: 0.5s;
       box-shadow: 3px 3px 0px rgba($color: #ff5349, $alpha: 1.0);
   }
-
-  .title p{
-    color: #fff;
-    font-size: x-large;
-    position: absolute;
-    left: 50px;
-    bottom: 200px;
-  }
-
 
