@@ -31,7 +31,7 @@ export class ToysHomeComponent implements OnInit{
     protected sanitizer:DomSanitizer
   ) {
     //Configuración del servicio para poder ser usado
-    const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
+    const conf = this.ontimizeService.getDefaultServiceConfiguration('byuser');
     this.ontimizeService.configureService(conf);
   }
 

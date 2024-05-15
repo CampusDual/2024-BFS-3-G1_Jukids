@@ -1,61 +1,47 @@
-import { Component, ViewChild, Inject, OnInit} from '@angular/core';
-import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { DialogService, ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
-import { OUserInfoService, AuthService, OEmailInputComponent } from 'ontimize-web-ngx';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MainService } from 'src/app/shared/services/main.service';
+import { AuthService, DialogService, ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 
 @Component({
-  selector: 'app-toys-new',
-  templateUrl: './toys-new.component.html',
-  styleUrls: ['./toys-new.component.scss']
+  selector: 'app-edit-toy',
+  templateUrl: './edit-toy.component.html',
+  styleUrls: ['./edit-toy.component.scss']
 })
-export class ToysNewComponent implements OnInit{
+export class EditToyComponent implements OnInit {
+  private redirect = '/main/user-profile/toylist'
   private location: any;
-  subscription:Subscription;
-  private redirect = '/toys';
-  public toyService: string;
-
-
+  public longitude;
+  public latitude;
+  @ViewChild('latitude') protected lat: ORealInputComponent;
+  @ViewChild('longitude') protected lon: ORealInputComponent;
+  @ViewChild('formToyEdit') protected formToyEdit: OFormComponent;
   isMapLatLongSelected: boolean = true;
   public locationSelected = false;
 
-  @ViewChild('NewToy') protected formToy: OFormComponent;
-  @ViewChild('latitude') protected lat: ORealInputComponent;
-  @ViewChild('longitude') protected lon: ORealInputComponent;
-  @ViewChild('usr_email') protected usr_email: OEmailInputComponent;
-
   constructor(
+    private authService: AuthService,
     private router: Router,
     private ontimizeService: OntimizeService,
     private toysMapService: ToysMapService,
-    protected dialogService: DialogService,
     private translate: OTranslateService,
-    private authService: AuthService,
-    @Inject(MainService) private mainService: MainService
+    protected dialogService: DialogService,
   ) {
+      if (!this.authService.isLoggedIn()) {
+        const self = this;
+        self.router.navigate(["/toys"]);
+      }
 
-    this.toyService = this.authService.isLoggedIn() ? 'toyowner' : 'toys';
-   //Configuración del servicio para poder ser usado
-   const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
-   this.ontimizeService.configureService(conf);
   }
 
   ngOnInit() {
-    const serviceConfig = this.ontimizeService.getDefaultServiceConfiguration(this.toyService);
-    this.ontimizeService.configureService(serviceConfig);
-    //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
+  }
 
-    setTimeout(() => {
-      this.mainService.getUserInfo().subscribe((data)=>{
-          const usr = data.data.usr_login;
-          this.usr_email.setValue(usr);
-      });
-    }, 100);
+  onFormDataLoaded(data: any) {
+    this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue())
   }
 
   handleMapClick(e) {
@@ -69,17 +55,37 @@ export class ToysNewComponent implements OnInit{
     this.isMapLatLongSelected = true;
   }
 
+  redirectList(){
+    const self = this;
+      self.router.navigate([this.redirect]);
+  }
+
+  showCustom(
+    icon: string,
+    btnText: string,
+    dialogTitle: string,
+    dialogText: string,
+  ) {
+    if (this.dialogService) {
+      const config: ODialogConfig = {
+        icon: icon,
+        okButtonText: btnText
+      };
+      this.dialogService.info(dialogTitle, dialogText, config);
+    }
+  }
+
   newSubmit() {
 
     let arrayErrores: any [] = [];
-    const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude']);
+    const getFieldValues = this.formToyEdit.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude']);
 
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
     let errorDescription = "ERROR_DESCRIPTION_VALIDATION";
     let errorPrice = "ERROR_PRICE_VALIDATION";
     let errorNegativePrice = "ERROR_NEGATIVE_PRICE_VALIDATION";
-    let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION"
+    let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION";
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     let errorLocation = "ERROR_LOCATION_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
@@ -116,28 +122,8 @@ export class ToysNewComponent implements OnInit{
       }
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
     }else{
-      this.formToy.insert();
+      this.formToyEdit.update();
     }
   }
 
-  showCustom(
-    icon: string,
-    btnText: string,
-    dialogTitle: string,
-    dialogText: string,
-  ) {
-    if (this.dialogService) {
-      const config: ODialogConfig = {
-        icon: icon,
-        okButtonText: btnText
-      };
-      this.dialogService.info(dialogTitle, dialogText, config);
-    }
-  }
-
-  insertRedirect(){
-    const self = this;
-      self.router.navigate([this.redirect]);
-  }
-  }
-
+}

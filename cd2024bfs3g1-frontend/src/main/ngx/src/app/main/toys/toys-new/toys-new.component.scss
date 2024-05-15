@@ -1,3 +1,18 @@
 .map-container {
-  margin-top: 20px;
+    margin-top: 10px;
+}
+
+.not-selected {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.pop-up-span {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /* background-color: rgb(234, 170, 124); */
 }
