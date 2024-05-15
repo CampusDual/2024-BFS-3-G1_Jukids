@@ -4,7 +4,6 @@ export const MENU_CONFIG: MenuRootItem[] = [
 
   { id: 'user-profile', name: 'PROFILE', icon: 'folder_shared', route: '/main/user-profile',
     items: [
-      { id: 'see-profile', name: "SEE_PROFILE", tooltip: 'NEW', route: '/main/user-profile', icon: 'people' },
       { id: 'usertoylist', name: "YOUR_TOYS", tooltip: 'NEW', route: '/main/user-profile/toylist', icon: 'list' }
     ]
   },
