@@ -18,4 +18,5 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_PHOTO = "photo";
     public static final String ATTR_LATITUDE = "latitude";
     public static final String ATTR_LONGITUDE = "longitude";
+    public static final String ATTR_USR_ID = "usr_id";
 }

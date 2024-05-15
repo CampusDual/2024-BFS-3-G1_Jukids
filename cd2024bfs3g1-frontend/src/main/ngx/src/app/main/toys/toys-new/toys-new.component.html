@@ -1,4 +1,4 @@
-<o-form id="newtoy" #NewToy attr="toysNew" service="toys" entity="toy" keys="toyid" show-header="no" show-header-navigation="no" undo-button="no" header-actions="I"
+<o-form id="newtoy" #NewToy attr="toysNew" service="{{ toyService }}" entity="toy" keys="toyid" show-header="no" show-header-navigation="no" undo-button="no" header-actions="I"
 (onInsert)="insertRedirect()">
     <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
         <div fxFlex.gt-sm="35%">
@@ -6,23 +6,35 @@
                 max-file-size="4194304" sql-type="OTHER" required="yes"></o-image>
         </div>
         <o-column fxFlex title="TOY_INFORMATION">
-            <div fxLayout="column" fxLayoutGap="8px">
-                <o-text-input fxFlex="40" attr="name" required="yes" max-length="255"></o-text-input>
-                <o-textarea-input attr="description" required="yes" max-length="2255"></o-textarea-input>
+            <div fxLayout="column" fxLayoutGap="8px" layout-padding>
+                <o-text-input fxFlex="40" attr="name" required="yes" max-length="150"></o-text-input>
+                <o-textarea-input attr="description" required="yes" max-length="700"></o-textarea-input>
+                <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
+                    <o-currency-input fxFlex.gt-sm="50" attr="price" label="price" enabled="yes" min-decimal-digits="2"
+                        max-decimal-digits="2" min="0.00" max="9999999" required="yes"></o-currency-input>
+                    <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes" label="usr_email"></o-email-input>
+                </div>
             </div>
-            <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
-                <o-real-input fxFlex.gt-sm="50" attr="price" label="price" enabled="yes"min-decimal-digits="2" max-decimal-digits="2"
-                min="0" max="9999999" required="yes"></o-real-input>
-                <o-email-input fxFlex.gt-sm="50" attr="email" required="yes" label="usr_email"></o-email-input>
-            </div>
-            <div class="map-container">
+            <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
+                <div class="pop-up-span">
+                    <span>{{ 'SELECT_POINT_ON_MAP' | oTranslate }}</span>
+                    <mat-icon class="mat-icon-error" *ngIf="!isMapLatLongSelected">error</mat-icon>
+                    <mat-icon class="mat-icon-done" *ngIf="locationSelected">done</mat-icon>
+                </div>
                 <location-map (click)="handleMapClick($event)"></location-map>
             </div>
-            <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
-                min-decimal-digits="0" required="yes"></o-real-input>
-            <o-real-input style="display: none" id="latitude" #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
-                min-decimal-digits="0" required="yes"></o-real-input>
+            <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude"
+                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
+            </o-real-input>
+            <o-real-input style="display: none" id="latitude" #latitude fxFlex="50" attr="latitude"
+                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
+            </o-real-input>
+
+            <o-row layout-align="end center" layout-margin-top>
+                <o-button layout-padding color="primary" icon="close" label="cancel"></o-button>
+                <o-button label="Ok" color="primary" icon="done" layout-padding (click)="newSubmit()"></o-button>
+            </o-row>
+
         </o-column>
     </div>
-    <o-form-toolbar></o-form-toolbar>
 </o-form>

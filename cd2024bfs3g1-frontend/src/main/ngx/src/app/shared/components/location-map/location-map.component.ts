@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { OntimizeService, DialogService } from 'ontimize-web-ngx';
 import { ToysMapService } from '../../services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
@@ -10,7 +10,13 @@ import { OMapComponent } from 'ontimize-web-ngx-map';
 })
 export class LocationMapComponent {
   private location: any;
+  latitude: number = 42.240599;
+  longitude: number = -8.720727;
+  public center:string = '42.240599, -8.720727';
+
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
+
+  isMapLatLongSelected: boolean = false;
 
   constructor(
     private ontimizeService: OntimizeService,
@@ -26,21 +32,42 @@ export class LocationMapComponent {
     //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
+      this.latitude = this.location.latitude;
+      this.longitude = this.location.longitude;
+      this.center = this.latitude + ',' + this.longitude;
     });
   }
-
+  
   getPosition(e) {
     this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
+    this.createMarker(e.latlng.lat, e.latlng.lng);
+  }
+
+  hasLocation(){
+    return (this.location != undefined && this.location.latitude != undefined && this.location.longitude != undefined);
+  }
+
+  getPoint(){
+    if(this.hasLocation()){
+      this.createMarker(this.latitude, this.longitude);
+    }
+    return this.center;
+  }
+
+  createMarker(lat, lng){
     this.oMapBasic.addMarker(
       1,
-      e.latlng.lat,
-      e.latlng.lng,
+      lat,
+      lng,
       false,
       true,
       false,
       false,
       false
     );
+
+    this.isMapLatLongSelected = true;
   }
+  
 
 }

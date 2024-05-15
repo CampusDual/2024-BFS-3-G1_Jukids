@@ -8,7 +8,7 @@ export const routes: Routes = [
   //{ path: 'register', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   { path: 'checkout', component: CheckoutComponent },
   { path: '**', redirectTo: 'main', pathMatch: 'full' },
-  { path: '', redirectTo: 'main', pathMatch: 'full' }
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
 ];
 
 const opt: ExtraOptions = {
