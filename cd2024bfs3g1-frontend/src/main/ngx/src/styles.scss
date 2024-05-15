@@ -3,7 +3,7 @@
   .o-form {
     form {
       height: 100%;
-   
+
     }
   }
 }
@@ -56,10 +56,11 @@
   color: #ff5349!important;
 }
 
-.register-form{
+
   mat-toolbar {
       box-shadow: none !important;
   }
+.register-form{
   .mdc-text-field--filled:not(.mdc-text-field--disabled){
     background-color: transparent;
   }
@@ -69,14 +70,14 @@
       height: 26px;
     }
 
-    .o-form .o-form-toolbar button.mat-mdc-outlined-button, 
-    .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons 
+    .o-form .o-form-toolbar button.mat-mdc-outlined-button,
+    .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons
     .o-table-button button.mat-mdc-outlined-button{
       padding: 0 10px;
     }
 
     button.mat-mdc-button-base.mat-mdc-button, button.mat-mdc-button-base.mat-mdc-unelevated-button,
-     button.mat-mdc-button-base.mat-mdc-raised-button, 
+     button.mat-mdc-button-base.mat-mdc-raised-button,
      button.mat-mdc-button-base.mat-mdc-outlined-button{
       min-width: 52px;
     }
@@ -92,4 +93,16 @@
 
 ::-webkit-scrollbar-track{
   display: none;
+}
+
+//Necesario para ocultar el boton sobrante en el formulario de editar juguete.
+#formToyEdit {
+  button[attr="update"]{
+  display: none!important;
+}
+
+.noresize textarea{
+  resize:none !important;
+}
+
 }
