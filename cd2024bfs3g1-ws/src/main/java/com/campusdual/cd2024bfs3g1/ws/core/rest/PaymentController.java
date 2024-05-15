@@ -24,4 +24,11 @@ public class PaymentController {
         return new ResponseEntity<EntityResult>(  paymentService.createCheckoutSession( checkoutData ), HttpStatus.OK );
     }
 
+    @RequestMapping( value = "/session-status", method = RequestMethod.GET )
+    public ResponseEntity<EntityResult> checkSessionStatus(
+            @RequestParam String session_id
+    ) throws StripeException {
+        return new ResponseEntity<>(paymentService.checkSessionStatus(session_id), HttpStatus.OK);
+    }
+
 }

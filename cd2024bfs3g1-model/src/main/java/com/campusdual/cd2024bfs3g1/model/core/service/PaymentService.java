@@ -8,12 +8,16 @@ import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
+import com.stripe.model.LineItem;
+import com.stripe.model.LineItemCollection;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
+import com.stripe.param.checkout.SessionListLineItemsParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.awt.datatransfer.Clipboard;
 import java.util.*;
 
 @Service
@@ -131,7 +135,6 @@ public class PaymentService implements IPaymentService {
                         .setReturnUrl( baseUrl + "checkout?session_id={CHECKOUT_SESSION_ID}")
                         .build();
 
-
         Session session = Session.create(params);
 
 
@@ -139,5 +142,44 @@ public class PaymentService implements IPaymentService {
         checkoutSession.put("session", session.toJson());
 
         return checkoutSession;
+    }
+
+    public EntityResult checkSessionStatus(String session_id) throws StripeException {
+        Stripe.apiKey = secretKey;
+        EntityResult resultStatus = new EntityResultMapImpl();
+
+        try {
+            Session session = Session.retrieve(session_id);
+
+            Map<String, Object> sessionData = new HashMap<>();
+            sessionData.put("session_id", session.getId());
+            sessionData.put("status", session.getStatus());
+
+            SessionListLineItemsParams params = SessionListLineItemsParams.builder().build();
+            LineItemCollection lineItems = session.listLineItems(params);
+
+            Map<String, Object> itemDetails = new HashMap<>();
+
+            for (LineItem lineItem : lineItems.getData()) {
+                String itemId= lineItem.getId();
+                String itemName = lineItem.getDescription();
+                Long itemPrice = lineItem.getAmountTotal();
+                Number itemQty = lineItem.getQuantity();
+                String currency= lineItem.getCurrency();
+
+                itemDetails.put("id", itemId);
+                itemDetails.put("name", itemName);
+                itemDetails.put("price", itemPrice);
+                itemDetails.put("quantity", itemQty);
+                itemDetails.put("currency", currency);
+            }
+            sessionData.put("product_details", itemDetails);
+
+            resultStatus.putAll(sessionData);
+
+        } catch (StripeException e) {
+            resultStatus.put("error", e.getMessage());
+        }
+        return resultStatus;
     }
 }

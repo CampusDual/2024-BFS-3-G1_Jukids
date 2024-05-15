@@ -12,4 +12,6 @@ public interface IPaymentService {
 
     EntityResult createCheckoutSession( HashMap<String, Object> checkoutData ) throws StripeException;
 
+    EntityResult checkSessionStatus( String session_id ) throws StripeException;
+
 }
