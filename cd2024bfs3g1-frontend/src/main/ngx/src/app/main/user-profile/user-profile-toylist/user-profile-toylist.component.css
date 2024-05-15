@@ -67,3 +67,9 @@ mat-card-header mat-card-title{
 .list-container {
     margin-top: 5px;
 }
+
+.table{
+    border-radius:  1em;
+    padding: 0.75em;
+    padding-bottom: 0;
+}

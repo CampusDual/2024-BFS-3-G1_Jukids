@@ -1,10 +1,11 @@
 
-<o-table #table fxFlex attr="toysList" title="{{ 'MY_TOYS' | oTranslate }}" keys="toyid" columns="toyid;name;description;price;photo"
-visible-columns="photo;name;description;price" sort-columns="name" query-on-init="true" quick-filter="true"
-filter-case-sensitive="false" service="toyowner" entity="toy" insert-button="true" export-button="true"
-edit-button="true" refresh-button="true"
-select-all-checkbox="false" show-buttons-text="true" controls="true" show-title="true"
-pagination-controls="no" horizontal-scroll="false" auto-adjust="true" virtual-scroll="no" show-charts-on-demand-option="no">
+<o-table #table fxFlex attr="toysList"service="toyowner" entity="toy" keys="toyid" 
+title="{{ 'MY_TOYS' | oTranslate }}"
+columns="toyid;name;description;price;photo" visible-columns="photo;name;description;price" 
+sort-columns="name" query-on-init="true" quick-filter="true" filter-case-sensitive="false"
+insert-button="false"  delete-button="false" export-button="false" edit-button="false" refresh-button="false" show-buttons-text="false"
+controls="true" show-title="true" select-all-checkbox="false"  pagination-controls="no" 
+horizontal-scroll="false" virtual-scroll="no" auto-adjust="true" show-charts-on-demand-option="no" class="table">
 
 
 <!-- delete-button="true" columns-visibility-button="true"-->
