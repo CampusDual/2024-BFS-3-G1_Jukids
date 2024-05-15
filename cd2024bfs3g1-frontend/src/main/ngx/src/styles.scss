@@ -3,7 +3,7 @@
   .o-form {
     form {
       height: 100%;
-   
+
     }
   }
 }
@@ -70,14 +70,14 @@
       height: 26px;
     }
 
-    .o-form .o-form-toolbar button.mat-mdc-outlined-button, 
-    .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons 
+    .o-form .o-form-toolbar button.mat-mdc-outlined-button,
+    .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons
     .o-table-button button.mat-mdc-outlined-button{
       padding: 0 10px;
     }
 
     button.mat-mdc-button-base.mat-mdc-button, button.mat-mdc-button-base.mat-mdc-unelevated-button,
-     button.mat-mdc-button-base.mat-mdc-raised-button, 
+     button.mat-mdc-button-base.mat-mdc-raised-button,
      button.mat-mdc-button-base.mat-mdc-outlined-button{
       min-width: 52px;
     }
@@ -100,4 +100,9 @@
   button[attr="update"]{
   display: none!important;
 }
+
+.noresize textarea{
+  resize:none !important;
+}
+
 }

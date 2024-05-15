@@ -80,7 +80,6 @@ export class ToysNewComponent implements OnInit{
     let errorPrice = "ERROR_PRICE_VALIDATION";
     let errorNegativePrice = "ERROR_NEGATIVE_PRICE_VALIDATION";
     let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION"
-    let errorLowerThanOneCentPrice = "ERROR_LOWER_CENT_VALIDATION"
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     let errorLocation = "ERROR_LOCATION_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');

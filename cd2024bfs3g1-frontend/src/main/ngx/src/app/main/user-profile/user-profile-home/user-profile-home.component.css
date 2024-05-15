@@ -14,6 +14,7 @@
     padding: 0 0.75em 0 0.5em;
     align-items: center;
 }
+
 .user-profile-home-listcard  :hover{
     scale: 100%;
 }

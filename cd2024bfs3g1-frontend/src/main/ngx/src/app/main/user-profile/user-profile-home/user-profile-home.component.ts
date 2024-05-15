@@ -7,6 +7,7 @@ import { AuthService } from 'ontimize-web-ngx';
   templateUrl: './user-profile-home.component.html',
   styleUrls: ['./user-profile-home.component.css']
 })
+
 export class UserProfileHomeComponent {
   private redirect = '/toys';
 

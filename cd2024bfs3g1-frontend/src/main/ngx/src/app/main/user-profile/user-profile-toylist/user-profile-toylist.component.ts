@@ -10,10 +10,11 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
+
 export class UserProfileToylistComponent {
   public userInfo;
   private redirect = '/toys';
-  
+
   constructor(
     private authService: AuthService,
     private router: Router,
