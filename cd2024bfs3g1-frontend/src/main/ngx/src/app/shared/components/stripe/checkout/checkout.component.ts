@@ -1,17 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OTranslatePipe, OTranslateService } from 'ontimize-web-ngx';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
-export class CheckoutComponent {
+export class CheckoutComponent implements OnInit {
+
+  protected PAYMENT_SUCCESS: string;
+  protected DONT_HESITATE: string;
+  protected THANK_YOU_PURCHASE: string;
+  protected TOY_BUTTON: string;
 
 
 
   constructor(
     private actRoute: ActivatedRoute,
+    private translateService: OTranslateService,
     private router: Router
   ) {
 
@@ -23,6 +31,15 @@ export class CheckoutComponent {
   //   });
 
   }
+
+  ngOnInit(): void {
+    this.THANK_YOU_PURCHASE = this.translateService.get("THANK_YOU_PURCHASE");
+    this.PAYMENT_SUCCESS = this.translateService.get("PAYMENT_SUCCESS");
+    this.DONT_HESITATE = this.translateService.get("DONT_HESITATE");
+    this.TOY_BUTTON = this.translateService.get('TOY_BUTTON');
+  }
+
+
 
 
 

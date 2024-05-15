@@ -94,5 +94,9 @@
   "MAX_SIZE": "Máximo tamaño permitido 4MB",
   "VIEW_MAP": "Ver mapa",
   "SELECT_POINT_ON_MAP":"Seleccione un punto",
-  "Email": "Correo"
+  "Email": "Correo",
+  "THANK_YOU_PURCHASE": "Grascias por tu compra",
+  "PAYMENT_SUCCESS": "Pago realizado con éxito",
+  "DONT_HESITATE": "No dudes en ponerte en contacto con el vendedor para más información",
+  "TOY_BUTTON": "Este botón lleva a más juguetes"
 }

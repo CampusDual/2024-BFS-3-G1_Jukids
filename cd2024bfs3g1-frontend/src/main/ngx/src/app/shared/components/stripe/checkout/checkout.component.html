@@ -1,14 +1,14 @@
-<section id="success">
-  <h2>Gracias por tu compra</h2>
-  <div class="icon-container">
-    <i class="material-icons">check_circle</i>
-  </div>
-  <p>
-    Tu pago ha sido realizado con éxito<br>
-    No dudes en ponerte en contacto con el vendedor para más información
-  </p>
-  <div class="img-button">
-    <img src="../../../../../assets/images/jukids_logo.webp" alt="jukids_logo" (click)="redirect()">
-    <p class="button-message">Este botón lleva a más juguetes</p>
-  </div>
-</section>
+<div class="checkout-body">
+  <section id="success">
+    <h2>{{ THANK_YOU_PURCHASE }}</h2>
+    <div class="icon-container">
+      <i class="material-icons">check_circle</i>
+    </div>
+    <p>{{ PAYMENT_SUCCESS }}</p>
+    <p>{{ DONT_HESITATE }}</p>
+    <div class="img-button">
+      <img src="../../../../../assets/images/jukids_logo.webp" alt="jukids_logo" (click)="redirect()">
+      <p class="button-message">{{ TOY_BUTTON }}</p>
+    </div>
+  </section>
+</div>
