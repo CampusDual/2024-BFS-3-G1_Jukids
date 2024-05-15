@@ -15,9 +15,9 @@ virtual-scroll="no" show-charts-on-demand-option="no" class="table">
 <o-table-column attr="photo" orderable="no" searchable="no" width="100px">
   <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes"> </o-table-cell-renderer-image>
 </o-table-column>
-<o-table-column attr="name" title="Name" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
-<o-table-column attr="description" title="Description" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
-<o-table-column attr="price" title="Price" multiline="no" width="300px" tooltip="yes"></o-table-column>
+<o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
+<o-table-column attr="description" title="{{ 'description' | oTranslate }}" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
+<o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px" tooltip="yes"></o-table-column>
 <o-table-column attr="edit-btn" width="64px" (onClick)="openToyEdit($event)" >
   <button attr="edit" (onClick)="openToyEdit($event)" icon="edit"></button>
 </o-table-column>
