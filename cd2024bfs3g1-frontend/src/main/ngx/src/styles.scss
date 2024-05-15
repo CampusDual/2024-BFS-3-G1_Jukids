@@ -54,9 +54,7 @@
 }
 
 .register-form{
-  mat-toolbar {
-      box-shadow: none !important;
-  }
+
   .mdc-text-field--filled:not(.mdc-text-field--disabled){
     background-color: transparent;
   }
@@ -119,4 +117,8 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
   resize:none !important;
 }
 
+}
+
+mat-toolbar {
+  box-shadow: none !important;
 }
