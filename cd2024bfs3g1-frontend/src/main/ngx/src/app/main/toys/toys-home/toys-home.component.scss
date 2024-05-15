@@ -1,43 +1,12 @@
-.toy-card {
-    background-color: #f5f3f1ac;
-   
-    color: #333;
-    font-family: Arial, sans-serif;
-   
-    border: 0.125rem solid #ffa366;
-    border-radius: .75rem;
-    box-shadow: 0.250rem 0.250rem 0.313rem #ff5439;
 
- 
-    transition: transform .4s ease;
-   
-    &:hover{
-       transform: scale(1.1);
-    }
- 
+/* Estilos para el contenedor de la cuadrícula */
+.o-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important; /* Define el ancho mínimo de las celdas */
+  gap: 2rem !important; /* Ajusta el espacio entre las celdas */
 }
- 
-.img-toy {
-    width:20rem;
-    height:12rem;
-    object-fit:contain;
-}
- 
-.toy-title{
-    margin:0  0 .5rem 0;
-}
- 
-.filter-button {
-    margin-right: 0.5rem;
-    border: 1px solid #ffa366;
-    border-radius: 10px;
-    box-shadow: none;
-}
- 
-.btn-container {
-    margin: 0 0.5rem 0 0.5rem;
-}
- 
-.o-data-toolbar .title {
-    padding: 10px;
+
+/* Estilos para los elementos de la cuadrícula */
+.o-grid-item {
+  margin-bottom: 2rem !important; /* Añade margen inferior para separar los elementos */
 }
