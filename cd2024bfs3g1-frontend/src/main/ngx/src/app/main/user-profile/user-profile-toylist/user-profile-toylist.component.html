@@ -7,95 +7,16 @@ insert-button="false"  delete-button="false" export-button="false" edit-button="
 controls="true" show-title="true" select-all-checkbox="false"  pagination-controls="no" 
 horizontal-scroll="false" virtual-scroll="no" auto-adjust="true" show-charts-on-demand-option="no" class="table">
 
+  <o-table-columns-filter columns="name;description;price"></o-table-columns-filter>
 
-<!-- delete-button="true" columns-visibility-button="true"-->
-
-<!-- Filter columns -->
-<o-table-columns-filter columns="name;description;price"></o-table-columns-filter>
-<!-- Custom definition button -->
-<!-- <o-table-button attr="action1" (onClick)="openToyEdit($event)" label="{{ 'EDIT' | oTranslate }}" icon="edit"></o-table-button> -->
-<!-- Custom definition columns -->
-<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
-<o-table-column attr="photo" orderable="no" searchable="no" width="100px">
-  <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes"> </o-table-cell-renderer-image>
-</o-table-column>
-<o-table-column attr="name" title="Name" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
-<o-table-column attr="description" title="Description" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
-<o-table-column attr="price" title="Price" multiline="no" width="300px" tooltip="yes"></o-table-column>
-<!-- <o-table-column attr="action" width="64px">
-  <o-table-cell-renderer-action (onClick)="openToyEdit($event)" icon="edit"></o-table-cell-renderer-action>
-</o-table-column> -->
-<o-table-column attr="edit-btn" width="64px" (onClick)="openToyEdit($event)" >
-  <button attr="edit" (onClick)="openToyEdit($event)" icon="edit"></button>
-</o-table-column>
+  <o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
+  <o-table-column attr="photo" orderable="no" searchable="no" width="100px">
+    <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes"> </o-table-cell-renderer-image>
+  </o-table-column>
+  <o-table-column attr="name" title="Name" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
+  <o-table-column attr="description" title="Description" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
+  <o-table-column attr="price" title="Price" multiline="no" width="300px" tooltip="yes"></o-table-column>
+  <o-table-column attr="edit-btn" width="64px" (onClick)="openToyEdit($event)" >
+    <button attr="edit" (onClick)="openToyEdit($event)" icon="edit"></button>
+  </o-table-column>
 </o-table>
-
-
-
-
-<!-- <mat-tab-group> -->
-    <!-- <mat-tab label="{{ 'MY_TOYS' | oTranslate }}" > -->
-      <!-- <div class="title-container">
-        <h2>{{ 'MY_TOYS' | oTranslate }}</h2>
-      </div> -->
-      
-      <!-- <div class="list-container"> -->
-        <!-- <o-list #toysList attr="toysList" title="MIS JUGUETES" quick-filter="true" quick-filter-columns="name;description;price" service="toyowner" 
-        entity="toy" keys="toyid" selectable="true" columns="toyid;name;description;price;photo" query-rows="20" page-size-options="20"
-        row-height="medium" pagination-controls="true"> -->
-
-        <!-- <o-list #toysList attr="toysList" title="MIS JUGUETES" service="toyowner" entity="toy" keys="toyid" selectable="true" 
-        columns="toyid;name;description;price;photo" refresh-button="true" quick-filter="true" insert-button="false"
-        row-height="small" detail-mode="none" selectable="true">
-       
-        <o-list-item *ngFor="let row of toysList.dataArray">
-          <div class="o-image-container">
-            <o-image class="image-at-profile" show-controls="false" enabled="false" read-only="true" [data]="row.photo"></o-image>
-          </div>
-          <o-list-item-card #item title="{{ row.name }}" subtitle="{{ row.description }}" show-image="true" image="{{ row.photo }}"
-          
-            action-1-text="ACTION 1" action-2-text="ACTION 2"
-            (action-1)="saySomething()" (action-2)="saySomething()">
-          </o-list-item-card>
-        </o-list-item>
-       
-      </o-list> -->
-
-      <!-- <o-list-item *ngFor="let row of toysList.dataArray">
-        <o-list-item-avatar #tem  avatar="{{ row.photo }}" title="{{ row.name }}" primary-text="{{ row.price }}"
-          secondary-text="{{ row.description }}" (icon-action)="saySomething()">
-        </o-list-item-avatar>
-      </o-list-item> -->
-
-          <!-- <o-list-item *ngFor="let row of toysList.dataArray">
-            <div class="o-image-container">
-              <o-image class="image-at-profile" show-controls="false" enabled="false" read-only="true" [data]="row.photo"></o-image>
-            </div>
-            <o-list-item-text #item icon="mood" icon-position="right" title="{{ row.username }}"
-              primary-text="{{ row.name }}" secondary-text="{{ row.email }}" (icon-action)="saySomething()">
-            </o-list-item-text>
-          </o-list-item> -->
-     
-      
-      <!-- <mat-card class="mat-card-size-adjust" *ngFor="let row of toysList.dataArray" [o-list-item]="row">
-  
-        <div class="row-container">
-  
-          <div class="o-image-container">
-            <o-image class="image-at-profile" show-controls="false" enabled="false" read-only="true" [data]="row.photo"></o-image>
-          </div>
-  
-          <mat-card-header class="info-container">
-            <mat-card-title>{{ row.name }}</mat-card-title>
-            <mat-card-subtitle>{{ row.description }}</mat-card-subtitle>
-            <mat-card-subtitle>{{ row.price  + "€" }}</mat-card-subtitle>
-  
-            <mat-card-actions class="mat-card-actions-buttons">
-              <button icon="edit-button" class="edit-button" (click)="openToyEdit(row.toyid)">Editar</button>
-            </mat-card-actions>
-          </mat-card-header>
-        </div>
-        
-      </mat-card> -->
-      
-      <!-- </div> -->

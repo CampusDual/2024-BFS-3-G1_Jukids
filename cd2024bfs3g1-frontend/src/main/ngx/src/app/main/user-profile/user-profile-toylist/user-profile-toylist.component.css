@@ -1,72 +1,8 @@
-.mat-card-size-adjust {
-    height: 150px;
-    min-height: fit-content;
-}
-
-.row-container {
-    /* background-color: burlywood; */
-    display: flex;
-    flex-direction: row;
-    height: max-content;
-    min-width: max-content;
-}
-
-.image-at-profile {
-    min-width: 150px;
-    min-height: 150px;
-    max-width: 150px;
-    max-height: 150px;
-    height: 150px;
-}
-
-.mat-card-actions-buttons {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    justify-self: end;
-}
-
-.o-image-container{
-    /* background-color: tomato; */
-    width: 10%;
-    min-width: max-content;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    justify-self: end;
-}
-
-.info-container {
-    width: 85%;
-    min-width: 20%;
-    /* background-color: aqua; */
-}
-
-.edit-button {
-    background-color: rgba(255, 255, 255, 0);
-    border-radius: 5px;
-}
-
 mat-card-header mat-card-title{
-    /* width: max-content; */
     height: fit-content;
     min-width: max-content;
-    /* background-color: aquamarine; */
 }
 
-/* mat-card-header mat-card-subtitle {
-    /* width: max-content; */
-
-.title-container {
-    margin-bottom: -5em;
-}
-
-.list-container {
-    margin-top: 5px;
-}
 
 .table{
     border-radius:  1em;
