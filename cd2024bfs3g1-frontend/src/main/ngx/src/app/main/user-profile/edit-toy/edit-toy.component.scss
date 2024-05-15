@@ -1,0 +1,85 @@
+.backBtn {
+    background-color: transparent !important;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 0.75em;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 1em;
+    box-shadow: 5px 5px 0px #ff52497c;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+    width: 90%;
+    height: 80%;
+    margin-bottom: auto;
+}
+
+.form{
+    width: 100%;
+}
+
+.form .o-form-toolbar-header {
+    box-shadow: none !important;
+}
+
+@media screen and (max-width: 1000px) {
+    .toys-detail-column {
+        flex-direction: column !important;
+    }
+
+    .total-column {
+        max-width: 100% !important;
+        margin-right: 0 !important;
+    }
+
+    .descInput{
+        height: auto !important;
+    }
+
+}
+
+.image-container {
+    margin: auto;
+}
+
+.inf-column {
+    margin-right: 1.5em;
+    width: 100%;
+}
+
+.title {
+    width: 100%;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.75);
+    margin-bottom: 0.5em;
+}
+
+.price {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.descInput{
+    height: 190px;
+}
+
+#saveButton:hover{
+    border-style: none;
+}
+
+h2{
+    display: flex;
+    justify-content: center;
+}
+
+::ng-deep .no-resize textarea {
+    resize: none !important;
+  }

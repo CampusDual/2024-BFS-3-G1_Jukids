@@ -93,7 +93,6 @@
   "REGISTER": "Register",
   "MAX_SIZE": "Maximum size allowed 4MB",
   "VIEW_MAP": "View map",
-  "SELECT_POINT_ON_MAP":"Select a point",
   "ERROR_PHOTO_VALIDATION": "Photo not found or max size exceeded",
   "COMPLETE_FIELDS_VALIDATION": "Complete the empty fields",
   "ERROR_NAME_VALIDATION": "Enter product's name",
@@ -103,5 +102,19 @@
   "ERROR_NEGATIVE_PRICE_VALIDATION": "The price must be positive",
   "ERROR_EMAIL_VALIDATION": "Enter a valid email",
   "ERROR_HIGHER_MILLION_VALIDATION": "The price can't be higher than 10 million €",
-  "ERROR_LOWER_CENT_VALIDATION": "The price can't be lower than 1 cent €"
+  "SELECT_POINT_ON_MAP":"Select a point",
+  "YOUR_PRODUCTS":"My products",
+  "MY_PROFILE":"My profile",
+  "MY_TOYS":"My toys",
+  "VIEW_MY_PRODUCTS": "View My products",
+  "EDIT_YOUR_TOY": "Edit your toy",
+  "EDIT_OR_DELETE_YOUR_TOY": "Edit or delete your toy",
+  "YOUR_TOYS": "Your Toys",
+  "SEE_PROFILE": "See profile",
+  "BACKBTN": "Back",
+  "TITLE_DESCRIPTION": "DESCRIPTION",
+  "TITLE_CONTACT": "CONTACT",
+  "TITLE_MAP": "LOCATION",
+  "HELLO": "Hello",
+  "BACKBTN_TOY": "Back to toys"
 }

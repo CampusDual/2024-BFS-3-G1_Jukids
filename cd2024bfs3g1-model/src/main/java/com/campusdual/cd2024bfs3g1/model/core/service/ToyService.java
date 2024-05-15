@@ -43,8 +43,6 @@ public class ToyService implements IToyService {
             error.setMessage("El correo electrónico no es correcto");
             return error;
         }
-        return this.daoHelper.insert(this.toyDao,attrMap);
+        return this.daoHelper.insert(this.toyDao, attrMap);
     }
 }
-
-
