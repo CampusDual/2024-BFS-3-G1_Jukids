@@ -94,6 +94,7 @@ export class ToysHomeComponent implements OnInit{
     this.arrayData = e;
     //Inserción del nuevo array en los datos del grid
     this.toyGrid.dataArray = this.arrayData;
+    this.toyGrid.pageSizeChanged();
   }
 
   createFilter(values: Array<{ attr, value }>): Expression {
