@@ -5,34 +5,45 @@
 
 <div class="box">
   <o-form class="form" attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
-    show-header="no" layout-direction="column">
-    <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
+    show-header="no" layout-direction="column" (onDataLoaded)="setStripe()">
+    <o-text-input #toyId attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
-    <o-column >
+    <o-column>
       <div fxLayoutGap="25px" fxLayout="row" class="toys-detail-column">
         <o-column fxFlex="30">
           <o-image class="image-container" auto-fit="yes" attr="photo" read-only="yes"
             empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
+
+          <button class="btn-checkout" (click)="checkout()">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM17 17H9.29395C8.83288 17 8.60193 17 8.41211 16.918C8.24466 16.8456 8.09938 16.7291 7.99354 16.5805C7.8749 16.414 7.82719 16.1913 7.73274 15.7505L5.27148 4.26465C5.17484 3.81363 5.12587 3.58838 5.00586 3.41992C4.90002 3.27135 4.75477 3.15441 4.58732 3.08205C4.39746 3 4.16779 3 3.70653 3H3M6 6H18.8732C19.595 6 19.9555 6 20.1978 6.15036C20.41 6.28206 20.5653 6.48862 20.633 6.729C20.7104 7.00343 20.611 7.34996 20.411 8.04346L19.0264 12.8435C18.9068 13.2581 18.8469 13.465 18.7256 13.6189C18.6185 13.7547 18.4772 13.861 18.317 13.9263C18.1361 14 17.9211 14 17.4921 14H7.73047M8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21Z"
+                stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Comprar</span>
+          </button>
+
         </o-column>
 
-        <o-column  class="inf-column">
+        <o-column class="inf-column">
 
           <o-text-input #nameInput attr="name" fxFlex="100" read-only="yes" oHidden></o-text-input>
-            <o-currency-input #priceInput attr="price" fxFlex="100" read-only="yes" min-decimal-digits="2" max-decimal-digits="2" oHidden></o-currency-input>
+          <o-currency-input #priceInput attr="price" fxFlex="100" read-only="yes" min-decimal-digits="2"
+            max-decimal-digits="2" oHidden></o-currency-input>
           <div class="containerPrice">
-            <o-row class="titleName" >{{nameInput.getValue()}}</o-row>
+            <o-row class="titleName">{{nameInput.getValue()}}</o-row>
             <o-row class="price">{{priceInput.getValue()}} <span>€</span></o-row>
           </div>
 
           <o-textarea-input #descInput attr="description" fxFlex="100" read-only="yes" oHidden></o-textarea-input>
-          <div layout-align="start stretch" fxFlex="59" >
+          <div layout-align="start stretch" fxFlex="59">
             <p class="title">{{'TITLE_DESCRIPTION' | oTranslate}}</p>
             <o-row class="text longDescr">{{descInput.getValue()}}</o-row>
           </div>
 
           <o-email-input #emailInput attr="email" fxFlex="100" read-only="yes" oHidden></o-email-input>
           <div layout-align="start stretch">
-            <p class="title">{{'TITLE_CONTACT'  | oTranslate}}</p>
+            <p class="title">{{'TITLE_CONTACT' | oTranslate}}</p>
             <o-row class="text">{{emailInput.getValue()}}</o-row>
           </div>
 
@@ -48,6 +59,7 @@
   </o-form>
 </div>
 
+<app-stripe #stripe></app-stripe>
 
 
 

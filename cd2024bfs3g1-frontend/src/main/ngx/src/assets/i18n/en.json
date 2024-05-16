@@ -116,5 +116,10 @@
   "TITLE_CONTACT": "CONTACT",
   "TITLE_MAP": "LOCATION",
   "HELLO": "Hello",
-  "BACKBTN_TOY": "Back to toys"
+  "BACKBTN_TOY": "Back to toys",
+  "Email": "Email",
+  "THANK_YOU_PURCHASE": "Thank you for your purchase",
+  "PAYMENT_SUCCESS": "Payment success",
+  "DONT_HESITATE": "Don't hesitate to contact the seller for more info",
+  "TOY_BUTTON": "This button leads to more toys"
 }

@@ -107,6 +107,10 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
   background-color: #ffa366;
 }
 
+::-webkit-scrollbar-track{
+  display: none;
+}
+
 //Necesario para ocultar el boton sobrante en el formulario de editar juguete.
 #formToyEdit {
   button[attr="update"]{
