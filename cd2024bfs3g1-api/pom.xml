@@ -18,5 +18,11 @@
 			<groupId>com.ontimize.jee</groupId>
 			<artifactId>ontimize-jee-common</artifactId>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>25.5.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>

@@ -5,23 +5,33 @@ import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
 import { OMapModule } from 'ontimize-web-ngx-map';
 import { LocationMapComponent } from './components/location-map/location-map.component';
+import { StripeComponent } from './components/stripe/stripe.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { environment } from 'src/environments/environment';
+import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
 
 @NgModule({
   imports: [
     OntimizeWebModule,
-    OMapModule
+    OMapModule,
+    NgxStripeModule.forRoot(environment.stripe_public_key),
   ],
   declarations: [
     FilterComponent,
     HomeToolbarComponent,
-    LocationMapComponent
+    LocationMapComponent,
+    HomeToolbarComponent,
+    StripeComponent,
+    CheckoutComponent
   ],
   exports: [
     CommonModule,
     FilterComponent,
     HomeToolbarComponent,
     OMapModule,
-    LocationMapComponent
+    LocationMapComponent,
+    OMapModule,
+    StripeComponent
   ]
 })
 export class SharedModule {

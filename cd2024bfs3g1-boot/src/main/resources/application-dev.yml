@@ -12,3 +12,5 @@ management:
 spring:
   flyway:
     enabled: false
+environment:
+  url: https://cd2024bfs3g1-dev.dev.campusdual.com/

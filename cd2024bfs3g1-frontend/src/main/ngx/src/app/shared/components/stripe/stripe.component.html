@@ -1,0 +1,11 @@
+<div *ngIf="isCheckingOut" class="modal">
+  <div>
+    <ng-container *ngIf="loading">
+      <div fxLayoutAlign="center center" fxLayout="column">
+        <mat-spinner diameter="70"></mat-spinner>
+        <span>Iniciando Pago</span>
+      </div>
+    </ng-container>
+  </div>
+  <div id="checkout" class="checkout"></div>
+</div>
