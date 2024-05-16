@@ -7,32 +7,41 @@
 
 
       <o-row layout-align="end center" class="btn-container">
-        <o-button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button" ></o-button>
-        <o-button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"></o-button>
+        <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button"
+          matTooltip="{{ 'Search' | oTranslate }}">
+          <mat-icon class="material-icons">search</mat-icon>
+        </button>
+        <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"
+          matTooltip="{{ 'Clear' | oTranslate }}">
+          <mat-icon class="material-icons">clear</mat-icon>
+        </button>
       </o-row>
 
     </o-row>
   </o-column>
   <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name" [target]="toysGrid"
-                    query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
+    query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 
 
-    <o-column-collapsible title="{{ 'VIEW_MAP' | oTranslate }}" appearance="legacy" expanded="no" icon="location_on" class="collapsible">
-        <location-map></location-map>
-    </o-column-collapsible>
+<o-column-collapsible title="{{ 'VIEW_MAP' | oTranslate }}" appearance="legacy" expanded="no" icon="location_on"
+  class="collapsible">
+  <location-map></location-map>
+</o-column-collapsible>
 
-
-    <o-grid #toysGrid attr="toysGrid" title="TOYS" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
-        columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20"
-        refresh-button="no" quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64" (onDataLoaded)="addLocation($event)">
+<div >
+  <o-grid #toysGrid attr="toysGrid" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
+    columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" refresh-button="no"
+    quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
+    (onDataLoaded)="addLocation($event)">
     <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
       <o-column layout-padding class="toy-card">
-        <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo"  style="margin-top:8px;"></o-image>
-
+        <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo"
+          style="margin-top:8px;"></o-image>
+  
         <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
           <h4 class="toy-title">{{ data.name }}</h4>
-
+  
           <div fxLayout="row" fxLayoutGap=".5em">
             <div fxLayout="column" fxLayoutAlign="start center">
               <mat-icon>credit_card</mat-icon>
@@ -47,5 +56,4 @@
       </o-column>
     </o-grid-item>
   </o-grid>
-
-
+</div>
