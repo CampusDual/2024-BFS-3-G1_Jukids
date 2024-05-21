@@ -72,7 +72,7 @@ export class ToysNewComponent implements OnInit{
   newSubmit() {
 
     let arrayErrores: any [] = [];
-    const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','categoryid']);
+    const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','category']);
 
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
