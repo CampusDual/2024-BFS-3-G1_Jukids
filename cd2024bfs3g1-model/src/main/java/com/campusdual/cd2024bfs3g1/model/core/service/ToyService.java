@@ -10,7 +10,6 @@ import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,12 @@ public class ToyService implements IToyService {
 
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-         return this.daoHelper.query(this.toyDao, keyMap, attrList);
+        return this.daoHelper.query(this.toyDao, keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult availableToysQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, "availableToysQuery");
     }
 
     @Override
@@ -45,6 +49,7 @@ public class ToyService implements IToyService {
             error.setMessage("El correo electrónico no es correcto");
             return error;
         }
+
         return this.daoHelper.insert(this.toyDao, attrMap);
     }
 }
