@@ -30,7 +30,7 @@
 </o-column-collapsible>
 
 <div >
-  <o-grid #toysGrid attr="toysGrid" service="toys" entity="availableToys" keys="toyid" detail-form-route="toysDetail"
+  <o-grid #toysGrid attr="toysGrid" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
     columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" refresh-button="no"
     quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
     (onDataLoaded)="addLocation($event)">

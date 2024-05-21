@@ -12,19 +12,4 @@
         <Column>toyid</Column>
     </UpdateKeys>
     <GeneratedKey>toyid</GeneratedKey>
-    <Queries>
-        <Query id = "avaliableToysQuery">
-            <Sentence>
-                <![CDATA[
-                    SELECT
-                        #COLUMNS#
-                    FROM
-                        ${mainschema}.toys
-                    WHERE
-                        transaction_status = 0
-                    #ORDER#
-                ]]>
-            </Sentence>
-        </Query>
-    </Queries>
 </JdbcEntitySetup>
