@@ -118,6 +118,8 @@ export class ToysNewComponent implements OnInit{
     }else{
       this.formToy.insert();
     }
+
+    console.log(this.formToy);
   }
 
   showCustom(

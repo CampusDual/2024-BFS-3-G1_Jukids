@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 @Service("ToyService")
-@Transactional(readOnly = true)
 @Lazy
 public class ToyService implements IToyService {
 
