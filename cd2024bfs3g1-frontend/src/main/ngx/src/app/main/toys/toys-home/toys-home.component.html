@@ -36,7 +36,7 @@
     (onDataLoaded)="addLocation($event)">
     <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
       <o-column layout-padding class="toy-card">
-        <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo"
+        <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo" read-only="true"
           style="margin-top:8px;"></o-image>
   
         <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
