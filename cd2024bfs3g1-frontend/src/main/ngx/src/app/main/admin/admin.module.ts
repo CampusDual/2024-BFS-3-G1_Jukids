@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
+import { OChartModule } from 'ontimize-web-ngx-charts';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { OntimizeWebModule } from 'ontimize-web-ngx';
   imports: [
     CommonModule,
     OntimizeWebModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    OChartModule
   ]
 })
 export class AdminModule { }
