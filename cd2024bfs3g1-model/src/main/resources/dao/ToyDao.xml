@@ -13,7 +13,7 @@
     </UpdateKeys>
     <GeneratedKey>toyid</GeneratedKey>
     <Queries>
-        <Query id = "avaliableToysQuery">
+        <Query id = "availableToys">
             <Sentence>
                 <![CDATA[
                     SELECT

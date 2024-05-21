@@ -30,7 +30,7 @@ public class ToyService implements IToyService {
 
     @Override
     public EntityResult availableToysQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.toyDao, keyMap, attrList, "availableToysQuery");
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, "availableToys");
     }
 
     @Override
