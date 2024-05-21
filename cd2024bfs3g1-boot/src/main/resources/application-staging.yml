@@ -9,3 +9,5 @@ management:
   endpoints:
     web:
       base-path: /ontimize
+environment:
+  url: https://cd2024bfs3g1.dev.campusdual.com/
