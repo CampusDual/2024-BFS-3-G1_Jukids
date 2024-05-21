@@ -1,6 +1,6 @@
 import { Component, ViewChild, Inject, OnInit} from '@angular/core';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { DialogService, ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService,  ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { OUserInfoService, AuthService, OEmailInputComponent } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -16,7 +16,6 @@ export class ToysNewComponent implements OnInit{
   subscription:Subscription;
   private redirect = '/toys';
   public toyService: string;
-
 
   isMapLatLongSelected: boolean = true;
   public locationSelected = false;
@@ -48,6 +47,7 @@ export class ToysNewComponent implements OnInit{
     //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
+
     });
 
     setTimeout(() => {
@@ -72,7 +72,7 @@ export class ToysNewComponent implements OnInit{
   newSubmit() {
 
     let arrayErrores: any [] = [];
-    const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude']);
+    const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','categoryid']);
 
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
@@ -83,7 +83,7 @@ export class ToysNewComponent implements OnInit{
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     let errorLocation = "ERROR_LOCATION_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
-
+    let errorCategory = "ERROR_CATEGORY_VALIDATION";
     if(getFieldValues.photo === undefined  ){
       arrayErrores.push(this.translate.get(errorPhoto));
     }
@@ -108,6 +108,9 @@ export class ToysNewComponent implements OnInit{
     if(getFieldValues.longitude === undefined || getFieldValues.latitude === undefined){
       this.isMapLatLongSelected = false;
       arrayErrores.push(this.translate.get(errorLocation));
+    }
+    if(getFieldValues.category===undefined){
+      arrayErrores.push(this.translate.get(errorCategory));
     }
     if(arrayErrores.length > 0 ) {
       let stringErrores = "";
