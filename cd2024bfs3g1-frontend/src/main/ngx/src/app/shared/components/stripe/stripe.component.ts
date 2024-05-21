@@ -14,6 +14,7 @@ export class StripeComponent implements OnInit, OnDestroy {
   // ====================== Variables ======================  
   public loading: boolean = false;
   public isCheckingOut: boolean = false;
+  private baseUrl: string;
 
   // ====================== Stripe Variables ======================
   private checkout: StripeEmbeddedCheckout;
@@ -55,20 +56,25 @@ export class StripeComponent implements OnInit, OnDestroy {
   //====================== STRIPE CHECKOUT JS =======================
 
   ckeckout(): void {
+    this.baseUrl = window.location.origin;
+    if( this.baseUrl.includes('localhost') ) {
+      this.baseUrl = 'http://localhost:8080';
+    }
+    console.log( "this.baseUrl: ", this.baseUrl);
 
     this.isCheckingOut = true;
     this.loading = true;
 
     let data = {
       'toyid': this.toyId,
-      'toyUrl': 'http://localhost:4299/main/toys/toysDetail/' + this.toyId
+      'toyUrl': this.baseUrl + '/main/toys/toysDetail/' + this.toyId
     }
 
     console.log("data:", data);
 
     this.ontimizeService.doRequest({
       method: 'POST',
-      url: 'http://localhost:8080/payments/create-checkout-session',
+      url: `${this.baseUrl}/payments/create-checkout-session`,
       body: data,
       options: {
         headers: {
