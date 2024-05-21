@@ -1,5 +1,7 @@
 <o-form class="form" editable-detail="no" show-header="no">
 
+  <img src="http://localhost:8080/restapi/get-file.png?toyId=246" alt="IMG API" width="100px" height="100px">
+
   <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
     <o-row layout-align="space-between center">
 
@@ -34,8 +36,11 @@
     columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" refresh-button="no"
     quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
     (onDataLoaded)="addLocation($event)">
+
+
     <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
       <o-column layout-padding class="toy-card">
+        
         <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo" read-only="true"
           style="margin-top:8px;"></o-image>
   
@@ -53,7 +58,9 @@
             </div>
           </div>
         </div>
+
       </o-column>
     </o-grid-item>
+
   </o-grid>
 </div>
