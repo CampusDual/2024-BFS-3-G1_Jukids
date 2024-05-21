@@ -121,5 +121,8 @@
   "THANK_YOU_PURCHASE": "Gracias por tu compra",
   "PAYMENT_SUCCESS": "Pago realizado con éxito",
   "DONT_HESITATE": "No dudes en ponerte en contacto con el vendedor para más información",
-  "TOY_BUTTON": "Este botón lleva a más juguetes"
+  "TOY_BUTTON": "Este botón lleva a más juguetes",
+  "CHART_MONTH": "Mes",
+  "CHART_MOVEMENT": "Movimientos",
+  "CHART_GROSS_INCOME": "Ingresos brutos"
 }

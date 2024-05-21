@@ -16,5 +16,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'payments': {
     'path': '/payments'
+  },
+  'charts':{
+    'path': '/charts'
   }
 };
