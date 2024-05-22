@@ -132,8 +132,11 @@ export class ToysHomeComponent implements OnInit{
     }
   
     return combinedExpression;
+    
   }
   
-  
+  clearFilters(): void {
+    this.toyGrid.reloadData();
+  }
 
 }
