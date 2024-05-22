@@ -1,7 +1,21 @@
 <o-form class="form" editable-detail="yes" show-header="no">
 
   <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
-     <o-combo label="category" [oFilterBuilderQuery]="filterBuilder" id="category" null-selection="no" attr="category" service="categories" entity="category" keys="categoryid" value-column="name" columns="categoryid;name" searchable="true" visible-columns="name" required="yes"></o-combo>
+    <o-combo 
+    label="category" 
+    [oFilterBuilderQuery]="filterBuilder" 
+    id="category" 
+    null-selection="no" 
+    attr="category" 
+    service="categories" 
+    entity="category" 
+    keys="categoryid" 
+    value-column="name" 
+    columns="categoryid;name" 
+    searchable="true" 
+    visible-columns="name"
+    multiple="yes">
+  </o-combo>
     <o-row layout-align="space-between center">
 
       <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
