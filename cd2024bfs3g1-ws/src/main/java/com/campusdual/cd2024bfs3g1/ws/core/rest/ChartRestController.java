@@ -24,14 +24,4 @@ public class ChartRestController extends ORestController<IChartService>{
     public IChartService getService() {
         return this.chartService;
     }
-
-    @RequestMapping( value = "/data", method = RequestMethod.GET )
-    public EntityResult getChartData(@RequestParam Map<String, Object> keyMap, @RequestParam List<String> attrList) {
-        return chartService.chartQuery(keyMap, attrList);
-    }
-
-    @RequestMapping( value = "/orders", method = RequestMethod.GET )
-    public EntityResult getOrderData(@RequestParam Map<String, Object> keyMap, @RequestParam List<String> attrList) {
-        return chartService.orderQuery(keyMap, attrList);
-    }
 }
