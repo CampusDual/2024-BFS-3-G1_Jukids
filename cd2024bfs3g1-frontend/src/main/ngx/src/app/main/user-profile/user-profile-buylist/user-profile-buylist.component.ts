@@ -27,7 +27,7 @@ export class UserPurchasedToylistComponent {
   }
 
   public openToyEdit(e:any): void {
-     console.log(e.toyid);
+    
     this.router.navigate(["/main/user-profile/edit-toy", e.toyid]);
   }
 }

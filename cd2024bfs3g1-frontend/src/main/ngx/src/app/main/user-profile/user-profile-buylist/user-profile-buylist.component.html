@@ -1,6 +1,6 @@
 
-<o-table #table fxFlex attr="toysList" service="toyowner" entity="toy"
-title="{{ 'MY_TOYS' | oTranslate }}"
+<o-table #table fxFlex attr="buyList" service="toyowner" entity="toy"
+title="{{ 'PURCHASED_TOYS' | oTranslate }}"
 keys="toyid" columns="toyid;name;description;price;photo"
 visible-columns="photo;name;description;price" sort-columns="toyid:DESC"
 query-on-init="true" quick-filter="false" filter-case-sensitive="false"
