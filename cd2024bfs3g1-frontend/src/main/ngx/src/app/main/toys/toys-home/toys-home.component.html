@@ -33,9 +33,10 @@
         columns="categoryid;name"
         searchable="true"
         visible-columns="name"
-        multiple="yes">
+        multiple="yes" 
+        translate="yes">
       </o-combo>
-      
+
   </o-column>
   
   <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category" [target]="toysGrid"
