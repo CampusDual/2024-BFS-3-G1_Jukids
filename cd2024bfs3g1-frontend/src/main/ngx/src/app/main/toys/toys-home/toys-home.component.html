@@ -1,6 +1,8 @@
 <o-form class="form" editable-detail="no" show-header="no">
 
   <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
+    <o-chart type="multiBar" x-label="Fecha" y-label="Euros" entity="orders" service="ChartService" x-axis="order_date" y-axis="total_price"
+            x-data-type="time"></o-chart>
     <o-row layout-align="space-between center">
 
       <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
