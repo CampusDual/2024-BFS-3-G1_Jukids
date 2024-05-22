@@ -9,6 +9,6 @@ import java.util.Map;
 public interface IChartService {
 
     // CANDIDATE
-    EntityResult ChartQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
-
+    EntityResult chartQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult orderQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }

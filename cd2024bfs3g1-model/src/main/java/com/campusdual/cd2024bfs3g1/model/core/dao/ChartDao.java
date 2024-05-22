@@ -11,7 +11,4 @@ import com.ontimize.jee.server.dao.jdbc.OntimizeJdbcDaoSupport;
 @ConfigurationFile(configurationFile = "dao/ChartsDao.xml", configurationFilePlaceholder = "dao/placeholders.properties")
 public class ChartDao extends OntimizeJdbcDaoSupport {
 
-        //public static final String ATTR_ID = "ID";
-        //public static final String ATTR_PHOTO = "PHOTO";
-
 }
