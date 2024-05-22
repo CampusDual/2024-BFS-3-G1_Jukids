@@ -1,21 +1,18 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Injectable, ChangeDetectorRef } from '@angular/core';
 import { OntimizeService } from 'ontimize-web-ngx';
 import { LineChartConfiguration } from 'ontimize-web-ngx-charts';
 import { Subscription } from 'rxjs';
 import { OTranslateService } from 'ontimize-web-ngx';
 
-@Component({
-  selector: 'app-charts',
-  templateUrl: './charts.component.html',
-  styleUrls: ['./charts.component.scss'],
-  encapsulation: ViewEncapsulation.None, //Permite aplicar estilos globales (evitamos posibles conflictos con el tema)
+@Injectable({
+  providedIn: 'root',
 })
-export class ChartsComponent implements OnInit {
+export class ChartsService {
   public movementTypesChartParams: LineChartConfiguration;
-  protected resData: Array<Object>; //Datos obtenidos del servicio
-  protected graphData: Array<Object>; //Datos procesados para el gráfico
-  private subscription: Subscription; //Suscripción a la consulta
-  private translateServiceSubscription: Subscription; //Suscripción al cambio de idioma
+  protected resData: Array<Object>;//Datos recogidos
+  protected graphData: Array<Object>;//Datos preparados para el gráfico
+  private subscription: Subscription;
+  private translateServiceSubscription: Subscription;
 
   constructor(
     private ontimizeService: OntimizeService,
@@ -25,10 +22,9 @@ export class ChartsComponent implements OnInit {
     this._configureLineChart();
   }
 
-
-  //TODO: Cambiar 'servicio', 'campos' y 'endpoint' por los valores necesarios
-  ngOnInit() {
-    //Servicio de Ontimize con la configuración predeterminada
+  // Método para inicializar la consulta y suscripciones
+  //TODO: Cambiar 'servicio', 'campos' y 'endpoint' por los valores correspondientes
+  public initializeChartData() {
     this.ontimizeService.configureService(this.ontimizeService.getDefaultServiceConfiguration('servicio'));
     this.subscription = this.ontimizeService.query(void 0, ['campos'], 'endpoint').subscribe({
       next: (res: any) => {
@@ -38,12 +34,23 @@ export class ChartsComponent implements OnInit {
         }
       },
       error: (err: any) => console.log(err),
-      complete: () => this.cd.detectChanges() //Detecta cambios para actualizar la vista
+      complete: () => this.cd.detectChanges()//Cambia la vista si detecta los cambios
     });
 
     this.translateServiceSubscription = this.translateService.onLanguageChanged.subscribe(() => {
       this.adaptResult(this.resData);
     });
+  }
+
+  // Método para cancelar suscripciones, se aplica si se borra alguna gráfica para evitar
+  // errores de memoria
+  public cleanup() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    if (this.translateServiceSubscription) {
+      this.translateServiceSubscription.unsubscribe();
+    }
   }
 
   private _configureLineChart(): void {
@@ -55,7 +62,7 @@ export class ChartsComponent implements OnInit {
     this.movementTypesChartParams.legendPosition = "right";
   }
 
-  adaptResult(data: any) {
+  private adaptResult(data: any) {
     if (data && data.length) {
       let values = this.processValues(data);
       this.graphData = values;
@@ -63,8 +70,8 @@ export class ChartsComponent implements OnInit {
   }
 
 
-  //TODO: Cambiar 'nombre' y 'valor' por los elementos correspondientes
-  processValues(data: any) {
+  //TODO: Cambiar nombre y valor por los elementos correspondientes
+  private processValues(data: any) {
     let values = [];
     data.forEach((item: any) => {
       values.push({
@@ -73,15 +80,5 @@ export class ChartsComponent implements OnInit {
       });
     });
     return values;
-  }
-
-  ngOnDestroy() {
-    /*Cancela las suscripciones al eliminar el componente en caso de que se haga
-    se ha implementado aquí para ahorrarnos problemas a futuro si generamos más de
-    una gráfica*/
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.translateServiceSubscription.unsubscribe();
-    }
   }
 }
