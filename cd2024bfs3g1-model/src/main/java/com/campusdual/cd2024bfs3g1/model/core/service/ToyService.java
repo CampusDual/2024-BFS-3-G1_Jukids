@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 @Service("ToyService")
-//@Transactional(readOnly = true)
 @Lazy
 public class ToyService implements IToyService {
 
@@ -26,14 +25,9 @@ public class ToyService implements IToyService {
 
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-        keyMap.put("transaction_status",this.toyDao.STATUS_AVAILABLE);
+        keyMap.put("transaction_status", ToyDao.STATUS_AVAILABLE);
         return this.daoHelper.query(this.toyDao, keyMap, attrList);
     }
-
-    //@Override
-    //public EntityResult availableToysQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-    //    return this.daoHelper.query(this.toyDao, keyMap, attrList, "availableToys");
-    //}
 
     @Override
     public EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {

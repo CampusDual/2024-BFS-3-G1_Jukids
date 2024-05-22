@@ -122,5 +122,6 @@
   "PAYMENT_SUCCESS": "Pago realizado con éxito",
   "DONT_HESITATE": "No dudes en ponerte en contacto con el vendedor para más información",
   "TOY_BUTTON": "Este botón lleva a más juguetes",
-  "SHIPPING": "Envio disponible"
+  "SHIPPING": "Envio disponible",
+  "PURCHASED_TOYS": "Mis compras"
 }

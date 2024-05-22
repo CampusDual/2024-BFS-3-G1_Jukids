@@ -16,9 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 
-
 @Service("OrderService")
-//@Transactional(readOnly = true)
 @Lazy
 public class OrderService implements IOrderService {
 
