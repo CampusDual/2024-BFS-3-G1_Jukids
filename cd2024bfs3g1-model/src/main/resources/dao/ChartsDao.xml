@@ -12,4 +12,19 @@
         <Column>toyid</Column>
     </UpdateKeys>
     <GeneratedKey>toyid</GeneratedKey>
+    <Queries>
+        <Query id="total_orders">
+
+            <ValidColumns>
+                <Column>order_date</Column>
+                <Column>total_price</Column>
+            </ValidColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT total_price, order_date
+                        FROM order o
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
 </JdbcEntitySetup>

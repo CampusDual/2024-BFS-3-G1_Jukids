@@ -7,6 +7,7 @@ import { Subscription } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer } from "@angular/platform-browser";
+import { MultiBarChartConfiguration } from "ontimize-web-ngx-charts";
 
 @Component({
   selector: "app-toys-home",
@@ -20,6 +21,7 @@ export class ToysHomeComponent implements OnInit{
 
   private location: any;
   public arrayData: Array<any> = [];
+  public totalIncomeCharParams: MultiBarChartConfiguration;
 
   constructor(
     private router: Router,
@@ -33,6 +35,7 @@ export class ToysHomeComponent implements OnInit{
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('byuser');
     this.ontimizeService.configureService(conf);
+    this._configureMultiBarChart
   }
 
   ngOnInit() {
@@ -114,5 +117,14 @@ export class ToysHomeComponent implements OnInit{
     } else {
       return null;
     }
+  }
+
+
+  private _configureMultiBarChart(): void {
+    this.totalIncomeCharParams = new MultiBarChartConfiguration();
+    this.totalIncomeCharParams.margin.top = 0;
+    this.totalIncomeCharParams.margin.right = 0;
+    this.totalIncomeCharParams.margin.bottom = 0;
+    this.totalIncomeCharParams.margin.left = 0;
   }
 }

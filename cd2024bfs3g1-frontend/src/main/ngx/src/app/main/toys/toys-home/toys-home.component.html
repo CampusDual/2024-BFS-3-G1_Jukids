@@ -1,13 +1,9 @@
 <o-form class="form" editable-detail="no" show-header="no">
 
   <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
-    <o-chart type="multiBar" x-label="Fecha" y-label="Euros" entity="orders" service="ChartService" x-axis="order_date" y-axis="total_price"
-            x-data-type="time"></o-chart>
     <o-row layout-align="space-between center">
 
       <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
-
-
       <o-row layout-align="end center" class="btn-container">
         <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button"
           matTooltip="{{ 'Search' | oTranslate }}">
@@ -18,8 +14,7 @@
           <mat-icon class="material-icons">clear</mat-icon>
         </button>
       </o-row>
-
-    </o-row>
+</o-row>
   </o-column>
   <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
