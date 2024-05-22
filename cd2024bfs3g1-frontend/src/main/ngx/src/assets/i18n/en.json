@@ -122,5 +122,8 @@
   "PAYMENT_SUCCESS": "Payment success",
   "DONT_HESITATE": "Don't hesitate to contact the seller for more info",
   "TOY_BUTTON": "This button leads to more toys",
-  "SHIPPING": "Shipping available"
+  "SHIPPING": "Shipping available",
+  "CHART_MONTH": "Month",
+  "CHART_MOVEMENT": "Movements",
+  "CHART_GROSS_INCOME": "Gross income"
 }
