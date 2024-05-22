@@ -101,7 +101,7 @@ export class ToysHomeComponent implements OnInit{
     // Array de expresiones para ejecutar
     let filtersOR: Array<Expression> = [];
     let filtersAND: Array<Expression> = [];
-    
+
     // Generación de expresiones y guardado en arrays filtersOR y filtersAND
     values.forEach(fil => {
       if (fil.value && (fil.attr === "DESCRIPTION" || fil.attr === "NAME")) {
@@ -116,25 +116,25 @@ export class ToysHomeComponent implements OnInit{
         }
       }
     });
-  
+
     // Construir la expresión compleja
     let combinedExpression: Expression = null;
-  
+
     if (filtersOR.length > 0) {
       combinedExpression = filtersOR.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
     }
-  
+
     if (filtersAND.length > 0) {
       const andExpression = filtersAND.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
-      combinedExpression = combinedExpression 
+      combinedExpression = combinedExpression
         ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andExpression, FilterExpressionUtils.OP_AND)
         : andExpression;
     }
-  
+
     return combinedExpression;
-    
+
   }
-  
+
   clearFilters(): void {
     this.toyGrid.reloadData();
   }
