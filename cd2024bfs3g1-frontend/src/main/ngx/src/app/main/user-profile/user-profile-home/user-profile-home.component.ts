@@ -34,4 +34,8 @@ export class UserProfileHomeComponent implements OnInit {
     this.router.navigate(["/main/user-profile/toylist"]);
   }
 
+  toBuyList() {
+    this.router.navigate(["/main/user-profile/buylist"]);
+  }
+
 }

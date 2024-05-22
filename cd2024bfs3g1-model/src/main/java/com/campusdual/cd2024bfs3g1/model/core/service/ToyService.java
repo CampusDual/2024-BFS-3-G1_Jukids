@@ -10,13 +10,11 @@ import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Service("ToyService")
-@Transactional(readOnly = true)
 @Lazy
 public class ToyService implements IToyService {
 
@@ -27,7 +25,8 @@ public class ToyService implements IToyService {
 
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-         return this.daoHelper.query(this.toyDao, keyMap, attrList);
+        keyMap.put("transaction_status", ToyDao.STATUS_AVAILABLE);
+        return this.daoHelper.query(this.toyDao, keyMap, attrList);
     }
 
     @Override

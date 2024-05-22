@@ -25,10 +25,8 @@ import java.util.*;
 public class PaymentService implements IPaymentService {
     @Value("${stripe.secret-key}")
     String secretKey;
-
     @Value("${environment.url}")
     String baseUrl;
-
     @Autowired
     IToyService toyService;
 

@@ -19,4 +19,14 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_LATITUDE = "latitude";
     public static final String ATTR_LONGITUDE = "longitude";
     public static final String ATTR_USR_ID = "usr_id";
+    public static final String ATTR_SHIPPING = "shipping";
+    public static final String ATTR_TRANSACTION_STATUS = "transaction_status";
+    public static final String ATTR_CATEGORY ="category";
+
+    //Estados de compra: transaction_status
+    public static final int STATUS_AVAILABLE  = 0;
+    public static final int STATUS_PENDING_SHIPMENT  = 1;
+    public static final int STATUS_SEND  = 2;
+    public static final int STATUS_RECEIVE = 3;
+    public static final int STATUS_BUY  = 4;
 }
