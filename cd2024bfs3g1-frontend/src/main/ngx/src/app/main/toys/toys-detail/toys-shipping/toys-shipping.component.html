@@ -1,0 +1,114 @@
+<div class="box">
+  <o-form class="formToy " attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
+    detail-form-route="toysBuy" show-header="no" layout-direction="column" (onDataLoaded)="setStripe()">
+
+    <o-text-input #toyId attr="toyid" sql-type="INTEGER" read-only="yes" oHidden></o-text-input>
+    <o-text-input #nameInput attr="name" fxFlex="100" read-only="yes" required="yes" max-length="150"
+      oHidden></o-text-input>
+    <o-currency-input id="priceInput" #priceInput attr="price" fxFlex="100" read-only="yes" min-decimal-digits="2"
+      max-decimal-digits="2" oHidden></o-currency-input>
+    <o-email-input id="usr_email" #emailInput attr="email" fxFlex="100" read-only="yes" required="yes" label="usr_email"
+      oHidden></o-email-input>
+
+
+    <mat-radio-group #buyOption class="radioGroup" aria-label="" (change)="showFormShipments()">
+      <mat-radio-button #onlyBuy value="1">Comprar</mat-radio-button>
+      <mat-radio-button #BuySend value="2" checked>Comprar y enviar</mat-radio-button>
+    </mat-radio-group>
+
+
+    <div class="card">
+      <o-form id="formShipments" class="formShipments" #formShipments service="shipments" entity="shipment"
+        keys="shipment_id" show-header-navigation="no" show-header="no" layout-direction="column" header-actions="I"
+        (onInsert)="insertRedirect()" (onDataLoaded)="setStripe()">
+        <h2>Solo necesitamos un par de datos</h2>
+        <!--
+        "shipment_id";
+        "order_id";
+        "shipment_date";
+        "shipment_company";
+        "price";
+        "tracking_number";
+        "sender_address";
+        "buyer_phone";
+        "shipping_address";
+      -->
+        <o-column>
+          <div>
+            <o-text-input attr="name" label="Full name" fxFlex="100" read-only="no" required="yes"
+              max-length="150"></o-text-input>
+          </div>
+          <div>
+            <o-text-input attr="email_buyer" label="email" fxFlex="100" read-only="no" required="yes"
+              max-length="150"></o-text-input>
+          </div>
+          <div>
+            <o-text-input attr="shipping_address" label="shipping_address" fxFlex="100" read-only="no" required="yes"
+              max-length="150"></o-text-input>
+          </div>
+          <div>
+            <o-text-input attr="buyer_phone" label="phone" fxFlex="100" read-only="no" required="yes"
+              max-length="150"></o-text-input>
+          </div>
+          <div>
+            <o-combo attr="company" label="Company" [static-data]="dataCompany" [data]="defaultCompany" value-column="code" columns="code;company" visible-columns="company" required="yes" read-only="false"></o-combo>
+          </div>
+          <o-row layout-align="start" layout-margin-top>
+            <button class="btn-checkout colorOrange" (click)="newSubmit()">Acceptar envio y pagar</button>
+          </o-row>
+        </o-column>
+      </o-form>
+
+      <div #buyInfo class="cadInfo">
+        <div class="divDetail">
+          <div class="containerPrice">
+            <o-row class="titleName"><span class="toy-title">{{nameInput.getValue()}}</span></o-row>
+            <o-row *ngIf="!this.issetSend;else sendPrice" class="price">{{(priceInput.getValue()*1) + this.commissionPrice }}
+              <span class="currency"> €</span></o-row>
+            <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.commissionPrice + this.priceSend
+                }} <span class="currency"> €</span></o-row></ng-template>
+          </div>
+          <div class="priceInfo">
+            <div>
+              <span>Precio del producto:</span>
+              <span>{{priceInput.getValue()}} €</span>
+            </div>
+            <div>
+              <span>Comisión por gestiones:</span>
+              <span> {{this.commissionPrice}} €</span>
+            </div>
+            <div *ngIf="issetSend">
+              <span>Gastos de envio:</span>
+              <span> {{ this.priceSend }} €</span>
+            </div>
+          </div>
+          <div class="doneInfo">
+            <div *ngIf="issetSend">
+              <mat-icon class="mat-icon-done">done</mat-icon>
+              <span>Recíbelo en casa</span>
+            </div>
+            <div>
+              <mat-icon class="mat-icon-done">done</mat-icon>
+              <span>Garantía de producto</span>
+            </div>
+            <div>
+              <mat-icon class="mat-icon-done">done</mat-icon>
+              <span>Pago seguro</span>
+            </div>
+          </div>
+        </div>
+        <button #buyButton class="btn-checkout hidden" (click)="checkout()">
+          <span>Pagar</span>
+        </button>
+      </div>
+
+    </div>
+
+
+  </o-form>
+
+
+
+</div>
+
+<app-stripe #stripe></app-stripe>

@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { OEmailInputComponent, OTextInputComponent } from 'ontimize-web-ngx';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 
@@ -15,8 +16,11 @@ export class ToysDetailComponent {
   @ViewChild('emailInput') toyEmail: OEmailInputComponent;
   @ViewChild('stripe') stripe: StripeComponent;
 
-  constructor() { }
+  constructor(private router: Router,) { }
 
+  openBuy(toyid): void {
+    this.router.navigate(["main/toys/toysDetail/toysBuy", toyid]);
+  }
 
   setStripe(): void {
 
