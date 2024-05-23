@@ -37,7 +37,6 @@ export class ToysDetailComponent implements OnInit{
     this.setStripe();
   }
 
-
   setStripe(): void {
     // console.log("toyId:", this.toyId.getValue());
     // console.log("name:", this.toyName.getValue());

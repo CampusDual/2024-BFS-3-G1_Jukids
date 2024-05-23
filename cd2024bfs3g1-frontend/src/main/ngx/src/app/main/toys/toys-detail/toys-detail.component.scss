@@ -50,6 +50,21 @@
     transition: box-shadow 0.3s;
     height: fit-content;
     background-color: rgba(227, 227, 227, 0.407);
+
+    @media screen and (min-width: 1000px) {
+        width: 60%;
+    }
+    @media screen and (max-width: 500px) {
+        width: 100%;
+
+        .title {
+            font-size: 20px !important;
+        }
+        .price {
+            font-size: 20px !important;
+        }
+        
+    }
 }
 
 .toys-detail-column {
