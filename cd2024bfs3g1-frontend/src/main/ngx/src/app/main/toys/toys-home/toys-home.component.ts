@@ -100,22 +100,46 @@ export class ToysHomeComponent implements OnInit{
     this.toyGrid.pageSizeChanged();
   }
 
-  createFilter(values: Array<{ attr, value }>): Expression {
-    //Array de expresiones para ejecutar
-    let filters: Array<Expression> = [];
-    //Generacion de expresion y guardado en array filters
+  createFilter(values: Array<{ attr: string, value: any }>): Expression {
+    // Array de expresiones para ejecutar
+    let filtersOR: Array<Expression> = [];
+    let filtersAND: Array<Expression> = [];
+
+    // Generación de expresiones y guardado en arrays filtersOR y filtersAND
     values.forEach(fil => {
-      if (fil.value) {
-        filters.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+      if (fil.value && (fil.attr === "DESCRIPTION" || fil.attr === "NAME")) {
+        filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+      } else if (fil.value && fil.attr === "CATEGORY") {
+        if (Array.isArray(fil.value)) {
+          fil.value.forEach(val => {
+            filtersAND.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
+          });
+        } else {
+          filtersAND.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+        }
       }
     });
 
-    // Construir la expresion compleja
-    if (filters.length > 0) {
-      //Realiza la consulta concatenando los key-value (Columna-Valor) del array filters
-      return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
-    } else {
-      return null;
+    // Construir la expresión compleja
+    let combinedExpression: Expression = null;
+
+    if (filtersOR.length > 0) {
+      combinedExpression = filtersOR.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
     }
+
+    if (filtersAND.length > 0) {
+      const andExpression = filtersAND.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
+      combinedExpression = combinedExpression
+        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andExpression, FilterExpressionUtils.OP_AND)
+        : andExpression;
+    }
+
+    return combinedExpression;
+
   }
+
+  clearFilters(): void {
+    this.toyGrid.reloadData();
+  }
+
 }
