@@ -127,7 +127,7 @@ export class ToysShippingComponent implements OnInit{
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
     }else{
       console.log(this.formShipments.getDataValues)
-      // this.formShipments.insert();
+      this.formShipments.insert();
       // this.checkout();
     }
   }

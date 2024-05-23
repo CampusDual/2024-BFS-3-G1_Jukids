@@ -18,7 +18,7 @@
 
 
     <div class="card">
-      <o-form id="formShipments" class="formShipments" #formShipments service="orders" entity="createOrderAndShipment"
+      <o-form id="formShipments" class="formShipments" #formShipments service="orders" entity="orderAndShipment"
         keys="shipment_id" show-header-navigation="no" show-header="no" layout-direction="column" header-actions="I"
         (onInsert)="insertRedirect()" (onDataLoaded)="setData()">
         <h2>Solo necesitamos un par de datos</h2>
