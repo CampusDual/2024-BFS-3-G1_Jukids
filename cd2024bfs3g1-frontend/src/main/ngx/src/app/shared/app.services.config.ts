@@ -14,6 +14,9 @@ export const SERVICE_CONFIG: Object = {
   'registers': {
     'path': '/registers'
   },
+  'statuses':{
+    'path':'/statuses'
+  },
   permissions: {
     'path': '/permissions'
   },

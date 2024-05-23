@@ -6,6 +6,6 @@ import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import java.util.List;
 import java.util.Map;
 
-public interface IStateService {
-    EntityResult stateQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+public interface IStatusService {
+    EntityResult statusQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }
