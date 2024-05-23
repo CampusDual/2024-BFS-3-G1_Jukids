@@ -40,12 +40,13 @@
   </o-column>
 
   <div fxLayout="column" layout-padding>
-    <label class="input-comp-title">Precio</label>
-    <o-slider #slider attr="slider-editable" 
-    read-only="no" tooltip="This is an awesome tooltip!" read-only="no"></o-slider>
+    <label class="input-comp-title">Precio máximo</label>
+    <o-slider attr="slider-editable" read-only="no"
+        layout="column" color="warn" max="10000" min="0" thumb-label="true"
+        tick-interval="auto" [display-with]="formatPriceSlider"></o-slider>
   </div>
 
-  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category" [target]="toysGrid"
+  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category;PRICE:price" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 

@@ -142,4 +142,16 @@ export class ToysHomeComponent implements OnInit{
     this.toyGrid.reloadData();
   }
 
+  formatPriceSlider(value: number | null) {
+    if (!value) {
+      return 0;
+    }
+
+    if (value <= 10000) {
+      return value + '€';
+    }
+
+    return value;
+  }
+
 }
