@@ -39,6 +39,12 @@
 
   </o-column>
 
+  <div fxLayout="column" layout-padding>
+    <label class="input-comp-title">Precio</label>
+    <o-slider #slider attr="slider-editable" 
+    read-only="no" tooltip="This is an awesome tooltip!" read-only="no"></o-slider>
+  </div>
+
   <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
@@ -52,7 +58,7 @@
 <div >
   <o-grid #toysGrid attr="toysGrid" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
     columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" refresh-button="no"
-    quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
+    quick-filter="no" pagination-controls="yes" show-page-size="no" page-size-options="24;32;64"
     (onDataLoaded)="addLocation($event)">
 
 
