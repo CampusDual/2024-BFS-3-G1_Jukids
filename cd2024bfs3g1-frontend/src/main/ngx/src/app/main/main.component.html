@@ -11,12 +11,15 @@
     </div>
   </o-app-layout-header>
   <o-user-info-configuration show-profile="no" show-settings="no">
+
+    <!-- Etiqueta de perfil comentada -->
+
     <o-user-info-configuration-item name="{{ 'MY_PROFILE' | oTranslate }}"
                                     icon="format_list_bulleted" 
                                     route="/main/user-profile"></o-user-info-configuration-item>
-    <o-user-info-configuration-item name="{{ 'VIEW_MY_PRODUCTS' | oTranslate }}"
+    <!-- <o-user-info-configuration-item name="{{ 'VIEW_MY_PRODUCTS' | oTranslate }}"
                                     icon="format_list_bulleted" 
-                                    route="/main/user-profile/toylist"></o-user-info-configuration-item>
+                                    route="/main/user-profile/toylist"></o-user-info-configuration-item> -->
   </o-user-info-configuration>
   <router-outlet></router-outlet>
 </o-app-layout>
