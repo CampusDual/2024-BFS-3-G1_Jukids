@@ -7,7 +7,7 @@ export const SERVICE_CONFIG: Object = {
   },
   'toyowner': {
     'path': '/toyowner'
-  }, 
+  },
   'categories': {
     'path': '/categories'
   },
@@ -15,7 +15,7 @@ export const SERVICE_CONFIG: Object = {
     'path': '/registers'
   },
   'statuses':{
-    'path':'/statuses'
+    'path': '/statuses'
   },
   permissions: {
     'path': '/permissions'

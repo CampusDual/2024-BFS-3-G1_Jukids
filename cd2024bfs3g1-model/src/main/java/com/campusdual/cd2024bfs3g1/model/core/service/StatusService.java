@@ -22,6 +22,6 @@ public class StatusService implements IStatusService {
 
     @Override
     public EntityResult statusQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
-        return null;
+        return this.daoHelper.query(this.statusDao,keyMap,attrList);
     }
 }
