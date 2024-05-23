@@ -80,14 +80,12 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public EntityResult orderInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-
-        return this.daoHelper.insert(this.orderDao, attrMap);
-    }
-
-    @Override
     @Transactional
-    public EntityResult createOrderAndShipment(Integer toyId, Map<String,Object>shipmentData)throws OntimizeJEERuntimeException {
+    public EntityResult orderAndShipmentInsert(Map<String,Object>shipmentData)throws OntimizeJEERuntimeException {
+
+        //Extraemos el TOY - TOYID que viene guardado en el campo SHIPMENT - ORDER_ID desde front
+
+        Integer toyId = (Integer) shipmentData.remove(ShipmentDao.ATTR_ORDER_ID);
 
         //Recuperamos ORDER - BUYER_ID, BUYER_EMAIL
         //Generamos ORDER - ORDER_DATE
@@ -147,7 +145,7 @@ public class OrderService implements IOrderService {
 
         //Generamos SHIPMENTS - TRACKING NUMBER
         //Recuperamos ORDERS - ORDER_ID
-        //Asignamos SHIPMENTS - SHIPMENT_ID = ORDERS - ORDER_ID
+        //Asignamos el verdadero SHIPMENTS - ORDER_ID
 
         String trackingNumber = generateRandomTrack();
 
