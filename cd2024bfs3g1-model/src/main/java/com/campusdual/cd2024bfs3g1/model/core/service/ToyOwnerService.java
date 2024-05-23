@@ -62,6 +62,43 @@ public class ToyOwnerService implements IToyOwnerService {
         }
     }
 
+    public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        if (email != null) {
+            HashMap<String, Object> keysValues = new HashMap<>();
+            keysValues.put(UserDao.LOGIN, email);
+            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+
+            if (userData.isWrong()) {
+                return userData;
+            }
+
+            if (userData.isEmpty()) {
+                EntityResult errEntityResult = new EntityResultMapImpl();
+                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
+                errEntityResult.setMessage("No se encuentra el usuario: " + email);
+                return errEntityResult;
+            }
+
+            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+            keyMap.put("usr_id", idUser);
+            keyMap.put("transaction_status", 1);
+
+            return this.daoHelper.query(this.toyDao, keyMap, attrList);
+
+        }else{
+
+            EntityResult errEntityResult = new EntityResultMapImpl();
+            errEntityResult.setCode(EntityResult.OPERATION_WRONG);
+            errEntityResult.setMessage("No estas logeado");
+            return errEntityResult;
+        }
+    }
+
     @Override
     public EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
