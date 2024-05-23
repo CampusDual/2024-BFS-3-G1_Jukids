@@ -14,16 +14,18 @@
     <GeneratedKey>toyid</GeneratedKey>
     <Queries>
         <Query id="total_orders">
-
             <ValidColumns>
-                <Column>order_date</Column>
+                <Column>order_month</Column>
                 <Column>total_price</Column>
             </ValidColumns>
             <Sentence>
                 <![CDATA[
-                    SELECT total_price, order_date
-                        FROM order o
-                ]]>
+                SELECT TO_CHAR(DATE_TRUNC('month', order_date), 'MM-YY) AS order_month,
+                       SUM(total_price) AS total_price
+                FROM order
+                GROUP BY order_month
+                ORDER BY order_month;
+            ]]>
             </Sentence>
         </Query>
     </Queries>

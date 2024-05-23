@@ -11,4 +11,5 @@ import com.ontimize.jee.server.dao.jdbc.OntimizeJdbcDaoSupport;
 @ConfigurationFile(configurationFile = "dao/ChartsDao.xml", configurationFilePlaceholder = "dao/placeholders.properties")
 public class ChartDao extends OntimizeJdbcDaoSupport {
 
+    public static final String QUERY_TOTAL_ORDERS = "total_orders";
 }

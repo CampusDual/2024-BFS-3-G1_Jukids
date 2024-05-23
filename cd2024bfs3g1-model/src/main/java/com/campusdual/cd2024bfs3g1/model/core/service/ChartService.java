@@ -34,4 +34,10 @@ public class ChartService implements IChartService {
             throws OntimizeJEERuntimeException {
         return this.daoHelper.query(this.orderDao, keyMap, attrList);
     }
+
+    public EntityResult totalOrdersQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+        //Auhtentication auth
+        return this.daoHelper.query(chartDao, keyMap, attrList,ChartDao.QUERY_TOTAL_ORDERS);
+    }
 }
