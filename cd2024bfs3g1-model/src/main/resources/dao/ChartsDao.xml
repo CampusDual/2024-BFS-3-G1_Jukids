@@ -20,9 +20,10 @@
             </ValidColumns>
             <Sentence>
                 <![CDATA[
-                SELECT TO_CHAR(DATE_TRUNC('month', order_date), 'MM-YY) AS order_month,
+                SELECT TO_CHAR(DATE_TRUNC('month', order_date), 'MM-YYYY') AS order_month,
                        SUM(total_price) AS total_price
-                FROM order
+                FROM orders
+                #WHERE#
                 GROUP BY order_month
                 ORDER BY order_month;
             ]]>
