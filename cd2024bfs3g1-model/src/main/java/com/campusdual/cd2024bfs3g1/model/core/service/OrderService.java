@@ -15,6 +15,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -105,7 +108,10 @@ public class OrderService implements IOrderService {
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
 
+        //Creamos y poblamos orderData, el HashMap que usaremos para el insert en ORDERS
+
         Map<String, Object> orderData = new HashMap<>();
+        orderData.put("toyid", toyId);
         orderData.put("buyer_id", idUser);
         orderData.put("buyer_email", email);
         orderData.put("order_date", LocalDateTime.now());
@@ -122,15 +128,19 @@ public class OrderService implements IOrderService {
             createError("Error al recuperar el precio del juguete!");
         }
 
-        //Recuperamos SHIPMENTS - PRICE
+        //Recuperamos TOYS - PRICE y SHIPMENTS - PRICE
         //Calculamos ORDER - TOTAL_PRICE
 
-        Double JUKIDS_COMMISSION = 1.065;
-        Double STRIPE_COMMISSION = 1.015;
+        double JUKIDS_COMMISSION = 1.065;
+        double STRIPE_COMMISSION = 1.015;
 
-        Double toyPrice = (Double) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
-        Double shipmentPrice = (Double) shipmentData.get(ShipmentDao.ATTR_PRICE);
-        Double totalPrice = toyPrice * JUKIDS_COMMISSION * STRIPE_COMMISSION + shipmentPrice + 0.25;
+        BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
+        double toyPrice = toyPriceDecimal.doubleValue();
+
+        Integer shipmentPriceInt = (Integer) shipmentData.get(ShipmentDao.ATTR_PRICE);
+        double shipmentPrice = shipmentPriceInt.doubleValue();
+
+        double totalPrice = toyPrice * JUKIDS_COMMISSION * STRIPE_COMMISSION + shipmentPrice + 0.25;
 
         orderData.put(OrderDao.ATTR_TOTAL_PRICE, totalPrice);
 

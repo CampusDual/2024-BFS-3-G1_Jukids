@@ -30,7 +30,6 @@ export class ToysShippingComponent implements OnInit{
   @ViewChild('nameInput') toyName: OTextInputComponent;
   @ViewChild('emailInput') toyEmail: OEmailInputComponent;
   @ViewChild('priceInput') price: OCurrencyInputComponent;
-
   @ViewChild('formShipments') protected formShipments: OFormComponent;
   @ViewChild('order_id') order_id: OTextInputComponent;
   @ViewChild('onlyBuy') buyOption;
@@ -92,7 +91,7 @@ export class ToysShippingComponent implements OnInit{
 
   newSubmit() {
 
-    let arrayErrores: any [] = [];
+    /*let arrayErrores: any [] = [];
     const getFieldValues = this.formShipments.getFieldValues(['name','email_buyer','shipping_address','buyer_phone','company']);
     
     let errorName = "ERROR_NAME_VALIDATION";
@@ -126,11 +125,30 @@ export class ToysShippingComponent implements OnInit{
       }
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
     }else{
-      console.log(this.formShipments.getDataValues)
-      this.formShipments.insert();
+*/
+      const toy = {"data": {
+        "order_id": 402,
+        "price": 3.00,
+        "shipment_company": "MRW",
+        "sender_address": "Fake Address",
+        "buyer_phone": "987987987",
+        "shipping_address": "Real Address"
+      }
+      }; 
+      fetch('http://localhost:8080/orders/orderAndShipment', {
+              method: 'POST',
+              headers: {
+                'Authorization': 'Basic ' + btoa('prueba@prueba.com' + ":" + 'prueba'),
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(toy)
+          })
+
+     // console.log(this.formShipments.getDataValues)
+      //this.formShipments.insert();
       // this.checkout();
     }
-  }
+  //}
 
   showCustom(
     icon: string,
