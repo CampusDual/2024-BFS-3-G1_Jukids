@@ -87,7 +87,7 @@ public class OrderService implements IOrderService {
 
     @Override
     @Transactional
-    public EntityResult createOrderAndShipment(Map<String,Object> orderData, Map<String,Object>shipmentData, Integer toyId)throws OntimizeJEERuntimeException {
+    public EntityResult createOrderAndShipment(Integer toyId, Map<String,Object>shipmentData)throws OntimizeJEERuntimeException {
 
         //Recuperamos ORDER - BUYER_ID, BUYER_EMAIL
         //Generamos ORDER - ORDER_DATE
@@ -106,6 +106,8 @@ public class OrderService implements IOrderService {
         }
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+
+        Map<String, Object> orderData = new HashMap<>();
         orderData.put("buyer_id", idUser);
         orderData.put("buyer_email", email);
         orderData.put("order_date", LocalDateTime.now());
