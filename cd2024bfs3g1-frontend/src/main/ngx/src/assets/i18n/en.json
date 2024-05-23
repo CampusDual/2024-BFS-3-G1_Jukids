@@ -102,6 +102,7 @@
   "ERROR_NEGATIVE_PRICE_VALIDATION": "The price must be positive",
   "ERROR_EMAIL_VALIDATION": "Enter a valid email",
   "ERROR_HIGHER_MILLION_VALIDATION": "The price can't be higher than 10 million €",
+  "ERROR_CATEGORY_VALIDATION": "Select a category",
   "SELECT_POINT_ON_MAP":"Select a point",
   "YOUR_PRODUCTS":"My products",
   "MY_PROFILE":"My profile",

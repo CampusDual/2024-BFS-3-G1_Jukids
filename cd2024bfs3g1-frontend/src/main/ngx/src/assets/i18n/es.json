@@ -103,6 +103,7 @@
   "ERROR_EMAIL_VALIDATION": "Introduzca un email válido",
   "ERROR_HIGHER_MILLION_VALIDATION": "El precio no puede superar los 10 millones de €",
   "SELECT_POINT_ON_MAP":"Seleccione un punto",
+  "ERROR_CATEGORY_VALIDATION": "Seleccione una categoría",
   "YOUR_PRODUCTS":"Mis productos",
   "MY_PROFILE":"Mi perfil",
   "MY_TOYS":"Mis juguetes",

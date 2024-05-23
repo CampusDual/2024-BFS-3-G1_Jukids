@@ -74,6 +74,7 @@ export class ToysNewComponent implements OnInit{
     let arrayErrores: any [] = [];
     const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','category']);
 
+    console.log(getFieldValues);
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
     let errorDescription = "ERROR_DESCRIPTION_VALIDATION";
@@ -109,7 +110,7 @@ export class ToysNewComponent implements OnInit{
       this.isMapLatLongSelected = false;
       arrayErrores.push(this.translate.get(errorLocation));
     }
-    if(getFieldValues.category===undefined){
+    if(getFieldValues.category === ""){
       arrayErrores.push(this.translate.get(errorCategory));
     }
     if(arrayErrores.length > 0 ) {
