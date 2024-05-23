@@ -38,8 +38,8 @@ export class ToysNewComponent implements OnInit{
 
     this.toyService = this.authService.isLoggedIn() ? 'toyowner' : 'toys';
    //Configuración del servicio para poder ser usado
-   const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
-   this.ontimizeService.configureService(conf);
+  const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
+  this.ontimizeService.configureService(conf);
   }
 
   ngOnInit() {
@@ -139,5 +139,10 @@ export class ToysNewComponent implements OnInit{
     const self = this;
       self.router.navigate([this.redirect]);
   }
+
+  cancel(){
+    const self = this;
+      self.router.navigate([this.redirect]);
   }
+}
 
