@@ -1,2 +1,3 @@
-<o-chart type="multiBar" x-label="Fecha" y-label="Euros" entity="totalOrders" service="charts" x-axis="order_date" y-axis="total_price"
-x-data-type="time"></o-chart>
+<!-- <o-chart type="multiBar" x-label="Fecha" y-label="Euros" entity="totalOrders" service="charts" x-axis="order_date" y-axis="total_price"
+x-data-type="time"></o-chart> -->
+<o-chart #discretebar entity="totalOrders" service="charts" type="discreteBar" x-label="Time" y-label="Amount" x-data-type="time" x-axis="order_month" y-axis="month_total_price" datetime_format ="%Y-%mS.%fZ"></o-chart>

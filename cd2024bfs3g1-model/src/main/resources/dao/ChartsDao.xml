@@ -16,12 +16,12 @@
         <Query id="total_orders">
             <ValidColumns>
                 <Column>order_month</Column>
-                <Column>total_price</Column>
+                <Column>month_total_price</Column>
             </ValidColumns>
             <Sentence>
                 <![CDATA[
-                SELECT TO_CHAR(DATE_TRUNC('month', order_date), 'MM-YYYY') AS order_month,
-                       SUM(total_price) AS total_price
+                SELECT DATE_TRUNC('month', order_date) AS order_month,
+                       SUM(total_price) as month_total_price
                 FROM orders
                 #WHERE#
                 GROUP BY order_month
