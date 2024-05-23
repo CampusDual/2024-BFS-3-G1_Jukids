@@ -1,6 +1,6 @@
 <div class="box">
   <o-form class="formToy " attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
-    detail-form-route="toysBuy" show-header="no" layout-direction="column" (onDataLoaded)="setStripe()">
+    detail-form-route="toysBuy" show-header="no" layout-direction="column" (onDataLoaded)="setData()">
 
     <o-text-input #toyId attr="toyid" sql-type="INTEGER" read-only="yes" oHidden></o-text-input>
     <o-text-input #nameInput attr="name" fxFlex="100" read-only="yes" required="yes" max-length="150"
@@ -18,9 +18,9 @@
 
 
     <div class="card">
-      <o-form id="formShipments" class="formShipments" #formShipments service="shipments" entity="shipment"
+      <o-form id="formShipments" class="formShipments" #formShipments service="orders" entity="createOrderAndShipment"
         keys="shipment_id" show-header-navigation="no" show-header="no" layout-direction="column" header-actions="I"
-        (onInsert)="insertRedirect()" (onDataLoaded)="setStripe()">
+        (onInsert)="insertRedirect()" (onDataLoaded)="setData()">
         <h2>Solo necesitamos un par de datos</h2>
         <!--
         "shipment_id";
@@ -34,6 +34,9 @@
         "shipping_address";
       -->
         <o-column>
+          <div>
+            <o-text-input #order_id attr="order_id" sql-type="INTEGER" read-only="no" oHidden></o-text-input>
+          </div>
           <div>
             <o-text-input attr="name" label="Full name" fxFlex="100" read-only="no" required="yes"
               max-length="150"></o-text-input>

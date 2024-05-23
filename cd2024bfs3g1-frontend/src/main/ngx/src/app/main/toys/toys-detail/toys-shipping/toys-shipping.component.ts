@@ -32,6 +32,7 @@ export class ToysShippingComponent implements OnInit{
   @ViewChild('priceInput') price: OCurrencyInputComponent;
 
   @ViewChild('formShipments') protected formShipments: OFormComponent;
+  @ViewChild('order_id') order_id: OTextInputComponent;
   @ViewChild('onlyBuy') buyOption;
   @ViewChild('BuySend') buySendOption;
   @ViewChild('buyInfo') buyInfo;
@@ -67,17 +68,22 @@ export class ToysShippingComponent implements OnInit{
 
    }
 
-  setStripe(): void {
+  setData(): void {
 
     console.log("toyId:", this.toyId.getValue());
     console.log("name:", this.toyName.getValue());
     console.log("Email:", this.toyEmail.getValue());
-    console.log(this.price.getValue())
+    console.log("price:", this.price.getValue())
 
+    // setStripe
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();
     this.stripe.email = this.toyEmail.getValue();  
+    //setCalculatePrice
     this.commissionPrice = (Number)((this.price.getValue()* this.commission).toFixed(2));
+    //setOrder_id
+    this.order_id.setValue(this.toyId.getValue());
+    console.log(this.order_id)
   }
 
   checkout() {
@@ -120,11 +126,10 @@ export class ToysShippingComponent implements OnInit{
       }
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
     }else{
-      this.formShipments.insert();
-      this.checkout();
+      console.log(this.formShipments.getDataValues)
+      // this.formShipments.insert();
+      // this.checkout();
     }
-
-    console.log(this.formShipments);
   }
 
   showCustom(
