@@ -1,7 +1,7 @@
 <o-form class="form" editable-detail="yes" show-header="no">
 
   <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
-  
+
     <o-row layout-align="space-between center">
 
       <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
@@ -33,12 +33,12 @@
         columns="categoryid;name;codigo"
         searchable="true"
         visible-columns="codigo"
-        multiple="yes" 
+        multiple="yes"
         translate="yes">
       </o-combo>
 
   </o-column>
-  
+
   <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
@@ -54,11 +54,11 @@
     columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" refresh-button="no"
     quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
     (onDataLoaded)="addLocation($event)">
+
+
     <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
       <o-column layout-padding class="toy-card">
-        <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo"
-          style="margin-top:8px;"></o-image>
-
+        <img src="http://localhost:8080/restapi/get-image?toyId={{data.toyid}}" alt="" class="img-toy" style="margin-top:8px;">
         <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
           <h4 class="toy-title">{{ data.name }}</h4>
 
@@ -73,7 +73,9 @@
             </div>
           </div>
         </div>
+
       </o-column>
     </o-grid-item>
+
   </o-grid>
 </div>
