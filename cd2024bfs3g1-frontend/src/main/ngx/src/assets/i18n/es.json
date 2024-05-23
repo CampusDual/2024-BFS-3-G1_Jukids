@@ -123,5 +123,6 @@
   "DONT_HESITATE": "No dudes en ponerte en contacto con el vendedor para más información",
   "TOY_BUTTON": "Este botón lleva a más juguetes",
   "SHIPPING": "Envio disponible",
-  "PURCHASED_TOYS": "Mis compras"
+  "PURCHASED_TOYS": "Mis compras",
+  "transaction_status": "Estado"
 }
