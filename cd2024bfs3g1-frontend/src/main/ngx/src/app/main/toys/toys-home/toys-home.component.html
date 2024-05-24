@@ -40,13 +40,24 @@
   </o-column>
 
   <div class="filterPrice" fxLayout="column" layout-padding>
-    <label class="input-comp-title">{{ 'MAXIMUM PRICE' | oTranslate}}</label>
+    <!--label class="input-comp-title">{{ 'MAXIMUM PRICE' | oTranslate}}</label>
     <o-slider attr="slider-editable" read-only="no" attr="price"
-        layout="column" color="warn" max="10000" min="0" thumb-label="true"
-        tick-interval="auto" [display-with]="formatPriceSlider" [oFilterBuilderQuery]="filterBuilder"></o-slider>
-  </div>
+        layout="column" color="warn" max="10000" min="0" thumb-label="true" step="10" hide-required-marker="true"
+        tick-interval="auto" [display-with]="formatPriceSlider" [oFilterBuilderQuery]="filterBuilder"></o-slider-->
+    <o-combo
+      label="precio"
+      id="price"
+      [static-data]="pricesArray"
+      [data]="selectedPriceCode"
+      value-column="priceCode" 
+      columns="priceCode;priceText"
+      visible-columns="priceText"
+      null-selection="no"
+      attr="price">
+    </o-combo>
+</div>
 
-  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category;PRICE:price" [target]="toysGrid"
+  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 

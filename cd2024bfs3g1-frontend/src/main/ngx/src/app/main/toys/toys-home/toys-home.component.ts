@@ -151,5 +151,20 @@ export class ToysHomeComponent implements OnInit{
  
     return value + "€";
   }
- 
+
+  public pricesArray = [{
+    priceCode: 1,
+    priceText: 'Menos de 10€'
+  }, {
+    priceCode: 2,
+    priceText: 'Menos de 20€'
+  }, {
+    priceCode: 3,
+    priceText: 'Menos de 50€'
+  }, {
+    priceCode: 4,
+    priceText: 'Todos'
+  }];
+
+  public selectedPriceCode = 2;
 }
