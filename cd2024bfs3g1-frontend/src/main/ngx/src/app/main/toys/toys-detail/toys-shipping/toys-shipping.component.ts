@@ -128,9 +128,8 @@ export class ToysShippingComponent implements OnInit{
 */
       const toy = {"data": {
         "order_id": 402,
-        "price": 3.00,
+        "price": 3.50,
         "shipment_company": "MRW",
-        "sender_address": "Fake Address",
         "buyer_phone": "987987987",
         "shipping_address": "Real Address"
       }

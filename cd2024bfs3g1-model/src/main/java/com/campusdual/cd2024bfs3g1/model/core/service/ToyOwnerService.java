@@ -42,10 +42,8 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             if (userData.isEmpty()) {
-                EntityResult errEntityResult = new EntityResultMapImpl();
-                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-                errEntityResult.setMessage("No se encuentra el usuario: " + email);
-                return errEntityResult;
+
+                return createError("No se encuentra el usuario: " + email);
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
@@ -55,10 +53,7 @@ public class ToyOwnerService implements IToyOwnerService {
 
         }else{
 
-           EntityResult errEntityResult = new EntityResultMapImpl();
-           errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-           errEntityResult.setMessage("No estas logeado");
-           return errEntityResult;
+            return createError("No estas logueado");
         }
     }
 
@@ -78,10 +73,8 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             if (userData.isEmpty()) {
-                EntityResult errEntityResult = new EntityResultMapImpl();
-                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-                errEntityResult.setMessage("No se encuentra el usuario: " + email);
-                return errEntityResult;
+
+                return createError("No se encuentra el usuario: " + email);
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
@@ -92,10 +85,7 @@ public class ToyOwnerService implements IToyOwnerService {
 
         }else{
 
-            EntityResult errEntityResult = new EntityResultMapImpl();
-            errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-            errEntityResult.setMessage("No estas logeado");
-            return errEntityResult;
+            return createError("No estas logueado");
         }
     }
 
@@ -116,10 +106,8 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             if (userData.isEmpty()) {
-                EntityResult errEntityResult = new EntityResultMapImpl();
-                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-                errEntityResult.setMessage("No se encuentra el usuario: " + userLogin);
-                return errEntityResult;
+
+                return createError("No se encuentra el usuario: " + userLogin);
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
@@ -128,10 +116,8 @@ public class ToyOwnerService implements IToyOwnerService {
             return this.daoHelper.insert(this.toyDao, attrMap);
 
         } else {
-            EntityResult errEntityResult = new EntityResultMapImpl();
-            errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-            errEntityResult.setMessage("No estas logeado");
-            return errEntityResult;
+
+            return createError("No estas logueado");
         }
     }
 
@@ -153,10 +139,8 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             if (userData.isEmpty()) {
-                EntityResult errEntityResult = new EntityResultMapImpl();
-                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-                errEntityResult.setMessage("No se encuentra el usuario: " + userLogin);
-                return errEntityResult;
+
+                return createError("No se encuentra el usuario: " + userLogin);
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
@@ -170,19 +154,15 @@ public class ToyOwnerService implements IToyOwnerService {
             attrMap.put("usr_id", idUser);
 
             if (!idUser.equals(toyIdUser)){
-                EntityResult errEntityResult = new EntityResultMapImpl();
-                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-                errEntityResult.setMessage("No tienes permisos para actualizar este juguete: ");
-                return errEntityResult;
+
+                return createError("No tienes permisos para actualizar este juguete: ");
             }
 
            return this.daoHelper.update(this.toyDao, attrMap, keyMap);
 
         } else {
-            EntityResult errEntityResult = new EntityResultMapImpl();
-            errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-            errEntityResult.setMessage("No estas logeado");
-            return errEntityResult;
+
+            return createError("No estas logueado");
         }
      }
 
@@ -203,10 +183,8 @@ public class ToyOwnerService implements IToyOwnerService {
              }
 
             if (userData.isEmpty()) {
-                EntityResult errEntityResult = new EntityResultMapImpl();
-                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-                errEntityResult.setMessage("No se encuentra el usuario: " + userLogin);
-                return errEntityResult;
+
+                return createError("No se encuentra el usuario: " + userLogin);
              }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
@@ -218,19 +196,24 @@ public class ToyOwnerService implements IToyOwnerService {
             Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
 
             if (!idUser.equals(toyIdUser)){
-                EntityResult errEntityResult = new EntityResultMapImpl();
-                errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-                errEntityResult.setMessage("No tienes permisos para borrar este juguete: ");
-                return errEntityResult;
+
+                return createError("No tienes permisos para borrar este juguete: ");
             }
 
             return this.daoHelper.delete(this.toyDao, keyMap);
 
         } else {
-            EntityResult errEntityResult = new EntityResultMapImpl();
-            errEntityResult.setCode(EntityResult.OPERATION_WRONG);
-            errEntityResult.setMessage("No estas logeado");
-            return errEntityResult;
+
+            return createError("No estas logueado");
         }
+    }
+
+    private EntityResult createError(String mensaje){
+
+        EntityResult errorEntityResult = new EntityResultMapImpl();
+        errorEntityResult.setCode(EntityResult.OPERATION_WRONG);
+        errorEntityResult.setMessage(mensaje);
+
+        return errorEntityResult;
     }
 }

@@ -10,8 +10,6 @@ public interface IToyService {
     //TOY
     EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
-//    EntityResult availableToysQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
-
     EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
 
 }

@@ -15,16 +15,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Service("OrderService")
 @Lazy
-public class OrderService implements IOrderService {
+public class OrderService implements IOrderService{
 
     @Autowired
     private OrderDao orderDao;
@@ -36,22 +33,6 @@ public class OrderService implements IOrderService {
     private ShipmentDao shipmentDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
-
-    private static final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-    private static final int TRACK_MAX_LENGTH = 10;
-    private static final Random RANDOM = new SecureRandom();
-
-    private String generateRandomTrack(){
-
-        StringBuilder trackingNumber = new StringBuilder(TRACK_MAX_LENGTH);
-
-        for(int i = 0; i < TRACK_MAX_LENGTH; i++){
-
-            trackingNumber.append(characters.charAt(RANDOM.nextInt(characters.length())));
-        }
-
-        return trackingNumber.toString();
-    }
 
     @Override
     public EntityResult orderQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
@@ -72,7 +53,7 @@ public class OrderService implements IOrderService {
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put("buyer_id", idUser);
+            keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
 
             return this.daoHelper.query(this.orderDao, keyMap, attrList);
 
@@ -84,7 +65,7 @@ public class OrderService implements IOrderService {
 
     @Override
     @Transactional
-    public EntityResult orderAndShipmentInsert(Map<String,Object>shipmentData)throws OntimizeJEERuntimeException {
+    public EntityResult orderAndShipmentInsert(Map<String,Object>shipmentData)throws OntimizeJEERuntimeException{
 
         //Extraemos el TOY - TOYID que viene guardado en el campo SHIPMENT - ORDER_ID desde front
 
@@ -111,10 +92,10 @@ public class OrderService implements IOrderService {
         //Creamos y poblamos orderData, el HashMap que usaremos para el insert en ORDERS
 
         Map<String, Object> orderData = new HashMap<>();
-        orderData.put("toyid", toyId);
-        orderData.put("buyer_id", idUser);
-        orderData.put("buyer_email", email);
-        orderData.put("order_date", LocalDateTime.now());
+        orderData.put(OrderDao.ATTR_TOY_ID, toyId);
+        orderData.put(OrderDao.ATTR_BUYER_ID, idUser);
+        orderData.put(OrderDao.ATTR_BUYER_EMAIL, email);
+        orderData.put(OrderDao.ATTR_ORDER_DATE, LocalDateTime.now());
 
         //Recuperamos TOY - PRICE
 
@@ -137,8 +118,7 @@ public class OrderService implements IOrderService {
         BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
         double toyPrice = toyPriceDecimal.doubleValue();
 
-        Integer shipmentPriceInt = (Integer) shipmentData.get(ShipmentDao.ATTR_PRICE);
-        double shipmentPrice = shipmentPriceInt.doubleValue();
+        Double shipmentPrice = (Double) shipmentData.get(ShipmentDao.ATTR_PRICE);
 
         double totalPrice = toyPrice * JUKIDS_COMMISSION * STRIPE_COMMISSION + shipmentPrice + 0.25;
 
@@ -153,15 +133,12 @@ public class OrderService implements IOrderService {
             return createError("Error al insertar en orders");
         }
 
-        //Generamos SHIPMENTS - TRACKING NUMBER
         //Recuperamos ORDERS - ORDER_ID
         //Asignamos el verdadero SHIPMENTS - ORDER_ID
 
-        String trackingNumber = generateRandomTrack();
-
         Integer orderId = (Integer) orderResult.get(OrderDao.ATTR_ID);
         shipmentData.put(ShipmentDao.ATTR_ORDER_ID, orderId);
-        shipmentData.put(ShipmentDao.ATTR_TRACKING_NUMBER, trackingNumber);
+        shipmentData.put(ShipmentDao.ATTR_TRACKING_NUMBER, "0000000000");
 
         //Insertamos en SHIPMENTS
 

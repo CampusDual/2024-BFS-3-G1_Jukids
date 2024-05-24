@@ -1,8 +1,8 @@
 
 <o-table #table fxFlex attr="buyList" service="order" entity="order"
 title="{{ 'PURCHASED_TOYS' | oTranslate }}"
-keys="toyid" columns="toyid;buyer_email;order_date;total_price"
-visible-columns="toyid;buyer_email;order_date;total_price"
+keys="toyid" columns="toyid;order_date;total_price"
+visible-columns="toyid;order_date;total_price"
 query-on-init="true" quick-filter="false" filter-case-sensitive="false"
 insert-button="false" export-button="false" delete-button="false"
 edit-button="false" refresh-button="false" select-all-checkbox="false"
