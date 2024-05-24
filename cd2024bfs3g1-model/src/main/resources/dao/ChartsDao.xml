@@ -20,12 +20,11 @@
             </ValidColumns>
             <Sentence>
                 <![CDATA[
-                SELECT DATE_TRUNC('month', order_date) AS order_month,
-                       SUM(total_price) as month_total_price
+                SELECT TO_CHAR(DATE_TRUNC('month', order_date), 'MM/YY') AS order_month,
+                SUM(total_price) as month_total_price
                 FROM orders
-                #WHERE#
-                GROUP BY order_month
-                ORDER BY order_month;
+                GROUP BY DATE_TRUNC('month', order_date)
+                ORDER BY DATE_TRUNC('month', order_date);
             ]]>
             </Sentence>
         </Query>
