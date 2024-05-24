@@ -97,11 +97,11 @@ public class OrderService implements IOrderService{
         orderData.put(OrderDao.ATTR_BUYER_EMAIL, email);
         orderData.put(OrderDao.ATTR_ORDER_DATE, LocalDateTime.now());
 
-        //Recuperamos TOY - PRICE
+        //Recuperamos TOY - PRICE y TOY - TRANSACTION_STATUS
 
         HashMap<String, Object> toyKeysValues = new HashMap<>();
         toyKeysValues.put(ToyDao.ATTR_ID, toyId);
-        List<String> toyAttributes = Arrays.asList(ToyDao.ATTR_PRICE);
+        List<String> toyAttributes = Arrays.asList(ToyDao.ATTR_PRICE, ToyDao.ATTR_TRANSACTION_STATUS);
         EntityResult toyData = this.daoHelper.query(toyDao, toyKeysValues, toyAttributes);
 
         if(toyData.isWrong() || toyData.isEmpty()){
@@ -124,13 +124,20 @@ public class OrderService implements IOrderService{
 
         orderData.put(OrderDao.ATTR_TOTAL_PRICE, totalPrice);
 
-        //Insertamos en ORDERS
+        //Verificamos disponibilidad del juguete e insertamos en ORDERS
+
+        Integer available = (Integer)toyData.getRecordValues(0).get(ToyDao.ATTR_TRANSACTION_STATUS);
+
+        if(available != 0){
+
+            return createError("El producto no se encuentra disponible");
+        }
 
         EntityResult orderResult = this.daoHelper.insert(this.orderDao, orderData);
 
         if (orderResult.isWrong()) {
 
-            return createError("Error al insertar en orders");
+            return createError("Error al crear la orden");
         }
 
         //Recuperamos ORDERS - ORDER_ID
@@ -138,6 +145,9 @@ public class OrderService implements IOrderService{
 
         Integer orderId = (Integer) orderResult.get(OrderDao.ATTR_ID);
         shipmentData.put(ShipmentDao.ATTR_ORDER_ID, orderId);
+
+        //TODO:Quitar esto cuando sea nullable en DB
+
         shipmentData.put(ShipmentDao.ATTR_TRACKING_NUMBER, "0000000000");
 
         //Insertamos en SHIPMENTS

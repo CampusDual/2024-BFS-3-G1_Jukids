@@ -44,7 +44,7 @@ public class ShipmentService implements IShipmentService {
     }
 
     @Override
-    public EntityResult shipmentQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
+    public EntityResult shipmentQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException{
 
         return this.daoHelper.query(this.shipmentDao, shipmentData, attrList);
     }
@@ -61,7 +61,7 @@ public class ShipmentService implements IShipmentService {
         String trackingNumber = generateRandomTrack();
         attrMap.put(ShipmentDao.ATTR_TRACKING_NUMBER, trackingNumber);
         attrMap.put(ShipmentDao.ATTR_SHIPMENT_DATE, LocalDateTime.now());
-//
+
 //        HashMap<String, Object> toyKeysValues = new HashMap<>();
 //        toyKeysValues.put(OrderDao.ATTR_ID, toyId);
 //        List<String> toyAttributes = Arrays.asList(ToyDao.ATTR_PRICE);
