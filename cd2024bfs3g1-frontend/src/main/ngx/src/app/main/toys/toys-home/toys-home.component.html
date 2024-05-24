@@ -44,11 +44,12 @@
     <o-slider attr="slider-editable" read-only="no" attr="price"
         layout="column" color="warn" max="10000" min="0" thumb-label="true" step="10" hide-required-marker="true"
         tick-interval="auto" [display-with]="formatPriceSlider" [oFilterBuilderQuery]="filterBuilder"></o-slider-->
-    <o-combo
+    <o-combo #price
       label="precio"
       id="price"
+      [oFilterBuilderQuery]="filterBuilder"
       [static-data]="pricesArray"
-      [data]="selectedPriceCode"
+      [data]="precioPredeterminado"
       value-column="priceCode" 
       columns="priceCode;priceText"
       visible-columns="priceText"
@@ -57,7 +58,7 @@
     </o-combo>
 </div>
 
-  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category" [target]="toysGrid"
+  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category;PRICE:price" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 

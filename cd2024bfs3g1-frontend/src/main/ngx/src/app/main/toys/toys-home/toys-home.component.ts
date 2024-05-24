@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Expression, FilterExpressionUtils } from "ontimize-web-ngx";
+import { Expression, FilterExpressionUtils, OComboComponent } from "ontimize-web-ngx";
 import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
 import { ToysMapService } from "src/app/shared/services/toys-map.service";
 import { DialogService, ODialogConfig } from "ontimize-web-ngx";
@@ -17,6 +17,7 @@ export class ToysHomeComponent implements OnInit{
   subscription: Subscription;
  
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
+  @ViewChild("price") protected priceCombo: OComboComponent;
  
   private location: any;
   public arrayData: Array<any> = [];
@@ -33,6 +34,9 @@ export class ToysHomeComponent implements OnInit{
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('byuser');
     this.ontimizeService.configureService(conf);
+
+    // Inicializar el precio predeterminado
+    this.precioPredeterminado = 1000000; // Valor que representa "Todos" los precios
   }
  
   ngOnInit() {
@@ -100,48 +104,79 @@ export class ToysHomeComponent implements OnInit{
     this.toyGrid.pageSizeChanged();
   }
  
+
   createFilter(values: Array<{ attr: string, value: any }>): Expression {
-    // Array de expresiones para ejecutar
     let filtersOR: Array<Expression> = [];
-    let filtersAND: Array<Expression> = [];
- 
-    // Generación de expresiones y guardado en arrays filtersOR y filtersAND
+    let categoryExpressions: Array<Expression> = [];
+    let priceExpressions: Array<Expression> = [];
+  
     values.forEach(fil => {
-      if (fil.value && (fil.attr === "DESCRIPTION" || fil.attr === "NAME")) {
+      if (!fil.value) return; // Salir temprano si no hay valor
+  
+      if (fil.attr === "DESCRIPTION" || fil.attr === "NAME") {
         filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
-      } else if (fil.value && fil.attr === "CATEGORY") {
+      } else if (fil.attr === "CATEGORY") {
         if (Array.isArray(fil.value)) {
           fil.value.forEach(val => {
-            filtersAND.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
+            categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
           });
         } else {
-          filtersAND.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+          categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
         }
-      } else if (fil.value && fil.attr === "PRICE") {
-        filtersAND.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value));
+      } else if (fil.attr === "PRICE") {
+        // Construir expresión de precio
+        priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("PRICE", fil.value));
       }
     });
- 
-    // Construir la expresión compleja
+  
+    // Construir la expresión OR para CATEGORY
+    let categoryExpression: Expression = null;
+    if (categoryExpressions.length > 0) {
+      categoryExpression = categoryExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
+    }
+  
+    // Construir la expresión OR para el precio
+    let priceExpression: Expression = null;
+    if (priceExpressions.length > 0) {
+      priceExpression = priceExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
+    }
+  
+    // Construir la expresión final combinando filtersOR, categoryExpression y priceExpression
     let combinedExpression: Expression = null;
- 
+  
     if (filtersOR.length > 0) {
-      combinedExpression = filtersOR.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
+      combinedExpression = filtersOR.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
     }
- 
-    if (filtersAND.length > 0) {
-      const andExpression = filtersAND.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
+  
+    if (categoryExpression && priceExpression) {
+      const andCategoryPrice = FilterExpressionUtils.buildComplexExpression(categoryExpression, priceExpression, FilterExpressionUtils.OP_AND);
       combinedExpression = combinedExpression
-        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andExpression, FilterExpressionUtils.OP_AND)
-        : andExpression;
+        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andCategoryPrice, FilterExpressionUtils.OP_AND)
+        : andCategoryPrice;
+    } else if (categoryExpression) {
+      combinedExpression = combinedExpression
+        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, categoryExpression, FilterExpressionUtils.OP_AND)
+        : categoryExpression;
+    } else if (priceExpression) {
+      combinedExpression = combinedExpression
+        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, priceExpression, FilterExpressionUtils.OP_AND)
+        : priceExpression;
     }
- 
+  
     return combinedExpression;
- 
   }
+  
  
   clearFilters(): void {
+    this.priceCombo.setValue(this.precioPredeterminado);
     this.toyGrid.reloadData();
+
   }
  
   formatPriceSlider(value: number | null) {
@@ -153,18 +188,18 @@ export class ToysHomeComponent implements OnInit{
   }
 
   public pricesArray = [{
-    priceCode: 1,
+    priceCode: 10,
     priceText: 'Menos de 10€'
   }, {
-    priceCode: 2,
+    priceCode: 20,
     priceText: 'Menos de 20€'
   }, {
-    priceCode: 3,
+    priceCode: 50,
     priceText: 'Menos de 50€'
   }, {
-    priceCode: 4,
+    priceCode: 1000000, //se pone un millon para q aparezcan todos los productos (no se cree q ningun juguete vaya a superar esta cifra)
     priceText: 'Todos'
   }];
 
-  public selectedPriceCode = 2;
+  public precioPredeterminado = 1000000;
 }
