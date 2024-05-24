@@ -16,7 +16,7 @@
                 </div>
                 <o-combo label="category" id="category" null-selection="no" attr="category" service="categories" entity="category" keys="categoryid"
                 value-column="codigo" columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" translate="yes" required="yes"></o-combo>
-                <o-combo label="status" id="status" null-selection="no" attr="status" service="status" entity="status" keys="statusid"
+                <o-combo label="status" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid"
                 value-column="code" columns="statusid;name;code" searchable="true" visible-columns="code" translate="yes" required="yes"></o-combo>
             </div>
             <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">

@@ -36,6 +36,8 @@
                 <div>
                 <o-combo null-selection="no" label="category"  id="category" attr="category" service="categories" entity="category" keys="categoryid" translate="yes" value-column="codigo"
                 columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" required="yes"></o-combo>
+                <o-combo label="status" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid"
+                value-column="code" columns="statusid;name;code" searchable="true" visible-columns="code" translate="yes" required="yes"></o-combo>
               </div>
               </div>
               <div>
