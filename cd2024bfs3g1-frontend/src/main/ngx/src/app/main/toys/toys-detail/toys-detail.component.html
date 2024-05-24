@@ -2,17 +2,19 @@
   <mat-icon>arrow_back_ios_new</mat-icon>
   {{'BACKBTN' | oTranslate}}
 </button> -->
-
-<div class="back-category">
-  <button class="backBtn" mat-flat-button [routerLink]="['/']">
-    <mat-icon>arrow_back_ios_new</mat-icon>
-    {{ "BACKBTN" | oTranslate }}
-  </button>
-  <div class="cat-container">
-    <span class="category">
-      {{ "JUKIDS_CATEGORY" | oTranslate }}: {{ category.getValue() }}</span
-    >
-    <!-- <span class="category"> {{'JUKIDS_CATEGORY' | oTranslate}}: {{category.getValue() != null ? category.getValue() : ""}}</span> -->
+<div class="back-category-container">
+  <div class="back-category">
+    <button class="backBtn" mat-flat-button [routerLink]="['/']">
+      <mat-icon>arrow_back_ios_new</mat-icon>
+      {{ "BACKBTN" | oTranslate }}
+    </button>
+    <div class="cat-container">
+      <a class="category" href="/main">Home</a>
+      <p>>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+       <span class="category">      
+        {{ category.getValue() }}</span
+      >
+    </div>
   </div>
 </div>
 

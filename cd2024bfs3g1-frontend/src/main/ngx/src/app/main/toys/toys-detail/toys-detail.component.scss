@@ -1,11 +1,15 @@
+.back-category-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 .back-category {
-    width: 60%;
+    width: 80%;
     background-color: rgba(227, 227, 227, 0.407);
     display: flex;
     justify-content: space-between;
     align-content: center;
-    margin-left: 20%;
-    margin-bottom: 20px;
     border-radius: 8px;
 }
 
