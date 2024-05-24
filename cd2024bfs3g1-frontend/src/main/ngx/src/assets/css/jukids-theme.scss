@@ -99,5 +99,11 @@ mat-sidenav.mat-drawer.o-app-sidenav-sidenav{
   background: #ffa366;
 }
 
-
+mat-slider.mat-mdc-slider.mdc-slider.mat-warn.mdc-slider--discrete.ng-star-inserted.mat-mdc-slider-with-animation, 
+.mdc-slider__track,
+.mdc-slider__track--inactive,
+.mdc-slider__track--active
+    {
+        width: 82rem!important;
+    }
 
