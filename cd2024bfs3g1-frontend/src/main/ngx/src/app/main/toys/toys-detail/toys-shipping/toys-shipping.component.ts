@@ -148,24 +148,8 @@ export class ToysShippingComponent implements OnInit {
       }
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
     } else {
-      console.log(getFieldValues)
-      console.log()
       this.formShipments.insert();
-      // this.checkout();
-
-
-      // const toy = {"data": getFieldValues};
-
-      //     fetch('http://localhost:8080/orders/orderAndShipment', {
-
-      //             method: 'POST',
-      //             headers: {
-      //               'Authorization': 'Basic ' + btoa('prueba@prueba.com' + ":" + 'prueba'),
-      //               'Content-Type': 'application/json'
-      //             },
-      //             body: JSON.stringify(toy)
-      //         })
-
+      this.checkout();
     }
 
   }
