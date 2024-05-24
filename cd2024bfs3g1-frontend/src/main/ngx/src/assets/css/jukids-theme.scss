@@ -102,8 +102,20 @@ mat-sidenav.mat-drawer.o-app-sidenav-sidenav{
 mat-slider.mat-mdc-slider.mdc-slider.mat-warn.mdc-slider--discrete.ng-star-inserted.mat-mdc-slider-with-animation, 
 .mdc-slider__track,
 .mdc-slider__track--inactive,
-.mdc-slider__track--active
-    {
-        width: 82rem!important;
-    }
+.mdc-slider__track--active,
+input#price{
 
+  width: 82rem!important;
+       
+}
+
+
+
+.filterPrice{
+  margin-top: 25px;
+  margin-left: 15px;
+
+  label{
+    font-weight: bold;
+  }
+}

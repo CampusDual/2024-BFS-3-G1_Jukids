@@ -39,10 +39,10 @@
 
   </o-column>
 
-  <div fxLayout="column" layout-padding>
-    <label class="input-comp-title">Precio máximo</label>
+  <div class="filterPrice" fxLayout="column" layout-padding>
+    <label class="input-comp-title">{{ 'MAXIMUM PRICE' | oTranslate}}</label>
     <o-slider attr="slider-editable" read-only="no" attr="price"
-        layout="column" color="warn" max="100" min="0" thumb-label="true"
+        layout="column" color="warn" max="10000" min="0" thumb-label="true"
         tick-interval="auto" [display-with]="formatPriceSlider" [oFilterBuilderQuery]="filterBuilder"></o-slider>
   </div>
 
