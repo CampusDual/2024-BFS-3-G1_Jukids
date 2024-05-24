@@ -46,7 +46,7 @@ export class ToysHomeComponent implements OnInit{
 
   public openDetail(data: any): void {
     console.log("OPENDETAIL: ");
-    
+
     // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
     const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
 
@@ -55,7 +55,7 @@ export class ToysHomeComponent implements OnInit{
   public getImageSrc(base64: any): any {
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64.bytes) : './assets/images/no-image-transparent.png';
   }
-  
+
   navigate() {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
@@ -109,7 +109,7 @@ export class ToysHomeComponent implements OnInit{
     values.forEach(fil => {
       if (fil.value && (fil.attr === "DESCRIPTION" || fil.attr === "NAME")) {
         filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
-      } else if (fil.value && fil.attr === "CATEGORY") {
+      } else if (fil.value && (fil.attr === "CATEGORY" || fil.attr === "STATUS")) {
         if (Array.isArray(fil.value)) {
           fil.value.forEach(val => {
             filtersAND.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
@@ -128,7 +128,7 @@ export class ToysHomeComponent implements OnInit{
     }
 
     if (filtersAND.length > 0) {
-      const andExpression = filtersAND.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
+      const andExpression = filtersAND.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
       combinedExpression = combinedExpression
         ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andExpression, FilterExpressionUtils.OP_AND)
         : andExpression;

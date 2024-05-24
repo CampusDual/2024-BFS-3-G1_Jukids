@@ -37,9 +37,11 @@
         translate="yes">
       </o-combo>
 
+      <o-combo label="status" [oFilterBuilderQuery]="filterBuilder" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid" value-column="code" columns="statusid;name;code" searchable="true" visible-columns="code" multiple="yes" translate="yes"></o-combo>
+
   </o-column>
 
-  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category" [target]="toysGrid"
+  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 
