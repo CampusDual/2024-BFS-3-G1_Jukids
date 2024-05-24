@@ -78,7 +78,7 @@ export class EditToyComponent implements OnInit {
   newSubmit() {
 
     let arrayErrores: any [] = [];
-    const getFieldValues = this.formToyEdit.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude']);
+    const getFieldValues = this.formToyEdit.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','category']);
 
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
@@ -88,6 +88,7 @@ export class EditToyComponent implements OnInit {
     let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION";
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     let errorLocation = "ERROR_LOCATION_VALIDATION";
+    let errorCategory = "ERROR_CATEGORY_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
 
     if(getFieldValues.photo === undefined  ){
@@ -114,6 +115,9 @@ export class EditToyComponent implements OnInit {
     if(getFieldValues.longitude === undefined || getFieldValues.latitude === undefined){
       this.isMapLatLongSelected = false;
       arrayErrores.push(this.translate.get(errorLocation));
+    }
+    if(getFieldValues.category === undefined){
+      arrayErrores.push(this.translate.get(errorCategory));
     }
     if(arrayErrores.length > 0 ) {
       let stringErrores = "";

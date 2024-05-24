@@ -14,10 +14,9 @@
                         max-decimal-digits="2" min="0.00" max="9999999" required="yes"></o-currency-input>
                     <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes" label="usr_email"></o-email-input>
                 </div>
-                <o-checkbox *ngIf="toyService == 'toyowner'" id="shipping" #shipping fxFlex="50" attr="shipping" label="{{ 'SHIPPING'  | oTranslate }}">
-                </o-checkbox>
-            </div>  
-                      
+                <o-combo label="category" id="category" null-selection="no" attr="category" service="categories" entity="category" keys="categoryid"
+                value-column="codigo" columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" translate="yes" required="yes"></o-combo>
+            </div>
             <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
                 <div class="pop-up-span">
                     <span>{{ 'SELECT_POINT_ON_MAP' | oTranslate }}</span>
@@ -26,12 +25,6 @@
                 </div>
                 <location-map (click)="handleMapClick($event)"></location-map>
             </div>
-            
-
-            <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude"
-                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
-            </o-real-input>
-
             <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude"
                 decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
             </o-real-input>
@@ -40,7 +33,7 @@
             </o-real-input>
 
             <o-row layout-align="end center" layout-margin-top>
-                <o-button layout-padding color="primary" icon="close" label="cancel"></o-button>
+                <o-button layout-padding color="primary" icon="close" label="cancel" (click)="cancel()"></o-button>
                 <o-button label="Ok" color="primary" icon="done" layout-padding (click)="newSubmit()"></o-button>
             </o-row>
 
