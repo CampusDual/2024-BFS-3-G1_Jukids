@@ -13,6 +13,7 @@ export class ToysDetailComponent {
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('nameInput') toyName: OTextInputComponent;
   @ViewChild('emailInput') toyEmail: OEmailInputComponent;
+  @ViewChild('statusInput') toyStatus: OTextInputComponent;
   @ViewChild('stripe') stripe: StripeComponent;
 
   constructor() { }
@@ -23,11 +24,11 @@ export class ToysDetailComponent {
     console.log("toyId:", this.toyId.getValue());
     console.log("name:", this.toyName.getValue());
     console.log("Email:", this.toyEmail.getValue());
-    
+
 
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();
-    this.stripe.email = this.toyEmail.getValue();    
+    this.stripe.email = this.toyEmail.getValue();
   }
 
 

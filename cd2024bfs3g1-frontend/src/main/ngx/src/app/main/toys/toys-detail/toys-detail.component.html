@@ -40,7 +40,11 @@
             <p class="title">{{'TITLE_DESCRIPTION' | oTranslate}}</p>
             <o-row class="text longDescr">{{descInput.getValue()}}</o-row>
           </div>
-
+          <o-text-input #statusInput attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
+          <div layout-align="start stretch">
+            <p class="title">{{'TITLE_STATUS' | oTranslate}}</p>
+            <o-row class="text">{{statusInput.getValue() | oTranslate}}</o-row>
+          </div>
           <o-email-input #emailInput attr="email" fxFlex="100" read-only="yes" oHidden></o-email-input>
           <div layout-align="start stretch">
             <p class="title">{{'TITLE_CONTACT' | oTranslate}}</p>
