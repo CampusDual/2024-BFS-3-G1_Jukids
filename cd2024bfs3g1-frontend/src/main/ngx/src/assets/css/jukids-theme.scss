@@ -1,15 +1,89 @@
-@use '@angular/material'as mat;
-@use 'node_modules/ontimize-web-ngx/theming/ontimize-style.scss'as ontimize-style;
+@use '@angular/material' as mat;
+@use 'node_modules/ontimize-web-ngx/theming/ontimize-style.scss' as ontimize-style;
+
+/* Breakpoints definitions */
+
+// Definición de las media queries como variables
+$breakpoint-small: '(max-width: 599.98px)';
+$breakpoint-medium: '(min-width: 600px) and (max-width: 959.98px)';
+$breakpoint-large: '(min-width: 960px) and (max-width: 1279.98px)';
+$breakpoint-xlarge: '(min-width: 1280px) and (max-width: 1919.98px)';
+$breakpoint-xxlarge: '(min-width: 1920px)';
+
+// Mixin para aplicar estilos según los breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint ==small {
+    @media #{$breakpoint-small} {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==medium {
+    @media #{$breakpoint-medium} {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==large {
+    @media #{$breakpoint-large} {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==xlarge {
+    @media #{$breakpoint-xlarge} {
+      @content;
+    }
+  }
+
+  @else if $breakpoint ==xxlarge {
+    @media #{$breakpoint-xxlarge} {
+      @content;
+    }
+  }
+}
 
 /* Color definitions */
-$mat-custom-primary: (50 : #f4e3e3, 100 : #b9d1e4, 200 : #8ab2d2, 300 : #5b93c0, 400 : #377bb3, 500 : #1464a5, 600 : #125c9d, 700 : #0e5293, 800 : #0b488a, 900 : #063679, A100 : #a8c7ff, A200 : #75a7ff, A400 : #4286ff, A700 : #2876ff, contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #ffffff, 500 : #ffffff, 600 : #ffffff, 700 : #ffffff, 800 : #ffffff, 900 : #ffffff, A100 : #000000, A200 : #000000, A400 : #ffffff, A700 : #ffffff));
+$mat-custom-primary: (
+  50 : #f4e3e3,
+  100 : #b9d1e4,
+  200 : #8ab2d2,
+  300 : #5b93c0,
+  400 : #377bb3,
+  500 : #1464a5,
+  600 : #125c9d,
+  700 : #0e5293,
+  800 : #0b488a,
+  900 : #063679,
+  A100 : #a8c7ff,
+  A200 : #75a7ff,
+  A400 : #4286ff,
+  A700 : #2876ff,
+  contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #ffffff, 500 : #ffffff, 600 : #ffffff, 700 : #ffffff, 800 : #ffffff, 900 : #ffffff, A100 : #000000, A200 : #000000, A400 : #ffffff, A700 : #ffffff)
+);
 
 /* Color definitions */
-$mat-custom-primary-dark: (50 : #f1f6fa, 100 : #dce8f2, 200 : #c5d9e9, 300 : #adc9e0, 400 : #9cbed9, 500 : #8ab2d2, 600 : #82abcd, 700 : #77a2c7, 800 : #6d99c1, 900 : #5a8ab6, A100 : #ffffff, A200 : #ebf5ff, A400 : #b8dcff, A700 : #9ed0ff, contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #000000, 500 : #000000, 600 : #000000, 700 : #000000, 800 : #000000, 900 : #000000, A100 : #000000, A200 : #000000, A400 : #000000, A700 : #000000, ));
+$mat-custom-primary-dark: (
+  50 : #f1f6fa,
+  100 : #dce8f2,
+  200 : #c5d9e9,
+  300 : #adc9e0,
+  400 : #9cbed9,
+  500 : #8ab2d2,
+  600 : #82abcd,
+  700 : #77a2c7,
+  800 : #6d99c1,
+  900 : #5a8ab6,
+  A100 : #ffffff,
+  A200 : #ebf5ff,
+  A400 : #b8dcff,
+  A700 : #9ed0ff,
+  contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #000000, 500 : #000000, 600 : #000000, 700 : #000000, 800 : #000000, 900 : #000000, A100 : #000000, A200 : #000000, A400 : #000000, A700 : #000000, )
+);
 
 // Define a theme.
 $primary: mat.define-palette($mat-custom-primary);
-$accent:$primary;
+$accent: $primary;
 $primary-dark: mat.define-palette($mat-custom-primary-dark);
 $accent-dark: $primary-dark;
 $secondary-color: #ffffff;
@@ -21,11 +95,12 @@ $theme: ontimize-style.o-mat-light-theme($primary, $accent);
 $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 
 
-*{
-    font-family: Arial, Helvetica, sans-serif !important; /* Establece la tipografía para todo el texto */
+* {
+  font-family: Arial, Helvetica, sans-serif !important;
+  /* Establece la tipografía para todo el texto */
 }
 
-.o-app-header nav{
+.o-app-header nav {
   background-color: #ffa366;
 }
 
@@ -36,68 +111,199 @@ div .sidenav-toggle-container,
 nav {
   background-color: #ffa366;
 }
-.mat-icon{
-    font-family: 'Material Icons' !important;
+
+.mat-icon {
+  font-family: 'Material Icons' !important;
 }
 
 
-.sidenav-toggle-container{
-  .mat-icon{
+.sidenav-toggle-container {
+  .mat-icon {
     font-family: 'Material Icons' !important;
   }
 }
+
 // Menu hamburguesa
-.mat-sidenav-content{
+.mat-sidenav-content {
   background-color: #fff;
 
 }
-.navMenu{
-    background-color: #ffa366;
 
-  }
+.navMenu {
+  background-color: #ffa366;
+
+}
 
 // Cuadricula de juguetes
 .o-grid {
 
-  .div{
+  .div {
     position: relative;
   }
 }
 
-.o-grid .o-column{
-    background-color: #ffffff;
-    color: #333;
-    font-family: Arial, sans-serif;
-    border: 0.125rem solid #ffa366;
-    border-radius: .75rem;
-    box-shadow: 0.250rem 0.250rem 0.313rem #ff5439;
-    transition: transform .4s ease;
+.o-grid .o-column {
+  background-color: #ffffff;
+  color: #333;
+  font-family: Arial, sans-serif;
+  // border: 0.125rem solid #ffa366;
+  border-radius: .75rem;
+  box-shadow: 0.1rem 0.1rem 0.15rem #ff5439;
+  transition: transform .4s ease;
 
-    &:hover{
-      transform: scale(1.1);
-    }
+  &:hover {
+    transform: scale(1.1);
+  }
 
-    .o-image{
-        width:16rem;
-        height:11rem;
-        object-fit:contain;
-        .o-image-content.o-image-auto-fit .o-image-display-container>img{
-          border-radius: 10px;
-        }
-    }
+  .o-image {
+    width: 16rem;
+    height: 11rem;
+    object-fit: contain;
 
-    .h4{
-      margin:0  0 .5rem 0;
+    .o-image-content.o-image-auto-fit .o-image-display-container>img {
+      border-radius: 10px;
     }
+  }
+
+  .h4 {
+    margin: 0 0 .5rem 0;
+  }
 }
 
 
-o-app-sidenav.o-app-sidenav .o-app-sidenav-container
-mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
-o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container
-mat-sidenav.mat-drawer.o-app-sidenav-sidenav{
+// Card Product Design
+.card {
+  width: 95%;
+  height: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+  background-color: #ffa36614;
+  color: #333;
+  font-family: Arial, sans-serif;
+
+  // border: 1px solid #ffa366;
+  border-radius: .75rem;
+
+  transition: all .2s ease;
+
+  &:hover {
+    // transform: translate(0, -10px);
+    box-shadow: 0px 0px 5px 0px #fb6d09;
+
+    .price {
+      color: #fb6d09;
+    }
+  }
+
+  > {
+    .image-header {
+      width: 100%;
+      height: 90%;
+      border-radius: .75rem;
+      object-fit: cover;
+
+    }
+  }
+
+
+
+  .card-body {
+    flex: 1 1 auto;
+    padding: 1rem;
+    justify-self: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+
+    @include respond-to(small) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+    
+    @include respond-to(medium) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    @include respond-to(large) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+    
+    @include respond-to(xlarge) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+    
+
+    h4 {
+      width: 70%;
+      margin: 0;
+      font-size: 1.1em;      
+      white-space: nowrap;
+      overflow: hidden;
+
+      @include respond-to(small) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+      @include respond-to(medium) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(large) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+      
+      @include respond-to(xlarge) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+    }
+
+    .price {
+      margin: 0;
+      font-size: 1.25rem;
+
+      @include respond-to(small) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(medium) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+      @include respond-to(large) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+      
+      @include respond-to(xlarge) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+    }
+
+
+  }
+
+}
+
+
+
+o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
+o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
   background: #ffa366;
 }
-
-
-

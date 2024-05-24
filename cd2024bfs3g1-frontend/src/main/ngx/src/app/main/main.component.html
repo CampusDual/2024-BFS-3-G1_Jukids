@@ -1,22 +1,25 @@
 <o-app-layout #appLayout show-language-selector="yes" mode="mobile">
   <o-app-layout-header class="nav">
-    <div class="nav-login">
-      <div class="title">
-        <p>JuKids</p>
+    <div class="nav-login">  
+      <div class="nav-left-side">
+        <p class="title">JuKids</p>     
+        <button class="btn">
+          <b>Vende tu juguete</b> 
+        </button> 
       </div>
       <div>
-        <button *ngIf="!isLogged()" class="btn-login" type="submit" (click)="redirect()">{{ 'LOGIN' | oTranslate }}</button>
-        <button *ngIf="!isLogged()" class="btn-register" type="submit" (click)="register()">{{ 'REGISTER' | oTranslate }}</button>
+        <button *ngIf="!isLogged()" class="btn" type="submit" (click)="redirect()">{{ 'LOGIN' | oTranslate
+          }}</button>
+        <button *ngIf="!isLogged()" class="btn" type="submit" (click)="register()">{{ 'REGISTER' | oTranslate
+          }}</button>
       </div>
     </div>
   </o-app-layout-header>
   <o-user-info-configuration show-profile="no" show-settings="no">
-    <o-user-info-configuration-item name="{{ 'MY_PROFILE' | oTranslate }}"
-                                    icon="format_list_bulleted" 
-                                    route="/main/user-profile"></o-user-info-configuration-item>
-    <o-user-info-configuration-item name="{{ 'VIEW_MY_PRODUCTS' | oTranslate }}"
-                                    icon="format_list_bulleted" 
-                                    route="/main/user-profile/toylist"></o-user-info-configuration-item>
+    <o-user-info-configuration-item name="{{ 'MY_PROFILE' | oTranslate }}" icon="format_list_bulleted"
+      route="/main/user-profile"></o-user-info-configuration-item>
+    <o-user-info-configuration-item name="{{ 'VIEW_MY_PRODUCTS' | oTranslate }}" icon="format_list_bulleted"
+      route="/main/user-profile/toylist"></o-user-info-configuration-item>
   </o-user-info-configuration>
   <router-outlet></router-outlet>
 </o-app-layout>

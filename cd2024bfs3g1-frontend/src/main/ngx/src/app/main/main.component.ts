@@ -12,6 +12,13 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+
+/*Se importa el modulo padre APPLayour con la anoticacion ViewChild para poder acceder al método ShowUserInfo y analizar en cliente si tras logearse, se recibe o no
+en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
+@ViewChild('appLayout')
+public appLayout: OAppLayoutComponent;
+
+
   constructor(
     private router: Router, 
     private authService: AuthService,
@@ -20,10 +27,6 @@ export class MainComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private oUserInfoService: OUserInfoService
   ) {}
-/*Se importa el modulo padre APPLayour con la anoticacion ViewChild para poder acceder al método ShowUserInfo y analizar en cliente si tras logearse, se recibe o no
-en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
-@ViewChild('appLayout')
-public appLayout: OAppLayoutComponent;
 
   redirect() {
     this.router.navigateByUrl('/login');

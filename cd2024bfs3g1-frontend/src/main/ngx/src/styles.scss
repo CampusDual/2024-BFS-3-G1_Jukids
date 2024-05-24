@@ -126,3 +126,8 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
 mat-toolbar {
   box-shadow: none !important;
 }
+
+//Necesario para ocultar el icono de menu
+o-app-header  mat-icon {
+  display: none !important;
+}

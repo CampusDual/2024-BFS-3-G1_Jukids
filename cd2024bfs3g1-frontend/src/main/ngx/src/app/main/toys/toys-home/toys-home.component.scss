@@ -1,46 +1,51 @@
 .toy-card {
+    width: 14rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #FFFFFF;
-   
+    // padding: 10px;
     color: #333;
     font-family: Arial, sans-serif;
-   
-    border: 0.125rem solid #ffa366;
+
+    border: 1px solid #ffa366;
     border-radius: .75rem;
-    box-shadow: 0.250rem 0.250rem 0.313rem #ff5439;
- 
-    transition: transform .4s ease;
-   
-    &:hover{
-       transform: scale(1.1);
+
+    transition: all .2s ease;
+
+    &:hover {
+        transform: translate(0, -10px);
+        box-shadow: 0px 10px 5px -10px #fb6d09
     }
- 
+
 }
- 
+
 .img-toy {
-    width:20rem;
-    height:12rem;
-    object-fit:contain;
+    width: 100%;
+    height: 15rem;
+    border-radius: .75rem;
+    object-fit: cover;
 }
- 
-.toy-title{
-    margin:0  0 .5rem 0;
+
+.toy-title {
+    margin-top: 1rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 18rem;
 }
- 
+
 .filter-button {
     margin-right: 0.5rem;
     border: 1px solid #ffa366;
     border-radius: 10px;
     box-shadow: none;
 }
- 
+
 .btn-container {
     margin: 0 0.5rem 0 0.5rem;
 }
- 
+
 .o-data-toolbar .title {
     padding: 10px;
 }
