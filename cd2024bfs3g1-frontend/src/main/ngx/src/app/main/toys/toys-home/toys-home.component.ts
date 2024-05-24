@@ -101,42 +101,77 @@ export class ToysHomeComponent implements OnInit{
   }
 
   createFilter(values: Array<{ attr: string, value: any }>): Expression {
-    // Array de expresiones para ejecutar
     let filtersOR: Array<Expression> = [];
-    let filtersAND: Array<Expression> = [];
-
-    // Generación de expresiones y guardado en arrays filtersOR y filtersAND
+    let categoryExpressions: Array<Expression> = [];
+    let statusExpressions: Array<Expression> = [];
+  
     values.forEach(fil => {
-      if (fil.value && (fil.attr === "DESCRIPTION" || fil.attr === "NAME")) {
+      if (!fil.value) return; // Salir temprano si no hay valor
+  
+      if (fil.attr === "DESCRIPTION" || fil.attr === "NAME") {
         filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
-      } else if (fil.value && (fil.attr === "CATEGORY" || fil.attr === "STATUS")) {
+      } else if (fil.attr === "CATEGORY") {
         if (Array.isArray(fil.value)) {
           fil.value.forEach(val => {
-            filtersAND.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
+            categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
           });
         } else {
-          filtersAND.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+          categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+        }
+      } else if (fil.attr === "STATUS") {
+        if (Array.isArray(fil.value)) {
+          fil.value.forEach(val => {
+            statusExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
+          });
+        } else {
+          statusExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
         }
       }
     });
-
-    // Construir la expresión compleja
+  
+    // Construir la expresión OR para CATEGORY
+    let categoryExpression: Expression = null;
+    if (categoryExpressions.length > 0) {
+      categoryExpression = categoryExpressions.reduce((exp1, exp2) => 
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
+    }
+  
+    // Construir la expresión OR para STATUS
+    let statusExpression: Expression = null;
+    if (statusExpressions.length > 0) {
+      statusExpression = statusExpressions.reduce((exp1, exp2) => 
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
+    }
+  
+    // Construir la expresión final combinando filtersOR, categoryExpression y statusExpression
     let combinedExpression: Expression = null;
-
+  
     if (filtersOR.length > 0) {
-      combinedExpression = filtersOR.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
+      combinedExpression = filtersOR.reduce((exp1, exp2) => 
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
     }
-
-    if (filtersAND.length > 0) {
-      const andExpression = filtersAND.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
+  
+    if (categoryExpression && statusExpression) {
+      const andCategoryStatus = FilterExpressionUtils.buildComplexExpression(categoryExpression, statusExpression, FilterExpressionUtils.OP_AND);
       combinedExpression = combinedExpression
-        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andExpression, FilterExpressionUtils.OP_AND)
-        : andExpression;
+        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andCategoryStatus, FilterExpressionUtils.OP_AND)
+        : andCategoryStatus;
+    } else if (categoryExpression) {
+      combinedExpression = combinedExpression
+        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, categoryExpression, FilterExpressionUtils.OP_AND)
+        : categoryExpression;
+    } else if (statusExpression) {
+      combinedExpression = combinedExpression
+        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, statusExpression, FilterExpressionUtils.OP_AND)
+        : statusExpression;
     }
-
+  
     return combinedExpression;
-
   }
+  
 
   clearFilters(): void {
     this.toyGrid.reloadData();
