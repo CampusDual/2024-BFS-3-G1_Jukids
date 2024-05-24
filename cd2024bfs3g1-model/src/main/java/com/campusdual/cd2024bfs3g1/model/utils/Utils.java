@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.ontimize.jee.common.dto.EntityResult;
-//import org.apache.tika.Tika;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
@@ -40,9 +40,9 @@ public class Utils {
         //Agregar al response
         response.put("decodedBytes", decodedBytes);
 
-//        //Identificacion del Tipo de formato del BASE64 decoded
-//        Tika tika = new Tika();
-//        String mimeType = tika.detect(new ByteArrayInputStream(decodedBytes));
+        //Identificacion del Tipo de formato del BASE64 decoded
+        Tika tika = new Tika();
+        String mimeType = tika.detect(new ByteArrayInputStream(decodedBytes));
 
 
         if( mimeType.startsWith( prefix ) ) {
