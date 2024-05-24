@@ -101,6 +101,8 @@
   "ERROR_PRICE_VALIDATION": "Introduzca el precio",
   "ERROR_NEGATIVE_PRICE_VALIDATION": "El precio debe ser positivo",
   "ERROR_EMAIL_VALIDATION": "Introduzca un email válido",
+  "ERROR_CATEGORY_VALIDATION": "Introduzca una categoría válida",
+  "ERROR_STATUS_VALIDATION": "Introduzca un estado válido",
   "ERROR_HIGHER_MILLION_VALIDATION": "El precio no puede superar los 10 millones de €",
   "SELECT_POINT_ON_MAP":"Seleccione un punto",
   "YOUR_PRODUCTS":"Mis productos",
@@ -138,5 +140,11 @@
   "cat_Antiques":"Antigüedades",
   "cat_Cards":"Cartas y cromos",
   "cat_Others":"Otros",
-  "cancel": "Cancelar"
+  "cancel": "Cancelar",
+  "status": "Estado del Juguete",
+  "sta_new": "Nuevo",
+  "sta_semiNew": "Semi nuevo",
+  "sta_wellWorn": "Buen estado",
+  "sta_worn": "Usado",
+  "sta_incomplete": "Incompleto"
 }

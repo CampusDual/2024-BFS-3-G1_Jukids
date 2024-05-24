@@ -103,6 +103,7 @@
   "ERROR_EMAIL_VALIDATION": "Enter a valid email",
   "ERROR_HIGHER_MILLION_VALIDATION": "The price can't be higher than 10 million €",
   "ERROR_CATEGORY_VALIDATION": "Select a category",
+  "ERROR_STATUS_VALIDATION": "Select a status",
   "SELECT_POINT_ON_MAP":"Select a point",
   "YOUR_PRODUCTS":"My products",
   "MY_PROFILE":"My profile",
@@ -139,5 +140,11 @@
   "cat_Antiques":"Antiques",
   "cat_Cards":"Cards and stickers",
   "cat_Others":"Others",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "status": "Status",
+  "sta_new": "New",
+  "sta_semiNew": "Nearly new",
+  "sta_wellWorn": "Good condition",
+  "sta_worn": "Used",
+  "sta_incomplete": "Incomplete"
 }
