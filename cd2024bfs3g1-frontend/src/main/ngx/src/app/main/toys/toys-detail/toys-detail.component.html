@@ -20,6 +20,7 @@
 
   <!-- hidden inputs for data recovery -->
   <o-text-input #toyId attr="toyid" oHidden sql-type="INTEGER" enabled="yes"></o-text-input>
+  <o-text-input #usr_id attr="usr_id" sql-type="INTEGER" enabled="yes" oHidden></o-text-input>
   <o-text-input #category attr="category" fxFlex="100" read-only="yes" oHidden></o-text-input>
   <o-text-input #nameInput attr="name" fxFlex="100" read-only="yes" oHidden></o-text-input>
   <o-currency-input #priceInput attr="price" fxFlex="100" read-only="yes" min-decimal-digits="2"
@@ -31,36 +32,48 @@
   <o-email-input #longitude attr="longitude" fxFlex="100" read-only="yes" oHidden></o-email-input>
   
     <o-column style="background-color: transparent;">
-      <div fxLayoutGap="20px" fxLayout="row" class="toys-detail-column">
+      <div fxLayoutGap="10px" fxLayout="row" class="toys-detail-column">
 
-        <o-column fxFlex="50" style="background-color: transparent;">
+        <o-column fxFlex="60" class="image-col">
           <o-image class="image-container" auto-fit="yes" attr="photo" read-only="yes"
             empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
-         <div class="checkout-container">
+
+          <!-- buy button  -->
+          <div *ngIf="usr_id.getValue() != undefined; else unRegisteredUser" class="checkout-container">
             <button class="btn-checkout" (click)="checkout()">
               <span>{{'BUY' | oTranslate}}</span>
             </button>
-          </div>  
+           </div>  
+
+          <ng-template #unRegisteredUser>
+            <div class="checkout-container">
+              <button class="btn-checkout" (click)="showMeMore()">
+                <span title="Este producto ha sido subido por un usuario anónimo. Para poder comprarlo debes contactar por email con el vendedor.">
+                  {{'CONTACT_SELLER' | oTranslate}}</span>
+              </button>
+            </div>  
+          </ng-template>
         </o-column>
 
-        <o-column class="inf-column">
+        <o-column fxFlex="30"class="inf-column">
           <div class="name-price-container">
-            <o-row class="title">{{nameInput.getValue()}}</o-row>
             <o-row class="price">{{priceInput.getValue()}} <span>€</span></o-row>
           </div>
-
+          <div class="name-price-container">
+            <o-row class="title">{{nameInput.getValue()}}</o-row>
+          </div>
           <!-- shipping  -->
           <p *ngIf="shipping.getValue(); else noShipping" class="shippable">ENVÍO DISPONIBLE</p>
           <ng-template #noShipping>
             <p class="no-shippable">SÓLO VENTA EN PERSONA</p>
           </ng-template>
 
-          <div layout-align="start stretch" fxFlex="59">
+          <div id="desc" fxFlex="59">
             <o-row class="text longDescr">{{descInput.getValue()}}</o-row>
           </div>
 
-          <div layout-align="start stretch">
-            <o-row class="text">{{emailInput.getValue()}}</o-row>
+          <div class="email-container">
+            <o-row  class="email">{{emailInput.getValue()}}</o-row>
           </div>
 
         </o-column>
@@ -68,7 +81,7 @@
     </o-column>
     
     <!-- map -->
-    <o-column>
+    <o-column style="margin-top: 20px;">
       <div style="width: 100%;">
         <!-- <p class="title">{{'TITLE_MAP' | oTranslate}}</p> -->
         <div class="detail-toy-map-container">

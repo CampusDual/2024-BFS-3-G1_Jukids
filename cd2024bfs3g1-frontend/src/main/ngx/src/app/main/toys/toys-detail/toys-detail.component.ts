@@ -12,8 +12,9 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 export class ToysDetailComponent implements OnInit{
   private location: any;
   showCheckout = false;
-
+  
   @ViewChild('toyId') toyId: OTextInputComponent;
+  @ViewChild('usr_id') usr_id: OTextInputComponent;
   @ViewChild('nameInput') toyName: OTextInputComponent;
   @ViewChild('emailInput') toyEmail: OEmailInputComponent;
   @ViewChild('shipping') shipping: OTextInputComponent;
@@ -21,17 +22,20 @@ export class ToysDetailComponent implements OnInit{
   @ViewChild('longitude') lon: OTextInputComponent;
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
   @ViewChild('stripe') stripe: StripeComponent;
-
+  
   constructor(
     private toysMapService: ToysMapService,
   ) {}
-
+  
   ngOnInit() {
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
   }
-
+  
+  showMeMore() {
+    console.log(this.usr_id.getValue());
+  }
   onFormDataLoaded(data: any) {
     this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue())
     this.setStripe();
@@ -50,3 +54,16 @@ export class ToysDetailComponent implements OnInit{
     this.stripe.ckeckout();
   }
 }
+
+//   copyToClipboard(e) {
+//     console.log('hey');
+//     console.log(e.target);
+//     console.log(document.getElementById("emaildata").innerText);
+//     let email = document.getElementById("emaildata") as HTMLInputElement;
+//     email.select();
+//     // email.execCommand("copy");
+
+//     navigator.clipboard.writeText(document.getElementById("emaildata").innerText);
+//     alert("Copiado al portapapeles");
+//   }
+// }

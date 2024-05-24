@@ -31,10 +31,13 @@
     color: rgb(83, 162, 5);
     font-size: 15px;
     font-weight: bold;
+    margin-left: 10px;
+
 }
 
 .no-shippable {
     color: rgba(123, 132, 113, 0.665);
+    margin-left: 10px;
     font-size: 15px;
     font-weight: bold;
 }
@@ -46,15 +49,15 @@
     align-items: flex-start;
     margin: auto;
     border-radius: 1em;
-    overflow: hidden;
+    // overflow: hidden;
     transition: box-shadow 0.3s;
     height: fit-content;
-    background-color: rgba(227, 227, 227, 0.407);
+    background-color: transparent;
 
     @media screen and (min-width: 1000px) {
         width: 60%;
     }
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 800px) {
         width: 100%;
 
         .title {
@@ -63,36 +66,49 @@
         .price {
             font-size: 20px !important;
         }
-        
     }
 }
 
 .toys-detail-column {
-    margin-top: 80px;
+    margin-top: 50px;
+    // margin-right: 0px;
     background-color: transparent;
+    height: 100%;
+    overflow-x: hidden;
 
     @media screen and (max-width: 1000px) {
         flex-direction: column !important;
+        // background-color: aquamarine;
 
         o-column {
             max-width: 100% !important;
+        }
+        image-col {
+            scale: 3;
         }
     }
-    @media screen and (max-width: 500px) {
-        flex-direction: column !important;
 
-        o-column {
-            max-width: 100% !important;
-        }
-
-        .box {
-            width: 100%;
-        }
+    .image-col {
+        // overflow: hidden;
+        background-color: rgb(255, 255, 255);
+        width: 100%;
     }
 
     .image-container {
         margin: 0;
+        padding: 0 !important;
+        height: 100%;
+        width: 100%;
         background-color: transparent;
+
+        // scale: 1.1;
+        scale: 1;
+        overflow: hidden;
+        transition: 3s;
+        &:hover{
+            transform: scale(1.05);
+            transition: 3s;
+         }
     }
 
     .name-price-container {
@@ -100,12 +116,13 @@
         width: 100%;
         justify-content: space-between;
         margin-top: 12px;
+        margin-left: 10px;
     
         .price {
             display: flex;
             align-self: flex-end;
             background-color: transparent;
-            font-size: 35px;
+            font-size: 30px;
             font-weight: bold;
             text-align: center;
         }
@@ -113,9 +130,12 @@
 
     .inf-column {
         // margin-right: 1.5em;
-        height: fit-content;
-        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        border-radius: 5px;
+        height: 100%;
         width: 100%;
+        background-color: rgba(202, 202, 202, 0.441);
         .title {
             // width: 100%;
             // border-bottom-width: 1px;
@@ -123,38 +143,47 @@
             // border-color: rgba(0, 0, 0, 0.12);
             // color: rgba(0, 0, 0, 0.75);
             // margin-bottom: 0.5em;
-            font-size: 35px;
+            font-size: 25px;
             font-weight: bold;
             color: #000000;
             margin-bottom: 0.05em;
             padding-right: 0.5em;
             text-transform: capitalize;
             background-color: transparent;
-
         }
-
+        
         .text {
-            width: 96%;
+            width: 100%;
             font-size: 15px;
             margin-bottom: 0.75em;
-            text-align: justify;
+            // text-align: justify;
             background-color: transparent;
         }
 
         .longDescr {
             height: fit-content;
             max-height: 80%;
+            margin-left: 10px;
+            height: 80%;
             overflow-y: scroll;
         }
 
-        .email {
-            width: 75%;
-            margin-left: 0.75em;
-            font-size: 16px;
-            margin-bottom: 0.75em;
-            text-align: justify;
+        .email-container {
+            align-self: flex-end;
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            width: 100%;
         }
 
+        .email {
+            font-size: 16px;
+            height: fit-content;
+            margin-left: 10px;
+            align-self: flex-end;
+            background-color: transparent;
+            margin-bottom: 10px;
+        }
     }
 }
 
@@ -163,31 +192,43 @@
     background-color: transparent;
 }
 
+.checkout-container {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+#desc {
+    width: 100%;
+    padding-right: 15px;
+}
 
 .btn-checkout {
-    width: fit-content;
-    padding: 10px 10px 10px;
-    // background-color: #FFCC99;
-    border: 2px solid #ffcc99c6;
     // margin: 4px 2px;
-    margin-left: 1.5vw;
-    margin-bottom: 5px;
+    // margin-left: 1.5vw;
+    // background-color: #FFCC99;
+    width: 90%;
+    align-self: center;
+    height: 100%;
+    font-size: 20px;
+    padding: 10px 10px 10px;
+    border: 2px solid #ffcc99c6;
     border-radius: 15px;
+    overflow: hidden;
     cursor: pointer;
     -webkit-transition-duration: 0.4s;
     /* Safari */
     transition-duration: 0.2s;
 }
 
-.checkout-container {
-    background-color: transparent;
-}
-
 .btn-checkout:hover {
     // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.24);
     transition: all;
     transition-duration: 0.1s;
-    font-weight: normal;
+    // height: 90%;
+    color: #000000d8;
     border: 2px solid #0000004c;
-    background-color:#ffcc993a;
+    overflow: hidden;
+    background-color:#ffcc995b;
 }
