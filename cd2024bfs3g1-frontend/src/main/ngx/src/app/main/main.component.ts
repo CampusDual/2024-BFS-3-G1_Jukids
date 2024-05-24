@@ -6,6 +6,7 @@ import { UserInfoService } from '../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -24,9 +25,14 @@ export class MainComponent implements OnInit {
 en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
 @ViewChild('appLayout')
 public appLayout: OAppLayoutComponent;
+public rolename : string;
 
   redirect() {
     this.router.navigateByUrl('/login');
+  }
+
+  adminRedirect(){
+    this.router.navigateByUrl('/main/admin');
   }
 
   register(){
@@ -36,6 +42,10 @@ public appLayout: OAppLayoutComponent;
   isLogged(){
     return this.authService.isLoggedIn();
   }
+//Con este metodo verificamos que el usuario que se ha logueado, tenga una propiedad rolename y su valor sea el de admin
+  validAdmin(){
+    return (this.rolename && this.rolename == "admin");
+   }
 
   ngOnInit() {
     this.loadUserInfo();
@@ -49,6 +59,10 @@ public appLayout: OAppLayoutComponent;
           let avatar = './assets/images/user_profile.png';
           if (result.data['usr_photo']) {
             (avatar as any) = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + result.data['usr_photo']);
+          }
+          //Recogemos el campo rolename en el front que trajimos del back y lo asignamos a una variable publica en el componente
+          if (result.data['rolename']) {
+            this.rolename = result.data['rolename']
           }
           this.oUserInfoService.setUserInfo({
             username: result.data['usr_name'],

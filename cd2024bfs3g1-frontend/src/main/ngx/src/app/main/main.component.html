@@ -5,6 +5,7 @@
         <p>JuKids</p>
       </div>
       <div>
+       <button *ngIf="validAdmin()" class="btn-admin" type="submit" (click)="adminRedirect()">{{ 'ADMIN' | oTranslate }}</button>
         <button *ngIf="!isLogged()" class="btn-login" type="submit" (click)="redirect()">{{ 'LOGIN' | oTranslate }}</button>
         <button *ngIf="!isLogged()" class="btn-register" type="submit" (click)="register()">{{ 'REGISTER' | oTranslate }}</button>
       </div>

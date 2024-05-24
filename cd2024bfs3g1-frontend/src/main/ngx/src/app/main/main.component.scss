@@ -18,7 +18,7 @@
   }
 
 
-  .btn-login, .btn-register{
+  .btn-login, .btn-register, .btn-admin{
       width: 5rem;
       background-color: #fff;
       border: 2px solid #ffa366;
@@ -29,11 +29,11 @@
       margin: 0.2rem;
     }
 
-    .btn-login:hover, .btn-register:hover {
+    .btn-login:hover, .btn-register:hover, .btn-admin:hover{
       opacity: 0.8;
-      cursor: pointer;
       color: #ff5349;
       transition: 0.5s;
       box-shadow: 3px 3px 0px rgba($color: #ff5349, $alpha: 1.0);
+      cursor: pointer;
   }
 
