@@ -99,10 +99,10 @@ public class OrderService implements IOrderService{
 
         //Recuperamos TOY - PRICE y TOY - TRANSACTION_STATUS
 
-        HashMap<String, Object> toyKeysValues = new HashMap<>();
-        toyKeysValues.put(ToyDao.ATTR_ID, toyId);
+        HashMap<String, Object> toyKeyValues = new HashMap<>();
+        toyKeyValues.put(ToyDao.ATTR_ID, toyId);
         List<String> toyAttributes = Arrays.asList(ToyDao.ATTR_PRICE, ToyDao.ATTR_TRANSACTION_STATUS);
-        EntityResult toyData = this.daoHelper.query(toyDao, toyKeysValues, toyAttributes);
+        EntityResult toyData = this.daoHelper.query(toyDao, toyKeyValues, toyAttributes);
 
         if(toyData.isWrong() || toyData.isEmpty()){
 
