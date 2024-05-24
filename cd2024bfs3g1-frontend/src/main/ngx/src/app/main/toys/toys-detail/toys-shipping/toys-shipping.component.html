@@ -12,53 +12,55 @@
 
 
     <mat-radio-group #buyOption class="radioGroup" aria-label="" (change)="showFormShipments()">
-      <mat-radio-button #onlyBuy value="1">Comprar</mat-radio-button>
-      <mat-radio-button #BuySend value="2" checked>Comprar y enviar</mat-radio-button>
+      <mat-radio-button #onlyBuy value="1">{{'BUY' | oTranslate}}</mat-radio-button>
+      <mat-radio-button #BuySend value="2" checked>{{'BUY_AND_SEND' | oTranslate}}</mat-radio-button>
     </mat-radio-group>
 
 
     <div class="card">
+
       <o-form id="formShipments" class="formShipments" #formShipments service="orders" entity="orderAndShipment"
         keys="shipment_id" show-header-navigation="no" show-header="no" layout-direction="column" header-actions="I"
-        (onInsert)="insertRedirect()" (onDataLoaded)="setData()">
-        <h2>Solo necesitamos un par de datos</h2>
-        <!--
-        "shipment_id";
-        "order_id";
-        "shipment_date";
-        "shipment_company";
-        "price";
-        "tracking_number";
-        "sender_address";
-        "buyer_phone";
-        "shipping_address";
-      -->
+        (onDataLoaded)="setData()">
+        <h2>{{'TITLE_FORM_SHIPMENTS' | oTranslate}}</h2>
         <o-column>
-          <div>
-            <o-text-input #order_id attr="order_id" sql-type="INTEGER" read-only="no" oHidden></o-text-input>
+          <div class="divLabel">
+            <o-text-input #orderId attr="order_id" sql-type="INTEGER" read-only="no" oHidden></o-text-input>
+            <o-text-input id="price" #price attr="price" read-only="no" sql-type="DOUBLE"
+              oHidden></o-text-input>
           </div>
-          <div>
-            <o-text-input attr="name" label="Full name" fxFlex="100" read-only="no" required="yes"
+          <!--<div class="divLabel">
+            <o-text-input attr="name" label="{{'full_name' | oTranslate}}" fxFlex="100" read-only="no" required="yes"
               max-length="150"></o-text-input>
           </div>
-          <div>
-            <o-text-input attr="email_buyer" label="email" fxFlex="100" read-only="no" required="yes"
+          <div class="divLabel">
+            <o-text-input attr="email_buyer" label="{{'usr_email' | oTranslate}}" fxFlex="100" read-only="no" required="yes"
               max-length="150"></o-text-input>
+          </div>-->
+          <div class="divLabel">
+            <o-text-input #shippingAddress attr="shipping_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
+              read-only="no" required="yes" max-length="150"></o-text-input>
           </div>
-          <div>
-            <o-text-input attr="shipping_address" label="shipping_address" fxFlex="100" read-only="no" required="yes"
-              max-length="150"></o-text-input>
+          <div class="divLabel">
+            <o-text-input #buyerPhone attr="buyer_phone" label="{{'usr_phone' | oTranslate}}" fxFlex="100"
+              read-only="no" required="yes" max-length="150"></o-text-input>
           </div>
-          <div>
-            <o-text-input attr="buyer_phone" label="phone" fxFlex="100" read-only="no" required="yes"
-              max-length="150"></o-text-input>
+          <div class="divLabel">
+            <o-combo #shipmentCompany attr="shipment_company" label="{{'company' | oTranslate}}"
+              [static-data]="dataCompany" [data]="defaultCompany" value-column="code" columns="code;company"
+              visible-columns="company" required="yes" read-only="false"></o-combo>
           </div>
-          <div>
-            <o-combo attr="company" label="Company" [static-data]="dataCompany" [data]="defaultCompany" value-column="code" columns="code;company" visible-columns="company" required="yes" read-only="false"></o-combo>
+
+          <div *ngIf="!logged;else encourageRegister" class="warning">
+            <p><a href="/login/new">¡Registrate!</a> Para comprar con envio </p>
           </div>
-          <o-row layout-align="start" layout-margin-top>
-            <button class="btn-checkout colorOrange" (click)="newSubmit()">Acceptar envio y pagar</button>
-          </o-row>
+
+          <ng-template #encourageRegister>
+            <o-row layout-align="start" layout-margin-top>
+              <button #buttonAcceptPay class="btn-checkout colorOrange" (click)="newSubmit()">{{'ACCEPT_AND_PAY' |
+                oTranslate}}</button>
+            </o-row>
+          </ng-template>
         </o-column>
       </o-form>
 
@@ -66,42 +68,44 @@
         <div class="divDetail">
           <div class="containerPrice">
             <o-row class="titleName"><span class="toy-title">{{nameInput.getValue()}}</span></o-row>
-            <o-row *ngIf="!this.issetSend;else sendPrice" class="price">{{(priceInput.getValue()*1) + this.commissionPrice }}
+            <o-row *ngIf="!this.issetSend;else sendPrice" class="price">{{(priceInput.getValue()*1) +
+              this.commissionPrice }}
               <span class="currency"> €</span></o-row>
-            <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.commissionPrice + this.priceSend
+            <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.commissionPrice +
+                this.priceSend
                 }} <span class="currency"> €</span></o-row></ng-template>
           </div>
           <div class="priceInfo">
             <div>
-              <span>Precio del producto:</span>
+              <span>{{'PRODUCT_PRICE' | oTranslate}}:</span>
               <span>{{priceInput.getValue()}} €</span>
             </div>
             <div>
-              <span>Comisión por gestiones:</span>
+              <span>{{'COMMISSION_PRICE' | oTranslate}}:</span>
               <span> {{this.commissionPrice}} €</span>
             </div>
             <div *ngIf="issetSend">
-              <span>Gastos de envio:</span>
+              <span>{{'SEND_PRICE' | oTranslate}}:</span>
               <span> {{ this.priceSend }} €</span>
             </div>
           </div>
           <div class="doneInfo">
             <div *ngIf="issetSend">
               <mat-icon class="mat-icon-done">done</mat-icon>
-              <span>Recíbelo en casa</span>
+              <span>{{'RECEIVE_HOME' | oTranslate}}</span>
             </div>
             <div>
               <mat-icon class="mat-icon-done">done</mat-icon>
-              <span>Garantía de producto</span>
+              <span>{{'WARRANTY' | oTranslate}}</span>
             </div>
             <div>
               <mat-icon class="mat-icon-done">done</mat-icon>
-              <span>Pago seguro</span>
+              <span>{{'SECURE_PAYMENT' | oTranslate}}</span>
             </div>
           </div>
         </div>
         <button #buyButton class="btn-checkout hidden" (click)="checkout()">
-          <span>Pagar</span>
+          <span>{{'PAY' | oTranslate}}</span>
         </button>
       </div>
 

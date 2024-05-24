@@ -16,9 +16,11 @@
                 </div>
                 <o-checkbox *ngIf="toyService == 'toyowner';else encourageRegister" id="shipping" #shipping fxFlex="50" attr="shipping" label="{{ 'SHIPPING'  | oTranslate }}">
                 </o-checkbox>
-                <ng-template #encourageRegister><p>¡Registrate! Encontrarás más opciones y llegarás a más gente</p></ng-template>
-            </div>  
-                      
+                <ng-template #encourageRegister><div class="warning">
+                    <p><a href="/login/new">¡Registrate!</a> Encontrarás más opciones y llegarás a más gente</p>
+                </div></ng-template>
+            </div>
+
             <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
                 <div class="pop-up-span">
                     <span>{{ 'SELECT_POINT_ON_MAP' | oTranslate }}</span>
@@ -27,7 +29,7 @@
                 </div>
                 <location-map (click)="handleMapClick($event)"></location-map>
             </div>
-            
+
 
             <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude"
                 decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">

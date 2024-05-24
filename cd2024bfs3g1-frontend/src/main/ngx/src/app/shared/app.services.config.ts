@@ -8,6 +8,13 @@ export const SERVICE_CONFIG: Object = {
   'toyowner': {
     'path': '/toyowner'
   },
+  'orders': {
+    'path': '/orders'
+  },
+  'shipments': {
+    'path': '/shipments'
+  },
+
   'registers': {
     'path': '/registers'
   },
