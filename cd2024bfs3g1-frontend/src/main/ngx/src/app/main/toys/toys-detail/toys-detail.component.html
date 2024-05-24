@@ -6,90 +6,192 @@
 <div class="back-category">
   <button class="backBtn" mat-flat-button [routerLink]="['/']">
     <mat-icon>arrow_back_ios_new</mat-icon>
-    {{'BACKBTN' | oTranslate}}
+    {{ "BACKBTN" | oTranslate }}
   </button>
   <div class="cat-container">
-    <span class="category"> {{'JUKIDS_CATEGORY' | oTranslate}}: {{category.getValue()}}</span>
+    <span class="category">
+      {{ "JUKIDS_CATEGORY" | oTranslate }}: {{ category.getValue() }}</span
+    >
     <!-- <span class="category"> {{'JUKIDS_CATEGORY' | oTranslate}}: {{category.getValue() != null ? category.getValue() : ""}}</span> -->
   </div>
 </div>
 
 <div class="box">
-  <o-form class="form" style="background-color: transparent" attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
-  show-header="no" layout-direction="column" (onDataLoaded)="onFormDataLoaded($event)">
+  <o-form
+    class="form"
+    style="background-color: transparent"
+    attr="toysDetail"
+    service="toys"
+    entity="toy"
+    keys="toyid"
+    show-header-navigation="no"
+    show-header="no"
+    layout-direction="column"
+    (onDataLoaded)="onFormDataLoaded($event)"
+  >
+    <!-- hidden inputs for data recovery -->
+    <o-text-input
+      #toyId
+      attr="toyid"
+      oHidden
+      sql-type="INTEGER"
+      enabled="yes"
+    ></o-text-input>
+    <o-text-input
+      #usr_id
+      attr="usr_id"
+      sql-type="INTEGER"
+      enabled="yes"
+      oHidden
+    ></o-text-input>
+    <o-text-input
+      #category
+      attr="category"
+      fxFlex="100"
+      read-only="yes"
+      oHidden
+    ></o-text-input>
+    <o-text-input
+      #nameInput
+      attr="name"
+      fxFlex="100"
+      read-only="yes"
+      oHidden
+    ></o-text-input>
+    <o-currency-input
+      #priceInput
+      attr="price"
+      fxFlex="100"
+      read-only="yes"
+      min-decimal-digits="2"
+      max-decimal-digits="2"
+      oHidden
+    ></o-currency-input>
+    <o-text-input
+      #shipping
+      attr="shipping"
+      fxFlex="100"
+      read-only="yes"
+      oHidden
+    ></o-text-input>
+    <o-textarea-input
+      #descInput
+      attr="description"
+      fxFlex="100"
+      read-only="yes"
+      oHidden
+    ></o-textarea-input>
+    <o-email-input
+      #emailInput
+      attr="email"
+      fxFlex="100"
+      read-only="yes"
+      oHidden
+    ></o-email-input>
+    <o-email-input
+      #latitude
+      attr="latitude"
+      fxFlex="100"
+      read-only="yes"
+      oHidden
+    ></o-email-input>
+    <o-email-input
+      #longitude
+      attr="longitude"
+      fxFlex="100"
+      read-only="yes"
+      oHidden
+    ></o-email-input>
 
-  <!-- hidden inputs for data recovery -->
-  <o-text-input #toyId attr="toyid" oHidden sql-type="INTEGER" enabled="yes"></o-text-input>
-  <o-text-input #usr_id attr="usr_id" sql-type="INTEGER" enabled="yes" oHidden></o-text-input>
-  <o-text-input #category attr="category" fxFlex="100" read-only="yes" oHidden></o-text-input>
-  <o-text-input #nameInput attr="name" fxFlex="100" read-only="yes" oHidden></o-text-input>
-  <o-currency-input #priceInput attr="price" fxFlex="100" read-only="yes" min-decimal-digits="2"
-    max-decimal-digits="2" oHidden></o-currency-input>
-  <o-text-input #shipping attr="shipping" fxFlex="100" read-only="yes" oHidden></o-text-input>
-  <o-textarea-input #descInput attr="description" fxFlex="100" read-only="yes" oHidden></o-textarea-input>
-  <o-email-input #emailInput attr="email" fxFlex="100" read-only="yes" oHidden></o-email-input>
-  <o-email-input #latitude attr="latitude" fxFlex="100" read-only="yes" oHidden></o-email-input>
-  <o-email-input #longitude attr="longitude" fxFlex="100" read-only="yes" oHidden></o-email-input>
-  
-    <o-column style="background-color: transparent;">
+    <!-- main column  -->
+    <o-column style="background-color: transparent">
       <div fxLayoutGap="10px" fxLayout="row" class="toys-detail-column">
+        <o-column fxFlex="70" class="image-col">
 
-        <o-column fxFlex="60" class="image-col">
-          <o-image class="image-container" auto-fit="yes" attr="photo" read-only="yes"
-            empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
+          <!-- image  -->
+          <o-image
+            class="image-container"
+            auto-fit="yes"
+            attr="photo"
+            read-only="yes"
+            empty-image="assets/images/no-image.png"
+            sql-type="OTHER"
+            show-controls="no"
+          ></o-image>
 
           <!-- buy button  -->
-          <div *ngIf="usr_id.getValue() != undefined; else unRegisteredUser" class="checkout-container">
-            <button class="btn-checkout" (click)="checkout()">
-              <span>{{'BUY' | oTranslate}}</span>
+          <div
+            *ngIf="usr_id.getValue() != undefined; else unRegisteredUser"
+            class="checkout-container"
+          >
+            <button class="jk-light-btn" (click)="checkout()">
+              <span>{{ "BUY" | oTranslate }}</span>
             </button>
-           </div>  
+          </div>
 
+          <!-- contact seller  -->
           <ng-template #unRegisteredUser>
             <div class="checkout-container">
               <button class="btn-checkout" (click)="showMeMore()">
-                <span title="Este producto ha sido subido por un usuario anónimo. Para poder comprarlo debes contactar por email con el vendedor.">
-                  {{'CONTACT_SELLER' | oTranslate}}</span>
+                <span
+                  title="Este producto ha sido subido por un usuario anónimo. Para poder comprarlo debes contactar por email con el vendedor."
+                >
+                  {{ "CONTACT_SELLER" | oTranslate }}</span
+                >
               </button>
-            </div>  
+            </div>
           </ng-template>
         </o-column>
 
-        <o-column fxFlex="30"class="inf-column">
+        <o-column fxFlex="30" class="inf-column">
           <div class="name-price-container">
-            <o-row class="price">{{priceInput.getValue()}} <span>€</span></o-row>
+            <o-row class="price"
+              >{{ priceInput.getValue() }} <span>€</span></o-row>
           </div>
           <div class="name-price-container">
-            <o-row class="title">{{nameInput.getValue()}}</o-row>
+            <o-row class="title">{{ nameInput.getValue() }}</o-row>
           </div>
+
           <!-- shipping  -->
-          <p *ngIf="shipping.getValue(); else noShipping" class="shippable">ENVÍO DISPONIBLE</p>
+          <p *ngIf="shipping.getValue(); else noShipping" class="shippable">
+            ENVÍO DISPONIBLE
+          </p>
           <ng-template #noShipping>
             <p class="no-shippable">SÓLO VENTA EN PERSONA</p>
           </ng-template>
 
           <div id="desc" fxFlex="59">
-            <o-row class="text longDescr">{{descInput.getValue()}}</o-row>
+            <o-row class="text longDescr">{{ descInput.getValue() }}</o-row>
           </div>
 
           <div class="email-container">
-            <o-row  class="email">{{emailInput.getValue()}}</o-row>
+            <o-row class="email">{{ emailInput.getValue() }}</o-row>
           </div>
-
         </o-column>
       </div>
     </o-column>
-    
+
     <!-- map -->
-    <o-column style="margin-top: 20px;">
-      <div style="width: 100%;">
-        <!-- <p class="title">{{'TITLE_MAP' | oTranslate}}</p> -->
-        <div class="detail-toy-map-container">
+    <o-column
+      class="map-col"
+      style="
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      "
+    >
+      <div class="master-map-box">
+        <div class="title-box">
+          <h4>{{ "TOY_LOCATION" | oTranslate }}</h4>
+        </div>
+
+        <div class="map-box">
           <location-map attr="detailMap" #detailMap></location-map>
         </div>
       </div>
-
     </o-column>
+
   </o-form>
 </div>
 
