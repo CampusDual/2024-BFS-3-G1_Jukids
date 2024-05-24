@@ -1,9 +1,9 @@
 <div class="amdin-body">
-<h1>Nuestras estadísticas</h1>
+<h1>{{ 'SALUTE' | oTranslate }}, Admin</h1>
 <div class="graficas">
 <o-image data="assets/images/soldado-grafica.jpeg" read-only="yes" show-controls="no"></o-image>
-<h2>Total ventas página</h2>
-<o-chart #discretebar entity="totalOrders" service="charts" type="discreteBar" x-label="Time" y-label="Amount" x-data-type="string" x-axis="order_month" y-axis="month_total_price" xFormatting="dateFormat"></o-chart>
+<h2>{{ 'CHART_MOVEMENT' | oTranslate }}</h2>
+<o-chart #discretebar entity="totalOrders" service="charts" type="discreteBar" x-label="{{ 'CHART_MONTH' | oTranslate }}" y-label="{{ 'CHART_GROSS_INCOME' | oTranslate }}" x-data-type="string" x-axis="order_month" y-axis="month_total_price" xFormatting="dateFormat"></o-chart>
 </div>
 </div>
 
