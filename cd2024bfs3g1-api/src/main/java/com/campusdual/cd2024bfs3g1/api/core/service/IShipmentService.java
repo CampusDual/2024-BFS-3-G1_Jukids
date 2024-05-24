@@ -10,6 +10,9 @@ public interface IShipmentService {
 
     EntityResult shipmentQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
+    EntityResult shipmentReceivedQuery() throws OntimizeJEERuntimeException;
+
     EntityResult shipmentSentUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
 
+    EntityResult shipmentReceivedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
 }

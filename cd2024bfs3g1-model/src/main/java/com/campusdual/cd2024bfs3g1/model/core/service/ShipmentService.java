@@ -10,6 +10,7 @@ import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
+import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,8 @@ public class ShipmentService implements IShipmentService {
 
     @Autowired
     private ShipmentDao shipmentDao;
+    @Autowired
+    private OrderDao orderDao;
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -53,6 +56,63 @@ public class ShipmentService implements IShipmentService {
     public EntityResult shipmentQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException{
 
         return this.daoHelper.query(this.shipmentDao, shipmentData, attrList);
+    }
+
+    @Override
+    public EntityResult shipmentReceivedQuery() throws OntimizeJEERuntimeException {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        HashMap<String, Object> keysValues = new HashMap<>();
+        keysValues.put(UserDao.LOGIN, email);
+        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+
+        if (userData.isEmpty() || userData.isWrong()) {
+
+            return createError("Error al recuperar el usuario");
+        }
+
+        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+        
+        //Buscamos las orders cuyo BUYER_ID coincida con el user id
+
+        HashMap<String,Object> orderKeyValues = new HashMap<>();
+        orderKeyValues.put(OrderDao.ATTR_BUYER_ID, idUser);
+
+        List<String> orderAttr = Arrays.asList(OrderDao.ATTR_TOY_ID);
+        EntityResult orderResult = this.daoHelper.query(this.orderDao, orderKeyValues, orderAttr);
+
+        if (orderResult.isEmpty() || orderResult.isWrong()){
+
+            return createError("No se encontraron orders con este buyer_id");
+        }
+
+        //TODO:Preguntar a Juanjo
+       //For provisional a falta de algo mejor
+
+        List<Object> toyIds = new ArrayList<>();
+        for (int i = 0; i < orderResult.calculateRecordNumber(); i++) {
+            toyIds.add(orderResult.getRecordValues(i).get(OrderDao.ATTR_TOY_ID));
+        }
+
+        if (toyIds.isEmpty()) {
+            return createError("No se encontraron juguetes que coincidan con este buyer_id");
+        }
+
+        HashMap<String,Object> toyKeyValues = new HashMap<>();
+        toyKeyValues.put(ToyDao.ATTR_TRANSACTION_STATUS, 2);
+
+        // Prueba del "_in" ( Solo pilla los contenidos tambien en la lista toyIds)
+
+        toyKeyValues.put(ToyDao.ATTR_ID + "_in", toyIds);
+
+        //Creamos la lista de campos que necesitamos de TOYS
+
+        List<String> toyAttr = Arrays.asList( ToyDao.ATTR_NAME, ToyDao.ATTR_PRICE, ToyDao.ATTR_PHOTO);
+
+        return this.daoHelper.query(this.toyDao, toyKeyValues, toyAttr);
     }
 
     @Override
@@ -126,6 +186,30 @@ public class ShipmentService implements IShipmentService {
         result.setMessage("Envio realizado");
 
         return result;
+    }
+
+    @Override
+    @Transactional
+    public EntityResult shipmentReceivedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        HashMap<String, Object> keysValues = new HashMap<>();
+        keysValues.put(UserDao.LOGIN, email);
+        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+
+        if (userData.isEmpty() || userData.isWrong()) {
+
+            return createError("Error al recuperar el usuario");
+        }
+
+        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+
+
+
+        return null;
     }
 
     private EntityResult createError(String mensaje){
