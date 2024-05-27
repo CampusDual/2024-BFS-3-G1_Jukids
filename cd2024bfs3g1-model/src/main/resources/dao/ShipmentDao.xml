@@ -25,9 +25,10 @@
                 ]]>
             </Sentence>
         </Query>
-        <Query id="shipmentReceived">
+        <Query id="shipmentJoin">
             <AmbiguousColumns>
                 <AmbiguousColumn name="price" prefix="t" />
+                <AmbiguousColumn name="order_id" prefix="o" />
                 <AmbiguousColumn name="toyid" prefix="t" />
             </AmbiguousColumns>
             <Sentence>
@@ -35,11 +36,11 @@
                  SELECT
                      #COLUMNS#
                  FROM
-                     shipments s
+                     ${mainschema}.shipments s
                  INNER JOIN
-                     orders o ON o.order_id = s.order_id
+                     ${mainschema}.orders o ON o.order_id = s.order_id
                  INNER JOIN
-                     toys t ON o.toyid = t.toyid
+                     ${mainschema}.toys t ON o.toyid = t.toyid
                  #WHERE#
             ]]>
             </Sentence>

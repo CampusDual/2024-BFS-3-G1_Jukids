@@ -31,7 +31,7 @@
   <mat-tab label="Recibidos">
     <span style="color:red">OJO!! Falta actión de boton (pasar a estado 4)</span>
 
-    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="shipmentReceived"
+    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive"
       title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;name;price;photo" visible-columns="photo;name;price;edit-btn"
       show-title="true" pagination-controls="no" show-filter-option="no" quick-filter="false" insert-button="false"
       export-button="false" delete-button="false" edit-button="false" refresh-button="false" horizontal-scroll="true"
