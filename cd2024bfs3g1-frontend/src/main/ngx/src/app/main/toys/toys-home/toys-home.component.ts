@@ -104,16 +104,15 @@ export class ToysHomeComponent implements OnInit{
     this.toyGrid.pageSizeChanged();
   }
 
-
   createFilter(values: Array<{ attr: string, value: any }>): Expression {
     let filtersOR: Array<Expression> = [];
     let categoryExpressions: Array<Expression> = [];
     let priceExpressions: Array<Expression> = [];
     let statusExpressions: Array<Expression> = [];
-
+  
     values.forEach(fil => {
       if (!fil.value) return; // Salir temprano si no hay valor
-
+  
       if (fil.attr === "DESCRIPTION" || fil.attr === "NAME") {
         filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
       } else if (fil.attr === "CATEGORY") {
@@ -122,7 +121,6 @@ export class ToysHomeComponent implements OnInit{
             categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
           });
         } else {
-          categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
           categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
         }
       } else if (fil.attr === "STATUS") {
@@ -134,11 +132,10 @@ export class ToysHomeComponent implements OnInit{
           statusExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
         }
       } else if (fil.attr === "PRICE") {
-        // Construir expresión de precio
         priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("PRICE", fil.value));
       }
     });
-
+  
     // Construir la expresión OR para CATEGORY
     let categoryExpression: Expression = null;
     if (categoryExpressions.length > 0) {
@@ -146,15 +143,15 @@ export class ToysHomeComponent implements OnInit{
         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
       );
     }
-
-  // Construir la expresión OR para el precio
-      let priceExpression: Expression = null;
-      if (priceExpressions.length > 0) {
-        priceExpression = priceExpressions.reduce((exp1, exp2) =>
-          FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
-        );
-      }
-
+  
+    // Construir la expresión OR para el precio
+    let priceExpression: Expression = null;
+    if (priceExpressions.length > 0) {
+      priceExpression = priceExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
+    }
+  
     // Construir la expresión OR para STATUS
     let statusExpression: Expression = null;
     if (statusExpressions.length > 0) {
@@ -162,37 +159,24 @@ export class ToysHomeComponent implements OnInit{
         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
       );
     }
-
-    // Construir la expresión final combinando filtersOR, categoryExpression, priceExpression y statusExpression
+  
+    // Construir la expresión OR para filtersOR
     let combinedExpression: Expression = null;
-
     if (filtersOR.length > 0) {
       combinedExpression = filtersOR.reduce((exp1, exp2) =>
         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
       );
     }
-
-    if (categoryExpression && statusExpression && priceExpression) {
-      const andCategoryStatus = FilterExpressionUtils.buildComplexExpression(categoryExpression, statusExpression, FilterExpressionUtils.OP_AND);
-      combinedExpression = combinedExpression
-        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andCategoryStatus, FilterExpressionUtils.OP_AND)
-        : andCategoryStatus;
-    } else if (categoryExpression) {
-      combinedExpression = combinedExpression
-        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, categoryExpression, FilterExpressionUtils.OP_AND)
-        : categoryExpression;
-    } else if (statusExpression) {
-      combinedExpression = combinedExpression
-        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, statusExpression, FilterExpressionUtils.OP_AND)
-        : statusExpression;
-    } else if (priceExpression) {
-          combinedExpression = combinedExpression
-            ? FilterExpressionUtils.buildComplexExpression(combinedExpression, priceExpression, FilterExpressionUtils.OP_AND)
-            : priceExpression;
-        }
-
+  
+    // Combinar todas las expresiones con AND
+    const expressionsToCombine = [combinedExpression, categoryExpression, priceExpression, statusExpression].filter(exp => exp !== null);
+    if (expressionsToCombine.length > 0) {
+      combinedExpression = expressionsToCombine.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND)
+      );
+    }
+  
     return combinedExpression;
-
   }
 
 
