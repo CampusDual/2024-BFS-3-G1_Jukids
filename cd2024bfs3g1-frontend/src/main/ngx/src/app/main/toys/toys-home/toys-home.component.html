@@ -51,8 +51,8 @@
         translate="yes">
       </o-combo>
 
-      <o-combo label="status" [oFilterBuilderQuery]="filterBuilder" id="status" null-selection="no" 
-      attr="status" service="statuses" entity="status" keys="statusid" value-column="code" columns="statusid;name;code" 
+      <o-combo label="status" [oFilterBuilderQuery]="filterBuilder" id="status" null-selection="no"
+      attr="status" service="statuses" entity="status" keys="statusid" value-column="code" columns="statusid;name;code"
       searchable="true" visible-columns="code" multiple="yes" translate="yes"></o-combo>
     </o-row>
 
@@ -78,7 +78,7 @@
 
     <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
       <o-column layout-padding class="toy-card">
-        <img src="http://localhost:8080/restapi/get-image?toyId={{data.toyid}}" alt="" class="img-toy" style="margin-top:8px;">
+        <o-image [data]="data.photo" alt="" class="img-toy" style="margin-top:8px;" show-controls="false" enabled="false"></o-image>
         <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
           <h4 class="toy-title">{{ data.name }}</h4>
 
