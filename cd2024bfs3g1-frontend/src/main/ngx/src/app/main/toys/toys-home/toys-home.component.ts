@@ -7,7 +7,7 @@ import { Subscription } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer } from "@angular/platform-browser";
- 
+
 @Component({
   selector: "app-toys-home",
   templateUrl: "./toys-home.component.html",
@@ -15,13 +15,13 @@ import { DomSanitizer } from "@angular/platform-browser";
 })
 export class ToysHomeComponent implements OnInit{
   subscription: Subscription;
- 
+
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
   @ViewChild("price") protected priceCombo: OComboComponent;
- 
+
   private location: any;
   public arrayData: Array<any> = [];
- 
+
   constructor(
     private router: Router,
     private actRoute: ActivatedRoute,
@@ -38,7 +38,7 @@ export class ToysHomeComponent implements OnInit{
     // Inicializar el precio predeterminado
     this.precioPredeterminado = 1000000; // Valor que representa "Todos" los precios
   }
- 
+
   ngOnInit() {
     //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
@@ -47,37 +47,37 @@ export class ToysHomeComponent implements OnInit{
       this.toyGrid.reloadData();
     });
   }
- 
+
   public openDetail(data: any): void {
     console.log("OPENDETAIL: ");
-   
+
     // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
     const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
- 
+
     this.router.navigate(["/toysDetail", toyId]);
   }
   public getImageSrc(base64: any): any {
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64.bytes) : './assets/images/no-image-transparent.png';
   }
- 
+
   navigate() {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
- 
+
   //Se calcula la distancia a la que se encuentra el objeto al punto del mapa que sea a seleccionado previamente
   calculateDistance(rowData: any): number {
     const R: number = 6371; // Radio de la Tierra en kilómetros
     let isset = this.location != undefined;
     let lat1: number = (isset) ? this.location.latitude : 0;
     let lon1: number = (isset) ? this.location.longitude : 0;
- 
+
     let lat2: number = rowData['latitude'];
     let lon2: number = rowData['longitude'];
- 
+
     function deg2rad(deg: number): number {
       return deg * (Math.PI / 180);
     }
- 
+
     let dLat: number = deg2rad(lat2 - lat1);
     let dLon: number = deg2rad(lon2 - lon1);
     let a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
@@ -87,8 +87,8 @@ export class ToysHomeComponent implements OnInit{
     let distance = R * c;
     return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
   }
- 
- 
+
+
   //Se añade una localización a los datos recogidos del grid y existe un punto en el mapa
   addLocation(e) {
     if (this.location != undefined) {
@@ -103,16 +103,17 @@ export class ToysHomeComponent implements OnInit{
     this.toyGrid.dataArray = this.arrayData;
     this.toyGrid.pageSizeChanged();
   }
- 
+
 
   createFilter(values: Array<{ attr: string, value: any }>): Expression {
     let filtersOR: Array<Expression> = [];
     let categoryExpressions: Array<Expression> = [];
     let priceExpressions: Array<Expression> = [];
-  
+    let statusExpressions: Array<Expression> = [];
+
     values.forEach(fil => {
       if (!fil.value) return; // Salir temprano si no hay valor
-  
+
       if (fil.attr === "DESCRIPTION" || fil.attr === "NAME") {
         filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
       } else if (fil.attr === "CATEGORY") {
@@ -122,13 +123,22 @@ export class ToysHomeComponent implements OnInit{
           });
         } else {
           categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+          categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+        }
+      } else if (fil.attr === "STATUS") {
+        if (Array.isArray(fil.value)) {
+          fil.value.forEach(val => {
+            statusExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
+          });
+        } else {
+          statusExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
         }
       } else if (fil.attr === "PRICE") {
         // Construir expresión de precio
         priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("PRICE", fil.value));
       }
     });
-  
+
     // Construir la expresión OR para CATEGORY
     let categoryExpression: Expression = null;
     if (categoryExpressions.length > 0) {
@@ -136,54 +146,67 @@ export class ToysHomeComponent implements OnInit{
         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
       );
     }
-  
-    // Construir la expresión OR para el precio
-    let priceExpression: Expression = null;
-    if (priceExpressions.length > 0) {
-      priceExpression = priceExpressions.reduce((exp1, exp2) =>
+
+  // Construir la expresión OR para el precio
+      let priceExpression: Expression = null;
+      if (priceExpressions.length > 0) {
+        priceExpression = priceExpressions.reduce((exp1, exp2) =>
+          FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+        );
+      }
+
+    // Construir la expresión OR para STATUS
+    let statusExpression: Expression = null;
+    if (statusExpressions.length > 0) {
+      statusExpression = statusExpressions.reduce((exp1, exp2) =>
         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
       );
     }
-  
-    // Construir la expresión final combinando filtersOR, categoryExpression y priceExpression
+
+    // Construir la expresión final combinando filtersOR, categoryExpression, priceExpression y statusExpression
     let combinedExpression: Expression = null;
-  
+
     if (filtersOR.length > 0) {
       combinedExpression = filtersOR.reduce((exp1, exp2) =>
         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
       );
     }
-  
-    if (categoryExpression && priceExpression) {
-      const andCategoryPrice = FilterExpressionUtils.buildComplexExpression(categoryExpression, priceExpression, FilterExpressionUtils.OP_AND);
+
+    if (categoryExpression && statusExpression && priceExpression) {
+      const andCategoryStatus = FilterExpressionUtils.buildComplexExpression(categoryExpression, statusExpression, FilterExpressionUtils.OP_AND);
       combinedExpression = combinedExpression
-        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andCategoryPrice, FilterExpressionUtils.OP_AND)
-        : andCategoryPrice;
+        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, andCategoryStatus, FilterExpressionUtils.OP_AND)
+        : andCategoryStatus;
     } else if (categoryExpression) {
       combinedExpression = combinedExpression
         ? FilterExpressionUtils.buildComplexExpression(combinedExpression, categoryExpression, FilterExpressionUtils.OP_AND)
         : categoryExpression;
-    } else if (priceExpression) {
+    } else if (statusExpression) {
       combinedExpression = combinedExpression
-        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, priceExpression, FilterExpressionUtils.OP_AND)
-        : priceExpression;
-    }
-  
+        ? FilterExpressionUtils.buildComplexExpression(combinedExpression, statusExpression, FilterExpressionUtils.OP_AND)
+        : statusExpression;
+    } else if (priceExpression) {
+          combinedExpression = combinedExpression
+            ? FilterExpressionUtils.buildComplexExpression(combinedExpression, priceExpression, FilterExpressionUtils.OP_AND)
+            : priceExpression;
+        }
+
     return combinedExpression;
+
   }
-  
- 
+
+
   clearFilters(): void {
     this.priceCombo.setValue(this.precioPredeterminado);
     this.toyGrid.reloadData();
 
   }
- 
+
   formatPriceSlider(value: number | null) {
     if (!value) {
       return 0;
     }
- 
+
     return value + "€";
   }
 

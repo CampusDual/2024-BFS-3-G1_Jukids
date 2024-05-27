@@ -35,6 +35,7 @@ public class UserAndRoleService implements IUserAndRoleService {
 
 	/** The user dao. */
 	@Autowired
+
 	private UserDao userDao;
 	/** The user roles dao. */
 	@Autowired
@@ -376,6 +377,8 @@ public class UserAndRoleService implements IUserAndRoleService {
 			}
 		}
 		eR.putAll(usrMap);
+		//Así añadimos la información de ROL que tiene el usuario logueado, se puede consultar en front en localStorage
+		eR.put("rolename", SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString());
 		return eR;
 	}
 
