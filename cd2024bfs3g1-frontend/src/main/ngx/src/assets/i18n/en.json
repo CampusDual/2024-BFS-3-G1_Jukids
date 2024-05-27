@@ -128,5 +128,8 @@
   "BUY": "Buy",
   "CONTACT_SELLER": "CONTACT SELLER",
   "CONTACT_SELLER_BY_EMAIL": "SEND MAIL TO SELLER",
-  "TOY_LOCATION": "TOY LOCATION"
+  "TOY_LOCATION": "TOY LOCATION",
+  "SALE_IN_PERSON_ONLY": "SALE IN PERSON ONLY",
+  "SHIPMENT_AVAILABLE": "SHIPMENT AVAILABLE",
+  "UNREGISTERED_SELLER_WARNING": "WARNING* This toy has been published by an unregistered user. It cant't be bougth directly from JUKIDS. You can contact the seller by email."
 }

@@ -156,10 +156,10 @@
               <div class="shipping">
                 <o-row class="title" >                  
                   <p *ngIf="shipping.getValue(); else noShipping" class="shippable">
-                  ENVÍO DISPONIBLE
+                    {{ "SHIPMENT_AVAILABLE" | oTranslate }}
                 </p>
                 <ng-template #noShipping>
-                  <p class="no-shippable">SÓLO VENTA EN PERSONA</p>
+                  <p class="no-shippable">{{ "SALE_IN_PERSON_ONLY" | oTranslate }}</p>
                 </ng-template></o-row>
               </div>
             </div>
@@ -172,8 +172,7 @@
             <!-- email  -->
             <div fxFlex="20" id="mailid" class="email-container">
               <o-row style="background-color: transparent;">{{ emailInput.getValue() }}</o-row>
-                <p style="font-size: small; color: #00000060;" *ngIf="(usr_id.getValue() == undefined)">AVISO* Este juguete ha sido subido por un usuario/a anónimo/a. 
-                  No puedes comprarlo directamente en nuestra plataforma. Puedes ponerte en contacto con la persona que lo haya subido por email.</p>
+                <p style="font-size: small; color: #00000060;" *ngIf="(usr_id.getValue() == undefined)">{{ "UNREGISTERED_SELLER_WARNING" | oTranslate }}</p>
             </div>
           </div>
         </o-column>
