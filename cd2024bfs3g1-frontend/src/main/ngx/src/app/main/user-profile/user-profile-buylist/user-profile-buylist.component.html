@@ -59,7 +59,7 @@
   <mat-tab label="Recibidos">
     <span>Aquí van los estado 3</span>
 
-    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="shipmentReceived" title="{{ 'PURCHASED_TOYS' | oTranslate }}"
+    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive" title="{{ 'PURCHASED_TOYS' | oTranslate }}"
       columns="name;price;photo" visible-columns="name;price;photo"
       query-on-init="true" quick-filter="false" filter-case-sensitive="false" insert-button="false"
       export-button="false" delete-button="false" edit-button="false" refresh-button="false" select-all-checkbox="false"

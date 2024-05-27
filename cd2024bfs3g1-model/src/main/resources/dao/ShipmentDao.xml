@@ -25,9 +25,11 @@
                 ]]>
             </Sentence>
         </Query>
-        <Query id="shipmentReceived">
+        <Query id="shipmentJoin">
             <AmbiguousColumns>
                 <AmbiguousColumn name="price" prefix="t" />
+                <AmbiguousColumn name="order_id" prefix="o" />
+                <AmbiguousColumn name="toyid" prefix="t" />
             </AmbiguousColumns>
             <Sentence>
             <![CDATA[
