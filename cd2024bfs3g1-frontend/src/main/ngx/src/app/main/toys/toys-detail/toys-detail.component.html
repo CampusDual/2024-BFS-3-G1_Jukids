@@ -4,12 +4,12 @@
 </button> -->
 <div class="back-category-container">
   <div class="back-category">
-    <button class="backBtn" mat-flat-button [routerLink]="['/']">
+    <!-- <button class="backBtn" mat-flat-button [routerLink]="['/']">
       <mat-icon>arrow_back_ios_new</mat-icon>
       {{ "BACKBTN" | oTranslate }}
-    </button>
+    </button> -->
     <div class="cat-container">
-      <a class="category" href="/main">Home</a>
+      <a class="category" style="padding-left: 20px;" href="/main">Home</a>
       <p>>&nbsp;&nbsp;&nbsp;&nbsp;</p>
        <span class="category">      
         {{ category.getValue() }}</span
@@ -104,6 +104,13 @@
       read-only="yes"
       oHidden
     ></o-text-input>
+    <o-text-input
+      #status
+      attr="status"
+      fxFlex="100"
+      read-only="yes"
+      oHidden
+    ></o-text-input>
 
     <!-- main column  -->
     <o-column style="background-color: transparent">
@@ -161,6 +168,9 @@
                 <ng-template #noShipping>
                   <p class="no-shippable">{{ "SALE_IN_PERSON_ONLY" | oTranslate }}</p>
                 </ng-template></o-row>
+                <!-- <p class="text">{{ "STATUS" | oTranslate }} {{ status.getValue() }}</p> -->
+                <p class="status">{{ status.getValue() }}</p>
+
               </div>
             </div>
 
