@@ -72,7 +72,7 @@ export class ToysNewComponent implements OnInit{
   newSubmit() {
 
     let arrayErrores: any [] = [];
-    const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','category']);
+    const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','category','status']);
 
     console.log(getFieldValues);
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
@@ -83,8 +83,10 @@ export class ToysNewComponent implements OnInit{
     let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION"
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     let errorLocation = "ERROR_LOCATION_VALIDATION";
-    var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
     let errorCategory = "ERROR_CATEGORY_VALIDATION";
+    let errorStatus = "ERROR_STATUS_VALIDATION";
+    var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
+
     if(getFieldValues.photo === undefined  ){
       arrayErrores.push(this.translate.get(errorPhoto));
     }
@@ -112,6 +114,9 @@ export class ToysNewComponent implements OnInit{
     }
     if(getFieldValues.category === ""){
       arrayErrores.push(this.translate.get(errorCategory));
+    }
+    if(getFieldValues.status === ""){
+      arrayErrores.push(this.translate.get(errorStatus));
     }
     if(arrayErrores.length > 0 ) {
       let stringErrores = "";
