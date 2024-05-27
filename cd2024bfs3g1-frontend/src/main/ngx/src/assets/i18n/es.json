@@ -139,5 +139,9 @@
   "cat_Cards":"Cartas y cromos",
   "cat_Others":"Otros",
   "cancel": "Cancelar",
-  "MAXIMUM PRICE": "Precio máximo"
+  "MAXIMUM PRICE": "Precio máximo",
+  "priceCode_10": "Menos de 10€",
+  "priceCode_20": "Menos de 20€",
+  "priceCode_50": "Menos de 50€",
+  "priceCode_1000000": "Sin límite de precio"
 }

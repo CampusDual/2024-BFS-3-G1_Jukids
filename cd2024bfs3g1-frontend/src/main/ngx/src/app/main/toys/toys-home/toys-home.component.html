@@ -44,11 +44,12 @@
         [oFilterBuilderQuery]="filterBuilder"
         [static-data]="pricesArray"
         [data]="precioPredeterminado"
-        value-column="priceCode" 
-        columns="priceCode;priceText"
-        visible-columns="priceText"
+        value-column="priceCode"
+        columns="priceCode;priceText;attr_price"
+        visible-columns="attr_price"
         null-selection="no"
-        attr="price">
+        attr="price"
+        translate="yes">
       </o-combo>
     </o-row>
     

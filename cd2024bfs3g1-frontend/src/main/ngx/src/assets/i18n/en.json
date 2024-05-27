@@ -140,6 +140,10 @@
   "cat_Cards":"Cards and stickers",
   "cat_Others":"Others",
   "cancel": "Cancel",
-  "MAXIMUM PRICE": "Maximun price"
+  "MAXIMUM PRICE": "Maximun price",
+  "priceCode_10": "Less than 10€",
+  "priceCode_20": "Less than 20€",
+  "priceCode_50": "Less than 50€",
+  "priceCode_1000000": "No limit"
 
 }
