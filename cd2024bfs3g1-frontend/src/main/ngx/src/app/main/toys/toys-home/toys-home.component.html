@@ -50,10 +50,12 @@
         attr="price"
         translate="yes">
       </o-combo>
+
+      <o-combo label="status" [oFilterBuilderQuery]="filterBuilder" id="status" null-selection="no" 
+      attr="status" service="statuses" entity="status" keys="statusid" value-column="code" columns="statusid;name;code" 
+      searchable="true" visible-columns="code" multiple="yes" translate="yes"></o-combo>
     </o-row>
 
-
-      <o-combo label="status" [oFilterBuilderQuery]="filterBuilder" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid" value-column="code" columns="statusid;name;code" searchable="true" visible-columns="code" multiple="yes" translate="yes"></o-combo>
 
   </o-column>
 
