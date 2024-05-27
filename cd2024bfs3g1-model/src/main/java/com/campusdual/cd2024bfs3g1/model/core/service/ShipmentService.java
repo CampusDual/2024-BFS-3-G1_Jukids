@@ -10,7 +10,6 @@ import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
-import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
@@ -59,7 +58,7 @@ public class ShipmentService implements IShipmentService {
     }
 
     @Override
-    public EntityResult shipmentReceivedQuery() throws OntimizeJEERuntimeException {
+    public EntityResult shipmentReceivedQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
@@ -89,8 +88,7 @@ public class ShipmentService implements IShipmentService {
             return createError("No se encontraron orders con este buyer_id");
         }
 
-        //TODO:Preguntar a Juanjo
-       //For provisional a falta de algo mejor
+       //Creamos una lista con todos los toyid  de nuestro OrderResult
 
         List<Object> toyIds = new ArrayList<>();
         for (int i = 0; i < orderResult.calculateRecordNumber(); i++) {
@@ -104,7 +102,7 @@ public class ShipmentService implements IShipmentService {
         HashMap<String,Object> toyKeyValues = new HashMap<>();
         toyKeyValues.put(ToyDao.ATTR_TRANSACTION_STATUS, 2);
 
-        // Prueba del "_in" ( Solo pilla los contenidos tambien en la lista toyIds)
+        // Guardamos en el toyKeysValues todos los juguetes cuyo Id coincida con el de nuestra lista
 
         toyKeyValues.put(ToyDao.ATTR_ID + "_in", toyIds);
 
@@ -206,8 +204,6 @@ public class ShipmentService implements IShipmentService {
         }
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-
-
 
         return null;
     }

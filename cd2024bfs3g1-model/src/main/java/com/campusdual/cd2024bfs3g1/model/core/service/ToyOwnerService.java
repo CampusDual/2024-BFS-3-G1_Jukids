@@ -47,7 +47,7 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put("usr_id", idUser);
+            keyMap.put(UserDao.USR_ID, idUser);
 
             return this.daoHelper.query(this.toyDao, keyMap, attrList);
 
@@ -78,8 +78,8 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put("usr_id", idUser);
-            keyMap.put("transaction_status", 1);
+            keyMap.put(UserDao.USR_ID, idUser);
+            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, 1);
 
             return this.daoHelper.query(this.toyDao, keyMap, attrList);
 
@@ -111,7 +111,7 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            attrMap.put("usr_id", idUser);
+            attrMap.put(UserDao.USR_ID, idUser);
 
             return this.daoHelper.insert(this.toyDao, attrMap);
 
@@ -151,7 +151,7 @@ public class ToyOwnerService implements IToyOwnerService {
             EntityResult toyData = this.daoHelper.query(toyDao, keyToyValues, toyList);
 
             Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
-            attrMap.put("usr_id", idUser);
+            attrMap.put(UserDao.USR_ID, idUser);
 
             if (!idUser.equals(toyIdUser)){
 
@@ -217,10 +217,8 @@ public class ToyOwnerService implements IToyOwnerService {
         return errorEntityResult;
     }
 
-
     public EntityResult toySimpleUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
         return this.daoHelper.update(this.toyDao, attrMap, keyMap);
     }
-
 
 }
