@@ -57,8 +57,7 @@ export class ToysHomeComponent implements OnInit {
     // });
 
     //Control de columnas en o-grid
-    this.layoutChanges.subscribe((result) => {
-      console.log(result);
+    this.layoutChanges.subscribe((result) => {      
       if (result.breakpoints[Breakpoints.XSmall]) {
         this.cols = 2;
       } else if (result.breakpoints[Breakpoints.Small]) {

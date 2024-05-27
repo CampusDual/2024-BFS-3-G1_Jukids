@@ -6,6 +6,7 @@ import { AuthService, NavigationService, ServiceResponse, OUserInfoService, O_TR
 import { Observable } from 'rxjs';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'login',
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
     @Inject(OUserInfoService) private oUserInfoService: OUserInfoService,
     @Inject(UserInfoService) private userInfoService: UserInfoService,
     @Inject(DomSanitizer) private domSanitizer: DomSanitizer,
+    private dialog: MatDialog
   ) {
     const qParamObs: Observable<any> = this.actRoute.queryParams;
     qParamObs.subscribe(params => {
@@ -101,6 +103,10 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  closeModal() {
+    this.dialog.getDialogById('login').close();    
+  }
+  
   private handleError(error) {
     switch (error.status) {
       case 401:

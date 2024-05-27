@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, OAppLayoutComponent, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
+import { AuthService, OAppLayoutComponent, OUserInfoConfigurationItemDirective, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -22,25 +22,25 @@ export class MainComponent implements OnInit {
   @ViewChild('appLayout')
   public appLayout: OAppLayoutComponent;
 
+  @ViewChild('logoutItem')
+  public logoutItem: OUserInfoConfigurationItemDirective;
+  
 
   constructor(
     private router: Router,
     private authService: AuthService,
+    protected injector: Injector,
     private jkAuthService: JukidsAuthService,
     private mainService: MainService,
     private userInfoService: UserInfoService,
     private domSanitizer: DomSanitizer,
     private oUserInfoService: OUserInfoService,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
 
   //TODO: VERIFICAR EL FLUJO QUE AQUI SE LLAMA MUCHO
   isLogged() {
-    console.log("isLogged");
-    console.log(this.authService.isLoggedIn());
-    console.log(this.dialog.openDialogs);
-
     //Se cierra el dialogo al iniciar sesion
     if (this.authService.isLoggedIn() && this.dialog.getDialogById('login')) {
       this.dialog.closeAll();
@@ -70,8 +70,10 @@ export class MainComponent implements OnInit {
   }
 
 
-  logout() {  
-    this.jkAuthService.redirectLogin();  
+
+
+  userLogout() {
+   this.authService.logout();
   }
 
 
@@ -81,4 +83,5 @@ export class MainComponent implements OnInit {
       disableClose: false,
     });
   }
+  
 }

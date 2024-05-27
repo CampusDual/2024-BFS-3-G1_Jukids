@@ -2,6 +2,10 @@
   <!-- Login Side -->
   <div class="login">
 
+    <div class="close-modal" (click)="closeModal()">
+      <mat-icon class="btn-close">close</mat-icon>
+    </div>
+
     <ng-container *ngIf="!isRegistering">
       <div class="login-title-container" fxLayout="column">
         <h1 class="slogan">{{ 'SLOGAN' | oTranslate }}</h1>
@@ -35,7 +39,8 @@
       </form>
 
       <div>
-        <p>No tienes cuenta? <span class="link" (click)="register()">Registrate</span></p>
+        <p>{{ 'DONT_HAVE_ACCOUNT' | oTranslate }} <span class="link" (click)="register()">{{ 'SIGN_UP' | oTranslate
+            }}</span></p>
       </div>
     </ng-container>
 

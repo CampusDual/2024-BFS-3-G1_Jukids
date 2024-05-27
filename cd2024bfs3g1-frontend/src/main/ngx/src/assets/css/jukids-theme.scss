@@ -170,8 +170,9 @@ nav {
   }
 }
 
+//==================================== CARD PRODUCT DESIGN ====================================
 
-// Card Product Design
+// 
 .card {
   width: 95%;
   height: 95%;
@@ -303,66 +304,6 @@ nav {
 
 }
 
-// Buttons
-
-// ==================================== SOLID BUTTON ====================================
-// .btn-solid {
-//   background-color: #fc5813;
-//   color: #fff;
-//   font-family: Inter, sans-serif;
-//   font-size: 1em;
-//   font-weight: normal;
-//   font-style: normal;
-//   text-decoration: none;
-//   padding: 5px 15px;
-//   margin: 0px 5px;
-//   border: 0px solid #000;
-//   border-radius: .75rem;
-//   display: inline-flex;
-//   justify-content: center;
-//   align-items: center;
-//   cursor: pointer;
-//   transition: all .2s ease;
-
-//   &:hover {
-//     background-color: #ed3d09;
-//     color: #fff;
-//   }
-
-// }
-//==================================== OUTLINE BUTTON ====================================
-// .btn-outline {
-//   background-color: transparent;
-//   color: #fc5813;
-//   font-family: Inter, sans-serif;
-//   font-size: 1em;
-//   font-weight: normal;
-//   font-style: normal;
-//   text-decoration: none;
-//   padding: 5px 15px;
-//   margin: 0px 3px;
-//   border: 1px solid #fc5813;
-//   border-radius: .75rem;
-//   display: inline-flex;
-//   justify-content: center;
-//   align-items: center;
-//   cursor: pointer;
-//   transition: all .2s ease;
-
-//   &:hover {
-//     border: 1px solid #ed3d09;
-//     background-color: #ed3d09;
-//     color: #fff;
-//   }
-
-//   mat-icon {
-//     font-size: medium;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//   }
-// }
-
 //==================================== NEW BTN DESIGN ====================================
 button {
   display: flex;
@@ -376,25 +317,30 @@ button {
   margin: .5rem .25rem;
   padding: .2rem 1rem;
 
-  //Categoria color
+  @include respond-to(small) {
+    font-size: 0.8em;
+    margin: 0;
+    padding: 0.3rem;
+  }
 
-  &.btn-solid{
+  //Categoria color
+  &.btn-solid {
     border-color: #FFA366;
-    color: #000;       
-    background-color: #FFA366; 
-    padding: .5rem 1.2rem !important; 
-  
-    &:hover{
+    color: #000;
+    background-color: #FFA366;
+    padding: .5rem 1.2rem !important;
+
+    &:hover {
       box-shadow: 0 2px 4px #0000003d;
     }
   }
 
-  &.btn-outline-dark {  
+  &.btn-outline-dark {
     border-color: #fff;
     color: #fff;
     background-color: transparent;
 
-    &:hover{
+    &:hover {
       color: #ff5349;
       background-color: #fff;
     }
@@ -406,15 +352,21 @@ button {
     }
   }
 
-  &.btn-outline-light {  
+  &.btn-outline-light {
     border-color: #ff5349;
-    color: #ff5349;  
+    color: #ff5349;
     background-color: #fff;
 
-    &:hover{
+    &:hover {
       color: #fff;
       background-color: #FFA366;
-      border-color: #ffa366;      
+      border-color: #ffa366;
+    }
+
+    &.reverse {
+      color: #fff;
+      background-color: #FFA366;
+      border-color: #ffa366;
     }
   }
 
@@ -422,7 +374,7 @@ button {
   &.btn-icon {
     padding: 0.2rem 0.3rem;
   }
-  
+
 }
 
 
@@ -443,31 +395,39 @@ button {
     align-items: center;
     margin: 3rem;
 
+
+
     .login-title-container {
       padding-bottom: 1rem;
+
       .slogan {
         color: #ff5349;
       }
     }
 
     .register-title-container {
-      text-align: center;      
+      text-align: center;
+
       .slogan {
         color: #ff5349;
       }
     }
 
-    .form  {
+    .form {
       width: 40%;
+
       @include respond-to(small) {
         width: 100%;
       }
+
       @include respond-to(medium) {
         width: 80%;
       }
+
       @include respond-to(large) {
         width: 80%;
       }
+
       @include respond-to(xlarge) {
         width: 60%;
       }
@@ -476,54 +436,70 @@ button {
     @include respond-to(small) {
       width: 100%;
     }
+
     @include respond-to(medium) {
       width: 100%;
     }
+
     @include respond-to(large) {
       width: 100%;
-    }    
+    }
 
-    .form-register  {
+    .form-register {
       width: 100%;
     }
 
   }
 
-  .logo{
+  .logo {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #FFFDED;
-  
-    img{
+
+    img {
       width: 75%;
     }
-    
+
     @include respond-to(small) {
       display: none;
     }
+
     @include respond-to(medium) {
       display: none;
     }
+
     @include respond-to(large) {
       display: none;
     }
-  } 
+  }
 
-  // .register {
-  //   width: 100%;
-  //   height: 100%;
-  //   background-color: #ffffff;
-  //   display: flex;
-  //   flex-direction: column;
-  //   justify-content: space-evenly;
-  //   align-items: center;
-  //   padding: 1rem;
-  // }
+  .close-modal {
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    
+    .btn-close{
+      width: 2rem;
+      height: 2rem;
+      font-size: 2rem;   
+      color: #ff5349;   
+    }
+    
+  }
 
   .link {
     cursor: pointer;
+    font-weight: 600;
+    color: #ff5349;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 

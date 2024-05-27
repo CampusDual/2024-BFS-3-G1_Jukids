@@ -1,12 +1,12 @@
 <o-form class="form" editable-detail="no" show-header="no">
 
   <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
-    <o-row layout-align="space-between center">
+    <o-row layout-align="space-between center" fxFlex="100" fxLayoutGap="10px">
 
       <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
 
 
-      <o-row layout-align="end center"class="btn-container">
+      <o-row class="btn-container">
         <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="btn-outline-light"
           matTooltip="{{ 'Search' | oTranslate }}">
           <mat-icon class="material-icons">search</mat-icon>

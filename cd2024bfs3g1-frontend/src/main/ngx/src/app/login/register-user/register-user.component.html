@@ -12,9 +12,9 @@
             show-password-button="yes"></o-password-input>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 10px;">
         <button class="btn-outline-dark reverse" (click)="cancel()">{{ 'CANCEL' | oTranslate }}</button>
-        <button class="btn-solid" type="submit">{{ 'REGISTER' | oTranslate }}</button>
+        <button class="btn-outline-light reverse" type="submit" (click)="form.insert()" >{{ 'REGISTER' | oTranslate }}</button>
     </div>
 
     <!-- <o-form-toolbar></o-form-toolbar> -->

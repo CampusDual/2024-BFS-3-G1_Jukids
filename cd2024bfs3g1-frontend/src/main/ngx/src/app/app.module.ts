@@ -16,6 +16,7 @@ import { JukidsAuthService } from './shared/services/jukids-auth.service';
 // Defining custom providers (if needed)...
 export const customProviders: any = [
   MainService,
+  JukidsAuthService,
   { provide: O_MAT_ERROR_OPTIONS, useValue: { type: 'lite' } },
   { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }
 ];
@@ -39,9 +40,7 @@ export const customProviders: any = [
   providers: [
     { provide: APP_CONFIG, useValue: CONFIG },
     ONTIMIZE_PROVIDERS,
-    ...customProviders,
-    JukidsAuthService
-
+    ...customProviders
   ],
 })
 export class AppModule { }

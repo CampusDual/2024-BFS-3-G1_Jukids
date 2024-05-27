@@ -10,6 +10,7 @@
   "client_permission": "Client permission",
   "confirm_new_password": "Confirm new password",
   "DARK_MODE": "Dark Mode",
+  "DONT_HAVE_ACCOUNT": "You do not have an account?",
   "delete": "Delete",
   "ERROR_MIN_LENGTH_REQUIRED": "The value length entered must be at least 8 characters.",
   "ERROR_PASS_REQUIRED": "Incorrect password.",
@@ -32,6 +33,7 @@
   "LOGIN": "Login",
   "LOGIN_TITLE": "Log in to your account",
   "LOGOUT": "Logout",
+  "LOGOUT_CONFIRMATION": "Are you sure you want to leave?",
   "new": "New",
   "new_password": "New password",
   "old_password": "Old password",
@@ -121,5 +123,6 @@
   "THANK_YOU_PURCHASE": "Thank you for your purchase",
   "PAYMENT_SUCCESS": "Payment success",
   "DONT_HESITATE": "Don't hesitate to contact the seller for more info",
-  "TOY_BUTTON": "This button leads to more toys"
+  "TOY_BUTTON": "This button leads to more toys",
+  "SIGN_UP": "Sign up"
 }
