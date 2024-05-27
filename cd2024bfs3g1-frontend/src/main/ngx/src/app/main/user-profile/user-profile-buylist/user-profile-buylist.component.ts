@@ -29,6 +29,7 @@ export class UserPurchasedToylistComponent {
   @ViewChild('transactionStatus') transactionStatus: OTextInputComponent;
   @ViewChild('tableToy') protected tableToy :any ;
   @ViewChild('tableReceived') protected tableReceived :OTableBase ;
+  @ViewChild('tableConfirm') protected tableConfirm :OTableBase ;
 
   constructor(
     private authService: AuthService,
@@ -55,10 +56,7 @@ export class UserPurchasedToylistComponent {
 
 
   public checkReceive(e){
-    console.log("######################################")
-    console.log(e)
-    console.log(e.toyid)
-    console.log("######################################")
+    console.log("toyid checkReceive:",e.toyid)
     const kv = {"toyid": e.toyid};
     const av = {"transaction_status": this.STATUS_RECEIVED}
     // this.oServiceToyownwer.update(kv, av, "toySimple").subscribe(result => {
@@ -71,20 +69,13 @@ export class UserPurchasedToylistComponent {
   }
 
   public checkOk(e){
-
-
-    console.log("######################################")
-    console.log(e)
-    console.log(e.toyid)
-    console.log("######################################")
+    console.log("toyid checkOk:",e.toyid)
     const kv = {"toyid": e.toyid};
-    const av = {"transaction_status": this.STATUS_PURCHASED}
-    // TODO: Cambiar entidad
-    alert("OJO!! Falta actión de boton (pasar a estado 4)")
-    // this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
-    //   console.log(result);
-    //   this.tableReceived.refresh();
-    // })
+    const av = {"transaction_status": this.STATUS_PURCHASED}    
+    this.oServiceShipment.update(kv, av, "shipmentConfirmed").subscribe(result => {
+      alert(result);
+      this.tableConfirm.refresh();
+    })
   }
 
   showCustom(

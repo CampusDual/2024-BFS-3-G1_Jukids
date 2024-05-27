@@ -142,5 +142,10 @@
   "PAY": "Pay",
   "ACCEPT_AND_PAY": "Accept shipment and pay",
   "BUY": "Buy",
-  "BUY_AND_SEND": "Buy and send"
+  "BUY_AND_SEND": "Buy and send",
+  "PENDING_ARRIVAL_TOY" : "Pending arrival",
+  "RECEIVED_TOYS": "Received",
+  "SHOPPING_HISTORY_TOY": "Shopping history",
+  "RECEIVED": "Received",
+  "CONFIRM": "Confirm"
 }

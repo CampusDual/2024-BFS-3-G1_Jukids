@@ -1,14 +1,13 @@
 <mat-tab-group fxFill>
 
-  <mat-tab label="Pendientes de llegada">
-    <span>Aquí van los estado 2: </span>
-    <span style="color:red">OJO!! Cambiar cambiar entidad</span>
-    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="shipmentReceived"
-      title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;name;price;photo" visible-columns="photo;name;price;edit-btn"
-      show-title="true" pagination-controls="no" show-filter-option="no" quick-filter="false" insert-button="false"
-      export-button="false" delete-button="false" edit-button="false" refresh-button="false" horizontal-scroll="true"
-      virtual-scroll="no" auto-adjust="true" class="table">
-      
+  <mat-tab label="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}">
+    <span style="color:red">OJO!! Comprobar acción del botón (pasar a estado 3)</span>
+    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive"
+      title="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
+      visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no" show-filter-option="no"
+      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
+      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table">
+
       <!--<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>-->
 
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
@@ -17,25 +16,25 @@
       </o-table-column>
       <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
         tooltip="yes"></o-table-column>
       <o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}"
         width="64px">
         <o-table-cell-renderer-action attr="edit" class="action" (onClick)="checkReceive($event)"
-          text="Recibido"></o-table-cell-renderer-action>
+          text="{{ 'RECEIVED' | oTranslate }}"></o-table-cell-renderer-action>
       </o-table-column>
     </o-table>
 
   </mat-tab>
-  j
-  <mat-tab label="Recibidos">
-    <span style="color:red">OJO!! Falta actión de boton (pasar a estado 4)</span>
 
-    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive"
-      title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;name;price;photo" visible-columns="photo;name;price;edit-btn"
-      show-title="true" pagination-controls="no" show-filter-option="no" quick-filter="false" insert-button="false"
-      export-button="false" delete-button="false" edit-button="false" refresh-button="false" horizontal-scroll="true"
-      virtual-scroll="no" auto-adjust="true" class="table">
+  <mat-tab label="{{ 'RECEIVED_TOYS' | oTranslate }}">
+    <span style="color:red">OJO!! Falla actión del boton (pasar a estado 4)</span>
+
+    <o-table #tableConfirm fxFlex attr="tableConfirm" service="shipments" entity="pendingConfirm"
+      title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;photo;name;total_price"
+      visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no" show-filter-option="no"
+      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
+      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table">
 
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
@@ -43,22 +42,20 @@
       </o-table-column>
       <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
         tooltip="yes"></o-table-column>
-      <o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'RECEIVED' | oTranslate }}"
+      <o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}"
         width="64px">
         <o-table-cell-renderer-action attr="edit" class="action" (onClick)="checkOk($event)"
-          text="Confirmar"></o-table-cell-renderer-action>
+          text="{{ 'CONFIRM' | oTranslate }}"></o-table-cell-renderer-action>
       </o-table-column>
     </o-table>
 
   </mat-tab>
 
-  <mat-tab label="Historial de compras">
-    <span>Aquí van los estado 4: </span>
-    <span style="color:red">OJO!! Cambiar cambiar entidad</span>
-    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="shipmentReceived"
-      title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;name;price;photo" visible-columns="photo;name;price"
+  <mat-tab label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}">
+    <o-table #tablePurchased fxFlex attr="tablePurchased" service="shipments" entity="Purchased"
+      title="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" columns="toyid;photo;name;total_price" visible-columns="photo;name;total_price"
       show-title="true" pagination-controls="no" show-filter-option="no" quick-filter="false" insert-button="false"
       export-button="false" delete-button="false" edit-button="false" refresh-button="false" horizontal-scroll="true"
       virtual-scroll="no" auto-adjust="true" class="table">
@@ -68,8 +65,11 @@
       </o-table-column>
       <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
-        tooltip="yes"></o-table-column>      
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+        tooltip="yes"></o-table-column>
+      <!-- TODO: Crear formato para la fecha-->
+      <!--<o-table-column attr="order_date" title="{{ 'ORDER_DATA' | oTranslate }}" multiline="no" width="300px"
+        tooltip="yes"></o-table-column>-->
     </o-table>
   </mat-tab>
 
