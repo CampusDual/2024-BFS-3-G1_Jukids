@@ -153,5 +153,10 @@
   "CHART_MOVEMENT": "Movimientos en nuestra página",
   "CHART_GROSS_INCOME": "Ingresos brutos",
   "OUR_GRAPHS": "Nuestras gráficas",
-  "SALUTE": "Hola"
+  "SALUTE": "Hola",
+  "MAXIMUM PRICE": "Precio máximo",
+  "priceCode_10": "10€ o menos",
+  "priceCode_20": "20€ o menos",
+  "priceCode_50": "50€ o menos",
+  "priceCode_1000000": "Sin límite de precio"
 }

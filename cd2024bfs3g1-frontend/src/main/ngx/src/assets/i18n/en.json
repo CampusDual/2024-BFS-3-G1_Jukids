@@ -145,7 +145,6 @@
   "cat_Antiques":"Antiques",
   "cat_Cards":"Cards and stickers",
   "cat_Others":"Others",
-  "cancel": "Cancel",
   "status": "Status",
   "sta_new": "New",
   "sta_semiNew": "Nearly new",
@@ -153,5 +152,12 @@
   "sta_worn": "Used",
   "sta_incomplete": "Incomplete",
   "OUR_GRAPHS": "Our graphs",
-  "SALUTE": "Hi"
+  "SALUTE": "Hi",
+  "cancel": "Cancel",
+  "MAXIMUM PRICE": "Maximun price",
+  "priceCode_10": "10€ or less",
+  "priceCode_20": "20€ or less",
+  "priceCode_50": "50€ or less",
+  "priceCode_1000000": "No price limit"
+
 }

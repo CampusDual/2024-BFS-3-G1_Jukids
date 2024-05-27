@@ -1,6 +1,7 @@
 <o-form class="form" editable-detail="yes" show-header="no">
 
   <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
+
     <o-row layout-align="space-between center">
 
       <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
@@ -15,10 +16,12 @@
           matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
           <mat-icon class="material-icons">clear</mat-icon>
         </button>
+
       </o-row>
     </o-row>
 
-    <o-combo
+    <o-row>
+      <o-combo
         label="category"
         [oFilterBuilderQuery]="filterBuilder"
         id="category"
@@ -35,11 +38,28 @@
         translate="yes">
       </o-combo>
 
-      <o-combo label="status" [oFilterBuilderQuery]="filterBuilder" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid" value-column="code" columns="statusid;name;code" searchable="true" visible-columns="code" multiple="yes" translate="yes"></o-combo>
+      <o-combo #price
+        id="price"
+        [oFilterBuilderQuery]="filterBuilder"
+        [static-data]="pricesArray"
+        [data]="precioPredeterminado"
+        value-column="priceCode"
+        columns="priceCode;priceText;attr_price"
+        visible-columns="attr_price"
+        null-selection="no"
+        attr="price"
+        translate="yes">
+      </o-combo>
+
+      <o-combo label="status" [oFilterBuilderQuery]="filterBuilder" id="status" null-selection="no"
+      attr="status" service="statuses" entity="status" keys="statusid" value-column="code" columns="statusid;name;code"
+      searchable="true" visible-columns="code" multiple="yes" translate="yes"></o-combo>
+    </o-row>
+
 
   </o-column>
 
-  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status" [target]="toysGrid"
+  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status;PRICE:price" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 
@@ -52,13 +72,13 @@
 <div >
   <o-grid #toysGrid attr="toysGrid" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
     columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" refresh-button="no"
-    quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
+    quick-filter="no" pagination-controls="yes" show-page-size="no" page-size-options="24;32;64"
     (onDataLoaded)="addLocation($event)">
 
 
     <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
       <o-column layout-padding class="toy-card">
-        <img src="http://localhost:8080/restapi/get-image?toyId={{data.toyid}}" alt="" class="img-toy" style="margin-top:8px;">
+        <o-image [data]="data.photo" alt="" class="img-toy" style="margin-top:8px;" show-controls="false" enabled="false"></o-image>
         <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
           <h4 class="toy-title">{{ data.name }}</h4>
 
@@ -73,7 +93,9 @@
             </div>
           </div>
         </div>
+
       </o-column>
     </o-grid-item>
+
   </o-grid>
 </div>
