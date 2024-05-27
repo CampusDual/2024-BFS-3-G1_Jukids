@@ -17,4 +17,6 @@ public interface IToyOwnerService {
     EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
 
     EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
+
+    EntityResult toySimpleUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException;
 }

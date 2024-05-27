@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService, DialogService, ODialogConfig, OFormComponent, OTableBase, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
+import { AuthService, DialogService, ODialogConfig, OFormComponent, OTableBase, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
@@ -34,13 +34,39 @@ export class UserPurchasedToylistComponent {
     private router: Router,
     protected dialogService: DialogService,
     private translate: OTranslateService,
+    private oServiceToyownwer: OntimizeService,
     public userInfoService: UserInfoService) {
+
+    const conf = this.oServiceToyownwer.getDefaultServiceConfiguration('toyowner');
+    this.oServiceToyownwer.configureService(conf);
+
+
     this.userInfo = this.userInfoService.getUserInfo();
     if (!this.authService.isLoggedIn()) {
       const self = this;
       self.router.navigate([this.redirect]);
     }
   }
+
+
+  public recibido(e){
+    console.log(e)
+    const kv = {"toyid": e.toyid};
+    const av = {
+      data:{
+        "transaction_status": this.STATUS_RECEIVED
+      }
+    }
+    this.oServiceToyownwer.update(kv, av, "toySimple")
+  }
+
+
+
+
+
+
+
+
 
   public checkReceived(e: any): void {
     console.log(e)

@@ -216,4 +216,11 @@ public class ToyOwnerService implements IToyOwnerService {
 
         return errorEntityResult;
     }
+
+
+    public EntityResult toySimpleUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
+        return this.daoHelper.update(this.toyDao, attrMap, keyMap);
+    }
+
+
 }

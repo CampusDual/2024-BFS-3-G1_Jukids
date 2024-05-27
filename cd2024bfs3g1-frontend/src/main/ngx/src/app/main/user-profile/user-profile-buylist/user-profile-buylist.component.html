@@ -24,22 +24,22 @@
       <o-table-column attr="transaction_status" title="{{ 'price' | oTranslate }}" multiline="no" width="100px"
         tooltip="yes"></o-table-column>
       <o-table-column attr="edit-btn" width="64px">
-        <o-table-cell-renderer-action attr="edit" (onClick)="checkReceived($event)"
+        <o-table-cell-renderer-action attr="edit" (onClick)="recibido($event)"
           icon="storage"></o-table-cell-renderer-action>
       </o-table-column>
 
       <o-table-row-expandable>
         <ng-template let-row>
-          <o-column title="CONTACT_DATA" icon="info" class="vertical-margin-10" layout-gap="12px">
+          <o-column title="Recibido" icon="info" class="vertical-margin-10" layout-gap="12px">
 
-            <o-form #formToy attr="formToy" service="toyowner" entity="toy" fxLayout="column" keys="toyid"
+            <!--<o-form #formToy attr="formToy" service="toyowner" entity="toy" fxLayout="column" keys="toyid"
               keys-sql-types="INTEGER" show-header="yes" header-actions="U">
               <div>
                 <o-text-input #toyId attr="toyid" sql-type="INTEGER" read-only="no" fxFlex="40"></o-text-input>
                 <o-text-input #transactionStatus attr="transaction_status" sql-type="INTEGER" read-only="no"
                   fxFlex="40"></o-text-input>
               </div>
-            </o-form>
+            </o-form>-->
 
           </o-column>
         </ng-template>
@@ -58,6 +58,29 @@
 
   <mat-tab label="Recibidos">
     <span>Aquí van los estado 3</span>
+
+    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="shipmentReceived" title="{{ 'PURCHASED_TOYS' | oTranslate }}"
+      columns="name;price;photo" visible-columns="name;price;photo"
+      query-on-init="true" quick-filter="false" filter-case-sensitive="false" insert-button="false"
+      export-button="false" delete-button="false" edit-button="false" refresh-button="false" select-all-checkbox="false"
+      show-buttons-text="false" controls="true" show-title="true" pagination-controls="no" horizontal-scroll="false"
+      auto-adjust="true" virtual-scroll="no" show-charts-on-demand-option="no" class="table">
+
+      <!--<o-table-columns-filter columns="name;price;photo;"></o-table-columns-filter>-->
+      <!--<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>-->
+      <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
+        <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
+        </o-table-cell-renderer-image>
+      </o-table-column>
+      <o-table-column attr="name" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="edit-btn" width="64px">
+        <button attr="edit" icon="edit"></button>
+      </o-table-column>
+    </o-table>
+
   </mat-tab>
 
   <mat-tab label="Historial de comprar">
