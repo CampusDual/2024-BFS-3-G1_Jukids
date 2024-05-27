@@ -37,6 +37,7 @@
             <o-text-input attr="email_buyer" label="{{'usr_email' | oTranslate}}" fxFlex="100" read-only="no" required="yes"
               max-length="150"></o-text-input>
           </div>-->
+          
           <div class="divLabel">
             <o-text-input #shippingAddress attr="shipping_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
               read-only="no" required="yes" max-length="150"></o-text-input>
@@ -74,6 +75,7 @@
             <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.commissionPrice +
                 this.priceSend
                 }} <span class="currency"> €</span></o-row></ng-template>
+                  
           </div>
           <div class="priceInfo">
             <div>
@@ -81,8 +83,9 @@
               <span>{{priceInput.getValue()}} €</span>
             </div>
             <div>
-              <span>{{'COMMISSION_PRICE' | oTranslate}}:</span>
-              <span> {{this.commissionPrice}} €</span>
+              <span>{{'COMMISSION_PRICE' | oTranslate}}:</span>           
+                <mat-icon matTooltip="  {{'TOOLTIP_INFO' | oTranslate}}" class="tooltip-icon">info</mat-icon>
+              <span> {{this.commissionPrice}} €</span>              
             </div>
             <div *ngIf="issetSend">
               <span>{{'SEND_PRICE' | oTranslate}}:</span>

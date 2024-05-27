@@ -142,5 +142,6 @@
   "PAY": "Pay",
   "ACCEPT_AND_PAY": "Accept shipment and pay",
   "BUY": "Buy",
-  "BUY_AND_SEND": "Buy and send"
+  "BUY_AND_SEND": "Buy and send",
+  "TOOLTIP_INFO": "Warranty information: Ensure the quality of your product | Secure payment | Refund in case of dispute"
 }

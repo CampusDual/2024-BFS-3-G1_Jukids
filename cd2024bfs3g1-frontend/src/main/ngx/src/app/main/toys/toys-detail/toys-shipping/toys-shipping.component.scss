@@ -191,4 +191,15 @@
             max-width:200px;
         }
     }
+    .tooltip {
+        display: inline-block;
+        cursor: pointer;
+      }
+      
+      .tooltip-icon {
+        color: #3498db;
+        font-size: 17px;
+        vertical-align: middle;
+      }
+      
 }

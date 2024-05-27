@@ -142,5 +142,6 @@
   "PAY": "Pagar",
   "ACCEPT_AND_PAY": "Acceptar envio y pagar",
   "BUY": "Comprar",
-  "BUY_AND_SEND": "Comprar y enviar"
+  "BUY_AND_SEND": "Comprar y enviar",
+  "TOOLTIP_INFO": "Información de la garantía: Asegura la calidad de tu producto | Pago seguro | Reembolso en caso de conflicto"
 }
