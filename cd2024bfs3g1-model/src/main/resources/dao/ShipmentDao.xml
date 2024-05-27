@@ -25,20 +25,22 @@
                 ]]>
             </Sentence>
         </Query>
-        <Query id="shipmentReceivedQuery">
+        <Query id="shipmentReceived">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="price" prefix="t" />
+            </AmbiguousColumns>
             <Sentence>
             <![CDATA[
-            SELECT
-                t.name, t.price, t.photo
-            FROM
-                orders o
-            INNER JOIN
-                users u ON o.buyer_id = u.id
-            INNER JOIN
-                toys t ON o.toy_id = t.id
-            WHERE
-                u.login = :login AND t.transaction_status = :transactionStatus
-        ]]>
+                 SELECT
+                     #COLUMNS#
+                 FROM
+                     shipments s
+                 INNER JOIN
+                     orders o ON o.order_id = s.order_id
+                 INNER JOIN
+                     toys t ON o.toyid = t.toyid
+                 #WHERE#
+            ]]>
             </Sentence>
         </Query>
     </Queries>

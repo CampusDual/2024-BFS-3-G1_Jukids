@@ -74,49 +74,14 @@ public class ShipmentService implements IShipmentService {
         }
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-        
-//        //Buscamos las orders cuyo BUYER_ID coincida con el user id
-//
-//        HashMap<String,Object> orderKeyValues = new HashMap<>();
-//        orderKeyValues.put(OrderDao.ATTR_BUYER_ID, idUser);
-//
-//        List<String> orderAttr = Arrays.asList(OrderDao.ATTR_TOY_ID);
-//        EntityResult orderResult = this.daoHelper.query(this.orderDao, orderKeyValues, orderAttr);
-//
-//        if (orderResult.isEmpty() || orderResult.isWrong()){
-//
-//            return createError("No se encontraron orders con este buyer_id");
-//        }
-//
-//       //Creamos una lista con todos los toyid  de nuestro OrderResult
-//
-//        List<Object> toyIds = new ArrayList<>();
-//        for (int i = 0; i < orderResult.calculateRecordNumber(); i++) {
-//            toyIds.add(orderResult.getRecordValues(i).get(OrderDao.ATTR_TOY_ID));
-//        }
-//
-//        if (toyIds.isEmpty()) {
-//            return createError("No se encontraron juguetes que coincidan con este buyer_id");
-//        }
-//
-//        HashMap<String,Object> toyKeyValues = new HashMap<>();
-//        toyKeyValues.put(ToyDao.ATTR_TRANSACTION_STATUS, 2);
-//
-//        // Guardamos en el toyKeysValues todos los juguetes cuyo Id coincida con el de nuestra lista
-//
-//        toyKeyValues.put(ToyDao.ATTR_ID + "_in", toyIds);
-//
-//        //Creamos la lista de campos que necesitamos de TOYS
-//
-//        List<String> toyAttr = Arrays.asList( ToyDao.ATTR_NAME, ToyDao.ATTR_PRICE, ToyDao.ATTR_PHOTO);
-//
-//        return this.daoHelper.query(this.toyDao, toyKeyValues, toyAttr);
+
+        // Creamos el mapa de búsqueda
 
         Map<String, Object> searchValues = new HashMap<>();
         searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
         searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, 2);
 
-        return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentReceivedQuery");
+        return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentReceived");
     }
 
     @Override
