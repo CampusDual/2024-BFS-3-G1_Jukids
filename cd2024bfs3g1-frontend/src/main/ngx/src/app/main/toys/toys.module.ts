@@ -8,12 +8,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LocationMapComponent } from 'src/app/shared/components/location-map/location-map.component';
 import { ToysDetailComponent } from './toys-detail/toys-detail.component';
 
+
 @NgModule({
   declarations: [
     ToysHomeComponent,
     ToysNewComponent,
     // LocationMapComponent,
-    ToysDetailComponent
+    ToysDetailComponent,
+    
   ],
   imports: [
     CommonModule,

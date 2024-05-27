@@ -13,7 +13,7 @@ export class ToysDetailComponent implements OnInit{
 
   private location: any;
   showCheckout = false;
-  
+
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('usr_id') usr_id: OTextInputComponent;
   @ViewChild('nameInput') toyName: OTextInputComponent;
@@ -22,18 +22,19 @@ export class ToysDetailComponent implements OnInit{
   @ViewChild('latitude') lat: OTextInputComponent;
   @ViewChild('longitude') lon: OTextInputComponent;
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
+  @ViewChild('statusInput') toyStatus: OTextInputComponent;
   @ViewChild('stripe') stripe: StripeComponent;
-  
+
   constructor(
     private toysMapService: ToysMapService,
   ) {}
-  
+
   ngOnInit() {
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
   }
-  
+
   showMeMore() {
     console.log(this.usr_id.getValue());
   }
@@ -48,7 +49,7 @@ export class ToysDetailComponent implements OnInit{
     // console.log("Email:", this.toyEmail.getValue());
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();
-    this.stripe.email = this.toyEmail.getValue();    
+    this.stripe.email = this.toyEmail.getValue();
   }
 
   checkout() {

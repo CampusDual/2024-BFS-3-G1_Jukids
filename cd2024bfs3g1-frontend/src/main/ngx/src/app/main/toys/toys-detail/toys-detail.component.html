@@ -1,4 +1,4 @@
-<!-- <button class="backBtn" mat-flat-button [routerLink]="['/']">
+<button class="backBtn" mat-flat-button [routerLink]="['/']">
   <mat-icon>arrow_back_ios_new</mat-icon>
   {{'BACKBTN' | oTranslate}}
 </button> -->
@@ -11,7 +11,7 @@
     <div class="cat-container">
       <a class="category" style="padding-left: 20px;" href="/main">Home</a>
       <p>>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-       <span class="category">      
+       <span class="category">
         {{ category.getValue() }}</span
       >
     </div>
@@ -161,7 +161,7 @@
               >{{ priceInput.getValue() }} <span>€</span></o-row>
               <o-row class="title">{{ nameInput.getValue() }}</o-row>
               <div class="shipping">
-                <o-row class="title" >                  
+                <o-row class="title" >
                   <p *ngIf="shipping.getValue(); else noShipping" class="shippable">
                     {{ "SHIPMENT_AVAILABLE" | oTranslate }}
                 </p>
