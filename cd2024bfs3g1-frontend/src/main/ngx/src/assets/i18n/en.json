@@ -122,6 +122,10 @@
   "THANK_YOU_PURCHASE": "Thank you for your purchase",
   "PAYMENT_SUCCESS": "Payment success",
   "DONT_HESITATE": "Don't hesitate to contact the seller for more info",
+  "SHIPPING": "Shipping available",
+  "CHART_MONTH": "Month",
+  "CHART_MOVEMENT": "Transacctions in our site",
+  "CHART_GROSS_INCOME": "Gross income",
   "TOY_BUTTON": "This button leads to more toys",
   "category": "Category",
   "cat_ChildrensToys": "Children's toys",
@@ -139,5 +143,7 @@
   "cat_Antiques":"Antiques",
   "cat_Cards":"Cards and stickers",
   "cat_Others":"Others",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "OUR_GRAPHS": "Our graphs",
+  "SALUTE": "Hi"
 }

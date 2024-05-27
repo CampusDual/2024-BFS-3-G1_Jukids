@@ -6,12 +6,15 @@ import { UserProfileHomeComponent } from './user-profile-home/user-profile-home.
 import { UserProfileToylistComponent } from './user-profile-toylist/user-profile-toylist.component';
 import { EditToyComponent } from './edit-toy/edit-toy.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { UserPurchasedToylistComponent } from './user-profile-buylist/user-profile-buylist.component';
 
 @NgModule({
   declarations: [
     UserProfileHomeComponent,
     UserProfileToylistComponent,
-    EditToyComponent,
+    UserPurchasedToylistComponent,
+    EditToyComponent
+  
   ],
   imports: [
     CommonModule,

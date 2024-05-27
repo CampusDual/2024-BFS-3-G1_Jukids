@@ -46,7 +46,7 @@ export class ToysHomeComponent implements OnInit{
 
   public openDetail(data: any): void {
     console.log("OPENDETAIL: ");
-    
+
     // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
     const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
 
@@ -55,7 +55,7 @@ export class ToysHomeComponent implements OnInit{
   public getImageSrc(base64: any): any {
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64.bytes) : './assets/images/no-image-transparent.png';
   }
-  
+
   navigate() {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }

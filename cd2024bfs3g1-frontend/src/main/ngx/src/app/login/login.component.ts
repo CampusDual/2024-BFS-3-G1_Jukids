@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   public sessionExpired = false;
   private redirect = '/toys';
+  isAdmin: boolean = false;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -58,6 +59,8 @@ export class LoginComponent implements OnInit {
       this.authService.clearSessionData();
     }
   }
+
+
 
   public login() {
     const userName = this.loginForm.value.username;

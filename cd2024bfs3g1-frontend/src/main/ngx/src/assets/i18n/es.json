@@ -2,7 +2,7 @@
   "ACCOUNT": "Cuenta",
   "active": "Activo",
   "actived": "Activado",
-  "ADMIN": "Administración",
+  "ADMIN": "Admin",
   "APPEARANCE": "Apariencia",
   "BUTTON.CLEARFILTERS": "Limpiar filtros",
   "BUTTON.FILTER": "Filtrar",
@@ -138,5 +138,11 @@
   "cat_Antiques":"Antigüedades",
   "cat_Cards":"Cartas y cromos",
   "cat_Others":"Otros",
-  "cancel": "Cancelar"
+  "cancel": "Cancelar",
+  "SHIPPING": "Envio disponible",
+  "CHART_MONTH": "Mes",
+  "CHART_MOVEMENT": "Movimientos en nuestra página",
+  "CHART_GROSS_INCOME": "Ingresos brutos",
+  "OUR_GRAPHS": "Nuestras gráficas",
+  "SALUTE": "Hola"
 }
