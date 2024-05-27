@@ -25,9 +25,10 @@ export class UserPurchasedToylistComponent {
 
   private status = true;
   @ViewChild('formToy') protected formReceived: OFormComponent;
-  @ViewChild('tableToy') protected tableToy :any ;
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('transactionStatus') transactionStatus: OTextInputComponent;
+  @ViewChild('tableToy') protected tableToy :any ;
+  @ViewChild('tableReceived') protected tableReceived :OTableBase ;
 
   constructor(
     private authService: AuthService,
@@ -35,10 +36,14 @@ export class UserPurchasedToylistComponent {
     protected dialogService: DialogService,
     private translate: OTranslateService,
     private oServiceToyownwer: OntimizeService,
+    private oServiceShipment: OntimizeService,
     public userInfoService: UserInfoService) {
 
     const conf = this.oServiceToyownwer.getDefaultServiceConfiguration('toyowner');
     this.oServiceToyownwer.configureService(conf);
+
+    const conf2 = this.oServiceShipment.getDefaultServiceConfiguration('shipments');
+    this.oServiceShipment.configureService(conf2);
 
 
     this.userInfo = this.userInfoService.getUserInfo();
@@ -49,53 +54,37 @@ export class UserPurchasedToylistComponent {
   }
 
 
-  public recibido(e){
+  public checkReceive(e){
+    console.log("######################################")
     console.log(e)
+    console.log(e.toyid)
+    console.log("######################################")
     const kv = {"toyid": e.toyid};
-    const av = {
-      data:{
-        "transaction_status": this.STATUS_RECEIVED
-      }
-    }
-    this.oServiceToyownwer.update(kv, av, "toySimple")
+    const av = {"transaction_status": this.STATUS_RECEIVED}
+    // this.oServiceToyownwer.update(kv, av, "toySimple").subscribe(result => {
+    //   console.log(result);
+    // })
+    this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
+      console.log(result);
+      this.tableReceived.refresh();
+    })
   }
 
+  public checkOk(e){
 
 
-
-
-
-
-
-
-  public checkReceived(e: any): void {
+    console.log("######################################")
     console.log(e)
-    this.toyId.setValue(e.toyid);
-    console.log(this.formReceived)
-    console.log(this.tableToy)
-    
-    if (e.transaction_status == this.STATUS_AVAILABLE) {
-      this.transactionStatus.setValue(this.STATUS_RECEIVED)
-       
-      this.formReceived.update();
-
-
-    //   const getFieldValues = this.formReceived.getFieldValues(['toyid', 'name', 'transaction_status']);
-    //   console.log(getFieldValues);
-
-    //   this.formReceived.update()
-    //   // if (this.status) {
-    //   //   this.showCustom("send", "Ok", "RECIBIDO", "El juguete ha sido marcado como recibido");
-    //   //   //this.showCustom("send", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), "El juguete ha sido marcado como recibido");
-    //   // }
-
-    } else {
-      this.showCustom("error", "Ok", "ERROR", "El juguete no puede ser marcado como recibido");
-    }
-  }
-
-  public checkOk(e: any): void {
-
+    console.log(e.toyid)
+    console.log("######################################")
+    const kv = {"toyid": e.toyid};
+    const av = {"transaction_status": this.STATUS_PURCHASED}
+    // TODO: Cambiar entidad
+    alert("OJO!! Falta actión de boton (pasar a estado 4)")
+    // this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
+    //   console.log(result);
+    //   this.tableReceived.refresh();
+    // })
   }
 
   showCustom(
@@ -112,5 +101,5 @@ export class UserPurchasedToylistComponent {
       this.dialogService.info(dialogTitle, dialogText, config);
     }
   }
-  
+
 }

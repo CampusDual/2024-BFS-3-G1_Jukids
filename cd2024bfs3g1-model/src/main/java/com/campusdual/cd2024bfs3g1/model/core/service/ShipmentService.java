@@ -79,7 +79,7 @@ public class ShipmentService implements IShipmentService {
 
         Map<String, Object> searchValues = new HashMap<>();
         searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
-        searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, 2);
+        searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS,toyDao.STATUS_RECEIVED);
 
         return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentReceived");
     }

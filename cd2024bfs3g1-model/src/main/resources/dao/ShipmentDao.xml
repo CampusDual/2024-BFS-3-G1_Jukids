@@ -28,6 +28,7 @@
         <Query id="shipmentReceived">
             <AmbiguousColumns>
                 <AmbiguousColumn name="price" prefix="t" />
+                <AmbiguousColumn name="toyid" prefix="t" />
             </AmbiguousColumns>
             <Sentence>
             <![CDATA[
