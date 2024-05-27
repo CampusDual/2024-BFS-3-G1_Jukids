@@ -104,7 +104,10 @@ public class PaymentService implements IPaymentService {
             BigDecimal price = (BigDecimal) toyData.get(ToyDao.ATTR_PRICE);
 
             //multipicar x 100 + 5%
-            price = price.multiply( new BigDecimal(105) );
+            price = price.multiply( new BigDecimal(100) );
+            //Creamos variable de comision y se la añadimos
+            BigDecimal commissionRate = BigDecimal.valueOf(1.07);
+            price = price.multiply(commissionRate);
 
 
 

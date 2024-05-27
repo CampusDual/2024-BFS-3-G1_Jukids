@@ -112,15 +112,15 @@ public class OrderService implements IOrderService{
         //Recuperamos TOYS - PRICE y SHIPMENTS - PRICE
         //Calculamos ORDER - TOTAL_PRICE
 
-        double JUKIDS_COMMISSION = 1.065;
-        double STRIPE_COMMISSION = 1.015;
+        double JUKIDS_COMMISSION = 1.07;
+        //double STRIPE_COMMISSION = 1.015;
 
         BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
         double toyPrice = toyPriceDecimal.doubleValue();
 
         Double shipmentPrice = (Double) shipmentData.get(ShipmentDao.ATTR_PRICE);
 
-        double totalPrice = toyPrice * JUKIDS_COMMISSION * STRIPE_COMMISSION + shipmentPrice + 0.25;
+        double totalPrice = toyPrice * JUKIDS_COMMISSION + shipmentPrice;
 
         orderData.put(OrderDao.ATTR_TOTAL_PRICE, totalPrice);
 
