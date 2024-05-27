@@ -147,5 +147,10 @@
   "RECEIVED_TOYS": "Recibidos",
   "SHOPPING_HISTORY_TOY": "Historial de compras",
   "RECEIVED": "Recibido",
-  "CONFIRM": "Confirmar"
+  "CONFIRM": "Confirmar",
+  "SALE_TOY":"En venta",
+  "PENDING_SEND_TOY":"Pendiente de envio",
+  "PENDING_CONFIRM_TOY":"Pendiente de confirmar envio",
+  "SOLD_TOY":"Vendidos",
+  "SENDER_DATA": "Datos del remitente" 
 }

@@ -57,6 +57,7 @@ public class ShipmentService implements IShipmentService {
         return this.daoHelper.query(this.shipmentDao, shipmentData, attrList);
     }
 
+    //Muestra juguetes del estado 2
     @Override
     public EntityResult pendingReceiveQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
 
@@ -82,6 +83,7 @@ public class ShipmentService implements IShipmentService {
         return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentJoin");
     }
 
+    //Muestra juguetes del estado 3
     @Override
     public EntityResult pendingConfirmQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
 
@@ -107,6 +109,7 @@ public class ShipmentService implements IShipmentService {
         return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentJoin");
     }
 
+    //Muestra juguetes del estado 4
     @Override
     public EntityResult PurchasedQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
 
@@ -132,6 +135,7 @@ public class ShipmentService implements IShipmentService {
         return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentJoin");
     }
 
+    //Actulizar estado del 1 al 2
     @Override
     @Transactional
     public EntityResult shipmentSentUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
@@ -205,6 +209,7 @@ public class ShipmentService implements IShipmentService {
         return result;
     }
 
+    //Actulizar estado del 2 al 3
     @Override
     @Transactional
     public EntityResult shipmentReceivedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
@@ -261,6 +266,7 @@ public class ShipmentService implements IShipmentService {
         return result;
     }
 
+    //Actulizar estado del 3 al 4
     @Override
     @Transactional
     public EntityResult shipmentConfirmedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{

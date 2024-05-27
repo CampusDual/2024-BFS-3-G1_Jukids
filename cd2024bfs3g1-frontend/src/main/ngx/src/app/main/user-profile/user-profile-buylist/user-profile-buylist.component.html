@@ -4,9 +4,10 @@
     <span style="color:red">OJO!! Comprobar acción del botón (pasar a estado 3)</span>
     <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive"
       title="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
-      visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no" show-filter-option="no"
-      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
-      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table">
+      visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no"
+      show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
+      edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
+      class="table">
 
       <!--<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>-->
 
@@ -16,7 +17,8 @@
       </o-table-column>
       <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px" type="currency"
+        thousand-separator="." decimal-separator="," currency-symbol="€" currency-symbol-position="right"
         tooltip="yes"></o-table-column>
       <o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}"
         width="64px">
@@ -32,9 +34,10 @@
 
     <o-table #tableConfirm fxFlex attr="tableConfirm" service="shipments" entity="pendingConfirm"
       title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;photo;name;total_price"
-      visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no" show-filter-option="no"
-      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
-      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table">
+      visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no"
+      show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
+      edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
+      class="table">
 
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
@@ -42,7 +45,8 @@
       </o-table-column>
       <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px" type="currency"
+        thousand-separator="." decimal-separator="," currency-symbol="€" currency-symbol-position="right"
         tooltip="yes"></o-table-column>
       <o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}"
         width="64px">
@@ -55,17 +59,18 @@
 
   <mat-tab label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}">
     <o-table #tablePurchased fxFlex attr="tablePurchased" service="shipments" entity="Purchased"
-      title="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" columns="toyid;photo;name;total_price" visible-columns="photo;name;total_price"
-      show-title="true" pagination-controls="no" show-filter-option="no" quick-filter="false" insert-button="false"
-      export-button="false" delete-button="false" edit-button="false" refresh-button="false" horizontal-scroll="true"
-      virtual-scroll="no" auto-adjust="true" class="table">
+      title="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
+      visible-columns="photo;name;total_price" show-title="true" pagination-controls="no" show-filter-option="no"
+      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
+      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table">
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
       </o-table-column>
       <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px" type="currency"
+        thousand-separator="." decimal-separator="," currency-symbol="€" currency-symbol-position="right"
         tooltip="yes"></o-table-column>
       <!-- TODO: Crear formato para la fecha-->
       <!--<o-table-column attr="order_date" title="{{ 'ORDER_DATA' | oTranslate }}" multiline="no" width="300px"
