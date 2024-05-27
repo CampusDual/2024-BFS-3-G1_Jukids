@@ -139,7 +139,7 @@ public class ShipmentService implements IShipmentService {
         //Actualizamos TOYS - TRANSACTION_STATUS
 
         Map<String,Object> updateToy = new HashMap<>();
-        updateToy.put(ToyDao.ATTR_TRANSACTION_STATUS, 2);
+        updateToy.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
 
         Map<String,Object> toyKeyMap = new HashMap<>();
         toyKeyMap.put(ToyDao.ATTR_ID, toyId);
@@ -176,7 +176,41 @@ public class ShipmentService implements IShipmentService {
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
 
-        return null;
+        //Especificamos los parámetros de busqueda
+
+        Map<String, Object> searchValues = new HashMap<>();
+        searchValues.put(ShipmentDao.ATTR_ID, keyMap.get(ShipmentDao.ATTR_ID));
+        searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
+        searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
+
+        //Verificamos el TOYS - TRANSACTION_STATUS y ORDER - BUYER_ID
+
+        List<String> resultAttributes = Arrays.asList(ShipmentDao.ATTR_ID, ToyDao.ATTR_TRANSACTION_STATUS, OrderDao.ATTR_BUYER_ID);
+        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, "shipmentReceived");
+
+        if (shipmentData.isEmpty() || shipmentData.isWrong()) {
+            return createError("El envío no existe o no tienes los permisos necesarios");
+        }
+
+        //Actualizamos TOYS - TRANSACTION_STATUS a 3
+
+        Integer toyId = (Integer) shipmentData.getRecordValues(0).get(ToyDao.ATTR_ID);
+        Map<String, Object> updateToy = new HashMap<>();
+        updateToy.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_RECEIVED);
+
+        Map<String, Object> toyKeyMap = new HashMap<>();
+        toyKeyMap.put(ToyDao.ATTR_ID, toyId);
+
+        EntityResult toyUpdateResult = this.daoHelper.update(this.toyDao, updateToy, toyKeyMap);
+
+        if (toyUpdateResult.isWrong()) {
+            return createError("Error al actualizar el estado del juguete");
+        }
+
+        EntityResult result = new EntityResultMapImpl();
+        result.setMessage("Recepción del envío confirmada!");
+
+        return result;
     }
 
     private EntityResult createError(String mensaje){
