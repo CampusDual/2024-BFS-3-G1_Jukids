@@ -54,23 +54,4 @@ export class ToysDetailComponent implements OnInit{
   checkout() {
     this.stripe.ckeckout();
   }
-  
-  contactSeller() {
-    alert("Debes contactar por email con el vendedor para comprar juguetes subidos de forma anónima");
-    let div = document.getElementById("mailid");
-    div.className ="red";
-    }
 }
-
-//   copyToClipboard(e) {
-//     console.log('hey');
-//     console.log(e.target);
-//     console.log(document.getElementById("emaildata").innerText);
-//     let email = document.getElementById("emaildata") as HTMLInputElement;
-//     email.select();
-//     // email.execCommand("copy");
-
-//     navigator.clipboard.writeText(document.getElementById("emaildata").innerText);
-//     alert("Copiado al portapapeles");
-//   }
-// }

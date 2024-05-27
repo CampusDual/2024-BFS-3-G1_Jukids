@@ -2,62 +2,28 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
-.back-category {
-    width: 60%;
-    background-color: rgba(227, 227, 227, 0.407);
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    border-radius: 8px;
 
-    @media screen and (max-width: 1000px) {
-        width: 80%;
+    .back-category {
+        width: 60%;
+        background-color: rgba(227, 227, 227, 0.407);
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        border-radius: 8px;
+        @media screen and (max-width: 1000px) {
+            width: 80%;
+        }
+        @media screen and (max-width: 800px) {
+            width: 100%;
+        }
+        .backBtn {
+            background-color: transparent !important;
+            align-self: center;
+        }
+        .cat-container {
+            display: flex;
+        }
     }
-    @media screen and (max-width: 800px) {
-        width: 100%;
-    }
-}
-
-.cat-container {
-    display: flex;
-    scale: 100%;
-}
-
-.price-name-ship {
-    max-height: fit-content !important;
-}
-
-.description-field {
-    height: 100%;
-}
-
-.category {
-    scale: 100%;
-    align-content: center;
-    padding-right: 30px;
-    font-weight: bold;
-    height: 100%;
-    color: #0000009c;
-}
-
-.backBtn {
-    background-color: transparent !important;
-    align-self: center;
-
-}
-
-.shippable {
-    color: rgb(83, 162, 5);
-    font-size: 15px;
-    font-weight: bold;
-
-}
-
-.no-shippable {
-    color: rgba(123, 132, 113, 0.665);
-    font-size: 15px;
-    font-weight: bold;
 }
 
 .box {
@@ -84,150 +50,150 @@
         .price {
             font-size: 20px !important;
         }
-
         .image-container {
             height: 80% !important;
         }
     }
-}
 
-.toys-detail-column {
-    margin-top: 10px;
-    background-color: transparent;
-    overflow-x: hidden;
-
-    @media screen and (max-width: 1000px) {
-        flex-direction: column !important;
-        row-gap: 20px;
-        o-column {
-            max-width: 100% !important;
-        }
-    }
-
-    @media screen and (max-width: 800px) {
-        
-        flex-direction: column !important;
-
-        o-column {
-            max-width: 100% !important;
-        }
-    }
-
-    .red {
-        color: red !important;
-    }
-
-    .image-col {
-        align-items: center;
-        width: 100%;
-        height: 500px;
-        background-color: rgba(223, 223, 223, 0.441);
-        border-radius: 5px;
-    }
-
-    .image-container {
-        margin: 0;
-        padding: 0 !important;
-        align-self: center;
-        background-color: transparent;
-        scale: 1;
-        overflow: hidden;
-        transition: 3s;
-        object-fit: cover;
-        &:hover{
-            transform: scale(1.05);
-            transition: 4.5s;
-         }
-    }
-
-    .mail-to-seller {
-        color: #000000;
-        text-decoration: none;
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-
-    .map-col {
-        background-color: yellow;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .map-box {
-        justify-content: center;
-        justify-items: center;
-    }
-    
-    .map-title {
-        justify-self: center;
-        font-weight: bolder;
-    }
-
-    .name-price-container {
-        display: flex;
-        justify-content: space-between;
-        margin-left: 10px;
+    .toys-detail-column {
         margin-top: 10px;
-    
-        .price {
-            display: flex;
-            align-self: flex-end;
-            background-color: transparent;
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
+        background-color: transparent;
+        overflow-x: hidden;
+        @media screen and (max-width: 1000px) {
+            flex-direction: column !important;
+            row-gap: 20px;
+            o-column {
+                max-width: 100% !important;
+            }
         }
-
         @media screen and (max-width: 800px) {
-            padding-bottom: 50px;;
+            flex-direction: column !important;
+            o-column {
+                max-width: 100% !important;
+            }
         }
     
-    }
-
-    .inf-column {
-        display: flex;
-        flex-direction: column;
-        border-radius: 5px;
-        background-color: rgba(223, 223, 223, 0.441);
-        .title {
-            font-size: 25px;
-            font-weight: bold;
-            color: #000000;
-            text-transform: capitalize;
+        .image-col {
+            align-items: center;
+            width: 100%;
+            height: 500px;
+            background-color: rgb(255, 255, 255);
+            // border: 3px solid rgba(229, 229, 229, 0.441);
+            border-radius: 5px;
+        }
+        .image-container {
+            margin: 0;
+            padding: 0 !important;
+            align-self: center;
             background-color: transparent;
+            scale: 1;
+            overflow: hidden;
+            transition: 3s;
+            object-fit: cover;
+            &:hover{
+                transform: scale(1.05);
+                transition: 4.5s;
+             }
+        }
+        .mail-to-seller {
+            color: #000000;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        .map-col {
+            background-color: yellow;
+            display: flex;
+            flex-direction: column;
+        }
+        .map-box {
+            justify-content: center;
+            justify-items: center;
         }
         
-        .text {
-            width: 90%;
-            font-size: 15px;
-            background-color: transparent;
+        .name-price-container {
+            display: flex;
+            justify-content: space-between;
+            margin-left: 10px;
+            margin-top: 10px;
+            .price {
+                display: flex;
+                align-self: flex-end;
+                background-color: transparent;
+                font-size: 30px;
+                font-weight: bold;
+                text-align: center;
+            }
+    
+            @media screen and (max-width: 800px) {
+                padding-bottom: 50px;;
+            }
         }
-
-        .longDescr {
-            overflow-y: scroll;
-        }
-
-        .email {
-            margin-bottom: 10px;
-            padding-right: 5px;
-            font-size: small;
-            background-color: transparent;
-        }
-
-        .email-container {
-            background-color: transparent;
-            align-content: end;
-
+    
+        .inf-column {
+            display: flex;
+            flex-direction: column;
+            border-radius: 5px;
+            background-color: rgba(223, 223, 223, 0.441);
+            .title {
+                font-size: 25px;
+                font-weight: bold;
+                color: #000000;
+                text-transform: capitalize;
+                background-color: transparent;
+            }
+            .text {
+                width: 90%;
+                font-size: 15px;
+                background-color: transparent;
+            }
+            .longDescr {
+                overflow-y: scroll;
+            }
+            .email {
+                margin-bottom: 10px;
+                padding-right: 5px;
+                font-size: small;
+                background-color: transparent;
+            }
+            .email-container {
+                background-color: transparent;
+                align-content: end;
+            }
         }
     }
 }
 
-.photo {
-    width: 100%;
-    background-color: transparent;
+.price-name-ship {
+    max-height: fit-content !important;
 }
 
+.description-field {
+    height: 100%;
+}
+
+.category {
+    scale: 100%;
+    align-content: center;
+    padding-right: 30px;
+    font-weight: bold;
+    height: 100%;
+    color: #0000009c;
+}
+
+.shippable {
+    color: rgb(83, 162, 5);
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.no-shippable {
+    color: rgba(123, 132, 113, 0.665);
+    font-size: 15px;
+    font-weight: bold;
+}
 
 #desc {
     padding-right: 15px;
