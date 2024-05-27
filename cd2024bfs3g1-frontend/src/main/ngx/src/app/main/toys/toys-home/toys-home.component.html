@@ -1,4 +1,4 @@
-<o-form class="form" editable-detail="no" show-header="no">
+<o-form class="form" editable-detail="yes" show-header="no">
 
   <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
     <o-row layout-align="space-between center">
@@ -12,7 +12,7 @@
           <mat-icon class="material-icons">search</mat-icon>
         </button>
         <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"
-          matTooltip="{{ 'Clear' | oTranslate }}">
+          matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
           <mat-icon class="material-icons">clear</mat-icon>
         </button>
       </o-row>
