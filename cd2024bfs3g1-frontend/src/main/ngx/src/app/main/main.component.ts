@@ -4,6 +4,10 @@ import { AuthService, OAppLayoutComponent, OUserInfoService, ServiceResponse } f
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from '../login/login.component';
+import { RegisterUserComponent } from '../login/register-user/register-user.component';
+import { JukidsAuthService } from '../shared/services/jukids-auth.service';
 
 
 @Component({
@@ -13,30 +17,34 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class MainComponent implements OnInit {
 
-/*Se importa el modulo padre APPLayour con la anoticacion ViewChild para poder acceder al método ShowUserInfo y analizar en cliente si tras logearse, se recibe o no
-en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
-@ViewChild('appLayout')
-public appLayout: OAppLayoutComponent;
+  /*Se importa el modulo padre APPLayour con la anoticacion ViewChild para poder acceder al método ShowUserInfo y analizar en cliente si tras logearse, se recibe o no
+  en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
+  @ViewChild('appLayout')
+  public appLayout: OAppLayoutComponent;
 
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private authService: AuthService,
+    private jkAuthService: JukidsAuthService,
     private mainService: MainService,
     private userInfoService: UserInfoService,
     private domSanitizer: DomSanitizer,
-    private oUserInfoService: OUserInfoService
-  ) {}
+    private oUserInfoService: OUserInfoService,
+    private dialog: MatDialog
+  ) { }
 
-  redirect() {
-    this.router.navigateByUrl('/login');
-  }
 
-  register(){
-    this.router.navigateByUrl('/login/new');
-  }
+  //TODO: VERIFICAR EL FLUJO QUE AQUI SE LLAMA MUCHO
+  isLogged() {
+    console.log("isLogged");
+    console.log(this.authService.isLoggedIn());
+    console.log(this.dialog.openDialogs);
 
-  isLogged(){
+    //Se cierra el dialogo al iniciar sesion
+    if (this.authService.isLoggedIn() && this.dialog.getDialogById('login')) {
+      this.dialog.closeAll();
+    }
     return this.authService.isLoggedIn();
   }
 
@@ -61,4 +69,16 @@ public appLayout: OAppLayoutComponent;
       );
   }
 
+
+  logout() {  
+    this.jkAuthService.redirectLogin();  
+  }
+
+
+  modal(idModal: string) {
+    this.dialog.open(LoginComponent, {
+      id: idModal,
+      disableClose: false,
+    });
+  }
 }

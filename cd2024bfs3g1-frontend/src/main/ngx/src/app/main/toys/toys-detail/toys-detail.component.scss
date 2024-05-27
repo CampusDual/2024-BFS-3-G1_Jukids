@@ -2,7 +2,6 @@
     background-color: transparent !important;
 }
 
-
 .box {
     display: flex;
     justify-content: center;
@@ -98,23 +97,3 @@
     }
 }
 
-
-.btn-checkout {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: end;
-    padding: 6px 12px;
-    background-color: #FFCC99;
-    border: none;
-    margin: 4px 2px;
-    border-radius: 15px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    /* Safari */
-    transition-duration: 0.2s;
-}
-
-.btn-checkout:hover {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.24);
-}

@@ -72,7 +72,6 @@ export class ToysHomeComponent implements OnInit {
       } 
     });
     
-    console.log( "dataArr: ", this.toyGrid.dataArray );
   }
 
   public openDetail(data: any): void {

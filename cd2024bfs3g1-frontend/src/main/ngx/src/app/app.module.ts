@@ -9,6 +9,7 @@ import { CONFIG } from './app.config';
 import { MainService } from './shared/services/main.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { JukidsAuthService } from './shared/services/jukids-auth.service';
 
 
 // Standard providers...
@@ -39,6 +40,7 @@ export const customProviders: any = [
     { provide: APP_CONFIG, useValue: CONFIG },
     ONTIMIZE_PROVIDERS,
     ...customProviders,
+    JukidsAuthService
 
   ],
 })

@@ -223,7 +223,7 @@ nav {
       flex-direction: column;
       justify-content: start;
     }
-    
+
     @include respond-to(medium) {
       padding: 5px;
       flex-direction: column;
@@ -235,18 +235,18 @@ nav {
       flex-direction: column;
       justify-content: start;
     }
-    
+
     @include respond-to(xlarge) {
       padding: 5px;
       flex-direction: column;
       justify-content: start;
     }
-    
+
 
     h4 {
       width: 70%;
       margin: 0;
-      font-size: 1.1em;      
+      font-size: 1.1em;
       white-space: nowrap;
       overflow: hidden;
 
@@ -254,6 +254,7 @@ nav {
         width: 100%;
         font-size: 0.8em;
       }
+
       @include respond-to(medium) {
         width: 100%;
         font-size: 0.8em;
@@ -263,7 +264,7 @@ nav {
         width: 100%;
         font-size: 1.05em;
       }
-      
+
       @include respond-to(xlarge) {
         width: 100%;
         font-size: 1.05em;
@@ -284,11 +285,12 @@ nav {
         width: 100%;
         font-size: 0.8em;
       }
+
       @include respond-to(large) {
         width: 100%;
         font-size: 1.05em;
       }
-      
+
       @include respond-to(xlarge) {
         width: 100%;
         font-size: 1.05em;
@@ -300,6 +302,231 @@ nav {
   }
 
 }
+
+// Buttons
+
+// ==================================== SOLID BUTTON ====================================
+// .btn-solid {
+//   background-color: #fc5813;
+//   color: #fff;
+//   font-family: Inter, sans-serif;
+//   font-size: 1em;
+//   font-weight: normal;
+//   font-style: normal;
+//   text-decoration: none;
+//   padding: 5px 15px;
+//   margin: 0px 5px;
+//   border: 0px solid #000;
+//   border-radius: .75rem;
+//   display: inline-flex;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: pointer;
+//   transition: all .2s ease;
+
+//   &:hover {
+//     background-color: #ed3d09;
+//     color: #fff;
+//   }
+
+// }
+//==================================== OUTLINE BUTTON ====================================
+// .btn-outline {
+//   background-color: transparent;
+//   color: #fc5813;
+//   font-family: Inter, sans-serif;
+//   font-size: 1em;
+//   font-weight: normal;
+//   font-style: normal;
+//   text-decoration: none;
+//   padding: 5px 15px;
+//   margin: 0px 3px;
+//   border: 1px solid #fc5813;
+//   border-radius: .75rem;
+//   display: inline-flex;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: pointer;
+//   transition: all .2s ease;
+
+//   &:hover {
+//     border: 1px solid #ed3d09;
+//     background-color: #ed3d09;
+//     color: #fff;
+//   }
+
+//   mat-icon {
+//     font-size: medium;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//   }
+// }
+
+//==================================== NEW BTN DESIGN ====================================
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition-duration: .2s;
+  min-width: 3rem;
+  border-radius: .4rem;
+  border: 2px solid;
+  margin: .5rem .25rem;
+  padding: .2rem 1rem;
+
+  //Categoria color
+
+  &.btn-solid{
+    border-color: #FFA366;
+    color: #000;       
+    background-color: #FFA366; 
+    padding: .5rem 1.2rem !important; 
+  
+    &:hover{
+      box-shadow: 0 2px 4px #0000003d;
+    }
+  }
+
+  &.btn-outline-dark {  
+    border-color: #fff;
+    color: #fff;
+    background-color: transparent;
+
+    &:hover{
+      color: #ff5349;
+      background-color: #fff;
+    }
+
+    &.reverse {
+      color: #ff5349;
+      background-color: #fff;
+
+    }
+  }
+
+  &.btn-outline-light {  
+    border-color: #ff5349;
+    color: #ff5349;  
+    background-color: #fff;
+
+    &:hover{
+      color: #fff;
+      background-color: #FFA366;
+      border-color: #ffa366;      
+    }
+  }
+
+  //Categoria contenido
+  &.btn-icon {
+    padding: 0.2rem 0.3rem;
+  }
+  
+}
+
+
+// ==================================== Login Form ====================================
+
+.base {
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
+  display: flex;
+
+  .login {
+    width: 50%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 3rem;
+
+    .login-title-container {
+      padding-bottom: 1rem;
+      .slogan {
+        color: #ff5349;
+      }
+    }
+
+    .register-title-container {
+      text-align: center;      
+      .slogan {
+        color: #ff5349;
+      }
+    }
+
+    .form  {
+      width: 40%;
+      @include respond-to(small) {
+        width: 100%;
+      }
+      @include respond-to(medium) {
+        width: 80%;
+      }
+      @include respond-to(large) {
+        width: 80%;
+      }
+      @include respond-to(xlarge) {
+        width: 60%;
+      }
+    }
+
+    @include respond-to(small) {
+      width: 100%;
+    }
+    @include respond-to(medium) {
+      width: 100%;
+    }
+    @include respond-to(large) {
+      width: 100%;
+    }    
+
+    .form-register  {
+      width: 100%;
+    }
+
+  }
+
+  .logo{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFDED;
+  
+    img{
+      width: 75%;
+    }
+    
+    @include respond-to(small) {
+      display: none;
+    }
+    @include respond-to(medium) {
+      display: none;
+    }
+    @include respond-to(large) {
+      display: none;
+    }
+  } 
+
+  // .register {
+  //   width: 100%;
+  //   height: 100%;
+  //   background-color: #ffffff;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: space-evenly;
+  //   align-items: center;
+  //   padding: 1rem;
+  // }
+
+  .link {
+    cursor: pointer;
+  }
+}
+
 
 
 

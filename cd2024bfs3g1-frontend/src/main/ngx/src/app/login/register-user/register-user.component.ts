@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService, NavigationService, ServiceResponse, OUserInfoService, OFormComponent } from 'ontimize-web-ngx';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MainService } from '../../shared/services/main.service';
 import { UserInfoService } from '../../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LoginComponent } from '../login.component';
 
 
 
@@ -13,7 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './register-user.component.html',
   styleUrls: ['./register-user.component.scss']
 })
-export class RegisterUserComponent implements OnInit{
+export class RegisterUserComponent implements OnInit {
   @ViewChild('form') form: OFormComponent;
   public registerForm: UntypedFormGroup = new UntypedFormGroup({});
   public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
@@ -22,8 +23,9 @@ export class RegisterUserComponent implements OnInit{
   public sessionExpired = false;
   private redirect = '/toys';
 
-  constructor (
+  constructor(
     private router: Router,
+    private loginComponent: LoginComponent,
     @Inject(NavigationService) private navigationService: NavigationService,
     @Inject(AuthService) private authService: AuthService,
     @Inject(MainService) private mainService: MainService,
@@ -88,4 +90,7 @@ export class RegisterUserComponent implements OnInit{
     }
   }
 
+  public cancel() {
+    this.loginComponent.isRegistering = false;
+  }
 }

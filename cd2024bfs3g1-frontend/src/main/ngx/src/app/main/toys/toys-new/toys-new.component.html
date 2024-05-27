@@ -1,9 +1,10 @@
-<o-form id="newtoy" #NewToy attr="toysNew" service="{{ toyService }}" entity="toy" keys="toyid" show-header="no" show-header-navigation="no" undo-button="no" header-actions="I"
-(onInsert)="insertRedirect()">
+<o-form id="newtoy" #NewToy attr="toysNew" service="{{ toyService }}" entity="toy" keys="toyid" show-header="no"
+    show-header-navigation="no" undo-button="no" header-actions="I" (onInsert)="insertRedirect()">
     <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
         <div fxFlex.gt-sm="35%">
-            <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo" empty-image="assets/images/no-image.png"
-                max-file-size="4194304" sql-type="OTHER" required="yes"></o-image>
+            <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo"
+                empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER"
+                required="yes"></o-image>
         </div>
         <o-column fxFlex title="TOY_INFORMATION">
             <div fxLayout="column" fxLayoutGap="8px" layout-padding>
@@ -12,7 +13,8 @@
                 <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
                     <o-currency-input fxFlex.gt-sm="50" attr="price" label="price" enabled="yes" min-decimal-digits="2"
                         max-decimal-digits="2" min="0.00" max="9999999" required="yes"></o-currency-input>
-                    <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes" label="usr_email"></o-email-input>
+                    <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes"
+                        label="usr_email"></o-email-input>
                 </div>
             </div>
             <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
@@ -31,8 +33,14 @@
             </o-real-input>
 
             <o-row layout-align="end center" layout-margin-top>
-                <o-button layout-padding color="primary" icon="close" label="cancel"></o-button>
-                <o-button label="Ok" color="primary" icon="done" layout-padding (click)="newSubmit()"></o-button>
+                <button class="btn-outline">
+                    <mat-icon>close</mat-icon>
+                    <span>cancel</span>
+                </button>
+                <button attr="submit" (click)="newSubmit()" class="btn-solid">
+                    <mat-icon>save</mat-icon>
+                    <span>ok</span>
+                </button>
             </o-row>
 
         </o-column>
