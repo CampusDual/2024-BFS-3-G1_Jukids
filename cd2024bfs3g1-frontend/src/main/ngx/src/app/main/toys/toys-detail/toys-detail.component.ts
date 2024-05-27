@@ -10,6 +10,7 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
   styleUrls: ['./toys-detail.component.scss']
 })
 export class ToysDetailComponent implements OnInit{
+
   private location: any;
   showCheckout = false;
   
@@ -53,6 +54,12 @@ export class ToysDetailComponent implements OnInit{
   checkout() {
     this.stripe.ckeckout();
   }
+  
+  contactSeller() {
+    alert("Debes contactar por email con el vendedor para comprar juguetes subidos de forma anónima");
+    let div = document.getElementById("mailid");
+    div.className ="red";
+    }
 }
 
 //   copyToClipboard(e) {

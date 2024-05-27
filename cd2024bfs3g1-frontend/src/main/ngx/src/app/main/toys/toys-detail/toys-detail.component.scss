@@ -1,21 +1,35 @@
 .back-category-container {
-    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 .back-category {
-    width: 80%;
+    width: 60%;
     background-color: rgba(227, 227, 227, 0.407);
     display: flex;
     justify-content: space-between;
     align-content: center;
     border-radius: 8px;
+
+    @media screen and (max-width: 1000px) {
+        width: 80%;
+    }
+    @media screen and (max-width: 800px) {
+        width: 100%;
+    }
 }
 
 .cat-container {
     display: flex;
     scale: 100%;
+}
+
+.price-name-ship {
+    max-height: fit-content !important;
+}
+
+.description-field {
+    height: 100%;
 }
 
 .category {
@@ -29,19 +43,19 @@
 
 .backBtn {
     background-color: transparent !important;
+    align-self: center;
+
 }
 
 .shippable {
     color: rgb(83, 162, 5);
     font-size: 15px;
     font-weight: bold;
-    margin-left: 10px;
 
 }
 
 .no-shippable {
     color: rgba(123, 132, 113, 0.665);
-    margin-left: 10px;
     font-size: 15px;
     font-weight: bold;
 }
@@ -57,11 +71,12 @@
     height: fit-content;
     background-color: transparent;
 
-    @media screen and (min-width: 1000px) {
+    @media screen and (max-width: 1000px) {
         width: 80%;
     }
     @media screen and (max-width: 800px) {
         width: 100%;
+
 
         .title {
             font-size: 20px !important;
@@ -69,33 +84,37 @@
         .price {
             font-size: 20px !important;
         }
+
+        .image-container {
+            height: 80% !important;
+        }
     }
 }
 
 .toys-detail-column {
-    margin-top: 50px;
-    // margin-right: 0px;
+    margin-top: 10px;
     background-color: transparent;
-    height: 100%;
     overflow-x: hidden;
 
     @media screen and (max-width: 1000px) {
         flex-direction: column !important;
-        // background-color: yellow;
         row-gap: 20px;
-
         o-column {
             max-width: 100% !important;
         }
     }
 
     @media screen and (max-width: 800px) {
+        
         flex-direction: column !important;
-        // background-color: yellow;
 
         o-column {
             max-width: 100% !important;
         }
+    }
+
+    .red {
+        color: red !important;
     }
 
     .image-col {
@@ -104,7 +123,6 @@
         height: 500px;
         background-color: rgba(223, 223, 223, 0.441);
         border-radius: 5px;
-
     }
 
     .image-container {
@@ -115,10 +133,19 @@
         scale: 1;
         overflow: hidden;
         transition: 3s;
+        object-fit: cover;
         &:hover{
             transform: scale(1.05);
             transition: 4.5s;
          }
+    }
+
+    .mail-to-seller {
+        color: #000000;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     .map-col {
@@ -139,10 +166,9 @@
 
     .name-price-container {
         display: flex;
-        width: 100%;
         justify-content: space-between;
-        margin-top: 12px;
         margin-left: 10px;
+        margin-top: 10px;
     
         .price {
             display: flex;
@@ -152,22 +178,22 @@
             font-weight: bold;
             text-align: center;
         }
+
+        @media screen and (max-width: 800px) {
+            padding-bottom: 50px;;
+        }
+    
     }
 
     .inf-column {
         display: flex;
         flex-direction: column;
         border-radius: 5px;
-        height: 100%;
-        width: 100%;
         background-color: rgba(223, 223, 223, 0.441);
         .title {
-
             font-size: 25px;
             font-weight: bold;
             color: #000000;
-            margin-bottom: 0.05em;
-            padding-right: 0.5em;
             text-transform: capitalize;
             background-color: transparent;
         }
@@ -175,34 +201,24 @@
         .text {
             width: 90%;
             font-size: 15px;
-            margin-bottom: 0.75em;
-            // text-align: justify;
             background-color: transparent;
         }
 
         .longDescr {
-            height: fit-content;
-            max-height: 80%;
-            margin-left: 10px;
-            height: 80%;
             overflow-y: scroll;
         }
 
-        .email-container {
-            align-self: flex-end;
-            display: flex;
-            flex-direction: row;
-            height: 100%;
-            width: 100%;
+        .email {
+            margin-bottom: 10px;
+            padding-right: 5px;
+            font-size: small;
+            background-color: transparent;
         }
 
-        .email {
-            font-size: 16px;
-            height: fit-content;
-            margin-left: 10px;
-            align-self: flex-end;
+        .email-container {
             background-color: transparent;
-            margin-bottom: 10px;
+            align-content: end;
+
         }
     }
 }
@@ -214,7 +230,6 @@
 
 
 #desc {
-    width: 100%;
     padding-right: 15px;
 }
 

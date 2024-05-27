@@ -90,20 +90,20 @@
       read-only="yes"
       oHidden
     ></o-email-input>
-    <o-email-input
+    <o-text-input
       #latitude
       attr="latitude"
       fxFlex="100"
       read-only="yes"
       oHidden
-    ></o-email-input>
-    <o-email-input
+    ></o-text-input>
+    <o-text-input
       #longitude
       attr="longitude"
       fxFlex="100"
       read-only="yes"
       oHidden
-    ></o-email-input>
+    ></o-text-input>
 
     <!-- main column  -->
     <o-column style="background-color: transparent">
@@ -114,6 +114,7 @@
           <o-image
             class="image-container"
             auto-fit="yes"
+            height="600px"
             attr="photo"
             read-only="yes"
             empty-image="assets/images/no-image.png"
@@ -134,40 +135,46 @@
           <!-- contact seller  -->
           <ng-template #unRegisteredUser>
             <div class="checkout-container">
-              <button class="btn-checkout" (click)="showMeMore()">
-                <span
-                  title="Este producto ha sido subido por un usuario anónimo. Para poder comprarlo debes contactar por email con el vendedor."
-                >
-                  {{ "CONTACT_SELLER" | oTranslate }}</span
-                >
+              <button class="jk-light-btn">
+                <a class="mail-to-seller" href="mailto:{{ emailInput.getValue() }}
+                ?Subject=¡Quiero tu juguete {{ nameInput.getValue() }} de JUKIDS!
+                &body=Hola!%20Me%20gustaría%20comprar%20tu%20juguete%20{{ nameInput.getValue() }}">
+                  {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}</a>
               </button>
             </div>
           </ng-template>
         </o-column>
 
-        <o-column fxFlex="30" class="inf-column">
-          <div class="name-price-container">
-            <o-row class="price"
+        <o-column fxFlex="30" id="inf" class="inf-column">
+          <div fxLayout="column" fxFlex="90" fxLayoutGap="20px" class="name-price-container">
+
+            <!-- price + name + shipping -->
+            <div fxLayout="column" class="price-name-ship">
+              <o-row style="align-self: flex-start;" class="price"
               >{{ priceInput.getValue() }} <span>€</span></o-row>
-          </div>
-          <div class="name-price-container">
-            <o-row class="title">{{ nameInput.getValue() }}</o-row>
-          </div>
+              <o-row class="title">{{ nameInput.getValue() }}</o-row>
+              <div class="shipping">
+                <o-row class="title" >                  
+                  <p *ngIf="shipping.getValue(); else noShipping" class="shippable">
+                  ENVÍO DISPONIBLE
+                </p>
+                <ng-template #noShipping>
+                  <p class="no-shippable">SÓLO VENTA EN PERSONA</p>
+                </ng-template></o-row>
+              </div>
+            </div>
 
-          <!-- shipping  -->
-          <p *ngIf="shipping.getValue(); else noShipping" class="shippable">
-            ENVÍO DISPONIBLE
-          </p>
-          <ng-template #noShipping>
-            <p class="no-shippable">SÓLO VENTA EN PERSONA</p>
-          </ng-template>
+            <!-- description  -->
+            <div class="description-field" id="desc">
+              <o-row class="text longDescr">{{ descInput.getValue() }}</o-row>
+            </div>
 
-          <div id="desc" fxFlex="59">
-            <o-row class="text longDescr">{{ descInput.getValue() }}</o-row>
-          </div>
-
-          <div class="email-container">
-            <o-row class="email">{{ emailInput.getValue() }}</o-row>
+            <!-- email  -->
+            <div fxFlex="20" id="mailid" class="email-container">
+              <o-row style="background-color: transparent;">{{ emailInput.getValue() }}</o-row>
+                <p style="font-size: small; color: #00000060;" *ngIf="(usr_id.getValue() == undefined)">AVISO* Este juguete ha sido subido por un usuario/a anónimo/a. 
+                  No puedes comprarlo directamente en nuestra plataforma. Puedes ponerte en contacto con la persona que lo haya subido por email.</p>
+            </div>
           </div>
         </o-column>
       </div>
