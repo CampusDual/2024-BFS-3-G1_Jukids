@@ -44,7 +44,6 @@ export class MainComponent implements OnInit {
   ) { }
 
 
-  //TODO: VERIFICAR EL FLUJO QUE AQUI SE LLAMA MUCHO
   isLogged() {
     //Se cierra el dialogo al iniciar sesion
     if (this.jkAuthService.isLoggedIn() && this.dialog.getDialogById('login')) {
@@ -53,7 +52,6 @@ export class MainComponent implements OnInit {
     return this.jkAuthService.isLoggedIn();
   }
 
-  //TODO: Verificar sistema con el nuevo flujo
   //Con este metodo verificamos que el usuario que se ha logueado, tenga una propiedad rolename y su valor sea el de admin
   validAdmin(){
     return (this.rolename && this.rolename == "admin");
@@ -72,7 +70,7 @@ export class MainComponent implements OnInit {
           if (result.data['usr_photo']) {
             (avatar as any) = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + result.data['usr_photo']);
           }
-          //TODO:Verificar el proceso con el nuevo flujo
+          
           //Recogemos el campo rolename en el front que trajimos del back y lo asignamos a una variable publica en el componente
           if (result.data['rolename']) {
             this.rolename = result.data['rolename']
