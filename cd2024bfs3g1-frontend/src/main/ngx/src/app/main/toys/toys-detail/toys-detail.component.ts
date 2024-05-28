@@ -35,8 +35,8 @@ export class ToysDetailComponent {
   }
 
 
-  checkout() {
-    this.stripe.ckeckout();
-  }
+  // checkout() {
+  //   this.stripe.ckeckout(false);
+  // }
 
 }

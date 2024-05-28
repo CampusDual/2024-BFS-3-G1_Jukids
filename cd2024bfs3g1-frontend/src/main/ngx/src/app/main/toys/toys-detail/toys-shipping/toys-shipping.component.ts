@@ -107,7 +107,7 @@ export class ToysShippingComponent implements OnInit {
   }
 
   checkout() {
-    this.stripe.ckeckout();
+    this.stripe.checkoutStripe(this.issetSend);
   }
 
   newSubmit() {

@@ -58,11 +58,11 @@
 
         .cadInfo {
             display: flex;
-            flex-direction: column;
+            flex-direction:column;
             justify-content: center;
             align-items: center;            
             background-color: gainsboro;
-            padding: 2rem 1.5rem;
+            padding: 2rem;
             border-radius: 1em;
             min-height: 425px;
             max-width: 47%;
@@ -73,6 +73,11 @@
             }
 
             .divDetail {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
                 width: 100%;
                 margin: 2.5rem 0.75rem 0 0.75rem;
 
@@ -80,6 +85,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    text-align: center;
 
                     @media screen and (max-width: 900px) {
                         width: 100%;
@@ -101,9 +107,17 @@
                         text-align: end;
                         background-color: transparent;
                     }
+                    .currency{
+                        font-size: 29px;
+                        text-align: center;
+                    }
                 }
 
                 .priceInfo {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
                     padding: 16px;
                     .divInfo{
                         display: flex;
@@ -120,18 +134,17 @@
                 }
 
                 .doneInfo{
-                    padding: 2.5rem;
-                    padding-bottom: 1rem;
-
-                    div{
-                        display: flex;
-
+                    display:flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    p{
+                        margin: 0;
+                        padding: 0.2rem;
+                    }
                         span{
                             margin-left: 0.5rem;
                         }
-                    }
-
-                    
                 }
 
             }
@@ -204,7 +217,8 @@
       }
       
       .tooltip-icon {
-        color: #3498db !important;
+        
+        color: black;
         font-size: 17px;
         vertical-align: middle;
       }
