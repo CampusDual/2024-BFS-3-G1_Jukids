@@ -40,7 +40,6 @@ public class Utils {
         Tika tika = new Tika();
         String mimeType = tika.detect(new ByteArrayInputStream(decodedBytes));
 
-        System.out.println("mimeType:" + mimeType);
 
         if( mimeType.startsWith( prefix ) ) {
             mimeType = mimeType.substring(prefix.length());
