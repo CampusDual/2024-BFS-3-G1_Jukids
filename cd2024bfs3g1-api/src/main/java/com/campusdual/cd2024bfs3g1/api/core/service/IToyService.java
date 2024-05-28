@@ -12,4 +12,5 @@ public interface IToyService {
 
     EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
 
+    EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException;
 }
