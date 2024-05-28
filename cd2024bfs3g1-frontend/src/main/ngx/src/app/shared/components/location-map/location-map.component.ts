@@ -39,8 +39,12 @@ export class LocationMapComponent {
   }
   
   getPosition(e) {
-    this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
-    this.createMarker(e.latlng.lat, e.latlng.lng);
+    let path = e.originalEvent.view.location.pathname;
+    let pathArray= path.split("/")
+    if(pathArray[3] != "toysDetail") {
+      this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
+      this.createMarker(e.latlng.lat, e.latlng.lng);
+    }
   }
 
   hasLocation(){

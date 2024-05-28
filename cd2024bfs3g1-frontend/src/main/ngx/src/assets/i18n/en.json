@@ -33,7 +33,6 @@
   "LOGIN": "Login",
   "LOGIN_TITLE": "Log in to your account",
   "LOGOUT": "Logout",
-  "LOGOUT_CONFIRMATION": "Are you sure you want to leave?",
   "new": "New",
   "new_password": "New password",
   "old_password": "Old password",
@@ -162,6 +161,17 @@
   "priceCode_10": "10€ or less",
   "priceCode_20": "20€ or less",
   "priceCode_50": "50€ or less",
-  "priceCode_1000000": "No price limit"
-
+  "priceCode_1000000": "No price limit",
+  "TOY_BUTTON": "This button leads to more toys",
+  "SHIPPING": "Shipping available",
+  "CATEGORY": "Category",
+  "JUKIDS_CATEGORY": "Jukids Category",
+  "BUY": "Buy",
+  "CONTACT_SELLER": "CONTACT SELLER",
+  "CONTACT_SELLER_BY_EMAIL": "CONTACT BY EMAIL",
+  "TOY_LOCATION": "TOY LOCATION",
+  "SALE_IN_PERSON_ONLY": "SALE IN PERSON ONLY",
+  "SHIPMENT_AVAILABLE": "SHIPMENT AVAILABLE",
+  "STATUS": "STATUS",
+  "UNREGISTERED_SELLER_WARNING": "WARNING* This toy has been published by an unregistered user. It cant't be bougth directly from JUKIDS. You can contact the seller by email."
 }
