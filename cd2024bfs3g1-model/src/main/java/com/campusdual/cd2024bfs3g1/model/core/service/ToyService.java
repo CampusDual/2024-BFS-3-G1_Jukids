@@ -34,6 +34,13 @@ public class ToyService implements IToyService {
 
     @Override
     public AdvancedEntityResult toyPaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
+
+        //Logica de posision de distancia.
+
+        //Rearmar el XML toyPaginationQuery basado en la vista realizada.
+
+        //Retornar el resultado.
+
         return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
     }
 

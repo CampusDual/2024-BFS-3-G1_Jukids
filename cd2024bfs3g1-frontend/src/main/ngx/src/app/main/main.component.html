@@ -9,12 +9,13 @@
           {{ 'LOGIN' | oTranslate}}
         </button>
         <button class="btn-outline-dark reverse" routerLink="/main/toys/new">
-          Vende tu juguete
+          {{ 'SELL_YOUR_TOY' | oTranslate}}
         </button>
       </div>
     </div>
   </o-app-layout-header>
-  <o-user-info-configuration show-profile="no" show-settings="no" show-logout="no">
+
+  <o-user-info-configuration show-profile="no" show-settings="no">
 
     <o-user-info-configuration-item name="{{ 'MY_PROFILE' | oTranslate }}" icon="format_list_bulleted"
       route="/main/user-profile"></o-user-info-configuration-item>
@@ -22,13 +23,6 @@
     <o-user-info-configuration-item name="{{ 'VIEW_MY_PRODUCTS' | oTranslate }}" icon="format_list_bulleted"
       route="/main/user-profile/toylist"></o-user-info-configuration-item>
 
-    <o-user-info-configuration-item name="{{ 'LOGOUT' | oTranslate }}" icon="logout" [action]="userLogout" confirm="yes"
-      confirm-text="{{ 'LOGOUT_CONFIRMATION' | oTranslate }}"></o-user-info-configuration-item>
-      
-      <!-- <button mat-menu-item  (click)="userLogout()">
-        <mat-icon>voicemail</mat-icon>
-        <span>Check voice mail</span>
-      </button> -->
   </o-user-info-configuration>
   <router-outlet></router-outlet>
 </o-app-layout>

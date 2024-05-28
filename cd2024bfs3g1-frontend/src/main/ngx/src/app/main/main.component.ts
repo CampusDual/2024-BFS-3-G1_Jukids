@@ -1,6 +1,5 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { OAppLayoutComponent, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
+import { OAppLayoutComponent, OUserInfoConfigurationDirective, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -20,14 +19,14 @@ export class MainComponent implements OnInit {
   en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
   @ViewChild('appLayout')
   public appLayout: OAppLayoutComponent;
- 
 
-  // @ViewChild('logoutItem')
+
+  @ViewChild('userConfiguration')
+  public userConfiguration: OUserInfoConfigurationDirective;
   // public logoutItem: OUserInfoConfigurationItemDirective;
 
 
   constructor(
-    private router: Router,
     protected injector: Injector,
     private jkAuthService: JukidsAuthService,
     private mainService: MainService,
@@ -47,9 +46,9 @@ export class MainComponent implements OnInit {
     return this.jkAuthService.isLoggedIn();
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.loadUserInfo();
-   
+
   }
 
   private loadUserInfo() {
@@ -67,20 +66,6 @@ export class MainComponent implements OnInit {
           });
         }
       );
-  }
-
-  userLogout() {
- 
-
-    try {
-      this.jkAuthService.logout().subscribe((result) => {
-        console.log("LOGOUT:", result);
-      });      
-    } catch (error) {
-      console.log(error);
-    }
-
-    
   }
 
 

@@ -38,7 +38,7 @@
     <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
 
       <div class="card">
-        <img class="image-header" src="http://localhost:8080/restapi/get-image?toyId={{data.toyid}}">
+        <img class="image-header" src="{{baseUrl}}/restapi/get-image?toyId={{data.toyid}}">
 
         <div class="card-body">
           <h4>{{ data.name }}</h4>

@@ -19,10 +19,16 @@ export class ToysHomeComponent implements OnInit {
 
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
 
+  //============== Variable de URL BASE =================
+  public baseUrl: string;
+
+
+
   public cols: number = 5;
   private location: any;
   public arrayData: Array<any> = [];
-  
+
+
 
   private layoutChanges = this.breakpointObserver.observe([
     Breakpoints.XSmall,
@@ -40,12 +46,13 @@ export class ToysHomeComponent implements OnInit {
     private toysMapService: ToysMapService,
     protected dialog: MatDialog,
     protected sanitizer: DomSanitizer,
-    private breakpointObserver: BreakpointObserver    
+    private breakpointObserver: BreakpointObserver
   ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('byuser');
     this.ontimizeService.configureService(conf);
-    
+
+
   }
 
   ngOnInit() {
@@ -57,7 +64,7 @@ export class ToysHomeComponent implements OnInit {
     // });
 
     //Control de columnas en o-grid
-    this.layoutChanges.subscribe((result) => {      
+    this.layoutChanges.subscribe((result) => {
       if (result.breakpoints[Breakpoints.XSmall]) {
         this.cols = 2;
       } else if (result.breakpoints[Breakpoints.Small]) {
@@ -68,9 +75,14 @@ export class ToysHomeComponent implements OnInit {
         this.cols = 5;
       } else if (result.breakpoints[Breakpoints.XLarge]) {
         this.cols = 5;
-      } 
+      }
     });
-    
+
+    this.baseUrl = window.location.origin;
+    if (this.baseUrl.includes('localhost')) {
+      this.baseUrl = 'http://localhost:8080';
+    }
+
   }
 
   public openDetail(data: any): void {
@@ -146,7 +158,7 @@ export class ToysHomeComponent implements OnInit {
   }
 
   changecols(val: number) {
-    
+
     this.cols = val;
   }
 }
