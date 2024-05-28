@@ -149,8 +149,9 @@ public class ToyOwnerService implements IToyOwnerService {
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
             keyMap.put(UserDao.USR_ID, idUser);
-            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
-            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_RECEIVED);
+
+            List<Integer> transactionStatusList = Arrays.asList(ToyDao.STATUS_SENT, ToyDao.STATUS_RECEIVED);
+            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, transactionStatusList);
 
             return this.daoHelper.query(this.toyDao, keyMap, attrList);
 
