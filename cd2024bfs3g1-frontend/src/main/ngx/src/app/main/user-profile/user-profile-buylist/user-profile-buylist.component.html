@@ -1,8 +1,7 @@
 <mat-tab-group fxFill>
 
   <mat-tab label="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}">
-    <span style="color:red">OJO!! Comprobar acción del botón (pasar a estado 3)</span>
-    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive"
+    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive" keys="toyid"
       title="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
       visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no"
       show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
@@ -30,9 +29,7 @@
   </mat-tab>
 
   <mat-tab label="{{ 'RECEIVED_TOYS' | oTranslate }}">
-    <span style="color:red">OJO!! Falla actión del boton (pasar a estado 4)</span>
-
-    <o-table #tableConfirm fxFlex attr="tableConfirm" service="shipments" entity="pendingConfirm"
+    <o-table #tableConfirm fxFlex attr="tableConfirm" service="shipments" entity="pendingConfirm" keys="toyid"
       title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;photo;name;total_price"
       visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no"
       show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
@@ -57,7 +54,7 @@
   </mat-tab>
 
   <mat-tab label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}">
-    <o-table #tablePurchased fxFlex attr="tablePurchased" service="shipments" entity="Purchased"
+    <o-table #tablePurchased fxFlex attr="tablePurchased" service="shipments" entity="Purchased" keys="toyid"
       title="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
       visible-columns="photo;name;total_price" show-title="true" pagination-controls="no" show-filter-option="no"
       quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
