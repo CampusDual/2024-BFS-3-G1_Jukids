@@ -124,11 +124,9 @@
   "THANK_YOU_PURCHASE": "Thank you for your purchase",
   "PAYMENT_SUCCESS": "Payment success",
   "DONT_HESITATE": "Don't hesitate to contact the seller for more info",
-  "SHIPPING": "Shipping available",
   "CHART_MONTH": "Month",
   "CHART_MOVEMENT": "Transacctions in our site",
   "CHART_GROSS_INCOME": "Gross income",
-  "TOY_BUTTON": "This button leads to more toys",
   "category": "Category",
   "cat_ChildrensToys": "Children's toys",
   "cat_Board":"Board games and puzzles",
@@ -158,6 +156,17 @@
   "priceCode_10": "10€ or less",
   "priceCode_20": "20€ or less",
   "priceCode_50": "50€ or less",
-  "priceCode_1000000": "No price limit"
-
+  "priceCode_1000000": "No price limit",
+  "TOY_BUTTON": "This button leads to more toys",
+  "SHIPPING": "Shipping available",
+  "CATEGORY": "Category",
+  "JUKIDS_CATEGORY": "Jukids Category",
+  "BUY": "Buy",
+  "CONTACT_SELLER": "CONTACT SELLER",
+  "CONTACT_SELLER_BY_EMAIL": "CONTACT BY EMAIL",
+  "TOY_LOCATION": "TOY LOCATION",
+  "SALE_IN_PERSON_ONLY": "SALE IN PERSON ONLY",
+  "SHIPMENT_AVAILABLE": "SHIPMENT AVAILABLE",
+  "STATUS": "STATUS",
+  "UNREGISTERED_SELLER_WARNING": "WARNING* This toy has been published by an unregistered user. It cant't be bougth directly from JUKIDS. You can contact the seller by email."
 }
