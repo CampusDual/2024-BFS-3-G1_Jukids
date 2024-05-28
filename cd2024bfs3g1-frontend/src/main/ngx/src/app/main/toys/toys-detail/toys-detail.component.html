@@ -1,23 +1,13 @@
-<button class="backBtn" mat-flat-button [routerLink]="['/']">
-  <mat-icon>arrow_back_ios_new</mat-icon>
-  {{'BACKBTN' | oTranslate}}
-</button> -->
-<div class="back-category-container">
+<div class="navigation-tree-container">
   <div class="back-category">
-    <!-- <button class="backBtn" mat-flat-button [routerLink]="['/']">
-      <mat-icon>arrow_back_ios_new</mat-icon>
-      {{ "BACKBTN" | oTranslate }}
-    </button> -->
-    <div class="cat-container">
-      <a class="category" style="padding-left: 20px;" href="/main">Home</a>
-      <p>>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-       <span class="category">
-        {{ category.getValue() }}</span
-      >
-    </div>
+    <a class="category" style="padding-left: 20px; color: blue;" href="/main">Home</a>
+    <p>>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+      <span class="category">
+      {{ category.getValue() | oTranslate }}</span>
   </div>
 </div>
 
+<!-- main container -->
 <div class="box">
   <o-form
     class="form"
@@ -111,15 +101,16 @@
       read-only="yes"
       oHidden
     ></o-text-input>
+    
+    <!-- main column & div -->
+    <o-column style="background-color: transparent;">      
+      <div fxLayoutGap="0px" fxLayout="row" class="toys-detail-column">
 
-    <!-- main column  -->
-    <o-column style="background-color: transparent">
-      <div fxLayoutGap="10px" fxLayout="row" class="toys-detail-column">
-        <o-column fxFlex="70" class="image-col">
-
+        <!-- left column  -->
+        <o-column fxFlex="70" class="left-col">
           <!-- image  -->
           <o-image
-            class="image-container"
+            class="image"
             auto-fit="yes"
             height="600px"
             attr="photo"
@@ -128,7 +119,6 @@
             sql-type="OTHER"
             show-controls="no"
           ></o-image>
-
           <!-- buy button  -->
           <div
             *ngIf="usr_id.getValue() != undefined; else unRegisteredUser"
@@ -138,7 +128,6 @@
               <span>{{ "BUY" | oTranslate }}</span>
             </button>
           </div>
-
           <!-- contact seller  -->
           <ng-template #unRegisteredUser>
             <div class="checkout-container">
@@ -152,10 +141,10 @@
           </ng-template>
         </o-column>
 
-        <o-column fxFlex="30" id="inf" class="inf-column">
-          <div fxLayout="column" fxFlex="90" fxLayoutGap="20px" class="name-price-container">
-
-            <!-- price + name + shipping -->
+        <!-- right column -->
+        <o-column fxFlex="30" class="inf-column">
+          <div fxLayout="column" class="right-column">
+            <!-- price + name + shipping + status-->
             <div fxLayout="column" class="price-name-ship">
               <o-row style="align-self: flex-start;" class="price"
               >{{ priceInput.getValue() }} <span>€</span></o-row>
@@ -168,21 +157,14 @@
                 <ng-template #noShipping>
                   <p class="no-shippable">{{ "SALE_IN_PERSON_ONLY" | oTranslate }}</p>
                 </ng-template></o-row>
-                <!-- <p class="text">{{ "STATUS" | oTranslate }} {{ status.getValue() }}</p> -->
-                <p class="status">{{ status.getValue() }}</p>
-
+                <p class="status">{{ status.getValue() | oTranslate }}</p>
+                <o-row class="description">{{ descInput.getValue() }}</o-row>
               </div>
             </div>
-
-            <!-- description  -->
-            <div class="description-field" id="desc">
-              <o-row class="text longDescr">{{ descInput.getValue() }}</o-row>
-            </div>
-
             <!-- email  -->
-            <div fxFlex="20" id="mailid" class="email-container">
+            <div class="email-container">
+              <p style="font-size: small; color: #00000060;" *ngIf="(usr_id.getValue() == undefined)">{{ "UNREGISTERED_SELLER_WARNING" | oTranslate }}</p>
               <o-row style="background-color: transparent;">{{ emailInput.getValue() }}</o-row>
-                <p style="font-size: small; color: #00000060;" *ngIf="(usr_id.getValue() == undefined)">{{ "UNREGISTERED_SELLER_WARNING" | oTranslate }}</p>
             </div>
           </div>
         </o-column>
@@ -190,20 +172,9 @@
     </o-column>
 
     <!-- map -->
-    <o-column
-      class="map-col"
-      style="
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      "
-    >
-      <div class="master-map-box">
-        <div class="title-box">
-          <h4>{{ "TOY_LOCATION" | oTranslate }}</h4>
-        </div>
-
+    <o-column class="map-column">
+      <div class="map-container" fxLayout="column" fxLayoutGap="4px">
+          <h4 class="map-title">{{ "TOY_LOCATION" | oTranslate }}</h4>
         <div class="map-box">
           <location-map attr="detailMap" #detailMap></location-map>
         </div>

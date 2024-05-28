@@ -1,6 +1,6 @@
 
 <o-table #table fxFlex attr="toysList" service="toyowner" entity="toy"
-title="{{ 'MY_TOYS' | oTranslate }}"
+title="{{ 'MY_TOYS' | oTranslate }}" detail-mode="none"
 keys="toyid" columns="toyid;name;description;price;photo"
 visible-columns="photo;name;description;price" sort-columns="toyid:DESC"
 query-on-init="true" quick-filter="false" filter-case-sensitive="false"
@@ -11,7 +11,7 @@ pagination-controls="no" horizontal-scroll="false" auto-adjust="true"
 virtual-scroll="no" show-charts-on-demand-option="no" class="table">
 
 <o-table-columns-filter columns="name;description;price"></o-table-columns-filter>
-<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
+<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="z"></o-table-column>
 <o-table-column attr="photo" orderable="no" searchable="no" width="100px">
   <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes"> </o-table-cell-renderer-image>
 </o-table-column>
