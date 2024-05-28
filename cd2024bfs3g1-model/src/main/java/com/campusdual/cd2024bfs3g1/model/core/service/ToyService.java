@@ -29,12 +29,29 @@ public class ToyService implements IToyService {
 
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.toyDao, keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyAvailableQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
         keyMap.put("transaction_status", ToyDao.STATUS_AVAILABLE);
         return this.daoHelper.query(this.toyDao, keyMap, attrList);
     }
 
     @Override
     public AdvancedEntityResult toyPaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
+
+        //Logica de posision de distancia.
+
+        //Rearmar el XML toyPaginationQuery basado en la vista realizada.
+
+        //Retornar el resultado.
+
+        return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
+    }
+
+    @Override
+    public AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
 
         //Logica de posision de distancia.
 

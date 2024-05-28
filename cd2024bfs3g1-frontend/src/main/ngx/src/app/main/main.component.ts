@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, OAppLayoutComponent, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
+import { OAppLayoutComponent, OUserInfoConfigurationDirective, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -34,6 +34,7 @@ export class MainComponent implements OnInit {
 
   constructor(
     protected injector: Injector,
+    private router: Router,
     private jkAuthService: JukidsAuthService,
     private mainService: MainService,
     private userInfoService: UserInfoService,

@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -41,6 +40,7 @@ public class Utils {
         Tika tika = new Tika();
         String mimeType = tika.detect(new ByteArrayInputStream(decodedBytes));
 
+        System.out.println("mimeType:" + mimeType);
 
         if( mimeType.startsWith( prefix ) ) {
             mimeType = mimeType.substring(prefix.length());
