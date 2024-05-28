@@ -116,16 +116,22 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
   button[attr="update"]{
   display: none!important;
 }
-
 .noresize textarea{
   resize:none !important;
 }
-
 }
-
 mat-toolbar {
   box-shadow: none !important;
 }
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
+  color: #ff5349 !important;  
+}
+.mat-mdc-icon-button .mat-mdc-button-persistent-ripple{
+  width: 30px;
+  left: 9px !important;
+}
+
+//Hasta aquí lo necesario
 
 .button{
   cursor: pointer;
@@ -162,7 +168,7 @@ mat-toolbar {
 
   &.buttonLightBackground{  
     border-color: #ff5349;
-    color: #ff5349;  
+    color: #ff5349 !important;  
     background-color: #fff;
 
     &:hover{

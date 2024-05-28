@@ -3,24 +3,28 @@
 </div>
 
 <div class="box">
-  <o-form class="form" id="formToyEdit" #formToyEdit attr="toysDetail" service="toyowner" entity="toy" keys="toyid" show-header-navigation="false" show-header="true"
-   fxLayout="column" header-actions="D" show-header-actions-text="false" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)" (onDelete)="redirectList()" (onUpdate)="redirectList()">
+  <o-form class="form" id="formToyEdit" #formToyEdit attr="toysDetail" service="toyowner" entity="toy" keys="toyid"
+    show-header-navigation="false" show-header="true" fxLayout="column" header-actions="D"
+    show-header-actions-text="false" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)"
+    (onDelete)="redirectList()" (onUpdate)="redirectList()">
     <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
     <o-column>
       <div fxLayoutGap="25px" fxLayout="row" class="toys-detail-column">
         <o-column fxFlex="30" class="total-column">
           <o-image class="image-container" auto-fit="yes" attr="photo" read-only="no"
-            empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER" show-controls="no" required="yes"></o-image>
+            empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER" show-controls="no"
+            required="yes"></o-image>
         </o-column>
 
         <o-column class="inf-column total-column">
 
           <div>
             <div>
-              <o-text-input #nameInput attr="name" fxFlex="100" read-only="no" required="yes" max-length="150"></o-text-input>
+              <o-text-input #nameInput attr="name" fxFlex="100" read-only="no" required="yes"
+                max-length="150"></o-text-input>
             </div>
-            <div class="price">
+            <div class="divInput">
               <o-currency-input #priceInput attr="price" fxFlex="100" read-only="no" min-decimal-digits="2"
                 max-decimal-digits="2" min="0.00" max="9999999" required="yes"></o-currency-input>
             </div>
@@ -29,22 +33,17 @@
           <div fxLayout="row" fxLayoutGap="20px" class="toys-detail-column">
             <div fxFlex="60" class="total-column">
               <div>
-                <p class="title">{{'TITLE_DESCRIPTION' | oTranslate}}</p>
-                <div>
-                  <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no" class="descInput no-resize" required="yes" max-length="700"></o-textarea-input>
-                </div>
+                <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no" class="descInput no-resize"
+                  required="yes" max-length="700"></o-textarea-input>
               </div>
-              <div>
-                <p class="title">{{'TITLE_CONTACT' | oTranslate}}</p>
-                <div>
-                  <o-email-input id="usr_email" #usr_email attr="email" fxFlex="100" read-only="no" required="yes" label="usr_email"></o-email-input>
-                </div>
+              <div class="divInput">
+                <o-email-input id="usr_email" #usr_email attr="email" fxFlex="100" read-only="no" required="yes"
+                  label="usr_email"></o-email-input>
               </div>
             </div>
             <div style="width: 100%;">
-              <p class="title">{{'TITLE_MAP' | oTranslate}}</p>
               <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
-                <location-map (click)="handleMapClick($event)" ></location-map>
+                <location-map (click)="handleMapClick($event)"></location-map>
               </div>
             </div>
           </div>
@@ -61,11 +60,11 @@
     </o-column>
 
     <div o-form-toolbar-buttons>
-      <button id="saveButton" type="button" class="o-form-toolbar-button" mat-icon-button (click)="newSubmit()"
+      <button id="saveButton" type="button" class="o-form-toolbar-button button buttonLightBackground" mat-icon-button (click)="newSubmit()"
         attr="updateButton">
         <mat-icon>save</mat-icon>
       </button>
-     </div>
+    </div>
 
   </o-form>
 </div>
