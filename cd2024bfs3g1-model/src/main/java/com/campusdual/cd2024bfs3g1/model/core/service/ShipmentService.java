@@ -135,7 +135,7 @@ public class ShipmentService implements IShipmentService {
         return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentJoin");
     }
 
-    //Actulizar estado del 1 al 2
+    //Actualizar estado del 1 al 2
     @Override
     @Transactional
     public EntityResult shipmentSentUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
@@ -209,7 +209,7 @@ public class ShipmentService implements IShipmentService {
         return result;
     }
 
-    //Actulizar estado del 2 al 3
+    //Actualizar estado del 2 al 3
     @Override
     @Transactional
     public EntityResult shipmentReceivedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
@@ -266,7 +266,7 @@ public class ShipmentService implements IShipmentService {
         return result;
     }
 
-    //Actulizar estado del 3 al 4
+    //Actualizar estado del 3 al 4
     @Override
     @Transactional
     public EntityResult shipmentConfirmedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
