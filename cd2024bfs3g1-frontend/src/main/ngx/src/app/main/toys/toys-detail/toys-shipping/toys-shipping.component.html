@@ -69,9 +69,9 @@
           <div class="containerPrice">
             <o-row class="titleName"><span class="toy-title">{{nameInput.getValue()}}</span></o-row>
             <o-row *ngIf="!this.issetSend;else sendPrice" class="price">{{(priceInput.getValue()*1) +
-              this.commissionPrice }}
+              this.warrantyPrice }}
               <span class="currency"> €</span></o-row>
-            <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.commissionPrice +
+            <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.warrantyPrice +
                 this.priceSend
                 }} <span class="currency"> €</span></o-row></ng-template>
           </div>
@@ -80,9 +80,9 @@
               <span>{{'PRODUCT_PRICE' | oTranslate}}:</span>
               <span>{{priceInput.getValue()}} €</span>
             </div>
-            <div>
+            <div class="divInfo">
+              <mat-icon class="information" matTooltip="  {{'TOOLTIP_INFO' | oTranslate}}" class="tooltip-icon">info</mat-icon>
               <span>{{'WARRANTY_PRICE' | oTranslate}}:</span>
-              <mat-icon matTooltip="  {{'TOOLTIP_INFO' | oTranslate}}" class="tooltip-icon">info</mat-icon>
               <span> {{this.warrantyPrice}} €</span>
             </div>
             <div *ngIf="issetSend">
