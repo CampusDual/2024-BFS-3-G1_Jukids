@@ -24,7 +24,11 @@
 
     <o-user-info-configuration-item name="{{ 'LOGOUT' | oTranslate }}" icon="logout" [action]="userLogout" confirm="yes"
       confirm-text="{{ 'LOGOUT_CONFIRMATION' | oTranslate }}"></o-user-info-configuration-item>
-
+      
+      <!-- <button mat-menu-item  (click)="userLogout()">
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+      </button> -->
   </o-user-info-configuration>
   <router-outlet></router-outlet>
 </o-app-layout>

@@ -1,12 +1,11 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, OAppLayoutComponent, OUserInfoConfigurationItemDirective, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
+import { OAppLayoutComponent, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
-import { RegisterUserComponent } from '../login/register-user/register-user.component';
 import { JukidsAuthService } from '../shared/services/jukids-auth.service';
 
 
@@ -21,14 +20,14 @@ export class MainComponent implements OnInit {
   en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
   @ViewChild('appLayout')
   public appLayout: OAppLayoutComponent;
+ 
 
-  @ViewChild('logoutItem')
-  public logoutItem: OUserInfoConfigurationItemDirective;
-  
+  // @ViewChild('logoutItem')
+  // public logoutItem: OUserInfoConfigurationItemDirective;
+
 
   constructor(
     private router: Router,
-    private authService: AuthService,
     protected injector: Injector,
     private jkAuthService: JukidsAuthService,
     private mainService: MainService,
@@ -36,20 +35,21 @@ export class MainComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private oUserInfoService: OUserInfoService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
 
   //TODO: VERIFICAR EL FLUJO QUE AQUI SE LLAMA MUCHO
   isLogged() {
     //Se cierra el dialogo al iniciar sesion
-    if (this.authService.isLoggedIn() && this.dialog.getDialogById('login')) {
+    if (this.jkAuthService.isLoggedIn() && this.dialog.getDialogById('login')) {
       this.dialog.closeAll();
     }
-    return this.authService.isLoggedIn();
+    return this.jkAuthService.isLoggedIn();
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.loadUserInfo();
+   
   }
 
   private loadUserInfo() {
@@ -69,11 +69,18 @@ export class MainComponent implements OnInit {
       );
   }
 
-
-
-
   userLogout() {
-   this.authService.logout();
+ 
+
+    try {
+      this.jkAuthService.logout().subscribe((result) => {
+        console.log("LOGOUT:", result);
+      });      
+    } catch (error) {
+      console.log(error);
+    }
+
+    
   }
 
 
@@ -83,5 +90,5 @@ export class MainComponent implements OnInit {
       disableClose: false,
     });
   }
-  
+
 }

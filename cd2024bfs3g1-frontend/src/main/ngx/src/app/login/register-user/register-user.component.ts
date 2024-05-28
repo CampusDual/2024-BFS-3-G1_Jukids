@@ -6,6 +6,7 @@ import { MainService } from '../../shared/services/main.service';
 import { UserInfoService } from '../../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LoginComponent } from '../login.component';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 
 
 
@@ -27,7 +28,7 @@ export class RegisterUserComponent implements OnInit {
     private router: Router,
     private loginComponent: LoginComponent,
     @Inject(NavigationService) private navigationService: NavigationService,
-    @Inject(AuthService) private authService: AuthService,
+    @Inject(JukidsAuthService) private jukidsAuthService: JukidsAuthService,
     @Inject(MainService) private mainService: MainService,
     @Inject(UserInfoService) private userInfoService: UserInfoService,
     @Inject(DomSanitizer) private domSanitizer: DomSanitizer,
@@ -42,10 +43,10 @@ export class RegisterUserComponent implements OnInit {
     this.registerForm.addControl('email', this.userCtrl);
     this.registerForm.addControl('password', this.pwdCtrl);
 
-    if (this.authService.isLoggedIn()) {
+    if (this.jukidsAuthService.isLoggedIn()) {
       this.router.navigate([this.redirect]);
     } else {
-      this.authService.clearSessionData();
+      this.jukidsAuthService.clearSessionData();
     }
   }
 
@@ -55,7 +56,7 @@ export class RegisterUserComponent implements OnInit {
 
     if (userName && userName.length > 0 && password && password.length > 0) {
       const self = this;
-      this.authService.login(userName, password)
+      this.jukidsAuthService.login(userName, password)
         .subscribe(() => {
           self.sessionExpired = false;
           this.loadUserInfo();

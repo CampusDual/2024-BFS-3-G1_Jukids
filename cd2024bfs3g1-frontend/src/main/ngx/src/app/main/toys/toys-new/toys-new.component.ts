@@ -5,6 +5,7 @@ import { OUserInfoService, AuthService, OEmailInputComponent } from 'ontimize-we
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MainService } from 'src/app/shared/services/main.service';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 
 @Component({
   selector: 'app-toys-new',
@@ -32,11 +33,11 @@ export class ToysNewComponent implements OnInit{
     private toysMapService: ToysMapService,
     protected dialogService: DialogService,
     private translate: OTranslateService,
-    private authService: AuthService,
+    private jukidsAuthService: JukidsAuthService,
     @Inject(MainService) private mainService: MainService
   ) {
 
-    this.toyService = this.authService.isLoggedIn() ? 'toyowner' : 'toys';
+    this.toyService = this.jukidsAuthService.isLoggedIn() ? 'toyowner' : 'toys';
    //Configuración del servicio para poder ser usado
    const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
    this.ontimizeService.configureService(conf);

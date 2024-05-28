@@ -1,14 +1,18 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 
-import { OntimizeEEService, AppConfig, AuthService } from 'ontimize-web-ngx';
+import { OntimizeEEService, AppConfig } from 'ontimize-web-ngx';
 import { Observable } from 'rxjs';
+import { JukidsAuthService } from './jukids-auth.service';
 
 @Injectable()
 export class MainService extends OntimizeEEService {
   private appConfig: AppConfig;
 
-  constructor(protected injector: Injector) {
+  constructor(
+    private jukidsAuthService: JukidsAuthService,
+    protected injector: Injector
+  ) {
     super(injector);
     this.appConfig = injector.get(AppConfig);
   }
@@ -17,7 +21,7 @@ export class MainService extends OntimizeEEService {
     let headers = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json;charset=UTF-8',
-      'Authorization': 'Bearer ' + this.authService.getSessionInfo().id
+      'Authorization': 'Bearer ' + this.jukidsAuthService.getSessionInfo().id
     });
     return headers;
   }

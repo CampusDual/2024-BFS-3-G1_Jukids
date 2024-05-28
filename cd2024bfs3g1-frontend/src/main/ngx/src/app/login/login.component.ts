@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
 import { MatDialog } from '@angular/material/dialog';
+import { JukidsAuthService } from '../shared/services/jukids-auth.service';
 
 @Component({
   selector: 'login',
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
     private actRoute: ActivatedRoute,
     private router: Router,
     @Inject(NavigationService) private navigationService: NavigationService,
-    @Inject(AuthService) private authService: AuthService,
+    @Inject(JukidsAuthService) private JukidsAuthService: JukidsAuthService,
     @Inject(MainService) private mainService: MainService,
     @Inject(OUserInfoService) private oUserInfoService: OUserInfoService,
     @Inject(UserInfoService) private userInfoService: UserInfoService,
@@ -56,8 +57,8 @@ export class LoginComponent implements OnInit {
     this.loginForm.addControl('username', this.userCtrl);
     this.loginForm.addControl('password', this.pwdCtrl);
 
-    if (!this.authService.isLoggedIn()) {
-      this.authService.clearSessionData();
+    if (!this.JukidsAuthService.isLoggedIn()) {
+      this.JukidsAuthService.clearSessionData();
     }
 
     // if (this.authService.isLoggedIn()) {
@@ -77,7 +78,7 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.password;
     if (userName && userName.length > 0 && password && password.length > 0) {
       const self = this;
-      this.authService.login(userName, password)
+      this.JukidsAuthService.login(userName, password)
         .subscribe(() => {
           self.sessionExpired = false;
           this.loadUserInfo();
