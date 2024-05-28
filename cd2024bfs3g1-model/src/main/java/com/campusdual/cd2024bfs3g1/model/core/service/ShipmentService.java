@@ -155,48 +155,60 @@ public class ShipmentService implements IShipmentService {
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
 
-        //Recuperamos TOYS - USER_ID y TRANSACTION_STATUS
+        //Recuperamos el SHIPMENT_ID y el TOY_ID
 
-        Integer toyId = (Integer) attrMap.get(ShipmentDao.ATTR_ORDER_ID);
-        HashMap<String, Object> toyKeyValues = new HashMap<>();
-        toyKeyValues.put(ToyDao.ATTR_USR_ID, toyId);
-        List<String> toyAttributes = Arrays.asList(ToyDao.ATTR_USR_ID,ToyDao.ATTR_TRANSACTION_STATUS);
-        EntityResult toyData = this.daoHelper.query(toyDao,toyKeyValues, toyAttributes);
+        Map<String, Object> searchValues = new HashMap<>();
+        searchValues.put(ToyDao.ATTR_ID, keyMap.get(ToyDao.ATTR_ID));
+        searchValues.put(ToyDao.ATTR_USR_ID, idUser);
+        searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PENDING_SHIPMENT);
 
-        if (toyData.isWrong() || toyData.isEmpty()) {
-            return createError("Error al recuperar el juguete");
+        List<String> resultAttributes = Arrays.asList(
+
+                ShipmentDao.ATTR_ID,
+                ToyDao.ATTR_ID,
+                ToyDao.ATTR_TRANSACTION_STATUS,
+                ToyDao.ATTR_USR_ID
+        );
+
+        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, "shipmentJoin");
+
+        if (shipmentData.isWrong() || shipmentData.isEmpty()){
+            return createError("Error al recuperar el envío");
         }
 
-        Integer toyOwnerId= (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
-        Integer transactionStatus = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_TRANSACTION_STATUS);
-
-        if(!idUser.equals(toyOwnerId)){
-            return createError("No tienes permisos para realizar este envío");
-        }
-
-        if(transactionStatus != 1){
-            return createError("El juguete no esta pendiente de envío");
-        }
+        Integer shipmentId = (Integer) shipmentData.getRecordValues(0).get(ShipmentDao.ATTR_ID);
+        Integer toyId = (Integer) shipmentData.getRecordValues(0).get(ToyDao.ATTR_ID);
 
         //Generamos SHIPMENTS - TRACKING NUMBER y SHIPMENT_DATE
 
         String trackingNumber = generateRandomTrack();
-        attrMap.put(ShipmentDao.ATTR_TRACKING_NUMBER, trackingNumber);
-        attrMap.put(ShipmentDao.ATTR_SHIPMENT_DATE, LocalDateTime.now());
+
+        Map<String, Object> shipmentUpdateValues = new HashMap<>();
+        shipmentUpdateValues.put(ShipmentDao.ATTR_SENDER_ADDRESS, attrMap.get(ShipmentDao.ATTR_SENDER_ADDRESS));
+        shipmentUpdateValues.put(ShipmentDao.ATTR_TRACKING_NUMBER, trackingNumber);
+        shipmentUpdateValues.put(ShipmentDao.ATTR_SHIPMENT_DATE, LocalDateTime.now());
 
         //Hacemos Update a SHIPMENTS
 
-        EntityResult shipmentResult = this.daoHelper.update(this.shipmentDao, attrMap, keyMap);
+        Map<String, Object> shipmentKeyMap = new HashMap<>();
+        shipmentKeyMap.put(ShipmentDao.ATTR_ID, shipmentId);
+
+        EntityResult shipmentUpdateResult = this.daoHelper.update(this.shipmentDao, shipmentUpdateValues, shipmentKeyMap);
+
+        if (shipmentUpdateResult.isWrong()){
+
+            return createError("Error al actualizar el envío");
+        }
 
         //Actualizamos TOYS - TRANSACTION_STATUS a 2
 
-        Map<String,Object> updateToy = new HashMap<>();
-        updateToy.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
+        Map<String, Object> toyUpdateValues = new HashMap<>();
+        toyUpdateValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
 
-        Map<String,Object> toyKeyMap = new HashMap<>();
+        Map<String, Object> toyKeyMap = new HashMap<>();
         toyKeyMap.put(ToyDao.ATTR_ID, toyId);
 
-        EntityResult toyUpdateResult = this.daoHelper.update(this.toyDao, updateToy, toyKeyMap);
+        EntityResult toyUpdateResult = this.daoHelper.update(this.toyDao, toyUpdateValues, toyKeyMap);
 
         if (toyUpdateResult.isWrong()){
 
@@ -204,7 +216,7 @@ public class ShipmentService implements IShipmentService {
         }
 
         EntityResult result = new EntityResultMapImpl();
-        result.setMessage("Envio realizado");
+        result.setMessage("Envío realizado con éxito");
 
         return result;
     }
