@@ -135,7 +135,7 @@ public class ShipmentService implements IShipmentService {
         return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentJoin");
     }
 
-    //Actulizar estado del 1 al 2
+    //Actualizar estado del 1 al 2
     @Override
     @Transactional
     public EntityResult shipmentSentUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
@@ -209,7 +209,7 @@ public class ShipmentService implements IShipmentService {
         return result;
     }
 
-    //Actulizar estado del 2 al 3
+    //Actualizar estado del 2 al 3
     @Override
     @Transactional
     public EntityResult shipmentReceivedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
@@ -229,20 +229,24 @@ public class ShipmentService implements IShipmentService {
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
 
+        if (!keyMap.containsKey(ToyDao.ATTR_ID)) {
+            return createError("Falta el ID del juguete en la solicitud");
+        }
+
         //Especificamos los parámetros de busqueda
 
         Map<String, Object> searchValues = new HashMap<>();
-        searchValues.put(ShipmentDao.ATTR_ID, keyMap.get(ShipmentDao.ATTR_ID));
+        searchValues.put(OrderDao.ATTR_TOY_ID , keyMap.get(ToyDao.ATTR_ID));
         searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
         searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
 
         //Verificamos el TOYS - TRANSACTION_STATUS y ORDER - BUYER_ID
 
-        List<String> resultAttributes = Arrays.asList(ShipmentDao.ATTR_ID, ToyDao.ATTR_TRANSACTION_STATUS, OrderDao.ATTR_BUYER_ID);
+        List<String> resultAttributes = Arrays.asList(OrderDao.ATTR_TOY_ID, ToyDao.ATTR_TRANSACTION_STATUS, OrderDao.ATTR_BUYER_ID);
         EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, "shipmentJoin");
 
         if (shipmentData.isEmpty() || shipmentData.isWrong()) {
-            return createError("El envío no existe o no tienes los permisos necesarios");
+            return createError("El envío no existeo no tienes los permisos necesarios");
         }
 
         //Actualizamos TOYS - TRANSACTION_STATUS a 3
@@ -266,7 +270,7 @@ public class ShipmentService implements IShipmentService {
         return result;
     }
 
-    //Actulizar estado del 3 al 4
+    //Actualizar estado del 3 al 4
     @Override
     @Transactional
     public EntityResult shipmentConfirmedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
@@ -289,13 +293,13 @@ public class ShipmentService implements IShipmentService {
         //Especificamos los parámetros de busqueda
 
         Map<String, Object> searchValues = new HashMap<>();
-        searchValues.put(ShipmentDao.ATTR_ID, keyMap.get(ShipmentDao.ATTR_ID));
+        searchValues.put(OrderDao.ATTR_TOY_ID , keyMap.get(ToyDao.ATTR_ID));
         searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
         searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_RECEIVED);
 
         //Verificamos el TOYS - TRANSACTION_STATUS y ORDER - BUYER_ID
 
-        List<String> resultAttributes = Arrays.asList(ShipmentDao.ATTR_ID, ToyDao.ATTR_TRANSACTION_STATUS, OrderDao.ATTR_BUYER_ID);
+        List<String> resultAttributes = Arrays.asList(OrderDao.ATTR_TOY_ID, ToyDao.ATTR_TRANSACTION_STATUS, OrderDao.ATTR_BUYER_ID);
         EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, "shipmentJoin");
 
         if (shipmentData.isEmpty() || shipmentData.isWrong()) {
