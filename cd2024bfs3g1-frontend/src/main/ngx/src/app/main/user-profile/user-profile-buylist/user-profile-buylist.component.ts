@@ -35,17 +35,11 @@ export class UserPurchasedToylistComponent {
     private authService: AuthService,
     private router: Router,
     protected dialogService: DialogService,
-    private translate: OTranslateService,
-    private oServiceToyownwer: OntimizeService,
     private oServiceShipment: OntimizeService,
     public userInfoService: UserInfoService) {
 
-    const conf = this.oServiceToyownwer.getDefaultServiceConfiguration('toyowner');
-    this.oServiceToyownwer.configureService(conf);
-
     const conf2 = this.oServiceShipment.getDefaultServiceConfiguration('shipments');
     this.oServiceShipment.configureService(conf2);
-
 
     this.userInfo = this.userInfoService.getUserInfo();
     if (!this.authService.isLoggedIn()) {
@@ -56,7 +50,6 @@ export class UserPurchasedToylistComponent {
 
   //Cambia de estado 2 a 3 y refesca las tablas de ambos estado
   public checkReceive(e){
-    console.log("toyid checkReceive:",e.toyid)
     const kv = {"toyid": e.toyid};
     const av = {"transaction_status": this.STATUS_RECEIVED}
     this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
@@ -67,7 +60,6 @@ export class UserPurchasedToylistComponent {
 
   //Cambia de estado 3 a 4 y refesca las tablas de ambos estado
   public checkOk(e){
-    console.log("toyid checkOk:",e.toyid)
     const kv = {"toyid": e.toyid};
     const av = {"transaction_status": this.STATUS_PURCHASED}    
     this.oServiceShipment.update(kv, av, "shipmentConfirmed").subscribe(result => {

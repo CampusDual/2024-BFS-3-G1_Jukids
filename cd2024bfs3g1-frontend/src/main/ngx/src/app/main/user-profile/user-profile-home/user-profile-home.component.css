@@ -3,8 +3,6 @@
 }
 
 .user-profile-home-listcard  {
-    border-radius: 1.25em;
-    box-shadow: 5px 5px 0px #ff52497c;
     display: flex;
     flex-direction: row;
     height: 60px;

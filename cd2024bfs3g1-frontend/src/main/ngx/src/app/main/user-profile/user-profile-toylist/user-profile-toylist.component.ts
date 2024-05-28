@@ -47,8 +47,6 @@ export class UserProfileToylistComponent {
   }
 
   public sendSubmit(e) {
-    console.log("toyid sendSubmit:", e)
-    console.log("toyid sendSubmit:", this.senderAddress.getValue())
     const kv = { "toyid": e };
     const av = { "sender_address": this.senderAddress.getValue(),"transaction_status": this.STATUS_SENT }
     this.oServiceShipment.update(kv, av, "shipmentSent").subscribe(result => {
