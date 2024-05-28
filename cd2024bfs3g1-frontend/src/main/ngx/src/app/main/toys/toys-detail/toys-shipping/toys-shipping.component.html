@@ -108,7 +108,7 @@
         </button>
 
         <div #emailForm class="hidden">
-          <o-form show-header-navigation="no" show-header="no">
+          <o-form show-header-navigation="no" show-header="no" service="toys" entity="order" >
             <p>Por favor introduzca un email para recibir los términos de la garantía: </p>
             <o-text-input #buyerEmail attr="buyer_email" label="{{'email' | oTranslate}}" fxFlex="100"
               read-only="no" required="yes" max-length="150"></o-text-input>         
