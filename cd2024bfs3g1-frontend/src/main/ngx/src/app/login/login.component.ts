@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
   public pwdCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
 
   public sessionExpired = false;
-  // private redirect = '/toys';
-
+  private redirect = '/toys';
+  isAdmin: boolean = false;
   public isRegistering = false;
 
   constructor(
@@ -61,11 +61,6 @@ export class LoginComponent implements OnInit {
       this.JukidsAuthService.clearSessionData();
     }
 
-    // if (this.authService.isLoggedIn()) {
-    //   this.router.navigate([this.redirect]);
-    // } else {
-    //   this.authService.clearSessionData();
-    // }
   }
 
 
@@ -105,9 +100,9 @@ export class LoginComponent implements OnInit {
   }
 
   closeModal() {
-    this.dialog.getDialogById('login').close();    
+    this.dialog.getDialogById('login').close();
   }
-  
+
   private handleError(error) {
     switch (error.status) {
       case 401:

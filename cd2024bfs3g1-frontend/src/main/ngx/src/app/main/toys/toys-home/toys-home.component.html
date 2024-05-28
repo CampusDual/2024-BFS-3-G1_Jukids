@@ -1,9 +1,10 @@
-<o-form class="form" editable-detail="no" show-header="no">
+<o-form class="form" editable-detail="yes" show-header="no">
+
 
   <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
     <o-row layout-align="space-between center" fxFlex="100" fxLayoutGap="10px">
 
-      <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
+      <o-text-input attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" appearance="outline"></o-text-input>
 
 
       <o-row class="btn-container">
@@ -18,8 +19,49 @@
       </o-row>
 
     </o-row>
-  </o-column>
-  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name" [target]="toysGrid"
+
+    <o-row>
+      <o-combo appearance="outline"
+        label="category"
+        [oFilterBuilderQuery]="filterBuilder"
+        id="category"
+        null-selection="no"
+        attr="category"
+        service="categories"
+        entity="category"
+        keys="categoryid"
+        value-column="codigo"
+        columns="categoryid;name;codigo"
+        searchable="true"
+        visible-columns="codigo"
+        multiple="yes"
+        translate="yes">
+      </o-combo>
+
+      <o-combo appearance="outline" label="status" [oFilterBuilderQuery]="filterBuilder" id="status" null-selection="no"
+      attr="status" service="statuses" entity="status" keys="statusid" value-column="code" columns="statusid;name;code"
+      searchable="true" visible-columns="code" multiple="yes" translate="yes"></o-combo>
+
+      <o-combo #price appearance="outline"
+        id="price"
+        [oFilterBuilderQuery]="filterBuilder"
+        [static-data]="pricesArray"
+        [data]="precioPredeterminado"
+        value-column="priceCode"
+        columns="priceCode;priceText;attr_price"
+        visible-columns="attr_price"
+        null-selection="no"
+        attr="price"
+        translate="yes">
+      </o-combo>
+
+
+    </o-row>
+
+
+    </o-column>
+
+  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status;PRICE:price" [target]="toysGrid"
     query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 
@@ -53,12 +95,12 @@
         <div class="phone">
           <span>€</span><span>{{ data.price | number: '1.2-2' }}</span>
         </div>
-        
+
       </o-column> -->
 
       <!-- <div class="toy-card">
 
-        
+
 
         <img src="http://localhost:8080/restapi/get-image?toyId={{data.toyid}}" alt="" class="img-toy">
 

@@ -36,7 +36,11 @@
             <p class="title">{{'TITLE_DESCRIPTION' | oTranslate}}</p>
             <o-row class="text longDescr">{{descInput.getValue()}}</o-row>
           </div>
-
+          <o-text-input #statusInput attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
+          <div layout-align="start stretch">
+            <p class="title">{{'TITLE_STATUS' | oTranslate}}</p>
+            <o-row class="text">{{statusInput.getValue() | oTranslate}}</o-row>
+          </div>
           <o-email-input #emailInput attr="email" fxFlex="100" read-only="yes" oHidden></o-email-input>
           <div layout-align="start stretch">
             <p class="title">{{'TITLE_CONTACT' | oTranslate}}</p>
@@ -60,18 +64,3 @@
 
 
 
-
-
-
-<!--<o-form class="form" attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no" show-header="no" fxLayout="row">
-  <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
-  <div class="toys-detail-container">
-    <o-image class="image-container" auto-fit="yes" attr="photo" read-only="yes" empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
-    <div class="data-container" fxLayout="column" fxLayoutGap="8px">
-      <o-text-input class="input-detail" read-only="yes" fxFlex="40" attr="name"></o-text-input>
-      <o-textarea-input class="input-detail" read-only="yes" fxFlex="40" attr="description"></o-textarea-input>
-      <o-email-input class="input-detail" read-only="yes" fxFlex="20" attr="email"></o-email-input>
-      <o-text-input class="input-detail" read-only="yes" fxFlex="40" attr="price"></o-text-input>
-    </div>
-  </div>
-</o-form>-->

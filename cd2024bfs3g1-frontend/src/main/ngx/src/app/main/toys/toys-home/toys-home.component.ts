@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Expression, FilterExpressionUtils } from "ontimize-web-ngx";
+import { Expression, FilterExpressionUtils, OComboComponent } from "ontimize-web-ngx";
 import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
 import { ToysMapService } from "src/app/shared/services/toys-map.service";
 import { DialogService, ODialogConfig } from "ontimize-web-ngx";
@@ -18,6 +18,7 @@ export class ToysHomeComponent implements OnInit {
   subscription: Subscription;
 
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
+  @ViewChild("price") protected priceCombo: OComboComponent;
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
@@ -52,7 +53,8 @@ export class ToysHomeComponent implements OnInit {
     const conf = this.ontimizeService.getDefaultServiceConfiguration('byuser');
     this.ontimizeService.configureService(conf);
 
-
+    // Inicializar el precio predeterminado
+    this.precioPredeterminado = 1000000; // Valor que representa "Todos" los precios
   }
 
   ngOnInit() {
@@ -138,27 +140,113 @@ export class ToysHomeComponent implements OnInit {
   //   this.toyGrid.pageSizeChanged();
   // }
 
-  createFilter(values: Array<{ attr, value }>): Expression {
-    //Array de expresiones para ejecutar
-    let filters: Array<Expression> = [];
-    //Generacion de expresion y guardado en array filters
+  createFilter(values: Array<{ attr: string, value: any }>): Expression {
+    let filtersOR: Array<Expression> = [];
+    let categoryExpressions: Array<Expression> = [];
+    let priceExpressions: Array<Expression> = [];
+    let statusExpressions: Array<Expression> = [];
+
     values.forEach(fil => {
-      if (fil.value) {
-        filters.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+      if (!fil.value) return; // Salir temprano si no hay valor
+
+      if (fil.attr === "DESCRIPTION" || fil.attr === "NAME") {
+        filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+      } else if (fil.attr === "CATEGORY") {
+        if (Array.isArray(fil.value)) {
+          fil.value.forEach(val => {
+            categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
+          });
+        } else {
+          categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+        }
+      } else if (fil.attr === "STATUS") {
+        if (Array.isArray(fil.value)) {
+          fil.value.forEach(val => {
+            statusExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
+          });
+        } else {
+          statusExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+        }
+      } else if (fil.attr === "PRICE") {
+        priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("PRICE", fil.value));
       }
     });
 
-    // Construir la expresion compleja
-    if (filters.length > 0) {
-      //Realiza la consulta concatenando los key-value (Columna-Valor) del array filters
-      return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR));
-    } else {
-      return null;
+    // Construir la expresión OR para CATEGORY
+    let categoryExpression: Expression = null;
+    if (categoryExpressions.length > 0) {
+      categoryExpression = categoryExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
     }
+
+    // Construir la expresión OR para el precio
+    let priceExpression: Expression = null;
+    if (priceExpressions.length > 0) {
+      priceExpression = priceExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
+    }
+
+    // Construir la expresión OR para STATUS
+    let statusExpression: Expression = null;
+    if (statusExpressions.length > 0) {
+      statusExpression = statusExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
+    }
+
+    // Construir la expresión OR para filtersOR
+    let combinedExpression: Expression = null;
+    if (filtersOR.length > 0) {
+      combinedExpression = filtersOR.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      );
+    }
+
+    // Combinar todas las expresiones con AND
+    const expressionsToCombine = [combinedExpression, categoryExpression, priceExpression, statusExpression].filter(exp => exp !== null);
+    if (expressionsToCombine.length > 0) {
+      combinedExpression = expressionsToCombine.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND)
+      );
+    }
+
+    return combinedExpression;
   }
 
-  changecols(val: number) {
 
-    this.cols = val;
+  clearFilters(): void {
+    this.priceCombo.setValue(this.precioPredeterminado);
+    this.toyGrid.reloadData();
+
   }
+
+  formatPriceSlider(value: number | null) {
+    if (!value) {
+      return 0;
+    }
+
+    return value + "€";
+  }
+
+  public pricesArray = [{
+    attr_price: 'priceCode_10',
+    priceCode: 10,
+    priceText: 'Menos de 10€'
+  }, {
+    attr_price: 'priceCode_20',
+    priceCode: 20,
+    priceText: 'Menos de 20€'
+  }, {
+    attr_price: 'priceCode_50',
+    priceCode: 50,
+    priceText: 'Menos de 50€'
+  }, {
+    attr_price: 'priceCode_1000000',
+    priceCode: 1000000, //se pone un millon para q aparezcan todos los productos (no se cree q ningun juguete vaya a superar esta cifra)
+    priceText: 'Todos'
+  }];
+
+  public precioPredeterminado = 1000000;
 }

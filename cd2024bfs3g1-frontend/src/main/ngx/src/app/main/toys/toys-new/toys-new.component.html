@@ -16,6 +16,10 @@
                     <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes"
                         label="usr_email"></o-email-input>
                 </div>
+                <o-combo label="category" id="category" null-selection="no" attr="category" service="categories" entity="category" keys="categoryid"
+                value-column="codigo" columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" translate="yes" required="yes"></o-combo>
+                <o-combo label="status" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid"
+                value-column="code" columns="statusid;name;code" searchable="true" visible-columns="code" translate="yes" required="yes"></o-combo>
             </div>
             <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
                 <div class="pop-up-span">
@@ -33,7 +37,7 @@
             </o-real-input>
 
             <o-row layout-align="end center" layout-margin-top>
-                <button class="btn-outline-light">
+                <button class="btn-outline-light" (click)="cancel()">
                     <mat-icon class="btn-icon">close</mat-icon>
                     <span>cancel</span>
                 </button>

@@ -1,5 +1,6 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { OAppLayoutComponent, OUserInfoConfigurationDirective, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService, OAppLayoutComponent, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -19,11 +20,16 @@ export class MainComponent implements OnInit {
   en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
   @ViewChild('appLayout')
   public appLayout: OAppLayoutComponent;
-
+  public rolename : string;
 
   @ViewChild('userConfiguration')
   public userConfiguration: OUserInfoConfigurationDirective;
   // public logoutItem: OUserInfoConfigurationItemDirective;
+
+  //TODO: Ver la redireccion con el nuevo flujo
+  adminRedirect(){
+    this.router.navigateByUrl('/main/admin');
+  }
 
 
   constructor(
@@ -46,9 +52,14 @@ export class MainComponent implements OnInit {
     return this.jkAuthService.isLoggedIn();
   }
 
+  //TODO: Verificar sistema con el nuevo flujo
+  //Con este metodo verificamos que el usuario que se ha logueado, tenga una propiedad rolename y su valor sea el de admin
+  validAdmin(){
+    return (this.rolename && this.rolename == "admin");
+   }
+
   ngOnInit() {
     this.loadUserInfo();
-
   }
 
   private loadUserInfo() {
@@ -59,6 +70,11 @@ export class MainComponent implements OnInit {
           let avatar = './assets/images/user_profile.png';
           if (result.data['usr_photo']) {
             (avatar as any) = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + result.data['usr_photo']);
+          }
+          //TODO:Verificar el proceso con el nuevo flujo
+          //Recogemos el campo rolename en el front que trajimos del back y lo asignamos a una variable publica en el componente
+          if (result.data['rolename']) {
+            this.rolename = result.data['rolename']
           }
           this.oUserInfoService.setUserInfo({
             username: result.data['usr_name'],
