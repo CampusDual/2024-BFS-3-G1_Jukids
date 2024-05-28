@@ -10,18 +10,14 @@
         justify-content: flex-start;
         align-content: center;
         border-radius: 8px;
+        @media screen and (max-width: 1500px) {
+            width: 70%;
+        }
         @media screen and (max-width: 1200px) {
-            width: 90%;
+            width: 80%;
             margin-bottom: 10px;
         }
-        @media screen and (max-width: 1000px) {
-            width: 80%;
-        }
-        @media screen and (max-width: 800px) {
-            margin-left: 15%;
-            margin-right: 15%;
-            width: 100%;
-        }
+
         .category {
             scale: 100%;
             align-content: center;
@@ -38,53 +34,58 @@
     display: flex;
     justify-content: center;
     justify-self: center;
-    align-items: flex-start;
+    align-items: center;
     margin: auto;
     border-radius: 1em;
     height: fit-content;
-    background-color: transparent;
-    @media screen and (max-width: 1200px) {
-        width: 90% !important;
-    }
+    // background-color: greenyellow;
     @media screen and (max-width: 1000px) {
-        max-width: 100% !important;
-        display: inline-block;
+        max-width: 70% !important;
+        justify-self: center;
         justify-content: center !important;
         justify-items: center !important;
     }
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 900px) {
        width: 100% !important;
        justify-self: center;
     }
     .toys-detail-column {
         margin-top: 10px;
         background-color: transparent;
+        justify-self: center;
+        align-self: center;
         overflow-x: hidden;
+        @media screen and (max-width: 1000px) {
+            flex-direction: column !important;
+            justify-self: center !important;
+            o-column {
+                max-width: 100% !important;
+            }
+        }
         @media screen and (max-width: 800px) {
             flex-direction: column !important;
             o-column {
                 max-width: 100% !important;
             }
-            @media screen and (max-width: 1000px) {
-                flex-direction: column !important;
-                justify-self: center !important;
-                o-column {
-                    max-width: 100% !important;
-                }
-            }
         }
         
         .left-col {
+            display: flex;
+            flex-direction: column;
+            justify-self: center;
+            align-self: center;
+            justify-content: space-between;
             align-items: center;
             width: fit-content;
             height: 500px;
             background-color: rgb(255, 255, 255);
-            // border: 3px solid rgba(229, 229, 229, 0.441);
             border-radius: 5px;
+            // border: 3px solid rgba(229, 229, 229, 0.441);
             .image {
                 align-self: center;
-                background-color: transparent;
+                justify-self: center;
                 scale: 1;
+                max-width: 95%;
                 overflow: hidden;
                 transition: 3s;
                 object-fit: cover;
@@ -95,6 +96,7 @@
                     height: fit-content !important;
                     justify-self: center;
                     display: inline-block;
+                    width: 80%;
                     padding: 0%;
                 }
                 @media screen and (max-width: 1200px) {
@@ -107,14 +109,13 @@
             }
             .mail-to-seller {
                 color: #000000;
+                font-size: small;
                 text-decoration: none;
-                &:hover {
-                    text-decoration: underline;
-                }
             }
             .checkout-container {
                 display: flex;
                 width: 50%;
+                margin-bottom: 15px;
                 background-color: transparent;
                 justify-content: center;
                 border: 2px solid #ffcc99c6;
@@ -123,7 +124,6 @@
                 align-items: center;
                 justify-items: center;
                 align-self: center;
-                margin-bottom: 10px;
                 overflow: hidden;
                 &:hover {
                     transition: all;
@@ -141,9 +141,10 @@
             border-radius: 5px;
             background-color: rgba(223, 223, 223, 0.441);
             @media screen and (max-width: 800px) {
+                margin-top: 15px;
                 height: fit-content !important;
-                margin-left: 15%;
-                margin-right: 15%;
+                margin-left: 12%;
+                margin-right: 12%;
                 padding-bottom: 15px;
             }
             .right-column {
@@ -237,6 +238,7 @@
     width: 100%;
     font-size: 20px;
     border: none;
+    text-transform: uppercase;
     padding: 10px 10px 10px 10px;
     cursor: pointer;
     -webkit-transition-duration: 0.4s;
