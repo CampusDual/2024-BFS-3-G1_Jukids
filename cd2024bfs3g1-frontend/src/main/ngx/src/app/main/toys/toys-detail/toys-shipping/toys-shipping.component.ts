@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
+import { AuthService, DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 
 @Component({
@@ -44,6 +44,8 @@ export class ToysShippingComponent implements OnInit {
   @ViewChild('BuySend') buySendOption;
   @ViewChild('buyInfo') buyInfo;
   @ViewChild('buyButton') buyButton;
+  @ViewChild('emailForm') emailForm;
+  @ViewChild('buyerEmail') protected buyerEmail :OTextInputComponent;
   @ViewChild('buttonAcceptPay') AcceptPayButton;
   @ViewChild('stripe') stripe: StripeComponent;
 
@@ -55,8 +57,11 @@ export class ToysShippingComponent implements OnInit {
     protected dialogService: DialogService,
     private translate: OTranslateService,
     private authService: AuthService,
+    private oServiceToy: OntimizeService,
   ) {
     this.logged = this.authService.isLoggedIn()
+    const conf = this.oServiceToy.getDefaultServiceConfiguration('shipments');
+    this.oServiceToy.configureService(conf);
   }
 
   ngOnInit() {
@@ -69,13 +74,14 @@ export class ToysShippingComponent implements OnInit {
       this.form.classList.add("hidden")
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
+      this.emailForm.nativeElement.classList.add("hidden")  
     }
 
     if (this.buySendOption._checked) {
       this.issetSend = true;
       this.form.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
-      this.buyButton.nativeElement.classList.add("hidden")
+      this.emailForm.nativeElement.classList.add("hidden")      
     }
 
   }
@@ -108,6 +114,22 @@ export class ToysShippingComponent implements OnInit {
 
   checkout() {
     this.stripe.ckeckout();
+  }
+  newBuy(){
+    //Comentarios de este metodo pra logeado
+    // if(!this.logged){
+    this.buyButton.nativeElement.classList.add("hidden")
+    this.emailForm.nativeElement.classList.remove("hidden")
+    // } else {
+    //   this.checkout();
+    // }
+  }
+
+  paySubmit(){
+    const av = { "toyid": this.toyId.getValue(), "buyer_email": this.buyerEmail.getValue()}
+    this.oServiceToy.insert(av, "order").subscribe(result => {
+    })
+    // this.checkout();
   }
 
   newSubmit() {
@@ -154,6 +176,7 @@ export class ToysShippingComponent implements OnInit {
 
   }
 
+  
   showCustom(
     icon: string,
     btnText: string,

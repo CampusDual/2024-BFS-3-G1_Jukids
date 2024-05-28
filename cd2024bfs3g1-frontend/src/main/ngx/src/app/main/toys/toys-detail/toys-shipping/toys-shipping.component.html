@@ -26,8 +26,7 @@
         <o-column>
           <div class="divLabel">
             <o-text-input #orderId attr="order_id" sql-type="INTEGER" read-only="no" oHidden></o-text-input>
-            <o-text-input id="price" #price attr="price" read-only="no" sql-type="DOUBLE"
-              oHidden></o-text-input>
+            <o-text-input id="price" #price attr="price" read-only="no" sql-type="DOUBLE" oHidden></o-text-input>
           </div>
           <!--<div class="divLabel">
             <o-text-input attr="name" label="{{'full_name' | oTranslate}}" fxFlex="100" read-only="no" required="yes"
@@ -104,9 +103,21 @@
             </div>
           </div>
         </div>
-        <button #buyButton class="btn-checkout hidden" (click)="checkout()">
+        <button #buyButton class="btn-checkout hidden" (click)="newBuy()">
           <span>{{'PAY' | oTranslate}}</span>
         </button>
+
+        <div #emailForm class="hidden">
+          <o-form show-header-navigation="no" show-header="no">
+            <p>Por favor introduzca un email para recibir los términos de la garantía: </p>
+            <o-text-input #buyerEmail attr="buyer_email" label="{{'email' | oTranslate}}" fxFlex="100"
+              read-only="no" required="yes" max-length="150"></o-text-input>         
+            <button #payButton class="btn-checkout" (click)="paySubmit()">{{'COMFIRM' | oTranslate }}</button>
+          </o-form>
+        </div>
+
+
+
       </div>
 
     </div>
