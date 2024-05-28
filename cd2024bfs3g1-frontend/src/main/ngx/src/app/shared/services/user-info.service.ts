@@ -1,5 +1,6 @@
 import { Injectable, Injector } from "@angular/core";
-import { AppConfig, AuthService, Config } from "ontimize-web-ngx";
+import { AppConfig, Config } from "ontimize-web-ngx";
+import { JukidsAuthService } from "./jukids-auth.service";
 
 export const USER_INFO_KEY = 'user_info';
 export type UserInfo = {
@@ -15,10 +16,10 @@ export class UserInfoService {
 
 
   constructor(protected injector: Injector) {
-    const authService = this.injector.get(AuthService);
+    const jukidsAuthService = this.injector.get(JukidsAuthService);
     const self = this;
 
-    authService.onLogout.subscribe(resp => {
+    jukidsAuthService.onLogout.subscribe(resp => {
       self.storeUserInfo({});
     });
 

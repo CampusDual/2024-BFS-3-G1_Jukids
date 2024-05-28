@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, DialogService, ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 
 @Component({
@@ -20,14 +21,14 @@ export class EditToyComponent implements OnInit {
   public locationSelected = false;
 
   constructor(
-    private authService: AuthService,
+    private jukidsAuthService: JukidsAuthService,
     private router: Router,
     private ontimizeService: OntimizeService,
     private toysMapService: ToysMapService,
     private translate: OTranslateService,
     protected dialogService: DialogService,
   ) {
-      if (!this.authService.isLoggedIn()) {
+      if (!this.jukidsAuthService.isLoggedIn()) {
         const self = this;
         self.router.navigate(["/toys"]);
       }

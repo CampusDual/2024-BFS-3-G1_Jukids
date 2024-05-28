@@ -9,9 +9,9 @@ export const MENU_CONFIG: MenuRootItem[] = [
   //     { id: 'usertoylist', name: "YOUR_TOYS", tooltip: 'NEW', route: '/main/user-profile/toylist', icon: 'list' }
   //   ]
   // },
-  { id: 'toys', name: 'TOYS', icon: 'inventory', route: '/main/toys',
-    items: [
-      { id: 'new', name: 'NEW', tooltip: 'NEW', route: '/main/toys/new', icon: 'add' }
-    ]
-  },
+  // { id: 'toys', name: 'TOYS', icon: 'inventory', route: '/main/toys',
+  //   items: [
+  //     { id: 'new', name: 'NEW', tooltip: 'NEW', route: '/main/toys/new', icon: 'add' }
+  //   ]
+  // },
 ];

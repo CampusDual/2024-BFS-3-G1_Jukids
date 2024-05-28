@@ -111,6 +111,7 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
   display: none;
 }
 
+
 //Necesario para ocultar el boton sobrante en el formulario de editar juguete.
 #formToyEdit {
   button[attr="update"]{
@@ -126,3 +127,10 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
 mat-toolbar {
   box-shadow: none !important;
 }
+
+//Necesario para ocultar el icono de menu
+o-app-header  mat-icon {
+  display: none !important;
+}
+
+

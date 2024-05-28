@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'ontimize-web-ngx';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 
@@ -14,11 +15,11 @@ export class UserProfileHomeComponent implements OnInit {
   private redirect = '/toys';
 
   constructor(
-    private authService: AuthService,
+    private jukidsAuthService: JukidsAuthService,
     private router: Router,
     public userInfoService: UserInfoService) {
     this.userInfo = this.userInfoService.getUserInfo();
-    if (!this.authService.isLoggedIn()) {
+    if (!this.jukidsAuthService.isLoggedIn()) {
       const self = this;
       self.router.navigate([this.redirect]);
     }
