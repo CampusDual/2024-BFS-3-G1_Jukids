@@ -10,3 +10,7 @@ mat-card-header mat-card-title{
     padding: 0.75em;
     padding-bottom: 0;
 }
+
+.rowExpandable{
+    max-width: 90%;
+}

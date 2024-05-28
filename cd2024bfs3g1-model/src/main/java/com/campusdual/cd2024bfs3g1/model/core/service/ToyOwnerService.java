@@ -125,7 +125,7 @@ public class ToyOwnerService implements IToyOwnerService {
         }
     }
 
-    //Muestra juguetes del estado 2 y 3
+    //Muestra juguetes del estado 2
     @Override
     public EntityResult pendingConfirmQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
 
@@ -150,7 +150,6 @@ public class ToyOwnerService implements IToyOwnerService {
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
             keyMap.put(UserDao.USR_ID, idUser);
             keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
-            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_RECEIVED);
 
             return this.daoHelper.query(this.toyDao, keyMap, attrList);
 

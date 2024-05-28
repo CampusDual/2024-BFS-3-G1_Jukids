@@ -9,11 +9,11 @@
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
       </o-table-column>
-      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px" type="currency"
-        thousand-separator="." decimal-separator="," currency-symbol="€" currency-symbol-position="right"
-        tooltip="yes"></o-table-column>
+      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px" max-width="300px"
+        type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
+        currency-symbol-position="right" tooltip="yes"></o-table-column>
     </o-table>
   </mat-tab>
 
@@ -23,7 +23,7 @@
       title="{{ 'PENDING_SEND_TOY' | oTranslate }}" columns="toyid;photo;name;price" visible-columns="photo;name;price"
       show-title="true" pagination-controls="no" show-filter-option="no" quick-filter="false" insert-button="false"
       export-button="false" delete-button="false" edit-button="false" refresh-button="false" horizontal-scroll="true"
-      virtual-scroll="no" auto-adjust="true" class="table">
+      virtual-scroll="no" auto-adjust="true" class="table" min-width="400px" max-width="500px">
 
       <o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"
         oHidden></o-table-column>
@@ -32,30 +32,41 @@
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
       </o-table-column>
-      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px" type="currency"
-        thousand-separator="." decimal-separator="," currency-symbol="€" currency-symbol-position="right"
-        tooltip="yes"></o-table-column>
+      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px" max-width="300px"
+        type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
+        currency-symbol-position="right" tooltip="yes"></o-table-column>
       <!--<o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}"
         width="64px">
         <o-table-cell-renderer-action attr="edit" class="action" (onClick)="checkReceive($event)"
           text="{{ 'RECEIVED' | oTranslate }}"></o-table-cell-renderer-action>
       </o-table-column>-->
 
-      <o-table-row-expandable>
+      <o-table-row-expandable class="rowExpandable">
         <ng-template let-row>
+
           <o-column title="{{ 'SENDER_DATA' | oTranslate }}" icon="info" class="vertical-margin-10" layout-gap="12px">
-            <div fxLayout="row wrap">
-              <span>Por favor introduzca una dirección de recogida si desea que recojan el paguete en su casa, si lo
-                prefiere podrá llevar el paquete a la oficina en un plazo inferior a de 5 días laborables</span>
-              <span fxFlex="30%"><strong>ID</strong>: {{row.toyid}}</span>
+            <div fxLayout="wrap">
               <o-form show-header-navigation="no" show-header="no">
+                <p>Por favor introduzca una dirección de recogida: </p>
+
                 <o-text-input #senderAddress attr="sender_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
                   read-only="no" required="yes" max-length="150"></o-text-input>
+                <div>*Si lo prefiere lleve el paquete a la oficina en un plazo inferior a de 5 días laborables</div>
+                <button #buttonSend class="button buttonLightBackground" (click)="sendSubmit(row.toyid)">{{'COMFIRM' |
+                  oTranslate}}</button>
               </o-form>
             </div>
           </o-column>
+
+
+
+
+
+
+
+
         </ng-template>
       </o-table-row-expandable>
 
@@ -72,11 +83,11 @@
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
       </o-table-column>
-      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px" type="currency"
-        thousand-separator="." decimal-separator="," currency-symbol="€" currency-symbol-position="right"
-        tooltip="yes"></o-table-column>
+      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px" max-width="300px"
+        type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
+        currency-symbol-position="right" tooltip="yes"></o-table-column>
     </o-table>
   </mat-tab>
 
@@ -90,9 +101,9 @@
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
       </o-table-column>
-      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" min-width="100px" max-width="900px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px" max-width="300px"
         tooltip="yes"></o-table-column>
     </o-table>
   </mat-tab>
@@ -112,13 +123,13 @@
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
       </o-table-column>
-      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="400px" max-width="500px"
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="description" title="{{ 'description' | oTranslate }}" multiline="yes" min-width="400px"
-        max-width="500px" tooltip="yes"></o-table-column>
-      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px" type="currency"
-        thousand-separator="." decimal-separator="," currency-symbol="€" currency-symbol-position="right"
-        tooltip="yes"></o-table-column>
+      <o-table-column attr="description" title="{{ 'description' | oTranslate }}" multiline="yes" min-width="100px"
+        max-width="900px" tooltip="yes"></o-table-column>
+      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px" max-width="300px"
+        type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
+        currency-symbol-position="right" tooltip="yes"></o-table-column>
       <o-table-column attr="transaction_status" title="{{ 'status' | oTranslate }}" multiline="no" width="300px"
         tooltip="yes"></o-table-column>
     </o-table>
