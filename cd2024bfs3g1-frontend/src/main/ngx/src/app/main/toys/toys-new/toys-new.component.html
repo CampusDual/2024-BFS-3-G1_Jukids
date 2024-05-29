@@ -1,9 +1,10 @@
-<o-form id="newtoy" #NewToy attr="toysNew" service="{{ toyService }}" entity="toy" keys="toyid" show-header="no" show-header-navigation="no" undo-button="no" header-actions="I"
-(onInsert)="insertRedirect()">
+<o-form id="newtoy" #NewToy attr="toysNew" service="{{ toyService }}" entity="toy" keys="toyid" show-header="no"
+    show-header-navigation="no" undo-button="no" header-actions="I" (onInsert)="insertRedirect()">
     <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
         <div fxFlex.gt-sm="35%">
-            <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo" empty-image="assets/images/no-image.png"
-                max-file-size="4194304" sql-type="OTHER" required="yes"></o-image>
+            <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo"
+                empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER"
+                required="yes"></o-image>
         </div>
         <o-column fxFlex title="TOY_INFORMATION">
             <div fxLayout="column" fxLayoutGap="8px" layout-padding>
@@ -12,13 +13,20 @@
                 <div fxLayout="column" fxLayoutGap="8px" fxLayout.gt-sm="row">
                     <o-currency-input fxFlex.gt-sm="50" attr="price" label="price" enabled="yes" min-decimal-digits="2"
                         max-decimal-digits="2" min="0.00" max="9999999" required="yes"></o-currency-input>
-                    <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes" label="usr_email"></o-email-input>
+                    <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes"
+                        label="usr_email"></o-email-input>
                 </div>
                 <o-checkbox *ngIf="toyService == 'toyowner';else encourageRegister" id="shipping" #shipping fxFlex="50" attr="shipping" label="{{ 'SHIPPING'  | oTranslate }}">
                 </o-checkbox>
                 <ng-template #encourageRegister><div class="warning">
                     <p><a href="/login/new">¡Registrate!</a> Encontrarás más opciones y llegarás a más gente</p>
                 </div></ng-template>
+            </div>
+            <div>  
+                <o-combo label="category" id="category" null-selection="no" attr="category" service="categories" entity="category" keys="categoryid"
+                value-column="codigo" columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" translate="yes" required="yes"></o-combo>
+                <o-combo label="status" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid"
+                value-column="code" columns="statusid;name;code" searchable="true" visible-columns="code" translate="yes" required="yes"></o-combo>
             </div>
 
             <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
@@ -43,10 +51,15 @@
             </o-real-input>
 
             <o-row layout-align="end center" layout-margin-top>
-                <o-button layout-padding color="primary" icon="close" label="cancel"></o-button>
-                <o-button label="Ok" color="primary" icon="done" layout-padding (click)="newSubmit()"></o-button>
+                <button class="btn-outline-light" (click)="cancel()">
+                    <mat-icon class="btn-icon">close</mat-icon>
+                    <span>cancel</span>
+                </button>
+                <button attr="submit" (click)="newSubmit()" class="btn-outline-light reverse">
+                    <mat-icon class="btn-icon">save</mat-icon>
+                    <span>ok</span>
+                </button>
             </o-row>
-
         </o-column>
     </div>
 </o-form>

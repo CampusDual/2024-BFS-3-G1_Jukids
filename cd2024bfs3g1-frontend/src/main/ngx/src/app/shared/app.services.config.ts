@@ -5,6 +5,11 @@ export const SERVICE_CONFIG: Object = {
   'toys': {
     'path': '/toys'
   },
+
+  'charts':{
+    'path': '/charts'
+  },
+
   'toyowner': {
     'path': '/toyowner'
   },
@@ -15,8 +20,14 @@ export const SERVICE_CONFIG: Object = {
     'path': '/shipments'
   },
 
+  'categories': {
+    'path': '/categories'
+  },
   'registers': {
     'path': '/registers'
+  },
+  'statuses':{
+    'path': '/statuses'
   },
   permissions: {
     'path': '/permissions'

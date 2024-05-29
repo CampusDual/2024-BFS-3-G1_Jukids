@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
+import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -122,6 +123,30 @@ public class ToyService implements IToyService {
         result.setMessage("Orden creada correctamente");
 
         return result;
+    }
+
+    @Override
+    public AdvancedEntityResult toyPaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
+
+        //Logica de posision de distancia.
+
+        //Rearmar el XML toyPaginationQuery basado en la vista realizada.
+
+        //Retornar el resultado.
+
+        return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
+    }
+
+    @Override
+    public AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
+
+        //Logica de posision de distancia.
+
+        //Rearmar el XML toyPaginationQuery basado en la vista realizada.
+
+        //Retornar el resultado.
+
+        return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
     }
 
     private EntityResult createError(String mensaje){

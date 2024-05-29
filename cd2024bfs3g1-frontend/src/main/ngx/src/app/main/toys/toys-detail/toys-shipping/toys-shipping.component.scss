@@ -28,10 +28,6 @@
     align-items: center;
     margin: auto;
     padding: 0.75em;
-    // background-color: white;
-    // border: 1px solid #ddd;
-    // border-radius: 1em;
-    // box-shadow: 5px 5px 0px #ff52497c;
     transition: box-shadow 0.3s;
     width: 80%;
     max-width: 1000px;
@@ -64,7 +60,7 @@
         }
 
 
-        .cadInfo {
+        .cardInfo {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -138,7 +134,7 @@
                     div {
                         display: flex;
 
-                        span {
+                        span{
                             margin-left: 0.5rem;
                         }
                     }
@@ -209,6 +205,18 @@
             max-width: 200px;
         }
     }
+     .tooltip {
+            display: inline-block;
+            cursor: pointer;
+          }
 
-
+          .tooltip-icon {
+            margin-top: 5px;
+            color: black;
+            font-size: 17px;
+            vertical-align: middle;
+          }
+          span {
+            padding: 0.2rem;
+          }
 }

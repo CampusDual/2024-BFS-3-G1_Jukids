@@ -116,71 +116,28 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
   button[attr="update"]{
   display: none!important;
 }
+
 .noresize textarea{
   resize:none !important;
 }
 }
+
 mat-toolbar {
   box-shadow: none !important;
 }
+
 .o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
   color: #ff5349 !important;
 }
+
 #saveButton .mat-mdc-button-persistent-ripple{
   width: 30px;
   left: 9px !important;
 }
 
-//Hasta aquí lo necesario
-
-.button{
-  cursor: pointer;
-  transition-duration: .2s;
-  min-width: 3rem;
-  border-radius: .4rem;
-  border: 2px solid;
-  margin: .5rem .25rem;
-  padding: .2rem 1rem;
-
-  //Categoria color
-
-  &.buttonOrange{
-    border-color: #FFA366;
-    color: #000;
-    background-color: #FFA366;
-    padding: .5rem 1.2rem !important;
-
-    &:hover{
-      box-shadow: 0 2px 4px #0000003d;
-    }
-  }
-
-  &.buttonDarkBackground{
-    border-color: #fff;
-    color: #fff;
-    background-color: transparent;
-
-    &:hover{
-      color: #ff5349;
-      background-color: #fff;
-    }
-  }
-
-  &.buttonLightBackground{
-    border-color: #ff5349;
-    color: #ff5349 !important;
-    background-color: #fff;
-
-    &:hover{
-      color: #fff;
-      background-color: #FFA366;
-      border-color: #ffa366;
-    }
-  }
-
-  //Categoria contenido
-  &.buttonIcon{
-    padding: 0.2rem 0.3rem;
-  }
-
+//Necesario para ocultar el icono de menu
+o-app-header  mat-icon {
+  display: none !important;
 }
+
+

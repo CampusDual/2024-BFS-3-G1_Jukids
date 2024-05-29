@@ -1,25 +1,60 @@
-
-<div class="register-container">
-  <div class="register-outer-container">
-
-      <div class="register-bg-container"></div>
-
-      <div class="wrapp-login">
-          <div fxFill fxLayout="column" fxLayoutAlign="center center" class="register-inner-container">
-
-              <h1 class="title_text">{{ 'REGISTER' | oTranslate }}:</h1>
-
-
-              <o-form #form class="register-form" attr="usersNew" (onInsert)="login()" service="registers" entity="register" keys="usr_id" header-actions="R;I;U;D" show-header="no" show-header-navigation="no">
-                  <div fxLayout="column" fxLayoutGap="8px" class="form-container">
-                      <o-text-input class="inputData" fxFlex="20" attr="usr_name" required="yes"></o-text-input>
-                      <o-text-input class="inputData" fxFlex="20" attr="usr_surname" required="yes"></o-text-input>
-                      <o-email-input class="inputData" attr="usr_login" label="Email" fxFlex="20" required="yes"></o-email-input>
-                      <o-password-input class="inputData" fxFlex="20" attr="usr_password" label="password" required="yes" show-password-button="yes"></o-password-input>
-                  </div>
-                  <o-form-toolbar></o-form-toolbar>
-              </o-form>
-          </div>
-      </div>
-  </div>
+<div class="register-title-container" fxLayout="column">
+    <h1 class="slogan">{{ 'REGISTER' | oTranslate }}</h1>
 </div>
+<o-form #form class="form-register" attr="usersNew" (onInsert)="login()" service="registers" entity="register"
+    keys="usr_id" header-actions="R;I;U;D" show-header="no" show-header-navigation="no">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+
+        <o-text-input width="100%" attr="usr_name" required="yes"></o-text-input>
+        <o-text-input width="100%" attr="usr_surname" required="yes"></o-text-input>
+        <o-email-input width="100%" attr="usr_login" label="Email" required="yes"></o-email-input>
+        <o-password-input width="100%" attr="usr_password" label="password" required="yes"
+            show-password-button="yes"></o-password-input>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 10px;">
+        <button class="btn-outline-dark reverse" (click)="cancel()">{{ 'CANCEL' | oTranslate }}</button>
+        <button class="btn-outline-light reverse" type="submit" (click)="form.insert()" >{{ 'REGISTER' | oTranslate }}</button>
+    </div>
+
+    <!-- <o-form-toolbar></o-form-toolbar> -->
+</o-form>
+
+
+
+<!-- <div class="register">
+    <h1 class="title_text">{{ 'REGISTER' | oTranslate }}:</h1>
+
+
+</div> -->
+
+
+
+
+<!-- <div class="register-container">
+    <div class="register-outer-container">
+
+
+        <div class="wrapp-login">
+            <div fxFill fxLayout="column" fxLayoutAlign="center center" class="register-inner-container">
+
+                <h1 class="title_text">{{ 'REGISTER' | oTranslate }}:</h1>
+
+
+                <o-form #form class="register-form" attr="usersNew" (onInsert)="login()" service="registers"
+                    entity="register" keys="usr_id" header-actions="R;I;U;D" show-header="no"
+                    show-header-navigation="no">
+                    <div fxLayout="column" fxLayoutGap="8px" class="form-container">
+                        <o-text-input class="inputData" fxFlex="20" attr="usr_name" required="yes"></o-text-input>
+                        <o-text-input class="inputData" fxFlex="20" attr="usr_surname" required="yes"></o-text-input>
+                        <o-email-input class="inputData" attr="usr_login" label="Email" fxFlex="20"
+                            required="yes"></o-email-input>
+                        <o-password-input class="inputData" fxFlex="20" attr="usr_password" label="password"
+                            required="yes" show-password-button="yes"></o-password-input>
+                    </div>
+                    <o-form-toolbar></o-form-toolbar>
+                </o-form>
+            </div>
+        </div>
+    </div>
+</div> -->

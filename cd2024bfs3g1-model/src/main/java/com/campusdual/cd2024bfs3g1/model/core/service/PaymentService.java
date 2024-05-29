@@ -54,6 +54,7 @@ public class PaymentService implements IPaymentService {
 
         Integer toyid = null;
         String toyUrl = null;
+        boolean shipment = false;
 
         EntityResult checkoutSession = new EntityResultMapImpl();
 
@@ -63,6 +64,9 @@ public class PaymentService implements IPaymentService {
             }
             if(checkoutData.containsKey("toyUrl")) {
                 toyUrl = (String) checkoutData.remove("toyUrl");
+            }
+            if(checkoutData.containsKey(ToyDao.ATTR_SHIPPING)){
+                shipment = (boolean) checkoutData.remove(ToyDao.ATTR_SHIPPING);
             }
 
             HashMap<String, Object> getProdQuery = new HashMap<>();
@@ -102,15 +106,24 @@ public class PaymentService implements IPaymentService {
 
             // Transformar dato de precio
             BigDecimal price = (BigDecimal) toyData.get(ToyDao.ATTR_PRICE);
-
             //multipicar x 100 + 5%
-            price = price.multiply( new BigDecimal(105) );
+            price = price.multiply( new BigDecimal(100) );
+            //Creamos variable de comision y se la añadimos
+            BigDecimal commissionRate = BigDecimal.valueOf(1.07);
+            price = price.multiply(commissionRate);
+            System.out.println("shipment " + shipment);
+            //Corroboramos si el chechout incluye o no un Shipment, y si es true le añadimos 3 euros
+            if(shipment){
+               price = price.add(new BigDecimal(300));
+            }
+            System.out.println(price);
 
 
 
             //System.out.println(toyData.get( ToyDao.ATTR_PHOTO ) );  //Demasiado grande para pasar como argumento
             System.out.println("TOYURL: " + toyUrl);
 
+            System.out.println("TOYIMAGE: "+ baseUrl+"/restapi/get-image?toyId="+toyid );
 //
 //        System.out.println( "ENTITY RESULT TOY: " + toy);
 
@@ -130,7 +143,7 @@ public class PaymentService implements IPaymentService {
                                                                                     (String) toyData.get( ToyDao.ATTR_DESCRIPTION )
                                                                             )
                                                                             .addImage(
-                                                                                    "https://st4.depositphotos.com/2495409/19919/i/450/depositphotos_199193024-stock-photo-new-product-concept-illustration-isolated.jpg"
+                                                                                    baseUrl+"restapi/get-image?toyId="+toyid
                                                                             )
                                                                             .build()
                                                             )
@@ -184,6 +197,7 @@ public class PaymentService implements IPaymentService {
                 Long itemPrice = lineItem.getAmountTotal();
                 Number itemQty = lineItem.getQuantity();
                 String currency= lineItem.getCurrency();
+
 
                 itemDetails.put("id", itemId);
                 itemDetails.put("name", itemName);

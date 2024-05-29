@@ -10,11 +10,13 @@ import { DialogService, OButtonComponent, ODialogConfig, OFormComponent, Ontimiz
   styleUrls: ['./stripe.component.scss']
 })
 export class StripeComponent implements OnInit, OnDestroy {
+  [x: string]: any;
 
   // ====================== Variables ======================  
   public loading: boolean = false;
   public isCheckingOut: boolean = false;
   private baseUrl: string;
+  private checkoutElement: HTMLElement;
 
   // ====================== Stripe Variables ======================
   private checkout: StripeEmbeddedCheckout;
@@ -55,7 +57,8 @@ export class StripeComponent implements OnInit, OnDestroy {
 
   //====================== STRIPE CHECKOUT JS =======================
 
-  ckeckout(): void {
+  checkoutStripe(shipment: boolean): void {
+    console.log('shipment status', shipment);
     this.baseUrl = window.location.origin;
     if( this.baseUrl.includes('localhost') ) {
       this.baseUrl = 'http://localhost:8080';
@@ -66,10 +69,12 @@ export class StripeComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     let data = {
+      'shipping': shipment,
       'toyid': this.toyId,
       'toyUrl': this.baseUrl + '/main/toys/toysDetail/' + this.toyId
     }
 
+    console.log("CheckoutElement:", this.checkoutElement);
     console.log("data:", data);
 
     this.ontimizeService.doRequest({
@@ -95,7 +100,9 @@ export class StripeComponent implements OnInit, OnDestroy {
           clientSecret: sesiondata.client_secret
         }).then((checkout: StripeEmbeddedCheckout) => {
           this.checkout = checkout;
-          this.checkout.mount('#checkout');
+          this.checkout.mount(
+            '#checkout'
+          );
           this.loading = false;
         }).catch((err) => {
           console.log(err);

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { AuthService, OTableBase, OTableColumnComponent, OTextInputComponent, OntimizeService } from 'ontimize-web-ngx';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
@@ -28,7 +29,7 @@ export class UserProfileToylistComponent {
   private redirect = '/toys';
 
   constructor(
-    private authService: AuthService,
+    private jukidsAuthService: JukidsAuthService,
     private router: Router,
     private oServiceShipment: OntimizeService,
     public userInfoService: UserInfoService) {
@@ -37,16 +38,10 @@ export class UserProfileToylistComponent {
     this.oServiceShipment.configureService(conf2);
 
     this.userInfo = this.userInfoService.getUserInfo();
-    if (!this.authService.isLoggedIn()) {
+    if (!this.jukidsAuthService.isLoggedIn()) {
       const self = this;
       self.router.navigate([this.redirect]);
     }
-
-  }
-
-  public openToyEdit(e: any): void {
-    console.log(e.toyid);
-    this.router.navigate(["/main/user-profile/edit-toy", e.toyid]);
   }
 
   public sendSubmit(e) {

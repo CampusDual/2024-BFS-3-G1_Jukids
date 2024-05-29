@@ -35,14 +35,6 @@
             <o-text-input #orderId attr="order_id" sql-type="INTEGER" read-only="no" oHidden></o-text-input>
             <o-text-input id="price" #price attr="price" read-only="no" sql-type="DOUBLE" oHidden></o-text-input>
           </div>
-          <!--<div class="divLabel">
-            <o-text-input attr="name" label="{{'full_name' | oTranslate}}" fxFlex="100" read-only="no" required="yes"
-              max-length="150"></o-text-input>
-          </div>
-          <div class="divLabel">
-            <o-text-input attr="email_buyer" label="{{'usr_email' | oTranslate}}" fxFlex="100" read-only="no" required="yes"
-              max-length="150"></o-text-input>
-          </div>-->
           <div class="divLabel">
             <o-text-input #shippingAddress attr="shipping_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
               read-only="no" required="yes" max-length="150"></o-text-input>
@@ -71,7 +63,7 @@
         </o-column>
       </o-form>
 
-      <div #buyInfo class="cadInfo">
+      <div #buyInfo class="cardInfo">
         <div class="divDetail">
           <div class="containerPrice">
             <o-row *ngIf="!this.issetSend || !shippingInput.getValue();else sendPrice"
@@ -93,7 +85,7 @@
                 {{'WARRANTY_PRICE' | oTranslate}}:
                 <mat-icon class="info-icon icono" matTooltip="  {{'TOOLTIP_INFO' | oTranslate}}"
                   class="tooltip-icon">info</mat-icon>
-                   
+
               </span>
               <span> {{this.warrantyPrice}} €</span>
             </div>
