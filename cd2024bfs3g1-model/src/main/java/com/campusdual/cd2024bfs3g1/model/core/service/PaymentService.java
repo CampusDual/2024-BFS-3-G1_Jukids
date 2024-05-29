@@ -123,6 +123,7 @@ public class PaymentService implements IPaymentService {
             //System.out.println(toyData.get( ToyDao.ATTR_PHOTO ) );  //Demasiado grande para pasar como argumento
             System.out.println("TOYURL: " + toyUrl);
 
+            System.out.println("TOYIMAGE: "+ baseUrl+"/restapi/get-image?toyId="+toyid );
 //
 //        System.out.println( "ENTITY RESULT TOY: " + toy);
 
@@ -142,7 +143,7 @@ public class PaymentService implements IPaymentService {
                                                                                     (String) toyData.get( ToyDao.ATTR_DESCRIPTION )
                                                                             )
                                                                             .addImage(
-                                                                                    "https://st4.depositphotos.com/2495409/19919/i/450/depositphotos_199193024-stock-photo-new-product-concept-illustration-isolated.jpg"
+                                                                                    baseUrl+"restapi/get-image?toyId="+toyid
                                                                             )
                                                                             .build()
                                                             )
