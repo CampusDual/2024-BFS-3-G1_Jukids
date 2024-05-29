@@ -12,4 +12,23 @@
         <Column>toyid</Column>
     </UpdateKeys>
     <GeneratedKey>toyid</GeneratedKey>
+
+    <Queries>
+        <Query id="getNearbyToys">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="toyid" prefix="t"/>
+            </AmbiguousColumns>
+
+            <Sentence>
+                <![CDATA[
+                     SELECT
+                        #COLUMNS#
+                     FROM
+                        toys t
+                        JOIN v_toy_distances vt ON t.toyid = vt.toyid
+                     #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
 </JdbcEntitySetup>
