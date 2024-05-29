@@ -56,6 +56,40 @@ public class ShipmentService implements IShipmentService {
         return this.daoHelper.query(this.shipmentDao, shipmentData, attrList);
     }
 
+    //Muestra juguetes del estado 1 al comprador
+    @Override
+    public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        if (email != null) {
+            HashMap<String, Object> keysValues = new HashMap<>();
+            keysValues.put(UserDao.LOGIN, email);
+            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+
+            if (userData.isWrong()) {
+                return userData;
+            }
+
+            if (userData.isEmpty()) {
+
+                return createError("No se encuentra el usuario: " + email);
+            }
+
+            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+            keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
+            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PENDING_SHIPMENT);
+
+            return this.daoHelper.query(this.shipmentDao, keyMap, attrList, "shipmentJoin");
+
+        }else{
+
+            return createError("No estas logueado");
+        }
+    }
+
     //Muestra juguetes del estado 2
     @Override
     public EntityResult pendingReceiveQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
