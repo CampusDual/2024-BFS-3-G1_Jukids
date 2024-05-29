@@ -73,7 +73,8 @@
             }
 
             .titleName {
-                font-size: 15px;                        
+                font-size: 15px;    
+                font-weight: bold;                    
                 padding-right: 0.5em;
                 margin-top: 10px;
                 text-transform: capitalize;
@@ -86,6 +87,8 @@
 
                 .containerPrice {
                     display: flex;
+                    padding: 16px;
+                    flex-direction: column;
                     justify-content: space-between;
 
                     @media screen and (max-width: 900px) {

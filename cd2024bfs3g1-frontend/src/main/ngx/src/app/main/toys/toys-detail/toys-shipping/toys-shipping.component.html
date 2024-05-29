@@ -72,8 +72,8 @@
               <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.commissionPrice +
                 this.priceSend
               }} <span class="currency"> €</span></o-row></ng-template>
-          </div>
           <div class="titleName"><span class="toy-title">{{nameInput.getValue()}}</span></div>
+        </div>
           <div class="priceInfo">
             <div>
               <span>{{'PRODUCT_PRICE' | oTranslate}}:</span>
@@ -112,7 +112,7 @@
             <p>Por favor introduzca un email para recibir los términos de la garantía: </p>
             <o-text-input #buyerEmail attr="buyer_email" label="{{'email' | oTranslate}}" fxFlex="100"
               read-only="no" required="yes" max-length="150"></o-text-input>         
-            <button #payButton class="btn-checkout" (click)="paySubmit()">{{'COMFIRM' | oTranslate }}</button>
+            <button #payButton class="btn-checkout" (click)="paySubmit()">{{'CONFIRM' | oTranslate }}</button>
           </o-form>
         </div>
 
