@@ -70,7 +70,7 @@
   "usr_password": "Contraseña",
   "usr_phone": "Teléfono",
   "usr_surname": "Apellidos",
-  "usr_address": "Dirrección",
+  "usr_address": "Dirección",
   "company": "Compañía",
   "VALIDATION_MATCHPASSWORD": "Las contraseñas no coinciden.",
   "VALIDATOR.HASCAPITALCASE": "Debe tener al menos 1 mayúscula",
@@ -132,7 +132,6 @@
   "PURCHASED_TOYS": "Mis compras",
   "transaction_status": "Estado",
   "TITLE_FORM_SHIPMENTS": "Solo necesitamos un par de datos",
-
   "PRODUCT_PRICE": "Precio del producto",
   "COMMISSION_PRICE": "Comisión por gestiones",
   "SEND_PRICE":"Gastos de envio",
@@ -140,7 +139,7 @@
   "WARRANTY": "Garantía de producto",
   "SECURE_PAYMENT": "Pago seguro",
   "PAY": "Pagar",
-  "ACCEPT_AND_PAY": "Acceptar envio y pagar",
+  "ACCEPT_AND_PAY": "Aceptar envio y pagar",
   "BUY": "Comprar",
   "BUY_AND_SEND": "Comprar y enviar",
   "PENDING_ARRIVAL_TOY" : "Pendientes de llegada",
@@ -152,5 +151,10 @@
   "PENDING_SEND_TOY":"Pendiente de envio",
   "PENDING_CONFIRM_TOY":"Pendiente de confirmar envio",
   "SOLD_TOY":"Vendidos",
-  "SENDER_DATA": "Datos del remitente" 
+  "SENDER_DATA": "Datos del remitente",
+  "NOTE_SEND": "Envio solo a la península",
+  "NOTE_EMAIL_WARRANTY": "Por favor introduzca un email para recibir los términos de la garantía",
+  "DATE_BUYER": "Datos del comprador",
+  "NOTE_SENDER_ADDRESS":"Por favor introduzca una dirección de recogida",
+  "NOTE_NO_SENDER_ADDRESS": "Si lo prefiere lleve el paquete a la oficina en un plazo inferior a de 5 días laborable"
 }

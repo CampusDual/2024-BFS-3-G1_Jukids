@@ -1,5 +1,5 @@
 <mat-tab-group fxFill>
-  
+
   <mat-tab label="{{ 'SALE_TOY' | oTranslate }}">
     <o-table #tableSale fxFlex attr="tableSale" service="toyowner" entity="saleToy" keys="toyid"
       title="{{ 'SALE_TOY' | oTranslate }}" columns="toyid;photo;name;price" visible-columns="photo;name;price"
@@ -20,14 +20,13 @@
 
   <mat-tab label="{{ 'PENDING_SEND_TOY' | oTranslate }}">
     <o-table #tableSend fxFlex attr="tableSend" service="toyowner" entity="pendingSend" keys="toyid"
-      title="{{ 'PENDING_SEND_TOY' | oTranslate }}" columns="toyid;photo;name;price" visible-columns="photo;name;price"
+      title="{{ 'PENDING_SEND_TOY' | oTranslate }}" columns="toyid;photo;name;price;shipping_address;shipment_company" visible-columns="photo;name;price"
       show-title="true" pagination-controls="no" show-filter-option="no" quick-filter="false" insert-button="false"
       export-button="false" delete-button="false" edit-button="false" refresh-button="false" horizontal-scroll="true"
       virtual-scroll="no" auto-adjust="true" class="table" detail-mode="none">
 
       <o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"
         oHidden></o-table-column>
-
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
@@ -37,23 +36,22 @@
       <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px" max-width="300px"
         type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
         currency-symbol-position="right" tooltip="yes"></o-table-column>
-      <!--<o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}"
-        width="64px">
-        <o-table-cell-renderer-action attr="edit" class="action" (onClick)="checkReceive($event)"
-          text="{{ 'RECEIVED' | oTranslate }}"></o-table-cell-renderer-action>
-      </o-table-column>-->
-
-      <o-table-row-expandable class="rowExpandable">
+      <o-table-row-expandable class="rowExpandable" icon-collapse="expand_more" icon-expand="chevron_right">
         <ng-template let-row>
-
           <o-column title="{{ 'SENDER_DATA' | oTranslate }}" icon="info" class="vertical-margin-10" layout-gap="12px">
-            <div fxLayout="wrap">
+            <div fxLayout="row wrap">
+              <div class="dataBuyer">
+                <p>{{'DATE_BUYER' | oTranslate}}: </p>
+                <div style="gap:25px">
+                  <span fxFlex="50%"><strong>{{'usr_address' | oTranslate}}</strong>: {{row.shipping_address}}</span>
+                  <span fxFlex="50%"><strong>{{'company' | oTranslate}}</strong>: {{row.shipment_company}}</span>
+                </div>
+              </div>
               <o-form show-header-navigation="no" show-header="no">
-                <p>Por favor introduzca una dirección de recogida: </p>
-
+                <p>{{'NOTE_SENDER_ADDRESS' | oTranslate}}: </p>
                 <o-text-input #senderAddress attr="sender_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
                   read-only="no" required="yes" max-length="150"></o-text-input>
-                <div>*Si lo prefiere lleve el paquete a la oficina en un plazo inferior a de 5 días laborables</div>
+                <div>*{{'NOTE_NO_SENDER_ADDRESS' | oTranslate}}</div>
                 <button #buttonSend class="button buttonLightBackground" (click)="sendSubmit(row.toyid)">{{'COMFIRM' |
                   oTranslate}}</button>
               </o-form>
@@ -70,7 +68,8 @@
       title="{{ 'PENDING_CONFIRM_TOY' | oTranslate }}" columns="toyid;photo;name;price"
       visible-columns="photo;name;price" show-title="true" pagination-controls="no" show-filter-option="no"
       quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
-      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table" detail-mode="none">
+      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table"
+      detail-mode="none">
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
