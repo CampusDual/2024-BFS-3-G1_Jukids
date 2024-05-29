@@ -1,3 +1,8 @@
+<button class="backBtn" mat-flat-button [routerLink]="['/']">
+  <mat-icon>arrow_back_ios_new</mat-icon>
+  {{'BACKBTN' | oTranslate}}
+</button>
+
 <div class="box">
   <o-form class="formToy " attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
     detail-form-route="toysBuy" show-header="no" layout-direction="column" (onDataLoaded)="setData()">
