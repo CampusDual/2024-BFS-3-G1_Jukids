@@ -1,6 +1,5 @@
 package com.campusdual.cd2024bfs3g1.model.core.service;
 
-
 import com.campusdual.cd2024bfs3g1.api.core.service.IShipmentService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ShipmentDao;
