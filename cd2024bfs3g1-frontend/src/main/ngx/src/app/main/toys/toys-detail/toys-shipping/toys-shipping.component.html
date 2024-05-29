@@ -29,14 +29,6 @@
             <o-text-input id="price" #price attr="price" read-only="no" sql-type="DOUBLE"
               oHidden></o-text-input>
           </div>
-          <!--<div class="divLabel">
-            <o-text-input attr="name" label="{{'full_name' | oTranslate}}" fxFlex="100" read-only="no" required="yes"
-              max-length="150"></o-text-input>
-          </div>
-          <div class="divLabel">
-            <o-text-input attr="email_buyer" label="{{'usr_email' | oTranslate}}" fxFlex="100" read-only="no" required="yes"
-              max-length="150"></o-text-input>
-          </div>-->
           <div class="divLabel">
             <o-text-input #shippingAddress attr="shipping_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
               read-only="no" required="yes" max-length="150"></o-text-input>
@@ -64,44 +56,44 @@
         </o-column>
       </o-form>
 
-      <div #buyInfo class="cadInfo">
+      <div #buyInfo class="cardInfo">
         <div class="divDetail">
           <div class="containerPrice">
-            <o-row class="titleName"><span class="toy-title">{{nameInput.getValue()}}</span></o-row>
+            <o-row class="titleName">{{nameInput.getValue()}}</o-row>
             <o-row *ngIf="!this.issetSend;else sendPrice" class="price">{{(priceInput.getValue()*1) +
               this.warrantyPrice }}
-              <span class="currency">€</span></o-row>
+              </o-row><p class="price-currency">€</p>
             <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.warrantyPrice +
                 this.priceSend
-                }} <span class="currency"> €</span></o-row></ng-template>
+                }}</o-row></ng-template>
           </div>
           <div class="priceInfo">
-            <div>
+            <div class="divInfo">
               <span>{{'PRODUCT_PRICE' | oTranslate}}:</span>
               <span>{{priceInput.getValue()}} €</span>
             </div>
             <div class="divInfo">
-              <mat-icon class="information" matTooltip="  {{'TOOLTIP_INFO' | oTranslate}}" class="tooltip-icon">info</mat-icon>
+              <mat-icon class="info-icon" matTooltip="  {{'TOOLTIP_INFO' | oTranslate}}" class="tooltip-icon">info</mat-icon>
               <span>{{'WARRANTY_PRICE' | oTranslate}}:</span>
               <span> {{this.warrantyPrice}} €</span>
             </div>
-            <div *ngIf="issetSend">
+            <div *ngIf="issetSend" class="divInfo">
               <span>{{'SEND_PRICE' | oTranslate}}:</span>
               <span> {{ this.priceSend }} €</span>
             </div>
           </div>
           <div class="doneInfo">
-            <p>
+            <p class="done-p">
               <mat-icon class="mat-icon-done">done</mat-icon>
-              <span>{{'RECEIVE_HOME' | oTranslate}}</span>
+              <span class="done-span">{{'RECEIVE_HOME' | oTranslate}}</span>
             </p>
-            <p>
+            <p class="done-p">
               <mat-icon class="mat-icon-done">done</mat-icon>
-              <span>{{'WARRANTY' | oTranslate}}</span>
+              <span class="done-span">{{'WARRANTY' | oTranslate}}</span>
             </p>
-            <p>
+            <p class="done-p">
               <mat-icon class="mat-icon-done">done</mat-icon>
-              <span>{{'SECURE_PAYMENT' | oTranslate}}</span>
+              <span class="done-span">{{'SECURE_PAYMENT' | oTranslate}}</span>
             </p>
         </div>
         <button #buyButton class="btn-checkout hidden" (click)="checkout()">

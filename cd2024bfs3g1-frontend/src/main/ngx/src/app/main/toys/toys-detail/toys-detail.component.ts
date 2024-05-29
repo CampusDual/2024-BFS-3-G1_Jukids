@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { OEmailInputComponent, OTextInputComponent } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';

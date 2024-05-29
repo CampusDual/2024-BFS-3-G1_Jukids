@@ -10,6 +10,7 @@ import { DialogService, OButtonComponent, ODialogConfig, OFormComponent, Ontimiz
   styleUrls: ['./stripe.component.scss']
 })
 export class StripeComponent implements OnInit, OnDestroy {
+  [x: string]: any;
 
   // ====================== Variables ======================  
   public loading: boolean = false;

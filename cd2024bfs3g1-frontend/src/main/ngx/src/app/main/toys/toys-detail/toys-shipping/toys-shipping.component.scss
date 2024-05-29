@@ -20,10 +20,6 @@
     align-items: center;
     margin: auto;
     padding: 0.75em;
-    // background-color: white;
-    // border: 1px solid #ddd;
-    // border-radius: 1em;
-    // box-shadow: 5px 5px 0px #ff52497c;
     transition: box-shadow 0.3s;
     width: 80%;
     max-width: 1000px;
@@ -47,7 +43,10 @@
 
     .card {
         display: flex;
-        justify-content: center;        
+        flex-direction: row;
+        justify-content: center;   
+        align-items: center;
+        text-align: center;     
         gap: 24px;
         margin-top: 1.75rem;
 
@@ -56,13 +55,14 @@
         }
 
 
-        .cadInfo {
+        .cardInfo {
             display: flex;
             flex-direction:column;
-            justify-content: center;
-            align-items: center;            
+            justify-content: left;
+            align-items: left;
+            text-align: left;            
             background-color: gainsboro;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 1em;
             min-height: 425px;
             max-width: 47%;
@@ -75,17 +75,28 @@
             .divDetail {
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
+                justify-content: left;
+                align-items: left;
+                text-align: left;
                 width: 100%;
+                padding: 0.5rem;
                 margin: 2.5rem 0.75rem 0 0.75rem;
 
                 .containerPrice {
                     display: flex;
+                    flex-direction: row;
                     justify-content: center;
                     align-items: center;
                     text-align: center;
+
+                    .price-currency{
+                        font-size: 30px;
+                        font-weight: bold;
+                        padding: 0.3rem;
+                        display: flex;
+                        text-align: center;
+                        align-self: center;
+                    }
 
                     @media screen and (max-width: 900px) {
                         width: 100%;
@@ -96,6 +107,7 @@
                     .titleName {
                         font-size: 35px;                        
                         padding-right: 0.5em;
+                        padding-bottom: 0.32rem;
                         text-transform: capitalize;
                         background-color: transparent;
                     }
@@ -116,34 +128,37 @@
                 .priceInfo {
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 16px;
-                    .divInfo{
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    }
-
-                    div {
-                        display: flex;
-                        justify-content: center;
-                        padding: 0.2rem;
-
-                    }                
+                    justify-content: left;
+                    align-items: left;
+                    text-align: left;
+                    padding: 2rem;
                 }
 
                 .doneInfo{
-                    display:flex;
+                    display: flex;
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    p{
+                    text-align: left;
+                    margin-left: 35%;
+                    margin-right: 20%;
+
+                    .done-p{
+                        display: flex;
+                        justify-content:left;
+                        align-items: left;
+                        text-align: center;
                         margin: 0;
-                        padding: 0.2rem;
+                        padding: 0.3rem;
                     }
-                        span{
-                            margin-left: 0.5rem;
+                    .done-span{
+                        display: flex;
+                        text-align: left;
+                        width: 13rem;
+                        margin: 0;
+                    }
+                        .mat-icon-done{
+                            margin-left: 0;
                         }
                 }
 
@@ -171,6 +186,15 @@
             }
         }
 
+    }
+
+    div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0.2rem;
     }
 
     .btn-checkout {
@@ -217,7 +241,7 @@
       }
       
       .tooltip-icon {
-        
+        margin-top: 5px;
         color: black;
         font-size: 17px;
         vertical-align: middle;

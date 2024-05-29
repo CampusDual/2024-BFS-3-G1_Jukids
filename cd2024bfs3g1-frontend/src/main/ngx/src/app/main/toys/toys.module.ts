@@ -15,9 +15,8 @@ import { ToysShippingComponent } from './toys-detail/toys-shipping/toys-shipping
     ToysNewComponent,
     // LocationMapComponent,
     ToysDetailComponent,
-    ToysShippingComponent
+    ToysShippingComponent,
     ToysDetailComponent,
-
   ],
   imports: [
     CommonModule,
