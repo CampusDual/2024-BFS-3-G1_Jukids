@@ -67,14 +67,14 @@
       <div #buyInfo class="cadInfo">
         <div class="divDetail">
           <div class="containerPrice">
-            <o-row class="titleName"><span class="toy-title">{{nameInput.getValue()}}</span></o-row>
             <o-row *ngIf="!this.issetSend;else sendPrice" class="price">{{(priceInput.getValue()*1) +
               this.commissionPrice }}
               <span class="currency"> €</span></o-row>
-            <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.commissionPrice +
+              <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.commissionPrice +
                 this.priceSend
-                }} <span class="currency"> €</span></o-row></ng-template>
+              }} <span class="currency"> €</span></o-row></ng-template>
           </div>
+          <div class="titleName"><span class="toy-title">{{nameInput.getValue()}}</span></div>
           <div class="priceInfo">
             <div>
               <span>{{'PRODUCT_PRICE' | oTranslate}}:</span>
@@ -92,15 +92,15 @@
           <div class="doneInfo">
             <div *ngIf="issetSend">
               <mat-icon class="mat-icon-done">done</mat-icon>
-              <span>{{'RECEIVE_HOME' | oTranslate}}</span>
+              <span style="align-self: center;">{{'RECEIVE_HOME' | oTranslate}}</span>
             </div>
             <div>
               <mat-icon class="mat-icon-done">done</mat-icon>
-              <span>{{'WARRANTY' | oTranslate}}</span>
+              <span style="align-self: center;">{{'WARRANTY' | oTranslate}}</span>
             </div>
             <div>
               <mat-icon class="mat-icon-done">done</mat-icon>
-              <span>{{'SECURE_PAYMENT' | oTranslate}}</span>
+              <span style="align-self: center;">{{'SECURE_PAYMENT' | oTranslate}}</span>
             </div>
           </div>
         </div>
