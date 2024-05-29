@@ -24,7 +24,7 @@
     </mat-radio-group>
 
 
-    <div class="card">
+    <div class="cardShipments">
 
       <o-form id="formShipments" class="formShipments" #formShipments service="orders" entity="orderAndShipment"
         keys="shipment_id" show-header-navigation="no" show-header="no" layout-direction="column" header-actions="I"
@@ -56,7 +56,7 @@
 
           <ng-template #encourageRegister>
             <o-row layout-align="start" layout-margin-top>
-              <button #buttonAcceptPay class="btn-checkout colorOrange" (click)="newSubmit()">{{'ACCEPT_AND_PAY' |
+              <button #buttonAcceptPay class="button btn-solid" (click)="newSubmit()">{{'ACCEPT_AND_PAY' |
                 oTranslate}}</button>
             </o-row>
           </ng-template>
@@ -109,7 +109,7 @@
             </div>
           </div>
         </div>
-        <button #buyButton class="btn-checkout hidden" (click)="newBuy()">
+        <button #buyButton class="button btn-checkout hidden" (click)="newBuy()">
           <span>{{'PAY' | oTranslate}}</span>
         </button>
 
@@ -118,7 +118,7 @@
             <p>{{'NOTE_EMAIL_WARRANTY' | oTranslate}}: </p>
             <o-text-input #buyerEmail attr="buyer_email" label="{{'email' | oTranslate}}" fxFlex="100" read-only="no"
               required="yes" max-length="150"></o-text-input>
-            <button #payButton class="btn-checkout" (click)="paySubmit()">{{'CONFIRM' | oTranslate }}</button>
+            <button #payButton class="button btn-checkout" (click)="paySubmit()">{{'CONFIRM' | oTranslate }}</button>
           </o-form>
         </div>
 

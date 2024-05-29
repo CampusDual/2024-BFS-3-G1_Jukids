@@ -108,7 +108,7 @@
                  }
             }
             .mail-to-seller {
-                color: #000000;
+                color: #ff5349;
                 font-size: small;
                 text-decoration: none;
             }
@@ -234,20 +234,11 @@
     font-weight: bold;
 }
 
-.jk-light-btn {
-    width: 100%;
-    font-size: 20px;
+.transparent{
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
     border: none;
-    text-transform: uppercase;
-    padding: 10px 10px 10px 10px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    /* Safari */
-    transition-duration: 0.2s;
-    &:hover {
-        color: #000000d8;
-        background-color:#ffcc995b;
-    }
 }
 
 

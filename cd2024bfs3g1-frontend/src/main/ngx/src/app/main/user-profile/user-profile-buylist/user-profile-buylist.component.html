@@ -51,8 +51,7 @@
       <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
         max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
         currency-symbol-position="right" tooltip="yes"></o-table-column>
-      <o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}"
-        width="64px">
+      <o-table-column class="button btn-solid" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}">
         <o-table-cell-renderer-action attr="edit" class="action" (onClick)="checkReceive($event)"
           text="{{ 'RECEIVED' | oTranslate }}"></o-table-cell-renderer-action>
       </o-table-column>
@@ -77,8 +76,7 @@
       <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
         max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
         currency-symbol-position="right" tooltip="yes"></o-table-column>
-      <o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}"
-        width="64px">
+      <o-table-column class="button btn-solid" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}">
         <o-table-cell-renderer-action attr="edit" class="action" (onClick)="checkOk($event)"
           text="{{ 'CONFIRM' | oTranslate }}"></o-table-cell-renderer-action>
       </o-table-column>

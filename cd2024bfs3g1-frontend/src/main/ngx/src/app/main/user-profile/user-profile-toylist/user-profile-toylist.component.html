@@ -64,7 +64,7 @@
               <o-text-input #senderAddress attr="sender_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
                 read-only="no" required="yes" max-length="150"></o-text-input>
               <div>*{{'NOTE_NO_SENDER_ADDRESS' | oTranslate}}</div>
-              <button #buttonSend class="button buttonLightBackground" (click)="sendSubmit(row.toyid)">{{'CONFIRM' |
+              <button #buttonSend class="button btn-outline-light" (click)="sendSubmit(row.toyid)">{{'CONFIRM' |
                 oTranslate}}</button>
             </o-form>
           </o-column>

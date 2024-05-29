@@ -22,10 +22,10 @@
                     <p><a href="/login/new">¡Registrate!</a> Encontrarás más opciones y llegarás a más gente</p>
                 </div></ng-template>
             </div>
-            <div>  
-                <o-combo label="category" id="category" null-selection="no" attr="category" service="categories" entity="category" keys="categoryid"
+            <div fxLayoutGap="8px" class="target">  
+                <o-combo fxFlex.gt-sm="50" label="category" id="category" null-selection="no" attr="category" service="categories" entity="category" keys="categoryid"
                 value-column="codigo" columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" translate="yes" required="yes"></o-combo>
-                <o-combo label="status" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid"
+                <o-combo fxFlex.gt-sm="50" label="status" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid"
                 value-column="code" columns="statusid;name;code" searchable="true" visible-columns="code" translate="yes" required="yes"></o-combo>
             </div>
 
@@ -51,11 +51,11 @@
             </o-real-input>
 
             <o-row layout-align="end center" layout-margin-top>
-                <button class="btn-outline-light" (click)="cancel()">
+                <button class="button btn-outline-light" (click)="cancel()">
                     <mat-icon class="btn-icon">close</mat-icon>
                     <span>cancel</span>
                 </button>
-                <button attr="submit" (click)="newSubmit()" class="btn-outline-light reverse">
+                <button attr="submit" (click)="newSubmit()" class="button btn-outline-light reverse">
                     <mat-icon class="btn-icon">save</mat-icon>
                     <span>ok</span>
                 </button>
