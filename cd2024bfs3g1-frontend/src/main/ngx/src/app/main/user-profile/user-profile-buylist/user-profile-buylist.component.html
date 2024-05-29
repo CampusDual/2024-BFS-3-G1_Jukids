@@ -6,25 +6,15 @@
       show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
       edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
       class="table" detail-mode="none">
-
-      <!--<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>-->
-
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
       </o-table-column>
       <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="tracking_number" title="{{ 'tracking_number' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
-        tooltip="yes"></o-table-column>
       <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
         max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
-        currency-symbol-position="right" tooltip="yes"></o-table-column>
-      <o-table-column class="button buttonLightBackground" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}"
-        width="64px">
-        <o-table-cell-renderer-action attr="edit" class="action" (onClick)="checkReceive($event)"
-          text="{{ 'RECEIVED' | oTranslate }}"></o-table-cell-renderer-action>
-      </o-table-column>
+        currency-symbol-position="right" tooltip="yes"></o-table-column>    
     </o-table>
 
   </mat-tab>
@@ -99,9 +89,6 @@
       <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
         max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
         currency-symbol-position="right" tooltip="yes"></o-table-column>
-      <!-- TODO: Crear formato para la fecha-->
-      <!--<o-table-column attr="order_date" title="{{ 'ORDER_DATA' | oTranslate }}" multiline="no" width="300px"
-        tooltip="yes"></o-table-column>-->
     </o-table>
   </mat-tab>
 
