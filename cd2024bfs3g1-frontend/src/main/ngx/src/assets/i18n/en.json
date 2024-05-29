@@ -158,6 +158,7 @@
   "DATE_BUYER": "Customer's information",
   "NOTE_SENDER_ADDRESS": "Please insert your address",
   "NOTE_NO_SENDER_ADDRESS": "If you prefer, take your package to the office within a period of less than 5 business days",
-  "TRACKING_NUMBER": "Tracking number"
+  "TRACKING_NUMBER": "Tracking number",
+  "ALL_TOYS": "All toys"
 
 }
