@@ -122,10 +122,11 @@
                         padding: .5rem 0;
 
                         .mat-icon {
-                            color: rgba(2, 2, 2, 0.5);
+                            color: rgba(2, 2, 2, 0.55);
                             width: 16px;
                             height: 16px;
-                            font-size: 18px;
+                            font-size: 16px;
+                            transform: scale(1);
                         }
                     }
                 }
