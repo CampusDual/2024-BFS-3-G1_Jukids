@@ -2,10 +2,12 @@
     visibility: hidden;
     display: none;
 }
-.disabled{
+
+.disabled {
     visibility: hidden;
     background-color: gainsboro;
 }
+
 .warning {
     padding: 0.75rem;
     background-color: #FFCC99;
@@ -13,10 +15,12 @@
     margin: 1.25rem 0;
     border-radius: 0.5rem;
 }
-.note{
+
+.note {
     color: rgba(0, 0, 0, 0.65);
     font-size: 16px;
 }
+
 .box {
     display: flex;
     flex-direction: row;
@@ -77,8 +81,8 @@
             }
 
             .titleName {
-                font-size: 15px;    
-                font-weight: bold;                    
+                font-size: 15px;
+                font-weight: bold;
                 padding-right: 0.5em;
                 margin-top: 10px;
                 text-transform: capitalize;
@@ -116,15 +120,24 @@
                         display: flex;
                         justify-content: space-between;
                         padding: .5rem 0;
+
+                        .mat-icon {
+                            color: rgba(2, 2, 2, 0.5);
+                            width: 16px;
+                            height: 16px;
+                            font-size: 18px;
+                        }
                     }
                 }
 
-                .doneInfo{
+                .doneInfo {
                     padding: 2.5rem;
                     padding-bottom: 1rem;
-                    div{
+
+                    div {
                         display: flex;
-                        span{
+
+                        span {
                             margin-left: 0.5rem;
                         }
                     }
@@ -133,7 +146,7 @@
         }
 
         .formShipments {
-            margin-top:1.5rem;
+            margin-top: 1.5rem;
 
             h2 {
                 max-width: 280px;
@@ -146,7 +159,8 @@
                 .divLabel {
                     padding: .2rem 0;
                 }
-                o-row{
+
+                o-row {
                     margin-top: 1.5rem;
                 }
 
@@ -170,7 +184,8 @@
         -webkit-transition-duration: 0.4s;
         /* Safari */
         transition-duration: 0.2s;
-        &.colorOrange{
+
+        &.colorOrange {
             background-color: #FFCC99;
         }
 
@@ -179,18 +194,20 @@
         }
     }
 
-    .currency{
+    .currency {
         margin-left: 7px;
     }
 
-    .toy-title{
+    .toy-title {
 
         @media screen and (min-width: 900px) {
-            margin:0  0 .5rem 0;
+            margin: 0 0 .5rem 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width:200px;
+            max-width: 200px;
         }
     }
+
+
 }

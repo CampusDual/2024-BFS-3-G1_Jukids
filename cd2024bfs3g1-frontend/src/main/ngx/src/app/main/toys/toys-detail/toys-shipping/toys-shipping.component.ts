@@ -12,7 +12,7 @@ export class ToysShippingComponent implements OnInit {
 
   // El 0.1 se refiere al 10% de comisión
   public commission: number = 0.07;
-  public commissionPrice: number;
+  public warrantyPrice: number;
   // Se contenplan 3 euros de gastos de envio
   public priceSend: number = 3.00;
   public issetSend: boolean = true;
@@ -109,7 +109,7 @@ export class ToysShippingComponent implements OnInit {
     this.stripe.product = this.toyName.getValue();
     this.stripe.email = this.toyEmail.getValue();
     //setCalculatePrice
-    this.commissionPrice = (Number)((this.priceToy.getValue() * this.commission).toFixed(2));
+    this.warrantyPrice = (Number)((this.priceToy.getValue() * this.commission).toFixed(2));
     //setOrder_id
     this.order_id.setValue(this.toyId.getValue());
     //setPriceSend

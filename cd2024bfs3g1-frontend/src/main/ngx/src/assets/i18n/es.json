@@ -133,7 +133,7 @@
   "transaction_status": "Estado",
   "TITLE_FORM_SHIPMENTS": "Solo necesitamos un par de datos",
   "PRODUCT_PRICE": "Precio del producto",
-  "COMMISSION_PRICE": "Comisión por gestiones",
+  "WARRANTY_PRICE": "Garantía Jukids",
   "SEND_PRICE":"Gastos de envío",
   "RECEIVE_HOME": "Recíbelo en casa",
   "WARRANTY": "Garantía de producto",
@@ -156,6 +156,7 @@
   "NOTE_EMAIL_WARRANTY": "Por favor introduzca un email para recibir los términos de la garantía",
   "DATE_BUYER": "Datos del comprador",
   "NOTE_SENDER_ADDRESS":"Por favor introduzca una dirección de recogida",
-  "NOTE_NO_SENDER_ADDRESS": "Si lo prefiere lleve el paquete a la oficina en un plazo inferior a de 5 días laborable",
-  "TRACKING_NUMBER": "Número de seguimiento"
+  "NOTE_NO_SENDER_ADDRESS": "Si lo prefiere lleve el paquete a la oficina en un plazo inferior a de 5 días laborables",
+  "TRACKING_NUMBER": "Número de seguimiento",
+  "TOOLTIP_INFO": "Información de la garantía: Asegura la calidad de tu producto | Pago seguro | Reembolso en caso de conflicto"
 }
