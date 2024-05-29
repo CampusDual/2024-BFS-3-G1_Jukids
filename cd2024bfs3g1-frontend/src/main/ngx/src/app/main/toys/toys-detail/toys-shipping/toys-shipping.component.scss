@@ -72,6 +72,14 @@
                 padding: 0.75rem;
             }
 
+            .titleName {
+                font-size: 15px;                        
+                padding-right: 0.5em;
+                margin-top: 10px;
+                text-transform: capitalize;
+                background-color: transparent;
+            }
+
             .divDetail {
                 width: 100%;
                 margin: 2.5rem 0.75rem 0 0.75rem;
@@ -85,18 +93,10 @@
                         padding: 0.75rem 0;
                     }
 
-
-                    .titleName {
-                        font-size: 35px;                        
-                        padding-right: 0.5em;
-                        text-transform: capitalize;
-                        background-color: transparent;
-                    }
-
                     .price {
                         font-weight: bold;
                         display: flex;
-                        font-size: 30px;
+                        font-size: 25px;
                         text-align: end;
                         background-color: transparent;
                     }
@@ -115,18 +115,13 @@
                 .doneInfo{
                     padding: 2.5rem;
                     padding-bottom: 1rem;
-
                     div{
                         display: flex;
-
                         span{
                             margin-left: 0.5rem;
                         }
                     }
-
-                    
                 }
-
             }
         }
 

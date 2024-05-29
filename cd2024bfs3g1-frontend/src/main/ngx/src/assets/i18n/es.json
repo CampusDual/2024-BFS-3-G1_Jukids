@@ -70,7 +70,7 @@
   "usr_password": "Contraseña",
   "usr_phone": "Teléfono",
   "usr_surname": "Apellidos",
-  "usr_address": "Dirrección",
+  "usr_address": "Dirección",
   "company": "Compañía",
   "VALIDATION_MATCHPASSWORD": "Las contraseñas no coinciden.",
   "VALIDATOR.HASCAPITALCASE": "Debe tener al menos 1 mayúscula",
