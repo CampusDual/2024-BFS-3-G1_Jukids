@@ -166,7 +166,7 @@
   "priceCode_10": "10€ or less",
   "priceCode_20": "20€ or less",
   "priceCode_50": "50€ or less",
-  "priceCode_1000000": "No price limit",
+  "priceCode_1000000": "  ",
   "SHIPPING": "Shipping available",
   "PURCHASED_TOYS": "My purchases",
   "transaction_status": "Status",
