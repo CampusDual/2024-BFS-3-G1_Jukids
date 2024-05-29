@@ -2,7 +2,6 @@ package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.ShipmentDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -105,7 +104,7 @@ public class ToyService implements IToyService {
             return createError("Error al crear la orden");
         }
 
-        //Actualizamos TOYS - TRANSACTION_STATUS (0 -> 1)
+        //Actualizamos TOYS - TRANSACTION_STATUS (0 -> 4)
 
         Map<String,Object> updateStatus = new HashMap<>();
         updateStatus.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PURCHASED);

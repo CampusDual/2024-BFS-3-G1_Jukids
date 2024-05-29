@@ -122,7 +122,7 @@ export class ToysShippingComponent implements OnInit {
       this.buyButton.nativeElement.classList.add("hidden")
       this.emailForm.nativeElement.classList.remove("hidden")
     } else {
-      //TODO: error: Cambiar servicio y/o entidad 
+      //TODO: error: Cambiar servicio y/o entidad
       const av = { "toyid": this.toyId.getValue() }
       this.oServiceToy.insert(av, "order").subscribe(result => {
       })

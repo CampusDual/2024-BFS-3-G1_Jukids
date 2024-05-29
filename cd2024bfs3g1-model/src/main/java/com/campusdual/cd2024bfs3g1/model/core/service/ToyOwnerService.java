@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyOwnerService;
+import com.campusdual.cd2024bfs3g1.model.core.dao.ShipmentDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -22,6 +23,8 @@ public class ToyOwnerService implements IToyOwnerService {
     private ToyDao toyDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private ShipmentDao shipmentDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
@@ -117,7 +120,7 @@ public class ToyOwnerService implements IToyOwnerService {
             keyMap.put(UserDao.USR_ID, idUser);
             keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PENDING_SHIPMENT);
 
-            return this.daoHelper.query(this.toyDao, keyMap, attrList);
+            return this.daoHelper.query(this.toyDao, keyMap, attrList, "toyJoin");
 
         }else{
 
