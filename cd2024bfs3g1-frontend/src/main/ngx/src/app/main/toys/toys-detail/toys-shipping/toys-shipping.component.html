@@ -116,8 +116,8 @@
         <div #emailForm class="hidden">
           <o-form show-header-navigation="no" show-header="no" service="toys" entity="order">
             <p>{{'NOTE_EMAIL_WARRANTY' | oTranslate}}: </p>
-            <o-text-input #buyerEmail attr="buyer_email" label="{{'email' | oTranslate}}" fxFlex="100" read-only="no"
-              required="yes" max-length="150"></o-text-input>
+            <o-email-input #buyerEmail attr="buyer_email" label="{{'email' | oTranslate}}" fxFlex="100" read-only="no"
+              required="yes" max-length="150"></o-email-input>
             <button #payButton class="button btn-checkout" (click)="paySubmit()">{{'CONFIRM' | oTranslate }}</button>
           </o-form>
         </div>
