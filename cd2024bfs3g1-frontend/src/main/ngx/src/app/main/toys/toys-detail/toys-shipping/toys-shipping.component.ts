@@ -37,6 +37,7 @@ export class ToysShippingComponent implements OnInit {
   private form: Element;
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('nameInput') toyName: OTextInputComponent;
+  @ViewChild('shippingInput') shippingInput: OTextInputComponent;
   @ViewChild('emailInput') toyEmail: OEmailInputComponent;
   @ViewChild('priceInput') priceToy: OCurrencyInputComponent;
   @ViewChild('formShipments') formShipments: OFormComponent;
@@ -72,11 +73,9 @@ export class ToysShippingComponent implements OnInit {
   ngOnInit() {
     this.form = document.getElementById("formShipments");
 
-    const conf = this.oServiceToy.getDefaultServiceConfiguration('toys');
-    this.oServiceToy.configureService(conf);
-
     const conf2 = this.oServiceOrder.getDefaultServiceConfiguration('orders');
     this.oServiceOrder.configureService(conf2);
+
   }
 
   showFormShipments() {
@@ -93,6 +92,7 @@ export class ToysShippingComponent implements OnInit {
       this.form.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
+      this.buyButton.nativeElement.classList.add("hidden")
     }
 
   }
@@ -102,6 +102,7 @@ export class ToysShippingComponent implements OnInit {
     console.log("name:", this.toyName.getValue());
     console.log("Email:", this.toyEmail.getValue());
     console.log("price:", this.priceToy.getValue());
+    console.log("shippingInput:", this.shippingInput.getValue());
 
     // setStripe
     this.stripe.toyId = this.toyId.getValue();
@@ -115,10 +116,25 @@ export class ToysShippingComponent implements OnInit {
     this.price.setValue(this.priceSend);
 
     //Formulario de envio desabilitado
+    if (!this.shippingInput.getValue()) {
+      console.log("no envio")
+      this.issetSend = false;
+      this.form.classList.add("hidden")
+      this.buyButton.nativeElement.classList.remove("hidden")
+      this.buyInfo.nativeElement.classList.remove("hidden")
+      this.emailForm.nativeElement.classList.add("hidden")
+    }
     //disabled !logged
     if (!this.logged) {
-      console.log(this.AcceptPayButton)
       this.AcceptPayButton.nativeElement.classList.add("hidden")
+    }
+    if (!this.shippingInput.getValue()) {
+      console.log("no envio")
+      this.issetSend = false;
+      this.form.classList.add("hidden")
+      this.buyButton.nativeElement.classList.remove("hidden")
+      this.buyInfo.nativeElement.classList.remove("hidden")
+      this.emailForm.nativeElement.classList.add("hidden")
     }
   }
 
@@ -140,6 +156,9 @@ export class ToysShippingComponent implements OnInit {
   }
 
   paySubmit() {
+    const conf = this.oServiceToy.getDefaultServiceConfiguration('toys');
+    this.oServiceToy.configureService(conf);
+
     const av = { "toyid": this.toyId.getValue(), "buyer_email": this.buyerEmail.getValue() }
     this.oServiceToy.insert(av, "order").subscribe(result => {
     })

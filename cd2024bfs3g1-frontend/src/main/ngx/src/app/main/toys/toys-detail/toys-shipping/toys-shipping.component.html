@@ -5,13 +5,14 @@
     <o-text-input #toyId attr="toyid" sql-type="INTEGER" read-only="yes" oHidden></o-text-input>
     <o-text-input #nameInput attr="name" fxFlex="100" read-only="yes" required="yes" max-length="150"
       oHidden></o-text-input>
+    <o-text-input #shippingInput attr="shipping" read-only="yes" oHidden></o-text-input>
     <o-currency-input id="priceInput" #priceInput attr="price" fxFlex="100" read-only="yes" min-decimal-digits="2"
       max-decimal-digits="2" oHidden></o-currency-input>
     <o-email-input id="usr_email" #emailInput attr="email" fxFlex="100" read-only="yes" required="yes" label="usr_email"
       oHidden></o-email-input>
 
 
-    <mat-radio-group #buyOption class="radioGroup" aria-label="" (change)="showFormShipments()">
+    <mat-radio-group *ngIf="shippingInput.getValue()"  #buyOption class="radioGroup" aria-label="" (change)="showFormShipments()">
       <mat-radio-button #onlyBuy value="1">{{'BUY' | oTranslate}}</mat-radio-button>
       <mat-radio-button #BuySend value="2" checked>{{'BUY_AND_SEND' | oTranslate}}</mat-radio-button>
     </mat-radio-group>
@@ -19,7 +20,7 @@
 
     <div class="card">
 
-      <o-form id="formShipments" class="formShipments" #formShipments service="orders" entity="orderAndShipment"
+      <o-form  id="formShipments" class="formShipments" #formShipments service="orders" entity="orderAndShipment"
         keys="shipment_id" show-header-navigation="no" show-header="no" layout-direction="column" header-actions="I"
         (onDataLoaded)="setData()">
         <h2>{{'TITLE_FORM_SHIPMENTS' | oTranslate}}</h2>
@@ -67,7 +68,7 @@
       <div #buyInfo class="cadInfo">
         <div class="divDetail">
           <div class="containerPrice">
-            <o-row *ngIf="!this.issetSend;else sendPrice" class="price">{{(priceInput.getValue()*1) +
+            <o-row *ngIf="!this.issetSend || !shippingInput.getValue();else sendPrice" class="price">{{(priceInput.getValue()*1) +
               this.commissionPrice }}
               <span class="currency"> €</span></o-row>
               <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.commissionPrice +
@@ -112,7 +113,7 @@
           <o-form show-header-navigation="no" show-header="no" service="toys" entity="order" >
             <p>{{'NOTE_EMAIL_WARRANTY' | oTranslate}}: </p>
             <o-text-input #buyerEmail attr="buyer_email" label="{{'email' | oTranslate}}" fxFlex="100"
-              read-only="no" required="yes" max-length="150"></o-text-input>         
+              read-only="no" required="yes" max-length="150"></o-text-input>
             <button #payButton class="btn-checkout" (click)="paySubmit()">{{'CONFIRM' | oTranslate }}</button>
           </o-form>
         </div>

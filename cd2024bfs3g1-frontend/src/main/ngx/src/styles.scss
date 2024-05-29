@@ -124,9 +124,9 @@ mat-toolbar {
   box-shadow: none !important;
 }
 .o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
-  color: #ff5349 !important;  
+  color: #ff5349 !important;
 }
-.box .mat-mdc-icon-button .mat-mdc-button-persistent-ripple{
+#saveButton .mat-mdc-button-persistent-ripple{
   width: 30px;
   left: 9px !important;
 }
@@ -146,16 +146,16 @@ mat-toolbar {
 
   &.buttonOrange{
     border-color: #FFA366;
-    color: #000;       
-    background-color: #FFA366; 
-    padding: .5rem 1.2rem !important; 
-  
+    color: #000;
+    background-color: #FFA366;
+    padding: .5rem 1.2rem !important;
+
     &:hover{
       box-shadow: 0 2px 4px #0000003d;
     }
   }
 
-  &.buttonDarkBackground{  
+  &.buttonDarkBackground{
     border-color: #fff;
     color: #fff;
     background-color: transparent;
@@ -166,15 +166,15 @@ mat-toolbar {
     }
   }
 
-  &.buttonLightBackground{  
+  &.buttonLightBackground{
     border-color: #ff5349;
-    color: #ff5349 !important;  
+    color: #ff5349 !important;
     background-color: #fff;
 
     &:hover{
       color: #fff;
       background-color: #FFA366;
-      border-color: #ffa366;      
+      border-color: #ffa366;
     }
   }
 
