@@ -149,12 +149,13 @@
   "CONFIRM": "Confirmar",
   "SALE_TOY":"En venta",
   "PENDING_SEND_TOY":"Pendiente de envío",
-  "PENDING_CONFIRM_TOY":"Pendiente de confirmar envío",
+  "PENDING_CONFIRM_TOY":"Pendiente de confirmar llegada",
   "SOLD_TOY":"Vendidos",
   "SENDER_DATA": "Datos del remitente",
   "NOTE_SEND": "Envío solo a la península",
   "NOTE_EMAIL_WARRANTY": "Por favor introduzca un email para recibir los términos de la garantía",
   "DATE_BUYER": "Datos del comprador",
   "NOTE_SENDER_ADDRESS":"Por favor introduzca una dirección de recogida",
-  "NOTE_NO_SENDER_ADDRESS": "Si lo prefiere lleve el paquete a la oficina en un plazo inferior a de 5 días laborable"
+  "NOTE_NO_SENDER_ADDRESS": "Si lo prefiere lleve el paquete a la oficina en un plazo inferior a de 5 días laborable",
+  "TRACKING_NUMBER": "Número de seguimiento"
 }

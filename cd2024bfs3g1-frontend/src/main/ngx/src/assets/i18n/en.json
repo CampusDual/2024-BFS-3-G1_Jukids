@@ -150,12 +150,14 @@
   "CONFIRM": "Confirm",
   "SALE_TOY":"On sale",
   "PENDING_SEND_TOY":"Pending Shipping",
-  "PENDING_CONFIRM_TOY":"Shipping pending confirmation",
+  "PENDING_CONFIRM_TOY":"Pending arrival",
   "SOLD_TOY":"Sold",
   "SENDER_DATA": "Sender data",
   "NOTE_SEND": "Shipping only to the peninsula",
   "NOTE_EMAIL_WARRANTY": "Please enter an email to receive warranty terms",
   "DATE_BUYER": "Customer's information",
   "NOTE_SENDER_ADDRESS": "Please insert your address",
-  "NOTE_NO_SENDER_ADDRESS": "If you prefer, take your package to the office within a period of less than 5 business days"
+  "NOTE_NO_SENDER_ADDRESS": "If you prefer, take your package to the office within a period of less than 5 business days",
+  "TRACKING_NUMBER": "Tracking number"
+
 }
