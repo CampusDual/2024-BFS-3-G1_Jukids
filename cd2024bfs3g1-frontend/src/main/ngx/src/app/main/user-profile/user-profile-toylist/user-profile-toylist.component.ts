@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService, OTableBase, OTextInputComponent, OntimizeService } from 'ontimize-web-ngx';
+import { AuthService, OTableBase, OTableColumnComponent, OTextInputComponent, OntimizeService } from 'ontimize-web-ngx';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
@@ -20,6 +21,8 @@ export class UserProfileToylistComponent {
 
   @ViewChild('tableSend') protected tableSend :OTableBase ;
   @ViewChild('senderAddress') protected senderAddress :OTextInputComponent;
+  @ViewChild('senderAddress') protected shipmentAddress: OTableColumnComponent;
+  @ViewChild('senderAddress') protected shipmentCompany: OTableColumnComponent;
 
   public userInfo;
   private redirect = '/toys';

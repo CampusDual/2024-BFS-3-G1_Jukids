@@ -20,7 +20,15 @@ export class ToysShippingComponent implements OnInit {
   public dataCompany = [{
     code: 'Correos',
     company: 'Correos'
-  },]
+  },
+  {
+    code: 'MRW',
+    company: 'MRW'
+  },
+  {
+    code: 'Nacex',
+    company: 'Nacex'
+  }]
   public defaultCompany = 'Correos';
 
   //Usuario loggedaro
@@ -56,11 +64,9 @@ export class ToysShippingComponent implements OnInit {
     private translate: OTranslateService,
     private authService: AuthService,
     private oServiceToy: OntimizeService,
+    private oServiceOrder: OntimizeService,
   ) {
     this.logged = this.authService.isLoggedIn();
-
-    const conf = this.oServiceToy.getDefaultServiceConfiguration('toys');
-    this.oServiceToy.configureService(conf);
   }
 
   ngOnInit() {
@@ -68,6 +74,9 @@ export class ToysShippingComponent implements OnInit {
 
     const conf = this.oServiceToy.getDefaultServiceConfiguration('toys');
     this.oServiceToy.configureService(conf);
+
+    const conf2 = this.oServiceOrder.getDefaultServiceConfiguration('orders');
+    this.oServiceOrder.configureService(conf2);
   }
 
   showFormShipments() {
@@ -122,11 +131,11 @@ export class ToysShippingComponent implements OnInit {
       this.buyButton.nativeElement.classList.add("hidden")
       this.emailForm.nativeElement.classList.remove("hidden")
     } else {
-      //TODO: error: Cambiar servicio y/o entidad
-      const av = { "toyid": this.toyId.getValue() }
-      this.oServiceToy.insert(av, "order").subscribe(result => {
+      console.log(this.toyId.getValue())
+      const avOrder = { "toyid": this.toyId.getValue() }
+      this.oServiceOrder.insert(avOrder, "order").subscribe(result => {
       })
-      // this.checkout();
+      this.checkout();
     }
   }
 
@@ -134,7 +143,7 @@ export class ToysShippingComponent implements OnInit {
     const av = { "toyid": this.toyId.getValue(), "buyer_email": this.buyerEmail.getValue() }
     this.oServiceToy.insert(av, "order").subscribe(result => {
     })
-    // this.checkout();
+    this.checkout();
   }
 
   newSubmit() {

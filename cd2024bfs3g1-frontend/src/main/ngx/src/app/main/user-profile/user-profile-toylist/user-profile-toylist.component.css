@@ -14,3 +14,8 @@ mat-card-header mat-card-title{
 .rowExpandable{
     max-width: 90%;
 }
+
+.dataBuyer{
+    margin-bottom: 1.2rem;
+
+}

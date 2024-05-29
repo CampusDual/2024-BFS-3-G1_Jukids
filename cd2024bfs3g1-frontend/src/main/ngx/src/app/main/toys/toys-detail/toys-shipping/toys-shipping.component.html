@@ -49,6 +49,7 @@
               [static-data]="dataCompany" [data]="defaultCompany" value-column="code" columns="code;company"
               visible-columns="company" required="yes" read-only="false"></o-combo>
           </div>
+          <span class="note">*{{'NOTE_SEND' | oTranslate}}</span>
 
           <div *ngIf="!logged;else encourageRegister" class="warning">
             <p><a href="/login/new">¡Registrate!</a> Para comprar con envio </p>
@@ -109,7 +110,7 @@
 
         <div #emailForm class="hidden">
           <o-form show-header-navigation="no" show-header="no" service="toys" entity="order" >
-            <p>Por favor introduzca un email para recibir los términos de la garantía: </p>
+            <p>{{'NOTE_EMAIL_WARRANTY' | oTranslate}}: </p>
             <o-text-input #buyerEmail attr="buyer_email" label="{{'email' | oTranslate}}" fxFlex="100"
               read-only="no" required="yes" max-length="150"></o-text-input>         
             <button #payButton class="btn-checkout" (click)="paySubmit()">{{'CONFIRM' | oTranslate }}</button>
