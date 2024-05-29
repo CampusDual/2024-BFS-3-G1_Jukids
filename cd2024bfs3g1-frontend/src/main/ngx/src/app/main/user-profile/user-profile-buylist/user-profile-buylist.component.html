@@ -1,24 +1,86 @@
+<mat-tab-group fxFill>
 
-<o-table #table fxFlex attr="toysList" service="toyowner" entity="toy"
-title="{{ 'MY_TOYS' | oTranslate }}"
-keys="toyid" columns="toyid;name;description;price;photo"
-visible-columns="photo;name;description;price" sort-columns="toyid:DESC"
-query-on-init="true" quick-filter="false" filter-case-sensitive="false"
-insert-button="false" export-button="false" delete-button="false"
-edit-button="false" refresh-button="false" select-all-checkbox="false"
-show-buttons-text="false" controls="true" show-title="true"
-pagination-controls="no" horizontal-scroll="false" auto-adjust="true"
-virtual-scroll="no" show-charts-on-demand-option="no" class="table">
+  <mat-tab label="Tabla de prueba con servicio Toy">
 
-<o-table-columns-filter columns="name;description;price"></o-table-columns-filter>
-<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
-<o-table-column attr="photo" orderable="no" searchable="no" width="100px">
-  <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes"> </o-table-cell-renderer-image>
-</o-table-column>
-<o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
-<o-table-column attr="description" title="{{ 'description' | oTranslate }}" multiline="yes" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
-<o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px" tooltip="yes"></o-table-column>
-<o-table-column attr="edit-btn" width="64px" (onClick)="openToyEdit($event)" >
-  <button attr="edit" (onClick)="openToyEdit($event)" icon="edit"></button>
-</o-table-column>
-</o-table>
+    <o-table fxFlex #tableToy attr="toysList" service="toyowner" entity="toy" title="{{ 'MY_TOYS' | oTranslate }}"
+      keys="toyid" columns="toyid;name;description;price;photo;transaction_status"
+      visible-columns="photo;name;description;price;transaction_status;edit-btn" sort-columns="toyid:DESC"
+      query-on-init="true" quick-filter="false" filter-case-sensitive="false" insert-button="false"
+      export-button="false" delete-button="false" edit-button="true" refresh-button="false" select-all-checkbox="false"
+      show-buttons-text="false" controls="true" show-title="true" pagination-controls="no" horizontal-scroll="false"
+      auto-adjust="true" virtual-scroll="no" show-charts-on-demand-option="no" class="table">
+
+      <o-table-column attr="toyid" multiline="no" min-width="64px" max-width="64px" tooltip="yes"></o-table-column>
+      <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
+        <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
+        </o-table-cell-renderer-image>
+      </o-table-column>
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="200px" max-width="300px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="description" title="{{ 'description' | oTranslate }}" multiline="yes" min-width="200px"
+        max-width="400px" tooltip="yes"></o-table-column>
+      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" width="100px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="transaction_status" title="{{ 'price' | oTranslate }}" multiline="no" width="100px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="edit-btn" width="64px">
+        <o-table-cell-renderer-action attr="edit" (onClick)="checkReceived($event)"
+          icon="storage"></o-table-cell-renderer-action>
+      </o-table-column>
+
+      <o-table-row-expandable>
+        <ng-template let-row>
+          <o-column title="CONTACT_DATA" icon="info" class="vertical-margin-10" layout-gap="12px">
+
+            <o-form #formToy attr="formToy" service="toyowner" entity="toy" fxLayout="column" keys="toyid"
+              keys-sql-types="INTEGER" show-header="yes" header-actions="U">
+              <div>
+                <o-text-input #toyId attr="toyid" sql-type="INTEGER" read-only="no" fxFlex="40"></o-text-input>
+                <o-text-input #transactionStatus attr="transaction_status" sql-type="INTEGER" read-only="no"
+                  fxFlex="40"></o-text-input>
+              </div>
+            </o-form>
+
+          </o-column>
+        </ng-template>
+      </o-table-row-expandable>
+
+    </o-table>
+
+
+
+  </mat-tab>
+
+
+  <mat-tab label="Pendientes de llegada">
+    <span>Aquí van los estado 1 y 2</span>
+  </mat-tab>
+
+  <mat-tab label="Recibidos">
+    <span>Aquí van los estado 3</span>
+  </mat-tab>
+
+  <mat-tab label="Historial de comprar">
+    <span>Aquí van los estado 4</span>
+  </mat-tab>
+
+  <mat-tab label="Todo">
+    <o-table #tableAll fxFlex attr="buyList" service="orders" entity="order" title="{{ 'PURCHASED_TOYS' | oTranslate }}"
+      keys="toyid" columns="toyid;order_date;total_price" visible-columns="toyid;order_date;total_price"
+      query-on-init="true" quick-filter="false" filter-case-sensitive="false" insert-button="false"
+      export-button="false" delete-button="false" edit-button="false" refresh-button="false" select-all-checkbox="false"
+      show-buttons-text="false" controls="true" show-title="true" pagination-controls="no" horizontal-scroll="false"
+      auto-adjust="true" virtual-scroll="no" show-charts-on-demand-option="no" class="table">
+
+      <o-table-columns-filter columns="toyid;order_date;total_price"></o-table-columns-filter>
+      <o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>
+      <o-table-column attr="order_date" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="400px"
+        max-width="500px" tooltip="yes"></o-table-column>
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" width="300px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="edit-btn" width="64px">
+        <button attr="edit" icon="edit"></button>
+      </o-table-column>
+    </o-table>
+  </mat-tab>
+</mat-tab-group>

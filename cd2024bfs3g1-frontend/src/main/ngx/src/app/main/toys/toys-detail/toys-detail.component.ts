@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { OEmailInputComponent, OTextInputComponent } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
@@ -25,10 +26,13 @@ export class ToysDetailComponent implements OnInit{
   @ViewChild('statusInput') toyStatus: OTextInputComponent;
   @ViewChild('stripe') stripe: StripeComponent;
 
-  constructor(
-    private toysMapService: ToysMapService,
+ constructor(
+    private toysMapService: ToysMapService, private router: Router
   ) {}
 
+  openBuy(toyid): void {
+    this.router.navigate(["main/toys/toysDetail/toysBuy", toyid]);
+  }
   ngOnInit() {
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
@@ -44,9 +48,6 @@ export class ToysDetailComponent implements OnInit{
   }
 
   setStripe(): void {
-    // console.log("toyId:", this.toyId.getValue());
-    // console.log("name:", this.toyName.getValue());
-    // console.log("Email:", this.toyEmail.getValue());
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();
     this.stripe.email = this.toyEmail.getValue();

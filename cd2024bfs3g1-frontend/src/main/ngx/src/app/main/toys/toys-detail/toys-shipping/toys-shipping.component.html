@@ -1,0 +1,113 @@
+<div class="box">
+  <o-form class="formToy " attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
+    detail-form-route="toysBuy" show-header="no" layout-direction="column" (onDataLoaded)="setData()">
+
+    <o-text-input #toyId attr="toyid" sql-type="INTEGER" read-only="yes" oHidden></o-text-input>
+    <o-text-input #nameInput attr="name" fxFlex="100" read-only="yes" required="yes" max-length="150"
+      oHidden></o-text-input>
+    <o-currency-input id="priceInput" #priceInput attr="price" fxFlex="100" read-only="yes" min-decimal-digits="2"
+      max-decimal-digits="2" oHidden></o-currency-input>
+    <o-email-input id="usr_email" #emailInput attr="email" fxFlex="100" read-only="yes" required="yes" label="usr_email"
+      oHidden></o-email-input>
+
+
+    <mat-radio-group #buyOption class="radioGroup" aria-label="" (change)="showFormShipments()">
+      <mat-radio-button #onlyBuy value="1">{{'BUY' | oTranslate}}</mat-radio-button>
+      <mat-radio-button #BuySend value="2" checked>{{'BUY_AND_SEND' | oTranslate}}</mat-radio-button>
+    </mat-radio-group>
+
+
+    <div class="card">
+
+      <o-form id="formShipments" class="formShipments" #formShipments service="orders" entity="orderAndShipment"
+        keys="shipment_id" show-header-navigation="no" show-header="no" layout-direction="column" header-actions="I"
+        (onDataLoaded)="setData()">
+        <h2>{{'TITLE_FORM_SHIPMENTS' | oTranslate}}</h2>
+        <o-column>
+          <div class="divLabel">
+            <o-text-input #orderId attr="order_id" sql-type="INTEGER" read-only="no" oHidden></o-text-input>
+            <o-text-input id="price" #price attr="price" read-only="no" sql-type="DOUBLE"
+              oHidden></o-text-input>
+          </div>
+          <div class="divLabel">
+            <o-text-input #shippingAddress attr="shipping_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
+              read-only="no" required="yes" max-length="150"></o-text-input>
+          </div>
+          <div class="divLabel">
+            <o-text-input #buyerPhone attr="buyer_phone" label="{{'usr_phone' | oTranslate}}" fxFlex="100"
+              read-only="no" required="yes" max-length="150"></o-text-input>
+          </div>
+          <div class="divLabel">
+            <o-combo #shipmentCompany attr="shipment_company" label="{{'company' | oTranslate}}"
+              [static-data]="dataCompany" [data]="defaultCompany" value-column="code" columns="code;company"
+              visible-columns="company" required="yes" read-only="false"></o-combo>
+          </div>
+
+          <div *ngIf="!logged;else encourageRegister" class="warning">
+            <p><a href="/login/new">¡Registrate!</a> Para comprar con envio </p>
+          </div>
+
+          <ng-template #encourageRegister>
+            <o-row layout-align="start" layout-margin-top>
+              <button #buttonAcceptPay class="btn-checkout colorOrange" (click)="newSubmit()">{{'ACCEPT_AND_PAY' |
+                oTranslate}}</button>
+            </o-row>
+          </ng-template>
+        </o-column>
+      </o-form>
+
+      <div #buyInfo class="cardInfo">
+        <div class="divDetail">
+          <div class="containerPrice">
+            <o-row class="titleName">{{nameInput.getValue()}}</o-row>
+            <o-row *ngIf="!this.issetSend;else sendPrice" class="price">{{(priceInput.getValue()*1) +
+              this.warrantyPrice }}
+              </o-row><p class="price-currency">€</p>
+            <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.warrantyPrice +
+                this.priceSend
+                }}</o-row></ng-template>
+          </div>
+          <div class="priceInfo">
+            <div class="divInfo">
+              <span>{{'PRODUCT_PRICE' | oTranslate}}:</span>
+              <span>{{priceInput.getValue()}} €</span>
+            </div>
+            <div class="divInfo">
+              <mat-icon class="info-icon" matTooltip="  {{'TOOLTIP_INFO' | oTranslate}}" class="tooltip-icon">info</mat-icon>
+              <span>{{'WARRANTY_PRICE' | oTranslate}}:</span>
+              <span> {{this.warrantyPrice}} €</span>
+            </div>
+            <div *ngIf="issetSend" class="divInfo">
+              <span>{{'SEND_PRICE' | oTranslate}}:</span>
+              <span> {{ this.priceSend }} €</span>
+            </div>
+          </div>
+          <div class="doneInfo">
+            <p class="done-p">
+              <mat-icon class="mat-icon-done">done</mat-icon>
+              <span class="done-span">{{'RECEIVE_HOME' | oTranslate}}</span>
+            </p>
+            <p class="done-p">
+              <mat-icon class="mat-icon-done">done</mat-icon>
+              <span class="done-span">{{'WARRANTY' | oTranslate}}</span>
+            </p>
+            <p class="done-p">
+              <mat-icon class="mat-icon-done">done</mat-icon>
+              <span class="done-span">{{'SECURE_PAYMENT' | oTranslate}}</span>
+            </p>
+        </div>
+        <button #buyButton class="btn-checkout hidden" (click)="checkout()">
+          <span>{{'PAY' | oTranslate}}</span>
+        </button>
+      </div>
+    </div>
+    </div>
+
+
+  </o-form>
+
+
+
+</div>
+
+<app-stripe #stripe></app-stripe>
