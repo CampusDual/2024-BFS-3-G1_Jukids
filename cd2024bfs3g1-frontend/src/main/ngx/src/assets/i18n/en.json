@@ -132,7 +132,7 @@
   "PURCHASED_TOYS": "My purchases",
   "transaction_status": "Status",
   "TITLE_FORM_SHIPMENTS": "We only need a few pieces of information",
-
+  "WARRANTY_PRICE": "Jukids Warranty",
   "PRODUCT_PRICE": "Price of the product",
   "COMMISSION_PRICE": "Commission for management",
   "SEND_PRICE":"Shipping costs",
@@ -159,6 +159,6 @@
   "NOTE_SENDER_ADDRESS": "Please insert your address",
   "NOTE_NO_SENDER_ADDRESS": "If you prefer, take your package to the office within a period of less than 5 business days",
   "TRACKING_NUMBER": "Tracking number",
-  "ALL_TOYS": "All toys"
-
+  "ALL_TOYS": "All toys",
+  "TOOLTIP_INFO": "Warranty information: Ensure the quality of your product | Secure payment | Refund in case of dispute"
 }

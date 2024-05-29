@@ -7,6 +7,7 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
+import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -151,8 +152,10 @@ public class ToyOwnerService implements IToyOwnerService {
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+
             keyMap.put(UserDao.USR_ID, idUser);
-            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
+            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS,
+                    new SearchValue (SearchValue.IN, Arrays.asList(ToyDao.STATUS_SENT, ToyDao.STATUS_RECEIVED)));
 
             return this.daoHelper.query(this.toyDao, keyMap, attrList);
 
