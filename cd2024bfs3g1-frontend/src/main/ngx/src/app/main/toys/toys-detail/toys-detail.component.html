@@ -123,11 +123,10 @@
             show-controls="no"
           ></o-image>
           <!-- buy button  -->
-          <div
+          <div class="button btn-outline-light"
             *ngIf="usr_id.getValue() != undefined; else unRegisteredUser"
-            class="checkout-container"
           >
-            <button class="button btn-outline-light" (click)="checkout()">
+            <button style="border: none; background-color: transparent;text-transform: uppercase;" (click)="checkout()">
               <span>{{ "BUY" | oTranslate }}</span>
             </button>
           </div>
@@ -135,7 +134,7 @@
           <ng-template #unRegisteredUser>
             <div class="transparent">
               <button class="button btn-outline-light">
-                <a class="mail-to-seller" href="mailto:{{ emailInput.getValue() }}
+                <a style="border: none; background-color: transparent;text-decoration:none;color:black; text-transform: uppercase;" href="mailto:{{ emailInput.getValue() }}
                 ?Subject=¡Quiero tu juguete {{ nameInput.getValue() }} de JUKIDS!
                 &body=Hola!%20Me%20gustaría%20comprar%20tu%20juguete%20{{ nameInput.getValue() }}">
                   {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}</a>
