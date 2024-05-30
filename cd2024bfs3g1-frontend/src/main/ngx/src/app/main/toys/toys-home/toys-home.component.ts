@@ -19,6 +19,8 @@ export class ToysHomeComponent implements OnInit {
 
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
   @ViewChild("price") protected priceCombo: OComboComponent;
+  @ViewChild('filterBuilder') filterBuilder: any;
+
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
@@ -249,4 +251,7 @@ export class ToysHomeComponent implements OnInit {
   }];
 
   public precioPredeterminado = 1000000;
+
 }
+
+

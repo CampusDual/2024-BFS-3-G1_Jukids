@@ -21,16 +21,16 @@
   </o-row>
 
   <div class="searchFilters">
-    <o-combo appearance="outline" label="category" [oFilterBuilderQuery]="filterBuilder" id="category"
+    <o-combo appearance="outline" label="category"  id="category"
       null-selection="no" attr="category" service="categories" entity="category" keys="categoryid" value-column="codigo"
       columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" multiple="yes" translate="yes">
     </o-combo>
 
-    <o-combo appearance="outline" label="status" [oFilterBuilderQuery]="filterBuilder" id="status" null-selection="no"
+    <o-combo appearance="outline" label="status" id="status" null-selection="no"
       attr="status" service="statuses" entity="status" keys="statusid" value-column="code" columns="statusid;name;code"
       searchable="true" visible-columns="code" multiple="yes" translate="yes"></o-combo>
 
-    <o-combo #price appearance="outline" id="price" [oFilterBuilderQuery]="filterBuilder" [static-data]="pricesArray"
+    <o-combo #price appearance="outline" id="price" [static-data]="pricesArray"
       value-column="priceCode" columns="priceCode;priceText;attr_price"
       visible-columns="attr_price" null-selection="no" attr="price" translate="yes">
     </o-combo>
@@ -48,7 +48,7 @@
 </o-column-collapsible>
 
 <div>
-  <o-grid #toysGrid attr="toysGrid" service="toys" entity="toyAvailable" keys="toyid" detail-form-route="toysDetail"
+  <o-grid #toysGrid [oFilterBuilderQuery]="filterBuilder" attr="toysGrid" service="toys" entity="toyAvailable" keys="toyid" detail-form-route="toysDetail"
     columns="toyid;photo;name;price;latitude;longitude" pageable="yes" query-rows="20" page-size-options="20"
     refresh-button="no" quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
     [cols]="cols" gutter-size="15" grid-item-height="1:1.5">
