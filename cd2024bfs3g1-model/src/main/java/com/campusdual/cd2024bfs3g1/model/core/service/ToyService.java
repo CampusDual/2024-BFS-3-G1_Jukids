@@ -139,6 +139,8 @@ public class ToyService implements IToyService {
 
         //Retornar el resultado.
 
+        keysValues.put("transaction_status", ToyDao.STATUS_AVAILABLE);
+
         return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
     }
 
@@ -150,6 +152,8 @@ public class ToyService implements IToyService {
         //Rearmar el XML toyPaginationQuery basado en la vista realizada.
 
         //Retornar el resultado.
+
+        keysValues.put("transaction_status", ToyDao.STATUS_AVAILABLE);
 
         return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
     }
