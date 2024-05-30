@@ -167,7 +167,7 @@
             <!-- email  -->
             <div class="email-container">
               <p style="font-size: small; color: #00000060;" *ngIf="(usr_id.getValue() == undefined)">{{ "UNREGISTERED_SELLER_WARNING" | oTranslate }}</p>
-              <o-row style="background-color: transparent;">{{ emailInput.getValue() }}</o-row>
+              <p style="background-color: transparent;">{{ emailInput.getValue() }}</p>
             </div>
           </div>
         </o-column>
@@ -177,7 +177,7 @@
     <!-- map -->
     <o-column class="map-column">
       <div class="map-container" fxLayout="column" fxLayoutGap="4px">
-          <h4 class="map-title">{{ "TOY_LOCATION" | oTranslate }}</h4>
+          <p class="map-title">{{ "TOY_LOCATION" | oTranslate }}</p>
         <div class="map-box">
           <location-map attr="detailMap" #detailMap></location-map>
         </div>

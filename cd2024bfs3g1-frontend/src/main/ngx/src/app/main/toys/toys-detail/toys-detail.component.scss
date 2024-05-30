@@ -51,9 +51,9 @@
     }
     .toys-detail-column {
         margin-top: 10px;
+        justify-content: space-between;
         background-color: transparent;
-        justify-self: center;
-        align-self: center;
+
         overflow-x: hidden;
         @media screen and (max-width: 1000px) {
             flex-direction: column !important;
@@ -112,26 +112,7 @@
                 font-size: small;
                 text-decoration: none;
             }
-
-            .a-class{
-                border-color: #ff5349;
-                color: #ff5349;
-                background-color: #fff;
-                text-decoration: none;
-                width: 100%;
-                height: 100%;
-                &:hover {
-                    color: #fff;
-                    background-color: #FFA366;
-                    border-color: #ffa366;
-                  }
-              
-                  &.reverse {
-                    color: #fff;
-                    background-color: #FFA366;
-                    border-color: #ffa366;
-                  }
-            }
+            
             .checkout-container {
                 display: flex;
                 width: 50%;
@@ -156,10 +137,12 @@
         }
         .inf-column {
             padding: 15px;
+            min-width: 30%;
             display: flex;
+            justify-content: space-between;
             flex-direction: column;
             border-radius: 5px;
-            background-color: rgba(223, 223, 223, 0.441);
+            background-color: rgba(210, 210, 210, 0.441);
             @media screen and (max-width: 800px) {
                 margin-top: 15px;
                 height: fit-content !important;
@@ -283,8 +266,8 @@
     flex-direction: column;
     @media screen and (max-width: 800px) {
         display: inline-block;
-        margin-left: 15%;
-        margin-right: 15%;
+        margin-left: 12%;
+        margin-right: 12%;
     }
     .map-container {
         display: flex;
@@ -293,6 +276,10 @@
         align-content: center;
         justify-content: center;
         justify-items: center;
+        @media screen and (max-width: 500px) {
+            font-size: 12px;
+            margin-top: 10px;
+        }
         .map-title {
             display: flex;
             flex-direction: row;
