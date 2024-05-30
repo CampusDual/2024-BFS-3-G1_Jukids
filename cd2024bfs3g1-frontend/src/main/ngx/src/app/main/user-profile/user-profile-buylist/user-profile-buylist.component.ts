@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService, DialogService, ODialogConfig, OFormComponent, OTableBase, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
+import { AuthService, DialogService, ODialogConfig, OFormComponent, OTableBase, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
@@ -25,16 +25,22 @@ export class UserPurchasedToylistComponent {
 
   private status = true;
   @ViewChild('formToy') protected formReceived: OFormComponent;
-  @ViewChild('tableToy') protected tableToy :any ;
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('transactionStatus') transactionStatus: OTextInputComponent;
+  @ViewChild('tableReceived') protected tableReceived :OTableBase ;
+  @ViewChild('tableConfirm') protected tableConfirm :OTableBase ;
+  @ViewChild('tablePurchased') protected tablePurchased :OTableBase ;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     protected dialogService: DialogService,
-    private translate: OTranslateService,
+    private oServiceShipment: OntimizeService,
     public userInfoService: UserInfoService) {
+
+    const conf2 = this.oServiceShipment.getDefaultServiceConfiguration('shipments');
+    this.oServiceShipment.configureService(conf2);
+
     this.userInfo = this.userInfoService.getUserInfo();
     if (!this.authService.isLoggedIn()) {
       const self = this;
@@ -42,34 +48,24 @@ export class UserPurchasedToylistComponent {
     }
   }
 
-  public checkReceived(e: any): void {
-    console.log(e)
-    this.toyId.setValue(e.toyid);
-    console.log(this.formReceived)
-    console.log(this.tableToy)
-    
-    if (e.transaction_status == this.STATUS_AVAILABLE) {
-      this.transactionStatus.setValue(this.STATUS_RECEIVED)
-       
-      this.formReceived.update();
-
-
-    //   const getFieldValues = this.formReceived.getFieldValues(['toyid', 'name', 'transaction_status']);
-    //   console.log(getFieldValues);
-
-    //   this.formReceived.update()
-    //   // if (this.status) {
-    //   //   this.showCustom("send", "Ok", "RECIBIDO", "El juguete ha sido marcado como recibido");
-    //   //   //this.showCustom("send", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), "El juguete ha sido marcado como recibido");
-    //   // }
-
-    } else {
-      this.showCustom("error", "Ok", "ERROR", "El juguete no puede ser marcado como recibido");
-    }
+  //Cambia de estado 2 a 3 y refesca las tablas de ambos estado
+  public checkReceive(e){
+    const kv = {"toyid": e.toyid};
+    const av = {"transaction_status": this.STATUS_RECEIVED}
+    this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
+      this.tableReceived.refresh();
+      this.tableConfirm.refresh();      
+    })
   }
 
-  public checkOk(e: any): void {
-
+  //Cambia de estado 3 a 4 y refesca las tablas de ambos estado
+  public checkOk(e){
+    const kv = {"toyid": e.toyid};
+    const av = {"transaction_status": this.STATUS_PURCHASED}    
+    this.oServiceShipment.update(kv, av, "shipmentConfirmed").subscribe(result => {
+      this.tableConfirm.refresh();
+      this.tablePurchased.refresh();
+    })
   }
 
   showCustom(
@@ -86,5 +82,5 @@ export class UserPurchasedToylistComponent {
       this.dialogService.info(dialogTitle, dialogText, config);
     }
   }
-  
+
 }

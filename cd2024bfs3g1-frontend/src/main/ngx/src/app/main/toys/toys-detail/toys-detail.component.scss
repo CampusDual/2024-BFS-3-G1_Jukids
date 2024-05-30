@@ -10,19 +10,15 @@
         justify-content: flex-start;
         align-content: center;
         border-radius: 8px;
-        @media screen and (max-width: 1500px) {
-            width: 70%;
-        }
         @media screen and (max-width: 1200px) {
             width: 80%;
             margin-bottom: 10px;
         }
-
         .category {
             scale: 100%;
             align-content: center;
             padding-right: 30px;
-            font-weight: 700;
+            font-weight: 400;
             height: 100%;
             color: #0000009c;
         }
@@ -39,21 +35,22 @@
     border-radius: 1em;
     height: fit-content;
     // background-color: greenyellow;
+    @media screen and (max-width: 1200px) {
+        width: 80% !important;
+    }
     @media screen and (max-width: 1000px) {
-        max-width: 70% !important;
         justify-self: center;
         justify-content: center !important;
         justify-items: center !important;
     }
     @media screen and (max-width: 900px) {
-       width: 100% !important;
-       justify-self: center;
+        justify-self: center;
     }
     .toys-detail-column {
         margin-top: 10px;
+        justify-content: space-between;
         background-color: transparent;
-        justify-self: center;
-        align-self: center;
+
         overflow-x: hidden;
         @media screen and (max-width: 1000px) {
             flex-direction: column !important;
@@ -108,7 +105,7 @@
                  }
             }
             .mail-to-seller {
-                color: #000000;
+                color: #ff5349;
                 font-size: small;
                 text-decoration: none;
             }
@@ -136,10 +133,12 @@
         }
         .inf-column {
             padding: 15px;
+            min-width: 30%;
             display: flex;
+            justify-content: space-between;
             flex-direction: column;
             border-radius: 5px;
-            background-color: rgba(223, 223, 223, 0.441);
+            background-color: rgba(210, 210, 210, 0.441);
             @media screen and (max-width: 800px) {
                 margin-top: 15px;
                 height: fit-content !important;
@@ -234,30 +233,37 @@
     font-weight: bold;
 }
 
-.jk-light-btn {
-    width: 100%;
-    font-size: 20px;
+.transparent{
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
     border: none;
-    text-transform: uppercase;
-    padding: 10px 10px 10px 10px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    /* Safari */
-    transition-duration: 0.2s;
-    &:hover {
-        color: #000000d8;
-        background-color:#ffcc995b;
-    }
 }
 
+.plus {
+    border-color: #ff5349;
+    color: #ff5349 !important;
+
+    &:hover {
+        color: #fff !important;
+        background-color: #FFA366;
+        border-color: #ffa366;
+      }
+  
+      &.reverse {
+        color: #fff;
+        background-color: #FFA366;
+        border-color: #ffa366;
+      }
+}
 
 .map-column {
     display: flex;
     flex-direction: column;
     @media screen and (max-width: 800px) {
         display: inline-block;
-        margin-left: 15%;
-        margin-right: 15%;
+        margin-left: 12%;
+        margin-right: 12%;
     }
     .map-container {
         display: flex;
@@ -266,6 +272,10 @@
         align-content: center;
         justify-content: center;
         justify-items: center;
+        @media screen and (max-width: 500px) {
+            font-size: 12px;
+            margin-top: 10px;
+        }
         .map-title {
             display: flex;
             flex-direction: row;

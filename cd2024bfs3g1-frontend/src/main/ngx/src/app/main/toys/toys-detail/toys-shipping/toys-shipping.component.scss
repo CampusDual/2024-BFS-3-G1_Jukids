@@ -2,10 +2,12 @@
     visibility: hidden;
     display: none;
 }
-.disabled{
+
+.disabled {
     visibility: hidden;
     background-color: gainsboro;
 }
+
 .warning {
     padding: 0.75rem;
     background-color: #FFCC99;
@@ -13,6 +15,12 @@
     margin: 1.25rem 0;
     border-radius: 0.5rem;
 }
+
+.note {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 16px;
+}
+
 .box {
     display: flex;
     flex-direction: row;
@@ -41,12 +49,9 @@
         }
     }
 
-    .card {
+    .cardShipments {
         display: flex;
-        flex-direction: row;
-        justify-content: center;   
-        align-items: center;
-        text-align: center;     
+        justify-content: center;
         gap: 24px;
         margin-top: 1.75rem;
 
@@ -57,12 +62,11 @@
 
         .cardInfo {
             display: flex;
-            flex-direction:column;
-            justify-content: left;
-            align-items: left;
-            text-align: left;            
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             background-color: gainsboro;
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             border-radius: 1em;
             min-height: 425px;
             max-width: 47%;
@@ -72,101 +76,74 @@
                 padding: 0.75rem;
             }
 
+            .titleName {
+                font-size: 15px;
+                font-weight: bold;
+                padding-right: 0.5em;
+                margin-top: 10px;
+                text-transform: capitalize;
+                background-color: transparent;
+            }
+
             .divDetail {
-                display: flex;
-                flex-direction: column;
-                justify-content: left;
-                align-items: left;
-                text-align: left;
                 width: 100%;
-                padding: 0.5rem;
                 margin: 2.5rem 0.75rem 0 0.75rem;
 
                 .containerPrice {
                     display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    text-align: center;
-
-                    .price-currency{
-                        font-size: 30px;
-                        font-weight: bold;
-                        padding: 0.3rem;
-                        display: flex;
-                        text-align: center;
-                        align-self: center;
-                    }
+                    padding: 16px;
+                    flex-direction: column;
+                    justify-content: space-between;
 
                     @media screen and (max-width: 900px) {
                         width: 100%;
                         padding: 0.75rem 0;
                     }
 
-
-                    .titleName {
-                        font-size: 35px;                        
-                        padding-right: 0.5em;
-                        padding-bottom: 0.32rem;
-                        text-transform: capitalize;
-                        background-color: transparent;
-                    }
-
                     .price {
                         font-weight: bold;
                         display: flex;
-                        font-size: 30px;
+                        font-size: 25px;
                         text-align: end;
                         background-color: transparent;
-                    }
-                    .currency{
-                        font-size: 29px;
-                        text-align: center;
                     }
                 }
 
                 .priceInfo {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: left;
-                    align-items: left;
-                    text-align: left;
-                    padding: 2rem;
-                }
+                    padding: 16px;
 
-                .doneInfo{
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    text-align: left;
-                    margin-left: 35%;
-                    margin-right: 20%;
+                    div {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: .5rem 0;
 
-                    .done-p{
-                        display: flex;
-                        justify-content:left;
-                        align-items: left;
-                        text-align: center;
-                        margin: 0;
-                        padding: 0.3rem;
-                    }
-                    .done-span{
-                        display: flex;
-                        text-align: left;
-                        width: 13rem;
-                        margin: 0;
-                    }
-                        .mat-icon-done{
-                            margin-left: 0;
+                        .mat-icon {
+                            color: rgba(2, 2, 2, 0.55);
+                            width: 16px;
+                            height: 16px;
+                            font-size: 16px;
+                            transform: scale(1);
                         }
+                    }
                 }
 
+                .doneInfo {
+                    padding: 2.5rem;
+                    padding-bottom: 1rem;
+
+                    div {
+                        display: flex;
+
+                        span{
+                            margin-left: 0.5rem;
+                        }
+                    }
+                }
             }
         }
 
         .formShipments {
-            margin-top:1.5rem;
+            margin-top: 1.5rem;
 
             h2 {
                 max-width: 280px;
@@ -179,22 +156,14 @@
                 .divLabel {
                     padding: .2rem 0;
                 }
-                o-row{
+
+                o-row {
                     margin-top: 1.5rem;
                 }
 
             }
         }
 
-    }
-
-    div {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        padding: 0.2rem;
     }
 
     .btn-checkout {
@@ -212,7 +181,8 @@
         -webkit-transition-duration: 0.4s;
         /* Safari */
         transition-duration: 0.2s;
-        &.colorOrange{
+
+        &.colorOrange {
             background-color: #FFCC99;
         }
 
@@ -221,33 +191,32 @@
         }
     }
 
-    .currency{
+    .currency {
         margin-left: 7px;
     }
 
-    .toy-title{
+    .toy-title {
 
         @media screen and (min-width: 900px) {
-            margin:0  0 .5rem 0;
+            margin: 0 0 .5rem 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width:200px;
+            max-width: 200px;
         }
     }
-    .tooltip {
-        display: inline-block;
-        cursor: pointer;
-      }
-      
-      .tooltip-icon {
-        margin-top: 5px;
-        color: black;
-        font-size: 17px;
-        vertical-align: middle;
-      }
-      span {
-        padding: 0.2rem;
-      }
-      
+     .tooltip {
+            display: inline-block;
+            cursor: pointer;
+          }
+
+          .tooltip-icon {
+            margin-top: 5px;
+            color: black;
+            font-size: 17px;
+            vertical-align: middle;
+          }
+          span {
+            padding: 0.2rem;
+          }
 }

@@ -10,12 +10,8 @@
     margin: auto;
     padding: 0.75em;
     background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 1em;
-    box-shadow: 5px 5px 0px #ff52497c;
     overflow: hidden;
     transition: box-shadow 0.3s;
-    width: 90%;
     height: 80%;
     margin-bottom: auto;
 }
@@ -62,13 +58,13 @@
     margin-bottom: 0.5em;
 }
 
-.price {
+.divInput {
     margin-top: 0.5em;
     margin-bottom: 1em;
 }
 
 .descInput{
-    height: 190px;
+    height: 250px;
 }
 
 #saveButton:hover{
@@ -78,6 +74,11 @@
 h2{
     display: flex;
     justify-content: center;
+}
+.target{
+    justify-content: space-between;
+    margin-bottom: .75rem;
+    margin-top: .5rem;
 }
 
 ::ng-deep .no-resize textarea {
