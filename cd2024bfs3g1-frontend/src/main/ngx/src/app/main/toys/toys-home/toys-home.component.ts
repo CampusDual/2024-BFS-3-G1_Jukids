@@ -217,19 +217,10 @@ export class ToysHomeComponent implements OnInit {
     return combinedExpression;
   }
 
-
   clearFilters(): void {
     this.priceCombo.setValue(this.precioPredeterminado);
     this.toyGrid.reloadData();
 
-  }
-
-  formatPriceSlider(value: number | null) {
-    if (!value) {
-      return 0;
-    }
-
-    return value + "€";
   }
 
   public pricesArray = [
@@ -248,7 +239,6 @@ export class ToysHomeComponent implements OnInit {
   }];
 
   public precioPredeterminado = 1000000;
-
 }
 
 
