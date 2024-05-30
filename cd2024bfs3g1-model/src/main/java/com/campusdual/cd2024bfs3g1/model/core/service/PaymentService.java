@@ -21,7 +21,7 @@ import java.awt.datatransfer.Clipboard;
 import java.math.BigDecimal;
 import java.util.*;
 
-@Service
+@Service("PaymentService")
 public class PaymentService implements IPaymentService {
     @Value("${stripe.secret-key}")
     String secretKey;

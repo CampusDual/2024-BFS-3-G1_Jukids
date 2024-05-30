@@ -1,11 +1,12 @@
 <o-form class="form" editable-detail="yes" show-header="no">
 
-
   <o-row layout-align="space-between center" fxFlex="100" fxLayoutGap="10px">
 
     <o-text-input attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}"
       appearance="outline"></o-text-input>
 
+    <o-text-input #latInput attr="latitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
+    <o-text-input #longInput attr="longitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
 
     <o-row class="btn-container">
       <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="button btn-outline-light"
@@ -21,6 +22,7 @@
   </o-row>
 
   <div class="searchFilters">
+
     <o-combo appearance="outline" label="category" [oFilterBuilderQuery]="filterBuilder" id="category"
       null-selection="no" attr="category" service="categories" entity="category" keys="categoryid" value-column="codigo"
       columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" multiple="yes" translate="yes">
@@ -34,11 +36,19 @@
       [data]="precioPredeterminado" value-column="priceCode" columns="priceCode;priceText;attr_price"
       visible-columns="attr_price" null-selection="no" attr="price" translate="yes">
     </o-combo>
+
+    <!-- <o-combo #range [static-data]="rangeArray" [data]="selectedAll" null-selection="no" appearance="outline"
+      attr="combo-editable" label="Filtra por distancia" value-column="code" columns="code;range"
+      visible-columns="range" attr="range" required="yes">
+    </o-combo> -->
+
   </div>
 
+
   <o-filter-builder #filterBuilder attr="thefilter"
-    filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status;PRICE:price" [target]="toysGrid"
-    query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
+    filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status;PRICE:price;LATITUDE:latitude;LONGITUDE:longitude;"
+    [target]="toysGrid" query-on-change="no" query-on-change-delay="500"
+    [expression-builder]="createFilter"></o-filter-builder>
 </o-form>
 
 
@@ -47,59 +57,40 @@
   <location-map></location-map>
 </o-column-collapsible>
 
-<div>
-  <o-grid #toysGrid attr="toysGrid" service="toys" entity="toyAvailable" keys="toyid" detail-form-route="toysDetail"
-    columns="toyid;photo;name;price;latitude;longitude" pageable="yes" query-rows="20" page-size-options="20"
-    refresh-button="no" quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
-    [cols]="cols" gutter-size="15" grid-item-height="1:1.5">
 
-    <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
+
+<div>
+
+  <o-grid #toysGrid attr="toysGrid" service="toys" entity="toyAvailable" keys="toyid" detail-form-route="toysDetail"
+    columns="toyid;name;price;latitude;longitude;distance" pageable="yes" query-rows="20" page-size-options="20"
+    refresh-button="no" quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
+    [cols]="cols" gutter-size="15" grid-item-height="1:1.5" sortable-columns="distance" orderable="yes"
+    sort-column="distance">
+
+    <o-grid-item *ngFor="let data of toysGrid.getDataArray()" (onClick)="openDetail(data)">
 
       <div class="card">
-        <img class="image-header" src="{{baseUrl}}/restapi/get-image?toyId={{data.toyid}}">
 
+        <ng-container *ngIf="data.distance != null">
+          <div class=" card-distance">
+            <span>{{ data.distance | number : '1.2-2'}} km</span>
+          </div>
+        </ng-container>
+        <img class="image-header" src="{{baseUrl}}/restapi/get-image?toyId={{data.toyid}}">
         <div class="card-body">
           <h4>{{ data.name }}</h4>
           <p class="price"><span>€</span> {{ data.price | number: '1.2-2' }}</p>
+
+          <!-- <p class="price"><span>€</span> {{ data.distance }}</p>           -->
         </div>
 
       </div>
 
-      <!-- <o-column layout-padding class="container-item">
-        <img class="image" src="http://localhost:8080/restapi/get-image?toyId={{data.toyid}}" style="margin-top:8px">
-        <h4>{{ data.name  }}</h4>
-        <div class="phone">
-          <span>€</span><span>{{ data.price | number: '1.2-2' }}</span>
-        </div>
-
-      </o-column> -->
-
-      <!-- <div class="toy-card">
-
-
-
-        <img src="http://localhost:8080/restapi/get-image?toyId={{data.toyid}}" alt="" class="img-toy">
-
-        <div class="card-footer">
-          <h4 class="toy-title">{{ data.name }}</h4>
-          <p><span>€</span> {{ data.price | number: '1.2-2' }}</p>
-        </div>
-         -->
-
-      <!-- <div fxLayout="row" fxLayoutGap=".5em">
-          <div fxLayout="column" fxLayoutAlign="start center">
-            <mat-icon>credit_card</mat-icon>
-            <mat-icon *ngIf="data.location != null">connect_without_contact</mat-icon>
-          </div>
-          <div fxLayout="column" fxLayoutAlign="start start">
-            <span>{{ data.price }} €</span>
-            <span *ngIf="data.location != null">{{data.location}} Km</span>
-          </div>
-        </div> -->
-
-      <!-- </div> -->
-
     </o-grid-item>
 
   </o-grid>
+
+
+
+
 </div>

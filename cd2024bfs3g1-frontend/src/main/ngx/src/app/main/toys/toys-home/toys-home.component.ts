@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Expression, FilterExpressionUtils, OComboComponent } from "ontimize-web-ngx";
+import { Expression, FilterExpressionUtils, OComboComponent, OFilterBuilderComponent, OTextInputComponent } from "ontimize-web-ngx";
 import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
 import { ToysMapService } from "src/app/shared/services/toys-map.service";
 import { DialogService, ODialogConfig } from "ontimize-web-ngx";
@@ -8,6 +8,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { LocationMapComponent } from "src/app/shared/components/location-map/location-map.component";
 
 @Component({
   selector: "app-toys-home",
@@ -19,17 +20,45 @@ export class ToysHomeComponent implements OnInit {
 
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
   @ViewChild("price") protected priceCombo: OComboComponent;
+  @ViewChild("range") protected rangeCombo: OComboComponent;
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
 
 
+  //================= Variable de RANGO  =================
+  // public selectedAll = 0
+  // public rangeArray = [{
+  //   code: 0,
+  //   range: "Ver todos"
+  // },
+  // {
+  //   code: 50,
+  //   range: "a menos de 50km"
+  // },
+  // {
+  //   code: 100,
+  //   range: "a menos de 100km"
+  // },
+  // {
+  //   code: 200,
+  //   range: "a menos de 200km"
+  // }
+  // ]
 
   public cols: number = 5;
   private location: any;
   public arrayData: Array<any> = [];
 
 
+  @ViewChild('latInput')
+  public latInput: OTextInputComponent;
+
+  @ViewChild('longInput')
+  public longInput: OTextInputComponent;
+
+  @ViewChild('filterBuilder')
+  public filterBuilder: OFilterBuilderComponent;
 
   private layoutChanges = this.breakpointObserver.observe([
     Breakpoints.XSmall,
@@ -47,7 +76,7 @@ export class ToysHomeComponent implements OnInit {
     private toysMapService: ToysMapService,
     protected dialog: MatDialog,
     protected sanitizer: DomSanitizer,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
   ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('byuser');
@@ -55,15 +84,37 @@ export class ToysHomeComponent implements OnInit {
 
     // Inicializar el precio predeterminado
     this.precioPredeterminado = 1000000; // Valor que representa "Todos" los precios
+  
   }
 
   ngOnInit() {
+    
     //Se escuchan los cambios del servicio
-    // this.toysMapService.getLocation().subscribe(data => {
-    //   this.location = data;
-    //   //Recargar el grid con las tarjetas
-    //   this.toyGrid.reloadData();
-    // });
+    this.toysMapService.getLocation().subscribe(data => {
+
+      this.latInput.setValue(data.latitude);
+      this.longInput.setValue(data.longitude);
+
+      console.log(this.latInput.getValue());
+      console.log(this.longInput.getValue());
+      console.log(this.longInput.isEmpty());
+
+      //Recargar el grid con las tarjetas
+      console.log("DATAARRAY:", this.toyGrid.dataArray);
+      console.log("DATAARRAY:", this.toyGrid.getDataArray());
+
+      
+      this.toyGrid.reloadData();
+
+ 
+      
+      // this.toyGrid.dataArray.forEach(element => {
+      //   console.log(element.latitude);
+      //   console.log(element.longitude);        
+      // })
+
+
+    });
 
     //Control de columnas en o-grid
     this.layoutChanges.subscribe((result) => {
@@ -84,6 +135,10 @@ export class ToysHomeComponent implements OnInit {
     if (this.baseUrl.includes('localhost')) {
       this.baseUrl = 'http://localhost:8080';
     }
+
+    // console.log("ngOnInit", this.toyGrid);
+    // console.log("filterBuilder", this.filterBuilder.getFilterValues);
+    console.log("latInput:", this.latInput);
 
   }
 
@@ -145,6 +200,11 @@ export class ToysHomeComponent implements OnInit {
     let categoryExpressions: Array<Expression> = [];
     let priceExpressions: Array<Expression> = [];
     let statusExpressions: Array<Expression> = [];
+    let latLongExpressions: Array<Expression> = [];
+
+
+    console.log(values);
+
 
     values.forEach(fil => {
       if (!fil.value) return; // Salir temprano si no hay valor
@@ -169,7 +229,13 @@ export class ToysHomeComponent implements OnInit {
         }
       } else if (fil.attr === "PRICE") {
         priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("PRICE", fil.value));
-      }
+      } else if (fil.attr === "LATITUDE") {
+        latLongExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("LATITUDE", fil.value));
+      } else if (fil.attr === "LONGITUDE") {
+        latLongExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("LONGITUDE", fil.value));
+      } 
+   
+
     });
 
     // Construir la expresión OR para CATEGORY
@@ -204,8 +270,16 @@ export class ToysHomeComponent implements OnInit {
       );
     }
 
+     // Construir la expresión OR para el precio
+     let latLongExpresion: Expression = null;
+     if (latLongExpressions.length > 0) {
+        latLongExpresion = latLongExpressions.reduce((exp1, exp2) =>
+         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+       );
+     }
+
     // Combinar todas las expresiones con AND
-    const expressionsToCombine = [combinedExpression, categoryExpression, priceExpression, statusExpression].filter(exp => exp !== null);
+    const expressionsToCombine = [combinedExpression, categoryExpression, priceExpression, statusExpression, latLongExpresion].filter(exp => exp !== null);
     if (expressionsToCombine.length > 0) {
       combinedExpression = expressionsToCombine.reduce((exp1, exp2) =>
         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND)
@@ -215,8 +289,9 @@ export class ToysHomeComponent implements OnInit {
     return combinedExpression;
   }
 
-
   clearFilters(): void {
+    console.log("clearFilters called");
+    
     this.priceCombo.setValue(this.precioPredeterminado);
     this.toyGrid.reloadData();
 
