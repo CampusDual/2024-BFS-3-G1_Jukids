@@ -20,7 +20,6 @@ export class ToysHomeComponent implements OnInit {
 
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
   @ViewChild("price") protected priceCombo: OComboComponent;
-  @ViewChild('filterBuilder') filterBuilder: any;
   @ViewChild("range") protected rangeCombo: OComboComponent;
 
   //============== Variable de URL BASE =================
