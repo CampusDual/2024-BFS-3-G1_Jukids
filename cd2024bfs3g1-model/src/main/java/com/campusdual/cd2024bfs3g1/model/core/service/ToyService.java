@@ -158,21 +158,41 @@ public class ToyService implements IToyService {
         //Recuperamos la localizacion
         Object location = insert_result.get( UserLocationDao.ATTR_ID );
 
-        System.out.println("ADV location: " + location);
+        //Extraer el BasicExpression del keysValues
+        Object basicExpressionLocation =  keysValues.get("EXPRESSION_KEY_UNIQUE_IDENTIFIER");
 
-        HashMap<String, Object> queryMap = new HashMap<>();
+        // Agregar el ID del UserLocationDao para la query
+        SQLStatementBuilder.BasicField transitionFieldLOCATION =
+                new SQLStatementBuilder.BasicField( UserLocationDao.ATTR_ID );
 
-        queryMap.put( UserLocationDao.ATTR_ID, location);
+        SQLStatementBuilder.BasicExpression transitionStatusBELOCATION =
+                new SQLStatementBuilder.BasicExpression( transitionFieldLOCATION, SQLStatementBuilder.BasicOperator.EQUAL_OP, location );
+
+        SQLStatementBuilder.BasicExpression totalExpressionLocation =
+                new SQLStatementBuilder.BasicExpression(transitionStatusBELOCATION, SQLStatementBuilder.BasicOperator.AND_OP, basicExpressionLocation);
+        keysValues.put("EXPRESSION_KEY_UNIQUE_IDENTIFIER", totalExpressionLocation);
 
         if( keysValues.containsKey( ToyDao.ATTR_DISTANCE ) ) {
-            queryMap.put(ToyDao.ATTR_DISTANCE, new SearchValue( SearchValue.LESS_EQUAL, fields.get(ToyDao.ATTR_DISTANCE) ));
+
+            //Extraer el BasicExpression del keysValues
+            Object basicExpressionDistance =  keysValues.get("EXPRESSION_KEY_UNIQUE_IDENTIFIER");
+
+            // Agregar el ID del Distance para la query
+            SQLStatementBuilder.BasicField transitionFieldDistance =
+                    new SQLStatementBuilder.BasicField( ToyDao.ATTR_DISTANCE );
+            SQLStatementBuilder.BasicExpression transitionStatusBEDistance =
+                    new SQLStatementBuilder.BasicExpression( transitionFieldDistance, SQLStatementBuilder.BasicOperator.LESS_EQUAL_OP, fields.get(ToyDao.ATTR_DISTANCE) );
+
+            SQLStatementBuilder.BasicExpression totalExpressionDistance =
+                    new SQLStatementBuilder.BasicExpression(transitionStatusBEDistance, SQLStatementBuilder.BasicOperator.AND_OP, basicExpressionDistance);
+            keysValues.put("EXPRESSION_KEY_UNIQUE_IDENTIFIER", totalExpressionDistance);
         }
-        System.out.println("ADV queryMap: " + queryMap);
+
 
         // Buscar por ID y DISTANCIA
         //return this.daoHelper.query( this.toyDao, queryMap, attrList, ToyDao.QUERY_V_TOYS_DISTANCES );
 
-        return this.daoHelper.paginationQuery(this.toyDao, queryMap, attributes, recordNumber, startIndex, orderBy, ToyDao.QUERY_V_TOYS_DISTANCES);
+        return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, ToyDao.QUERY_V_TOYS_DISTANCES);
 
     }
 
