@@ -84,11 +84,10 @@ export class ToysHomeComponent implements OnInit {
 
     // Inicializar el precio predeterminado
     this.precioPredeterminado = 1000000; // Valor que representa "Todos" los precios
-  
+
   }
 
   ngOnInit() {
-    
     //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
 
@@ -103,14 +102,14 @@ export class ToysHomeComponent implements OnInit {
       console.log("DATAARRAY:", this.toyGrid.dataArray);
       console.log("DATAARRAY:", this.toyGrid.getDataArray());
 
-      
+
       this.toyGrid.reloadData();
 
- 
-      
+
+
       // this.toyGrid.dataArray.forEach(element => {
       //   console.log(element.latitude);
-      //   console.log(element.longitude);        
+      //   console.log(element.longitude);
       // })
 
 
@@ -135,10 +134,6 @@ export class ToysHomeComponent implements OnInit {
     if (this.baseUrl.includes('localhost')) {
       this.baseUrl = 'http://localhost:8080';
     }
-
-    // console.log("ngOnInit", this.toyGrid);
-    // console.log("filterBuilder", this.filterBuilder.getFilterValues);
-    console.log("latInput:", this.latInput);
 
   }
 
@@ -233,8 +228,8 @@ export class ToysHomeComponent implements OnInit {
         latLongExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("LATITUDE", fil.value));
       } else if (fil.attr === "LONGITUDE") {
         latLongExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("LONGITUDE", fil.value));
-      } 
-   
+      }
+
 
     });
 
@@ -289,23 +284,15 @@ export class ToysHomeComponent implements OnInit {
     return combinedExpression;
   }
 
+
   clearFilters(): void {
-    console.log("clearFilters called");
-    
     this.priceCombo.setValue(this.precioPredeterminado);
     this.toyGrid.reloadData();
 
   }
 
-  formatPriceSlider(value: number | null) {
-    if (!value) {
-      return 0;
-    }
-
-    return value + "€";
-  }
-
-  public pricesArray = [{
+  public pricesArray = [
+    {
     attr_price: 'priceCode_10',
     priceCode: 10,
     priceText: 'Menos de 10€'
@@ -317,10 +304,6 @@ export class ToysHomeComponent implements OnInit {
     attr_price: 'priceCode_50',
     priceCode: 50,
     priceText: 'Menos de 50€'
-  }, {
-    attr_price: 'priceCode_1000000',
-    priceCode: 1000000, //se pone un millon para q aparezcan todos los productos (no se cree q ningun juguete vaya a superar esta cifra)
-    priceText: 'Todos'
   }];
 
   public precioPredeterminado = 1000000;
