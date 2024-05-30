@@ -232,11 +232,8 @@ export class ToysHomeComponent implements OnInit {
     return value + "€";
   }
 
-  public pricesArray = [{
-      attr_price: 'priceCode_1000000',
-      priceCode: 1000000, //se pone un millon para q aparezcan todos los productos (no se cree q ningun juguete vaya a superar esta cifra)
-      priceText: 'Todos'
-    }, {
+  public pricesArray = [
+    {
     attr_price: 'priceCode_10',
     priceCode: 10,
     priceText: 'Menos de 10€'
