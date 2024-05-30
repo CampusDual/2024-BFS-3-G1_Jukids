@@ -112,6 +112,26 @@
                 font-size: small;
                 text-decoration: none;
             }
+
+            .a-class{
+                border-color: #ff5349;
+                color: #ff5349;
+                background-color: #fff;
+                text-decoration: none;
+                width: 100%;
+                height: 100%;
+                &:hover {
+                    color: #fff;
+                    background-color: #FFA366;
+                    border-color: #ffa366;
+                  }
+              
+                  &.reverse {
+                    color: #fff;
+                    background-color: #FFA366;
+                    border-color: #ffa366;
+                  }
+            }
             .checkout-container {
                 display: flex;
                 width: 50%;
@@ -241,6 +261,22 @@
     border: none;
 }
 
+.plus {
+    border-color: #ff5349;
+    color: #ff5349 !important;
+
+    &:hover {
+        color: #fff !important;
+        background-color: #FFA366;
+        border-color: #ffa366;
+      }
+  
+      &.reverse {
+        color: #fff;
+        background-color: #FFA366;
+        border-color: #ffa366;
+      }
+}
 
 .map-column {
     display: flex;

@@ -123,18 +123,18 @@
             show-controls="no"
           ></o-image>
           <!-- buy button  -->
-          <div class="button btn-outline-light"
+          <div class="button" style="border: none;"
             *ngIf="usr_id.getValue() != undefined; else unRegisteredUser"
           >
-            <button style="border: none; background-color: transparent;text-transform: uppercase;" (click)="checkout()">
+            <button style="text-transform: uppercase;" class="button btn-outline-light" (click)="checkout()">
               <span>{{ "BUY" | oTranslate }}</span>
             </button>
           </div>
           <!-- contact seller  -->
           <ng-template #unRegisteredUser>
             <div class="transparent">
-              <button class="button btn-outline-light">
-                <a style="border: none; background-color: transparent;text-decoration:none;color:black; text-transform: uppercase;" href="mailto:{{ emailInput.getValue() }}
+              <button class="button btn-outline-light plus">
+                <a class="plus" style="border: none; background-color: transparent;text-decoration:none;color:black; text-transform: uppercase;" href="mailto:{{ emailInput.getValue() }}
                 ?Subject=¡Quiero tu juguete {{ nameInput.getValue() }} de JUKIDS!
                 &body=Hola!%20Me%20gustaría%20comprar%20tu%20juguete%20{{ nameInput.getValue() }}">
                   {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}</a>
