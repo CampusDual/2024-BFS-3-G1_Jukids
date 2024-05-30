@@ -10,14 +10,10 @@
         justify-content: flex-start;
         align-content: center;
         border-radius: 8px;
-        @media screen and (max-width: 1500px) {
-            width: 70%;
-        }
         @media screen and (max-width: 1200px) {
             width: 80%;
             margin-bottom: 10px;
         }
-
         .category {
             scale: 100%;
             align-content: center;
@@ -39,15 +35,17 @@
     border-radius: 1em;
     height: fit-content;
     // background-color: greenyellow;
+    @media screen and (max-width: 1200px) {
+        width: 80% !important;
+    }
     @media screen and (max-width: 1000px) {
-        max-width: 70% !important;
         justify-self: center;
         justify-content: center !important;
         justify-items: center !important;
     }
     @media screen and (max-width: 900px) {
-       width: 100% !important;
-       justify-self: center;
+        width: 100% !important;
+        justify-self: center;
     }
     .toys-detail-column {
         margin-top: 10px;
@@ -112,7 +110,6 @@
                 font-size: small;
                 text-decoration: none;
             }
-            
             .checkout-container {
                 display: flex;
                 width: 50%;
