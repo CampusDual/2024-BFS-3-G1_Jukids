@@ -27,6 +27,7 @@
                         toys t
                         JOIN v_toy_distances vt ON t.toyid = vt.toyid
                      #WHERE#
+                     #ORDER#
                 ]]>
             </Sentence>
         </Query>

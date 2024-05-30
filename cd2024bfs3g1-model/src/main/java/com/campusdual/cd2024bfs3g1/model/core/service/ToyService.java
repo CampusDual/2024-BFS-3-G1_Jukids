@@ -6,6 +6,7 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.UserLocationDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.AdvancedEntityResultMapImpl;
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -19,10 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service("ToyService")
 @Lazy
@@ -66,12 +64,28 @@ public class ToyService implements IToyService {
     @Override
     public AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
 
-        System.out.println("toyAvailablePaginationQuery attributes: " + attributes );
-        System.out.println("toyAvailablePaginationQuery keysValues: " + keysValues );
+        //Extraer el basicExpression
+        Object basicExpression =  keysValues.get("EXPRESSION_KEY_UNIQUE_IDENTIFIER");
 
-        if( attributes.contains( ToyDao.ATTR_LATITUDE ) && attributes.contains(ToyDao.ATTR_LONGITUDE ) ){
-            return  advanceEntitySearchByDistance( keysValues, attributes, recordNumber, startIndex, orderBy );
+        //Extraer los datos del basicExpression
+        Hashtable<String, Object> fields  = getHashMapExpression( basicExpression );
+
+        SQLStatementBuilder.BasicField transitionField = new SQLStatementBuilder.BasicField( ToyDao.ATTR_TRANSACTION_STATUS );
+        SQLStatementBuilder.BasicExpression transitionStatusBA = new SQLStatementBuilder.BasicExpression( transitionField, SQLStatementBuilder.BasicOperator.EQUAL_OP, ToyDao.STATUS_AVAILABLE );
+
+        SQLStatementBuilder.BasicExpression totalExpression = new SQLStatementBuilder.BasicExpression(transitionStatusBA, SQLStatementBuilder.BasicOperator.AND_OP, basicExpression);
+        keysValues.put("EXPRESSION_KEY_UNIQUE_IDENTIFIER", totalExpression);
+
+        if( fields.containsKey( ToyDao.ATTR_LATITUDE ) && fields.containsKey(ToyDao.ATTR_LONGITUDE ) ){
+            return  advanceEntitySearchByDistance( keysValues, attributes, recordNumber, startIndex, orderBy, fields );
+        } else {
+
+            //Remover columna distance y limpiar filtro orderBy distance.
+            attributes.remove(attributes.get( attributes.indexOf("distance") ) );
+            orderBy.clear();
+
         }
+
 
         return  this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
     }
@@ -95,16 +109,7 @@ public class ToyService implements IToyService {
         return this.daoHelper.insert(this.toyDao, attrMap);
     }
 
-    private AdvancedEntityResult advanceEntitySearchByDistance(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
-        System.out.println("keysValues: "+ keysValues.size() );
-        System.out.println("LAT: " +  keysValues.get(UserLocationDao.ATTR_LATITUDE));
-        System.out.println("LONG: " + keysValues.get(UserLocationDao.ATTR_LONGITUDE));
-        System.out.println("TOYID: " + keysValues.get(ToyDao.ATTR_ID));
-
-        keysValues.forEach((k, v) -> {
-            System.out.println("keys :" + k);
-            System.out.println("Values :" + v);
-        });
+    private AdvancedEntityResult advanceEntitySearchByDistance(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy, Hashtable<String, Object> fields) {
 
         // Borrar todas las localizaciones de mas de 10 minutos.
         HashMap<String, Object> keyMapDelete = new HashMap<>();
@@ -130,8 +135,8 @@ public class ToyService implements IToyService {
         // Insertar localizacion actual y recuperar el ID
         HashMap<String, Object> attrValue = new HashMap<>();
 
-        attrValue.put( UserLocationDao.ATTR_LATITUDE, keysValues.get(UserLocationDao.ATTR_LATITUDE)  );
-        attrValue.put( UserLocationDao.ATTR_LONGITUDE, keysValues.get(UserLocationDao.ATTR_LONGITUDE)  );
+        attrValue.put( UserLocationDao.ATTR_LATITUDE, fields.get(UserLocationDao.ATTR_LATITUDE)  );
+        attrValue.put( UserLocationDao.ATTR_LONGITUDE, fields.get(UserLocationDao.ATTR_LONGITUDE)  );
 
         EntityResult insert_result =   this.daoHelper.insert( this.userLocationDao, attrValue);
 
@@ -152,7 +157,7 @@ public class ToyService implements IToyService {
         queryMap.put( UserLocationDao.ATTR_ID, location);
 
         if( keysValues.containsKey( ToyDao.ATTR_DISTANCE ) ) {
-            queryMap.put(ToyDao.ATTR_DISTANCE, new SearchValue( SearchValue.LESS_EQUAL, keysValues.get(ToyDao.ATTR_DISTANCE) ));
+            queryMap.put(ToyDao.ATTR_DISTANCE, new SearchValue( SearchValue.LESS_EQUAL, fields.get(ToyDao.ATTR_DISTANCE) ));
         }
         System.out.println("ADV queryMap: " + queryMap);
 
@@ -161,8 +166,9 @@ public class ToyService implements IToyService {
 
         return this.daoHelper.paginationQuery(this.toyDao, queryMap, attributes, recordNumber, startIndex, orderBy, ToyDao.QUERY_V_TOYS_DISTANCES);
 
-
     }
+
+
 
     private EntityResult searchByDistance(Map<String, Object> keyMap, List<String> attrList) {
 
@@ -212,5 +218,19 @@ public class ToyService implements IToyService {
 
     }
 
+    private Hashtable<String, Object> getHashMapExpression(Object keyExpression) {
+        Hashtable<String, Object> result = new Hashtable<>();
+        if(keyExpression instanceof SQLStatementBuilder.BasicExpression){
+            SQLStatementBuilder.BasicExpression basicExpression = (SQLStatementBuilder.BasicExpression) keyExpression;
+            if(basicExpression.getLeftOperand() instanceof SQLStatementBuilder.BasicExpression){
+                result.putAll(getHashMapExpression(basicExpression.getLeftOperand()));
+                result.putAll(getHashMapExpression(basicExpression.getRightOperand()));
+            }else{
+                String field = basicExpression.getLeftOperand().toString().toLowerCase();
+                result.put(field,basicExpression.getRightOperand());
+            }
+        }
+        return result;
+    }
 
 }

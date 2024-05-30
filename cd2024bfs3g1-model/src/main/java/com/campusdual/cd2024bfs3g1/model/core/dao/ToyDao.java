@@ -23,11 +23,11 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_CATEGORY ="category";
 
     //Estados de compra: transaction_status
-    public static final int STATUS_AVAILABLE  = 0;
-    public static final int STATUS_PENDING_SHIPMENT  = 1;
-    public static final int STATUS_SEND  = 2;
-    public static final int STATUS_RECEIVE = 3;
-    public static final int STATUS_BUY  = 4;
+    public static final Integer STATUS_AVAILABLE  = 0;
+    public static final Integer STATUS_PENDING_SHIPMENT  = 1;
+    public static final Integer STATUS_SEND  = 2;
+    public static final Integer STATUS_RECEIVE = 3;
+    public static final Integer STATUS_BUY  = 4;
 
     //Agregar referencias de columnas en vista v_toy_distances
     public static final String QUERY_V_TOYS_DISTANCES = "getNearbyToys";

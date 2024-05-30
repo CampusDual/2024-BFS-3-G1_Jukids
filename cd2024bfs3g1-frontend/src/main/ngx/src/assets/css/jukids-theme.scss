@@ -173,6 +173,7 @@ nav {
 //==================================== CARD PRODUCT DESIGN ====================================
 
 .card {
+  position: relative;
   width: 95%;
   height: 95%;
   display: flex;
@@ -207,6 +208,16 @@ nav {
     }
   }
 
+  .card-distance {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    background-color: #fff;
+    border-radius: 0.75rem;
+    padding: 10px;
+    box-shadow: 0px 0px 5px 0px #5a5a5a;
+  }
 
 
   .card-body {
