@@ -1,21 +1,18 @@
-.card-container :hover {
-    scale: 102%;
+
+.card-container{
+    display: flex;
+    gap: 15px;
 }
 
-.user-profile-home-listcard  {
-    display: flex;
-    flex-direction: row;
-    height: 60px;
+.user-profile-home-listcard  {    
     width: fit-content;
-    background-color: white;
-    border-radius: 0.75em;
-    padding: 0 0.75em 0 0.5em;
-    align-items: center;
+    padding: 0.75rem;
 }
 
 .user-profile-home-listcard  :hover{
     scale: 100%;
 }
+
 
 .icon-image {
     align-self: center;
