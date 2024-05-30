@@ -52,7 +52,7 @@ export class ToysShippingComponent implements OnInit {
   @ViewChild('buyInfo') buyInfo;
   @ViewChild('buyButton') buyButton;
   @ViewChild('emailForm') emailForm;
-  @ViewChild('buyerEmail') protected buyerEmail: OTextInputComponent;
+  @ViewChild('buyerEmail') protected buyerEmail: OEmailInputComponent;
   @ViewChild('buttonAcceptPay') AcceptPayButton;
   @ViewChild('stripe') stripe: StripeComponent;
 
@@ -159,12 +159,28 @@ export class ToysShippingComponent implements OnInit {
     const conf = this.oServiceToy.getDefaultServiceConfiguration('toys');
     this.oServiceToy.configureService(conf);
 
-    const av = { "toyid": this.toyId.getValue(), "buyer_email": this.buyerEmail.getValue() }
+    let arrayErrores: any [] = [];
+    let errorEmail = "ERROR_EMAIL_VALIDATION";
+    var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
+
+    if(this.buyerEmail.getValue() === undefined || this.buyerEmail.getValue().trim() === "" || !regExpEmail.test(this.buyerEmail.getValue().trim())){
+      arrayErrores.push(this.translate.get(errorEmail));
+    }
+
+    if(arrayErrores.length > 0 ) {
+      let stringErrores = "";
+      for(let i = 0; i < arrayErrores.length; i++){
+        stringErrores += "</br>" + (arrayErrores[i] + "</br>");
+      }
+      this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
+    }else{
+      const av = { "toyid": this.toyId.getValue(), "buyer_email": this.buyerEmail.getValue() }
     this.oServiceToy.insert(av, "order").subscribe(result => {
     })
     this.checkout();
+    }    
   }
-
+º
   newSubmit() {
 
     let arrayErrores: any[] = [];
@@ -206,9 +222,7 @@ export class ToysShippingComponent implements OnInit {
       this.formShipments.insert();
       this.checkout();
     }
-
   }
-
 
   showCustom(
     icon: string,
