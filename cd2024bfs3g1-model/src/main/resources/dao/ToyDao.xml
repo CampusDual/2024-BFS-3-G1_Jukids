@@ -14,6 +14,38 @@
     <GeneratedKey>toyid</GeneratedKey>
 
     <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.toys
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="toyJoin">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="price" prefix="t" />
+                <AmbiguousColumn name="order_id" prefix="o" />
+                <AmbiguousColumn name="toyid" prefix="t" />
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                 SELECT
+                     #COLUMNS#
+                 FROM
+                     ${mainschema}.toys t
+                 INNER JOIN
+                     ${mainschema}.orders o ON t.toyid = o.toyid
+                 INNER JOIN
+                     ${mainschema}.shipments s ON o.order_id = s.order_id
+                 #WHERE#
+            ]]>
+            </Sentence>
+        </Query>
         <Query id="getNearbyToys">
             <AmbiguousColumns>
                 <AmbiguousColumn name="toyid" prefix="t"/>

@@ -13,6 +13,13 @@ export const SERVICE_CONFIG: Object = {
   'toyowner': {
     'path': '/toyowner'
   },
+  'orders': {
+    'path': '/orders'
+  },
+  'shipments': {
+    'path': '/shipments'
+  },
+
   'categories': {
     'path': '/categories'
   },
@@ -27,5 +34,5 @@ export const SERVICE_CONFIG: Object = {
   },
   'payments': {
     'path': '/payments'
-  },
+  }
 };

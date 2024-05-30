@@ -4,7 +4,7 @@
         <div fxFlex.gt-sm="35%">
             <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo"
                 empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER"
-                required="yes"></o-image>
+                required="yes" accept=".jpg,.jpeg,.png"></o-image>
         </div>
         <o-column fxFlex title="TOY_INFORMATION">
             <div fxLayout="column" fxLayoutGap="8px" layout-padding>
@@ -16,11 +16,27 @@
                     <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes"
                         label="usr_email"></o-email-input>
                 </div>
-                <o-combo label="category" id="category" null-selection="no" attr="category" service="categories" entity="category" keys="categoryid"
-                value-column="codigo" columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" translate="yes" required="yes"></o-combo>
-                <o-combo label="status" id="status" null-selection="no" attr="status" service="statuses" entity="status" keys="statusid"
-                value-column="code" columns="statusid;name;code" searchable="true" visible-columns="code" translate="yes" required="yes"></o-combo>
+
+                <div fxLayoutGap="8px" class="target">
+                    <o-combo fxFlex.gt-sm="50" label="category" id="category" null-selection="no" attr="category"
+                        service="categories" entity="category" keys="categoryid" value-column="codigo"
+                        columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" translate="yes"
+                        required="yes"></o-combo>
+                    <o-combo fxFlex.gt-sm="50" label="status" id="status" null-selection="no" attr="status"
+                        service="statuses" entity="status" keys="statusid" value-column="code"
+                        columns="statusid;name;code" searchable="true" visible-columns="code" translate="yes"
+                        required="yes"></o-combo>
+                </div>
+                <o-checkbox *ngIf="toyService == 'toyowner';else encourageRegister" id="shipping" #shipping fxFlex="50"
+                    attr="shipping" label="{{ 'SHIPPING'  | oTranslate }}">
+                </o-checkbox>
+                <ng-template #encourageRegister>
+                    <div class="warning">
+                        <p><!--<a href="/login">¡Registrate!</a>--> ¡Registrate! Encontrarás más opciones y llegarás a más gente</p>
+                    </div>
+                </ng-template>
             </div>
+
             <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
                 <div class="pop-up-span">
                     <span>{{ 'SELECT_POINT_ON_MAP' | oTranslate }}</span>
@@ -29,6 +45,12 @@
                 </div>
                 <location-map (click)="handleMapClick($event)"></location-map>
             </div>
+
+
+            <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude"
+                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
+            </o-real-input>
+
             <o-real-input style="display: none" id="longitude" #longitude fxFlex="50" attr="longitude"
                 decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
             </o-real-input>
@@ -37,16 +59,15 @@
             </o-real-input>
 
             <o-row layout-align="end center" layout-margin-top>
-                <button class="btn-outline-light" (click)="cancel()">
+                <button class="button btn-outline-light" (click)="cancel()">
                     <mat-icon class="btn-icon">close</mat-icon>
                     <span>cancel</span>
                 </button>
-                <button attr="submit" (click)="newSubmit()" class="btn-outline-light reverse">
+                <button attr="submit" (click)="newSubmit()" class="button btn-outline-light reverse">
                     <mat-icon class="btn-icon">save</mat-icon>
                     <span>ok</span>
                 </button>
             </o-row>
-
         </o-column>
     </div>
 </o-form>

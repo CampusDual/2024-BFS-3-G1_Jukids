@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IRegisterService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.UserRoleDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -21,6 +23,7 @@ import java.util.regex.Pattern;
 @Lazy
 @Service("RegisterService")
 public class RegisterService implements IRegisterService {
+    public static final int ROL_USER = 2;
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -30,26 +33,42 @@ public class RegisterService implements IRegisterService {
     @Autowired
     private UserAndRoleService userAndRole;
 
+    @Autowired
+    private UserRoleDao userRoleDao;
+
     @Override
     public EntityResult registerInsert(Map<?, ?> attrMap) throws OntimizeJEERuntimeException {
+
+        // Validación correo electronico
         if(!Utils.validaEmail((String) attrMap.get("usr_login"))){
-            //System.out.println("Email invalido");
             EntityResult error = new EntityResultMapImpl();
             error.setCode(EntityResult.OPERATION_WRONG);
             error.setMessage("El correo electrónico no es correcto");
             return error;
         }
-
+        // Validación si cuenta de correo existe
         if (existsEmail((String) attrMap.get("usr_login"))) {
-            //System.out.println("Ya existe");
             EntityResult existe = new EntityResultMapImpl();
             existe.setCode(EntityResult.OPERATION_WRONG);
             existe.setMessage("Ya existe una cuenta con este correo");
             return existe;
         }
 
-//Insertamos registro con contraseña encriptada
-        return this.daoHelper.insert(this.userDao,userAndRole.encryptPassword(attrMap));
+        //Insertamos registro con contraseña encriptada
+        EntityResult insercion = this.daoHelper.insert(this.userDao,userAndRole.encryptPassword(attrMap));
+
+
+        if(insercion.isWrong()) {
+            return insercion;
+        }
+
+        // Asignamos rol de usuario al nuevo registro
+        Object userId = insercion.get("usr_id");
+        HashMap<String,Object> attrMapRole = new HashMap<>();
+        attrMapRole.put("usr_id",userId);
+        attrMapRole.put("rol_id", ROL_USER);
+
+        return this.daoHelper.insert(this.userRoleDao,attrMapRole);
 
     }
 
