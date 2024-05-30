@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService } from 'ontimize-web-ngx';
+import { AuthService, DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 
 @Component({
@@ -20,17 +20,24 @@ export class ToysShippingComponent implements OnInit {
   public dataCompany = [{
     code: 'Correos',
     company: 'Correos'
-  },]
+  },
+  {
+    code: 'MRW',
+    company: 'MRW'
+  },
+  {
+    code: 'Nacex',
+    company: 'Nacex'
+  }]
   public defaultCompany = 'Correos';
 
   //Usuario loggedaro
   public logged: boolean = false;
 
-
-
   private form: Element;
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('nameInput') toyName: OTextInputComponent;
+  @ViewChild('shippingInput') shippingInput: OTextInputComponent;
   @ViewChild('emailInput') toyEmail: OEmailInputComponent;
   @ViewChild('priceInput') priceToy: OCurrencyInputComponent;
   @ViewChild('formShipments') formShipments: OFormComponent;
@@ -44,6 +51,8 @@ export class ToysShippingComponent implements OnInit {
   @ViewChild('BuySend') buySendOption;
   @ViewChild('buyInfo') buyInfo;
   @ViewChild('buyButton') buyButton;
+  @ViewChild('emailForm') emailForm;
+  @ViewChild('buyerEmail') protected buyerEmail: OEmailInputComponent;
   @ViewChild('buttonAcceptPay') AcceptPayButton;
   @ViewChild('stripe') stripe: StripeComponent;
 
@@ -55,12 +64,18 @@ export class ToysShippingComponent implements OnInit {
     protected dialogService: DialogService,
     private translate: OTranslateService,
     private authService: AuthService,
+    private oServiceToy: OntimizeService,
+    private oServiceOrder: OntimizeService,
   ) {
-    this.logged = this.authService.isLoggedIn()
+    this.logged = this.authService.isLoggedIn();
   }
 
   ngOnInit() {
     this.form = document.getElementById("formShipments");
+
+    const conf2 = this.oServiceOrder.getDefaultServiceConfiguration('orders');
+    this.oServiceOrder.configureService(conf2);
+
   }
 
   showFormShipments() {
@@ -69,23 +84,25 @@ export class ToysShippingComponent implements OnInit {
       this.form.classList.add("hidden")
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
+      this.emailForm.nativeElement.classList.add("hidden")
     }
 
     if (this.buySendOption._checked) {
       this.issetSend = true;
       this.form.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
+      this.emailForm.nativeElement.classList.add("hidden")
       this.buyButton.nativeElement.classList.add("hidden")
     }
 
   }
 
   setData(): void {
-
     console.log("toyId:", this.toyId.getValue());
     console.log("name:", this.toyName.getValue());
     console.log("Email:", this.toyEmail.getValue());
     console.log("price:", this.priceToy.getValue());
+    console.log("shippingInput:", this.shippingInput.getValue());
 
     // setStripe
     this.stripe.toyId = this.toyId.getValue();
@@ -99,17 +116,71 @@ export class ToysShippingComponent implements OnInit {
     this.price.setValue(this.priceSend);
 
     //Formulario de envio desabilitado
+    if (!this.shippingInput.getValue()) {
+      console.log("no envio")
+      this.issetSend = false;
+      this.form.classList.add("hidden")
+      this.buyButton.nativeElement.classList.remove("hidden")
+      this.buyInfo.nativeElement.classList.remove("hidden")
+      this.emailForm.nativeElement.classList.add("hidden")
+    }
     //disabled !logged
     if (!this.logged) {
-      console.log( this.AcceptPayButton)
       this.AcceptPayButton.nativeElement.classList.add("hidden")
+    }
+    if (!this.shippingInput.getValue()) {
+      console.log("no envio")
+      this.issetSend = false;
+      this.form.classList.add("hidden")
+      this.buyButton.nativeElement.classList.remove("hidden")
+      this.buyInfo.nativeElement.classList.remove("hidden")
+      this.emailForm.nativeElement.classList.add("hidden")
     }
   }
 
   checkout() {
     this.stripe.checkoutStripe(this.issetSend);
   }
+  newBuy() {
+    //Comentarios de este metodo pra logeado
+    if (!this.logged) {
+      this.buyButton.nativeElement.classList.add("hidden")
+      this.emailForm.nativeElement.classList.remove("hidden")
+    } else {
+      console.log(this.toyId.getValue())
+      const avOrder = { "toyid": this.toyId.getValue() }
+      this.oServiceOrder.insert(avOrder, "order").subscribe(result => {
+      })
+      this.checkout();
+    }
+  }
 
+  paySubmit() {
+    const conf = this.oServiceToy.getDefaultServiceConfiguration('toys');
+    this.oServiceToy.configureService(conf);
+
+    let arrayErrores: any [] = [];
+    let errorEmail = "ERROR_EMAIL_VALIDATION";
+    var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
+
+    if(this.buyerEmail.getValue() === undefined || this.buyerEmail.getValue().trim() === "" || !regExpEmail.test(this.buyerEmail.getValue().trim())){
+      arrayErrores.push(this.translate.get(errorEmail));
+    }
+
+    if(arrayErrores.length > 0 ) {
+      let stringErrores = "";
+      for(let i = 0; i < arrayErrores.length; i++){
+        stringErrores += "</br>" + (arrayErrores[i] + "</br>");
+      }
+      this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
+    }else{
+      const av = { "toyid": this.toyId.getValue(), "buyer_email": this.buyerEmail.getValue() }
+    this.oServiceToy.insert(av, "order").subscribe(result => {
+    })
+    this.checkout();
+    }    
+  }
+º
   newSubmit() {
 
     let arrayErrores: any[] = [];
@@ -151,7 +222,6 @@ export class ToysShippingComponent implements OnInit {
       this.formShipments.insert();
       this.checkout();
     }
-
   }
 
   showCustom(

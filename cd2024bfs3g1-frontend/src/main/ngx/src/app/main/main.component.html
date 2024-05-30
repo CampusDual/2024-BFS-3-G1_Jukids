@@ -5,13 +5,13 @@
         <p class="title" routerLink="/">JuKids</p>
       </div>
       <div class="nav-right-side">
-        <button *ngIf="validAdmin()" class="btn-outline-dark" type="button" (click)="adminRedirect()">
+        <button *ngIf="validAdmin()" class="button btn-outline-dark" type="button" (click)="adminRedirect()">
           {{ 'ADMIN' | oTranslate }}
         </button>
-        <button *ngIf="!isLogged()" class="btn-outline-dark " type="button" (click)="modal('login')">
+        <button *ngIf="!isLogged()" class="button btn-outline-dark " type="button" (click)="modal('login')">
           {{ 'LOGIN' | oTranslate}}
         </button>
-        <button class="btn-outline-dark reverse" routerLink="/main/toys/new">
+        <button class="button btn-outline-dark reverse" routerLink="/main/toys/new">
           {{ 'SELL_YOUR_TOY' | oTranslate}}
         </button>
       </div>
@@ -22,9 +22,6 @@
 
     <o-user-info-configuration-item name="{{ 'MY_PROFILE' | oTranslate }}" icon="format_list_bulleted"
       route="/main/user-profile"></o-user-info-configuration-item>
-
-    <o-user-info-configuration-item name="{{ 'VIEW_MY_PRODUCTS' | oTranslate }}" icon="format_list_bulleted"
-      route="/main/user-profile/toylist"></o-user-info-configuration-item>
 
   </o-user-info-configuration>
   <router-outlet></router-outlet>

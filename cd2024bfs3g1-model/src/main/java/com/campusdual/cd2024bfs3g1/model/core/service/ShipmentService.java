@@ -1,6 +1,5 @@
 package com.campusdual.cd2024bfs3g1.model.core.service;
 
-
 import com.campusdual.cd2024bfs3g1.api.core.service.IShipmentService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ShipmentDao;
@@ -10,7 +9,6 @@ import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
-import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
@@ -58,8 +56,43 @@ public class ShipmentService implements IShipmentService {
         return this.daoHelper.query(this.shipmentDao, shipmentData, attrList);
     }
 
+    //Muestra juguetes del estado 1 al comprador
     @Override
-    public EntityResult shipmentReceivedQuery() throws OntimizeJEERuntimeException {
+    public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        if (email != null) {
+            HashMap<String, Object> keysValues = new HashMap<>();
+            keysValues.put(UserDao.LOGIN, email);
+            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+
+            if (userData.isWrong()) {
+                return userData;
+            }
+
+            if (userData.isEmpty()) {
+
+                return createError("No se encuentra el usuario: " + email);
+            }
+
+            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+            keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
+            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PENDING_SHIPMENT);
+
+            return this.daoHelper.query(this.shipmentDao, keyMap, attrList, "shipmentJoin");
+
+        }else{
+
+            return createError("No estas logueado");
+        }
+    }
+
+    //Muestra juguetes del estado 2
+    @Override
+    public EntityResult pendingReceiveQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
@@ -75,46 +108,41 @@ public class ShipmentService implements IShipmentService {
         }
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-        
-        //Buscamos las orders cuyo BUYER_ID coincida con el user id
 
-        HashMap<String,Object> orderKeyValues = new HashMap<>();
-        orderKeyValues.put(OrderDao.ATTR_BUYER_ID, idUser);
+        Map<String, Object> searchValues = new HashMap<>();
+        searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
+        searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
 
-        List<String> orderAttr = Arrays.asList(OrderDao.ATTR_TOY_ID);
-        EntityResult orderResult = this.daoHelper.query(this.orderDao, orderKeyValues, orderAttr);
-
-        if (orderResult.isEmpty() || orderResult.isWrong()){
-
-            return createError("No se encontraron orders con este buyer_id");
-        }
-
-        //TODO:Preguntar a Juanjo
-       //For provisional a falta de algo mejor
-
-        List<Object> toyIds = new ArrayList<>();
-        for (int i = 0; i < orderResult.calculateRecordNumber(); i++) {
-            toyIds.add(orderResult.getRecordValues(i).get(OrderDao.ATTR_TOY_ID));
-        }
-
-        if (toyIds.isEmpty()) {
-            return createError("No se encontraron juguetes que coincidan con este buyer_id");
-        }
-
-        HashMap<String,Object> toyKeyValues = new HashMap<>();
-        toyKeyValues.put(ToyDao.ATTR_TRANSACTION_STATUS, 2);
-
-        // Prueba del "_in" ( Solo pilla los contenidos tambien en la lista toyIds)
-
-        toyKeyValues.put(ToyDao.ATTR_ID + "_in", toyIds);
-
-        //Creamos la lista de campos que necesitamos de TOYS
-
-        List<String> toyAttr = Arrays.asList( ToyDao.ATTR_NAME, ToyDao.ATTR_PRICE, ToyDao.ATTR_PHOTO);
-
-        return this.daoHelper.query(this.toyDao, toyKeyValues, toyAttr);
+        return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentJoin");
     }
 
+    //Muestra juguetes del estado 3
+    @Override
+    public EntityResult pendingConfirmQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        HashMap<String, Object> keysValues = new HashMap<>();
+        keysValues.put(UserDao.LOGIN, email);
+        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+
+        if (userData.isEmpty() || userData.isWrong()) {
+
+            return createError("Error al recuperar el usuario");
+        }
+
+        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+
+        Map<String, Object> searchValues = new HashMap<>();
+        searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
+        searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_RECEIVED);
+
+        return this.daoHelper.query(this.shipmentDao, searchValues, attrList, "shipmentJoin");
+    }
+
+    //Actualizar estado del 1 al 2
     @Override
     @Transactional
     public EntityResult shipmentSentUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
@@ -134,48 +162,60 @@ public class ShipmentService implements IShipmentService {
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
 
-        //Recuperamos TOYS - USER_ID y TRANSACTION_STATUS
+        //Recuperamos el SHIPMENT_ID y el TOY_ID
 
-        Integer toyId = (Integer) attrMap.get(ShipmentDao.ATTR_ORDER_ID);
-        HashMap<String, Object> toyKeyValues = new HashMap<>();
-        toyKeyValues.put(ToyDao.ATTR_USR_ID, toyId);
-        List<String> toyAttributes = Arrays.asList(ToyDao.ATTR_USR_ID,ToyDao.ATTR_TRANSACTION_STATUS);
-        EntityResult toyData = this.daoHelper.query(toyDao,toyKeyValues, toyAttributes);
+        Map<String, Object> searchValues = new HashMap<>();
+        searchValues.put(ToyDao.ATTR_ID, keyMap.get(ToyDao.ATTR_ID));
+        searchValues.put(ToyDao.ATTR_USR_ID, idUser);
+        searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PENDING_SHIPMENT);
 
-        if (toyData.isWrong() || toyData.isEmpty()) {
-            return createError("Error al recuperar el juguete");
+        List<String> resultAttributes = Arrays.asList(
+
+                ShipmentDao.ATTR_ID,
+                ToyDao.ATTR_ID,
+                ToyDao.ATTR_TRANSACTION_STATUS,
+                ToyDao.ATTR_USR_ID
+        );
+
+        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, "shipmentJoin");
+
+        if (shipmentData.isWrong() || shipmentData.isEmpty()){
+            return createError("Error al recuperar el envío");
         }
 
-        Integer toyOwnerId= (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
-        Integer transactionStatus = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_TRANSACTION_STATUS);
-
-        if(!idUser.equals(toyOwnerId)){
-            return createError("No tienes permisos para realizar este envío");
-        }
-
-        if(transactionStatus != 1){
-            return createError("El juguete no esta pendiente de envío");
-        }
+        Integer shipmentId = (Integer) shipmentData.getRecordValues(0).get(ShipmentDao.ATTR_ID);
+        Integer toyId = (Integer) shipmentData.getRecordValues(0).get(ToyDao.ATTR_ID);
 
         //Generamos SHIPMENTS - TRACKING NUMBER y SHIPMENT_DATE
 
         String trackingNumber = generateRandomTrack();
-        attrMap.put(ShipmentDao.ATTR_TRACKING_NUMBER, trackingNumber);
-        attrMap.put(ShipmentDao.ATTR_SHIPMENT_DATE, LocalDateTime.now());
+
+        Map<String, Object> shipmentUpdateValues = new HashMap<>();
+        shipmentUpdateValues.put(ShipmentDao.ATTR_SENDER_ADDRESS, attrMap.get(ShipmentDao.ATTR_SENDER_ADDRESS));
+        shipmentUpdateValues.put(ShipmentDao.ATTR_TRACKING_NUMBER, trackingNumber);
+        shipmentUpdateValues.put(ShipmentDao.ATTR_SHIPMENT_DATE, LocalDateTime.now());
 
         //Hacemos Update a SHIPMENTS
 
-        EntityResult shipmentResult = this.daoHelper.update(this.shipmentDao, attrMap, keyMap);
+        Map<String, Object> shipmentKeyMap = new HashMap<>();
+        shipmentKeyMap.put(ShipmentDao.ATTR_ID, shipmentId);
 
-        //Actualizamos TOYS - TRANSACTION_STATUS
+        EntityResult shipmentUpdateResult = this.daoHelper.update(this.shipmentDao, shipmentUpdateValues, shipmentKeyMap);
 
-        Map<String,Object> updateToy = new HashMap<>();
-        updateToy.put(ToyDao.ATTR_TRANSACTION_STATUS, 2);
+        if (shipmentUpdateResult.isWrong()){
 
-        Map<String,Object> toyKeyMap = new HashMap<>();
+            return createError("Error al actualizar el envío");
+        }
+
+        //Actualizamos TOYS - TRANSACTION_STATUS a 2
+
+        Map<String, Object> toyUpdateValues = new HashMap<>();
+        toyUpdateValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
+
+        Map<String, Object> toyKeyMap = new HashMap<>();
         toyKeyMap.put(ToyDao.ATTR_ID, toyId);
 
-        EntityResult toyUpdateResult = this.daoHelper.update(this.toyDao, updateToy, toyKeyMap);
+        EntityResult toyUpdateResult = this.daoHelper.update(this.toyDao, toyUpdateValues, toyKeyMap);
 
         if (toyUpdateResult.isWrong()){
 
@@ -183,11 +223,12 @@ public class ShipmentService implements IShipmentService {
         }
 
         EntityResult result = new EntityResultMapImpl();
-        result.setMessage("Envio realizado");
+        result.setMessage("Envío realizado con éxito");
 
         return result;
     }
 
+    //Actualizar estado del 2 al 3
     @Override
     @Transactional
     public EntityResult shipmentReceivedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
@@ -207,9 +248,102 @@ public class ShipmentService implements IShipmentService {
 
         Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
 
+        if (!keyMap.containsKey(ToyDao.ATTR_ID)) {
+            return createError("Falta el ID del juguete en la solicitud");
+        }
 
+        //Especificamos los parámetros de busqueda
 
-        return null;
+        Map<String, Object> searchValues = new HashMap<>();
+        searchValues.put(OrderDao.ATTR_TOY_ID , keyMap.get(ToyDao.ATTR_ID));
+        searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
+        searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_SENT);
+
+        //Verificamos el TOYS - TRANSACTION_STATUS y ORDER - BUYER_ID
+
+        List<String> resultAttributes = Arrays.asList(OrderDao.ATTR_TOY_ID, ToyDao.ATTR_TRANSACTION_STATUS, OrderDao.ATTR_BUYER_ID);
+        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, "shipmentJoin");
+
+        if (shipmentData.isEmpty() || shipmentData.isWrong()) {
+            return createError("El envío no existeo no tienes los permisos necesarios");
+        }
+
+        //Actualizamos TOYS - TRANSACTION_STATUS a 3
+
+        Integer toyId = (Integer) shipmentData.getRecordValues(0).get(ToyDao.ATTR_ID);
+        Map<String, Object> updateToy = new HashMap<>();
+        updateToy.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_RECEIVED);
+
+        Map<String, Object> toyKeyMap = new HashMap<>();
+        toyKeyMap.put(ToyDao.ATTR_ID, toyId);
+
+        EntityResult toyUpdateResult = this.daoHelper.update(this.toyDao, updateToy, toyKeyMap);
+
+        if (toyUpdateResult.isWrong()) {
+            return createError("Error al actualizar el estado del juguete");
+        }
+
+        EntityResult result = new EntityResultMapImpl();
+        result.setMessage("Recepción del envío confirmada!");
+
+        return result;
+    }
+
+    //Actualizar estado del 3 al 4
+    @Override
+    @Transactional
+    public EntityResult shipmentConfirmedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        HashMap<String, Object> keysValues = new HashMap<>();
+        keysValues.put(UserDao.LOGIN, email);
+        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+
+        if (userData.isEmpty() || userData.isWrong()) {
+
+            return createError("Error al recuperar el usuario");
+        }
+
+        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+
+        //Especificamos los parámetros de busqueda
+
+        Map<String, Object> searchValues = new HashMap<>();
+        searchValues.put(OrderDao.ATTR_TOY_ID , keyMap.get(ToyDao.ATTR_ID));
+        searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
+        searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_RECEIVED);
+
+        //Verificamos el TOYS - TRANSACTION_STATUS y ORDER - BUYER_ID
+
+        List<String> resultAttributes = Arrays.asList(OrderDao.ATTR_TOY_ID, ToyDao.ATTR_TRANSACTION_STATUS, OrderDao.ATTR_BUYER_ID);
+        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, "shipmentJoin");
+
+        if (shipmentData.isEmpty() || shipmentData.isWrong()) {
+            return createError("El envío no existe o no tienes los permisos necesarios");
+        }
+
+        //Actualizamos TOYS - TRANSACTION_STATUS a 4
+
+        Integer toyId = (Integer) shipmentData.getRecordValues(0).get(ToyDao.ATTR_ID);
+        Map<String, Object> updateToy = new HashMap<>();
+        updateToy.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PURCHASED);
+
+        Map<String, Object> toyKeyMap = new HashMap<>();
+        toyKeyMap.put(ToyDao.ATTR_ID, toyId);
+
+        EntityResult toyUpdateResult = this.daoHelper.update(this.toyDao, updateToy, toyKeyMap);
+
+        if (toyUpdateResult.isWrong()) {
+            return createError("Error al actualizar el estado del juguete");
+        }
+
+        EntityResult result = new EntityResultMapImpl();
+        result.setMessage("Estado del juguete verificado. Disfruta de tu compra!");
+
+        return result;
     }
 
     private EntityResult createError(String mensaje){
