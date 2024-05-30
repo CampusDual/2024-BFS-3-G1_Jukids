@@ -126,7 +126,7 @@
           <div class="button" style="border: none;"
             *ngIf="usr_id.getValue() != undefined; else unRegisteredUser"
           >
-            <button style="border: none; background-color: transparent;text-transform: uppercase;" (click)="openBuy(toyId.getValue())">
+            <button style="text-transform: uppercase;" class="button btn-outline-light" (click)="openBuy(toyId.getValue())">
               <span>{{ "BUY" | oTranslate }}</span>
             </button>
           </div>
