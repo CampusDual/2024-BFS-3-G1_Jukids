@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Expression, FilterExpressionUtils, OComboComponent } from "ontimize-web-ngx";
+import { Expression, FilterExpressionUtils, OComboComponent, OFilterBuilderComponent, OTextInputComponent } from "ontimize-web-ngx";
 import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
 import { ToysMapService } from "src/app/shared/services/toys-map.service";
 import { DialogService, ODialogConfig } from "ontimize-web-ngx";
@@ -8,6 +8,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { LocationMapComponent } from "src/app/shared/components/location-map/location-map.component";
 
 @Component({
   selector: "app-toys-home",
@@ -30,6 +31,14 @@ export class ToysHomeComponent implements OnInit {
   public arrayData: Array<any> = [];
 
 
+  @ViewChild('latInput')
+  public latInput: OTextInputComponent;
+
+  @ViewChild('longInput')
+  public longInput: OTextInputComponent;
+
+  @ViewChild('filterBuilder')
+  public filterBuilder: OFilterBuilderComponent;
 
   private layoutChanges = this.breakpointObserver.observe([
     Breakpoints.XSmall,
@@ -47,7 +56,7 @@ export class ToysHomeComponent implements OnInit {
     private toysMapService: ToysMapService,
     protected dialog: MatDialog,
     protected sanitizer: DomSanitizer,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
   ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('byuser');
@@ -55,15 +64,32 @@ export class ToysHomeComponent implements OnInit {
 
     // Inicializar el precio predeterminado
     this.precioPredeterminado = 1000000; // Valor que representa "Todos" los precios
+
   }
 
   ngOnInit() {
     //Se escuchan los cambios del servicio
-    // this.toysMapService.getLocation().subscribe(data => {
-    //   this.location = data;
-    //   //Recargar el grid con las tarjetas
-    //   this.toyGrid.reloadData();
-    // });
+    this.toysMapService.getLocation().subscribe(data => {
+
+      this.latInput.setValue(data.latitude);
+      this.longInput.setValue(data.longitude);
+
+      console.log(this.latInput.getValue());
+      console.log(this.longInput.getValue());
+      console.log(this.longInput.isEmpty());
+
+      //Recargar el grid con las tarjetas
+      console.log( "DATAARRAY:", this.toyGrid.dataArray);
+      console.log( "DATAARRAY:", this.toyGrid.getDataArray());
+
+      this.toyGrid.reloadData();
+      // this.toyGrid.dataArray.forEach(element => {
+      //   console.log(element.latitude);
+      //   console.log(element.longitude);        
+      // })
+
+      
+    });
 
     //Control de columnas en o-grid
     this.layoutChanges.subscribe((result) => {
@@ -85,6 +111,10 @@ export class ToysHomeComponent implements OnInit {
       this.baseUrl = 'http://localhost:8080';
     }
 
+    // console.log("ngOnInit", this.toyGrid);
+    // console.log("filterBuilder", this.filterBuilder.getFilterValues);
+    console.log("latInput:", this.latInput);
+    
   }
 
   public openDetail(data: any): void {
@@ -146,6 +176,8 @@ export class ToysHomeComponent implements OnInit {
     let priceExpressions: Array<Expression> = [];
     let statusExpressions: Array<Expression> = [];
 
+
+   
     values.forEach(fil => {
       if (!fil.value) return; // Salir temprano si no hay valor
 
@@ -214,7 +246,6 @@ export class ToysHomeComponent implements OnInit {
 
     return combinedExpression;
   }
-
 
   clearFilters(): void {
     this.priceCombo.setValue(this.precioPredeterminado);
