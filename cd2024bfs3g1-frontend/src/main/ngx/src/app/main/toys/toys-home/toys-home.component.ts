@@ -307,4 +307,9 @@ export class ToysHomeComponent implements OnInit {
   }];
 
   public precioPredeterminado = 1000000;
+
+  // ------- FILTER MAP---------------
+  showMap:boolean = false;
+  openMap(){this.showMap = !this.showMap}
+
 }
