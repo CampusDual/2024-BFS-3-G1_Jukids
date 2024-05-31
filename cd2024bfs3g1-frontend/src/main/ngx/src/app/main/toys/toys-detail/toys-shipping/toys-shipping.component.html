@@ -68,7 +68,7 @@
           <div class="containerPrice">
             <o-row *ngIf="!this.issetSend || !shippingInput.getValue();else sendPrice"
               class="price">
-              <span>{{(priceInput.getValue()*1) + this.warrantyPrice | number: '1.2-2' }}</span>
+              {{(priceInput.getValue()*1) + this.warrantyPrice | number: '1.2-2' }}
               <span class="currency"> €</span>
             </o-row>
             <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.warrantyPrice +
