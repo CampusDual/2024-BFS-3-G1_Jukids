@@ -156,7 +156,7 @@
   "cat_Others":"Others",
   "status": "Status",
   "sta_new": "New",
-  "sta_seminew": "Nearly new",
+  "sta_semiNew": "Nearly new",
   "sta_wellWorn": "Good condition",
   "sta_worn": "Used",
   "sta_incomplete": "Incomplete",
