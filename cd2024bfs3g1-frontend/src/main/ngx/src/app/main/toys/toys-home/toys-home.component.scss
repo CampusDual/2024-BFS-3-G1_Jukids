@@ -50,3 +50,25 @@
     padding: 10px;
 }
 
+.collapsible {
+    flex: 1 1 100%;
+    border: 1px solid rgba(0, 0, 0, 0.40);
+    color:rgba(0, 0, 0, 0.40);
+    box-sizing: border-box;
+    min-width: 40px;
+    &:hover{
+        border: 1px solid rgba(0, 0, 0)
+    }
+}
+
+.searchFilters{
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.titleMap{
+    margin: 1rem;
+    margin-bottom: .5rem;
+    color:rgba(0, 0, 0, 0.70);
+}
