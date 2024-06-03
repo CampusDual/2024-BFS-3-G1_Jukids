@@ -104,7 +104,7 @@ export class ToysNewComponent implements OnInit{
     if(getFieldValues.price === undefined){
       arrayErrores.push(this.translate.get(errorPrice));
     }
-    if(getFieldValues.price < 0){
+    if(getFieldValues.price < 1){
       arrayErrores.push(this.translate.get(errorNegativePrice));
     }
     if(getFieldValues.price > 9999999){

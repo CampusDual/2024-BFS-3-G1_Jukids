@@ -1,7 +1,7 @@
 <div class="pop-up-map-card">
     <div>
         <o-map #LocationMap attr="pop-up-map" [center]="getPoint()" zoom="14.5" min-zoom="3" max-zoom="20"
-            zoom-control="yes" search-control="no" fxFlex style="height: 300px" (onClick)="getPosition($event)"
+            zoom-control="yes" search-control="no" fxFlex style="height: 300px" (onClick)="handleClick($event)"
             search-control-button-visible="no">
 
             <!--<o-map-layer *ngIf="hasLocation()" layer-type="marker" layer-id="location_marker" [layer-center]="getPoint()"></o-map-layer>-->
