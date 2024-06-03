@@ -64,7 +64,7 @@
         </ng-container>
         <img class="image-header" src="{{baseUrl}}/restapi/get-image?toyId={{data.toyid}}">
         <div class="card-body">
-          <h4>{{ data.name }}</h4>
+          <h4 class="truncate">{{ data.name }}</h4>
           <p class="price"><span>€</span> {{ data.price | number: '1.2-2' }}</p>
         </div>
 
