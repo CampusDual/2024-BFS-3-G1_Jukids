@@ -104,12 +104,6 @@ export class ToysShippingComponent implements OnInit {
   }
 
   setData(): void {
-    console.log("toyId:", this.toyId.getValue());
-    console.log("name:", this.toyName.getValue());
-    console.log("Email:", this.toyEmail.getValue());
-    console.log("price:", this.priceToy.getValue());
-    console.log("shippingInput:", this.shippingInput.getValue());
-
     // setStripe
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();
@@ -123,7 +117,6 @@ export class ToysShippingComponent implements OnInit {
 
     //Formulario de envio desabilitado
     if (!this.shippingInput.getValue()) {
-      console.log("no envio")
       this.issetSend = false;
       this.form.classList.add("hidden")
       this.buyButton.nativeElement.classList.remove("hidden")
@@ -135,7 +128,6 @@ export class ToysShippingComponent implements OnInit {
       this.AcceptPayButton.nativeElement.classList.add("hidden")
     }
     if (!this.shippingInput.getValue()) {
-      console.log("no envio")
       this.issetSend = false;
       this.form.classList.add("hidden")
       this.buyButton.nativeElement.classList.remove("hidden")
@@ -153,7 +145,6 @@ export class ToysShippingComponent implements OnInit {
       this.buyButton.nativeElement.classList.add("hidden")
       this.emailForm.nativeElement.classList.remove("hidden")
     } else {
-      console.log(this.toyId.getValue())
       const avOrder = { "toyid": this.toyId.getValue() }
       this.oServiceOrder.insert(avOrder, "order").subscribe(result => {
       })
@@ -186,14 +177,13 @@ export class ToysShippingComponent implements OnInit {
     this.checkout();
     }    
   }
-º
+
   newSubmit() {
 
     let arrayErrores: any[] = [];
 
     const getFieldValues = this.formShipments.getFieldValues(['order_id', 'price', 'shipping_address', 'buyer_phone', 'shipment_company']);
-    console.log(getFieldValues)
-
+    
     let errorName = "ERROR_NAME_VALIDATION";
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
