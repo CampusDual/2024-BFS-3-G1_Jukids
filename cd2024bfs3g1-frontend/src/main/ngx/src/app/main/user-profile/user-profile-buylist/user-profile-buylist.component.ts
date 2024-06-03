@@ -54,14 +54,14 @@ export class UserPurchasedToylistComponent {
     const av = {"transaction_status": this.STATUS_RECEIVED}
     this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
       this.tableReceived.refresh();
-      this.tableConfirm.refresh();
+      this.tableConfirm.refresh();      
     })
   }
 
   //Cambia de estado 3 a 4 y refesca las tablas de ambos estado
   public checkOk(e){
     const kv = {"toyid": e.toyid};
-    const av = {"transaction_status": this.STATUS_PURCHASED}
+    const av = {"transaction_status": this.STATUS_PURCHASED}    
     this.oServiceShipment.update(kv, av, "shipmentConfirmed").subscribe(result => {
       this.tableConfirm.refresh();
       this.tablePurchased.refresh();
