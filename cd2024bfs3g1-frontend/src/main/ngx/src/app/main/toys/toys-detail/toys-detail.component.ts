@@ -14,6 +14,7 @@ export class ToysDetailComponent implements OnInit{
 
   private location: any;
   showCheckout = false;
+  isEditable = false;
 
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('usr_id') usr_id: OTextInputComponent;
