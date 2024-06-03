@@ -28,5 +28,15 @@
             ]]>
             </Sentence>
         </Query>
+        <Query id = "total_delivers">
+            <Sentence>
+                <![CDATA[
+                SELECT
+                (SELECT COUNT(*) FROM orders) AS "Total Compras",
+                (SELECT COUNT(*) FROM shipments) AS "Con Envíos",
+                ((SELECT COUNT(*) FROM orders) - (SELECT COUNT(*) FROM shipments)) AS "Sin Envío";
+            ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>
