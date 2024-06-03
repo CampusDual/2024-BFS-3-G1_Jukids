@@ -34,6 +34,7 @@ export class UserPurchasedToylistComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    //private actRoute: ActivatedRoute,
     protected dialogService: DialogService,
     private oServiceShipment: OntimizeService,
     public userInfoService: UserInfoService) {
@@ -68,6 +69,7 @@ export class UserPurchasedToylistComponent {
     })
   }
 
+
   showCustom(
     icon: string,
     btnText: string,
@@ -82,5 +84,6 @@ export class UserPurchasedToylistComponent {
       this.dialogService.info(dialogTitle, dialogText, config);
     }
   }
+
 
 }

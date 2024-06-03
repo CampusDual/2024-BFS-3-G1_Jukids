@@ -114,6 +114,7 @@
   "ERROR_PHONE_VALIDATION": "Introduzca un teléfono",
   "ERROR_ERROR_COMPANY_VALIDATION_VALIDATION": "Introduzca una compañía de envio",
   "SELECT_POINT_ON_MAP":"Seleccione un punto",
+  "PUBLICAR": "PUBLICAR",
   "YOUR_PRODUCTS":"Mis productos",
   "MY_PROFILE":"Mi perfil",
   "MY_TOYS":"Mis juguetes",
@@ -197,6 +198,7 @@
   "SOLD_TOY":"Vendidos",
   "SENDER_DATA": "Datos del remitente",
   "NOTE_SEND": "Envío solo a la península",
+  "CON ENVIO": "Inicia sesión para comprar con envío.",
   "NOTE_EMAIL_WARRANTY": "Por favor introduzca un email para recibir los términos de la garantía",
   "DATE_BUYER": "Datos del comprador",
   "NOTE_SENDER_ADDRESS":"Por favor introduzca una dirección de recogida",
@@ -209,6 +211,7 @@
   "SHIPMENT_AVAILABLE": "ENVÍO DISPONIBLE",
   "STATUS": "ESTADO",
   "UNREGISTERED_SELLER_WARNING": "AVISO* Este juguete ha sido subido por un usuario/a anónimo/a. No puedes comprarlo directamente en nuestra plataforma. Puedes ponerte en contacto con la persona que lo haya subido por email.",
-  "TITLE_MAP_HOME": "Encuentra juguetes cerca de ti (marca tu ubicación para obtener la distancia a la que se encuentran)"
+  "TITLE_MAP_HOME": "Encuentra juguetes cerca de ti (marca tu ubicación para obtener la distancia a la que se encuentran)",
+  "INICIA SESIÓN": "Inicia Sesión! Como usuario registrado, encontrarás más opciones y llegarás a más gente."
 
 }

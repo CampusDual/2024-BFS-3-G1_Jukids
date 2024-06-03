@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LocationMapComponent } from 'src/app/shared/components/location-map/location-map.component';
 import { ToysDetailComponent } from './toys-detail/toys-detail.component';
 import { ToysShippingComponent } from './toys-detail/toys-shipping/toys-shipping.component';
+import { LoginModule } from 'src/app/login/login.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ToysShippingComponent } from './toys-detail/toys-shipping/toys-shipping
     CommonModule,
     OntimizeWebModule,
     ToysRoutingModule,
-    SharedModule
+    SharedModule,
+    LoginModule
   ]
   // exports: [
   //   ToysDetailComponent
