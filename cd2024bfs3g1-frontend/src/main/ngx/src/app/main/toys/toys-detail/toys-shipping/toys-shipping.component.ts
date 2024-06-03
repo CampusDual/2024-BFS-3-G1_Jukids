@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from 'src/app/login/login.component';
 
 @Component({
   selector: 'app-toys-shipping',
@@ -64,8 +67,10 @@ export class ToysShippingComponent implements OnInit {
     protected dialogService: DialogService,
     private translate: OTranslateService,
     private authService: AuthService,
+    private jukidsAuthService: JukidsAuthService,
     private oServiceToy: OntimizeService,
     private oServiceOrder: OntimizeService,
+    private dialog: MatDialog,
   ) {
     this.logged = this.authService.isLoggedIn();
   }
@@ -242,4 +247,21 @@ export class ToysShippingComponent implements OnInit {
   insertRedirect() {
     this.router.navigate(["main/toys/toysDetail", this.toyId]);
   }
+
+
+  isLogged() {
+    //Se cierra el dialogo al iniciar sesion
+    if (this.jukidsAuthService.isLoggedIn() && this.dialog.getDialogById('login')) {
+      this.dialog.closeAll();
+    }
+    return this.jukidsAuthService.isLoggedIn();
+  }
+
+  modal(idModal: string) {
+    this.dialog.open(LoginComponent, {
+      id: idModal,
+      disableClose: false,
+    });
+  }
+
 }
