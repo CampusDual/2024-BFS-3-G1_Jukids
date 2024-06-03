@@ -13,6 +13,10 @@ export class HomeComponent implements OnInit {
   private latitude: any;
   private longitude: any;
   private location: any;
+  public cols: number = 5;
+
+  //============== Variable de URL BASE =================
+  public baseUrl: string;
 
   constructor(
     private router: Router,
@@ -31,6 +35,11 @@ export class HomeComponent implements OnInit {
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
+
+    this.baseUrl = window.location.origin;
+    if (this.baseUrl.includes('localhost')) {
+      this.baseUrl = 'http://localhost:8080';
+    }
   }
 
    navigate() {
@@ -78,5 +87,14 @@ export class HomeComponent implements OnInit {
       },
       body: JSON.stringify(toy)
     })
+  }
+
+  public openDetail(data: any): void {
+    console.log("OPENDETAIL: ");
+
+    // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
+    const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
+
+    this.router.navigate(["/toysDetail", toyId]);
   }
 }

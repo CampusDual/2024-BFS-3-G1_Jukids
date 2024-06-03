@@ -1,0 +1,19 @@
+.banner-box {
+   display: flex;
+}
+
+.banner {
+height: 200px;
+}
+
+.categories-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.figuras {
+    display: flex;
+    flex-direction: row;
+}

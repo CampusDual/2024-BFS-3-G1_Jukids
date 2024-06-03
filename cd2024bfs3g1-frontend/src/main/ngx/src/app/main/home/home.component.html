@@ -1,5 +1,54 @@
-<div fxLayout="row" layout-padding fxLayoutAlign="center center">
-  <p>
-    Pantalla Inicial de nuestra Aplicación
-  </p>
+<div fxLayout="column" layout-padding fxLayoutAlign="center center">
+  <p>¡Compra y vende juguetes en JUKIDS!</p>
+
+  <div class="banner-box">
+    <img class="banner" src="assets/images/banner.webp" />
+  </div>
+
+  <div class="categories-container">
+    <div class="figuras">
+      <o-grid
+        #toysGrid
+        attr="toysGrid"
+        service="toys"
+        entity="toyAvailable"
+        keys="toyid"
+        detail-form-route="toysDetail"
+        columns="toyid;name;price;latitude;longitude;distance"
+        pageable="yes"
+        query-rows="1"
+        refresh-button="no"
+        quick-filter="no"
+        show-page-size="yes"
+        [cols]="cols"
+        gutter-size="15"
+        grid-item-height="1:1.5"
+        sortable-columns="distance"
+        sort-column="distance"
+      >
+        <o-grid-item
+          *ngFor="let data of toysGrid.getDataArray()"
+          (onClick)="openDetail(data)"
+        >
+          <div class="card">
+            <ng-container *ngIf="data.distance != null">
+              <div class="card-distance">
+                <span>{{ data.distance | number : "1.2-2" }} km</span>
+              </div>
+            </ng-container>
+            <img
+              class="image-header"
+              src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+            />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+  </div>
 </div>
