@@ -51,7 +51,11 @@
           <span class="note">*{{'NOTE_SEND' | oTranslate}}</span>
 
           <div *ngIf="!logged;else encourageRegister" class="warning">
-            <p><!--<a href="/login/new"></a>-->¡Registrate! Para comprar con envio </p>
+            <p>{{ 'CON ENVIO' | oTranslate }}</p>
+
+            <button *ngIf="!isLogged()" class="button btn-outline-light" type="button" (click)="modal('login')">
+                {{ 'LOGIN' | oTranslate}}
+            </button>
           </div>
 
           <ng-template #encourageRegister>
