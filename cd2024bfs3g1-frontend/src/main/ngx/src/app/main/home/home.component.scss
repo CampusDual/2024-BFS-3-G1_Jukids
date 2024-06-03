@@ -13,7 +13,9 @@ height: 200px;
     justify-items: center;
 }
 
-.figuras {
+.cat-row {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    background-color: yellowgreen;
 }
