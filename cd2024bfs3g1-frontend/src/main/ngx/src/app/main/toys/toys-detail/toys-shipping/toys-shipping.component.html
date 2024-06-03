@@ -50,7 +50,7 @@
           </div>
           <span class="note">*{{'NOTE_SEND' | oTranslate}}</span>
 
-          <div *ngIf="!logged;else encourageRegister" class="warning">
+          <div *ngIf="!isLogged();else encourageRegister" class="warning">
             <p>
               <span>
                 <button class="link" type="button" (click)="modal('login')">

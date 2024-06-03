@@ -34,8 +34,6 @@ export class ToysShippingComponent implements OnInit {
   }]
   public defaultCompany = 'Correos';
 
-  //Usuario loggedaro
-  public logged: boolean = false;
 
   private form: Element;
   @ViewChild('toyId') toyId: OTextInputComponent;
@@ -74,8 +72,6 @@ export class ToysShippingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.logged = this.jukidsAuthService.isLoggedIn();
-
     this.form = document.getElementById("formShipments");
 
     const conf2 = this.oServiceOrder.getDefaultServiceConfiguration('orders');
@@ -122,8 +118,8 @@ export class ToysShippingComponent implements OnInit {
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
     }
-    //disabled !logged
-    if (!this.logged) {
+    //disabled !isLogged()
+    if (!this.isLogged()) {
       this.AcceptPayButton.nativeElement.classList.add("hidden")
     }
     if (!this.shippingInput.getValue()) {
@@ -140,7 +136,7 @@ export class ToysShippingComponent implements OnInit {
   }
   newBuy() {
     //Comentarios de este metodo para logeado
-    if (!this.logged) {
+    if (!this.isLogged()) {
       this.buyButton.nativeElement.classList.add("hidden")
       this.emailForm.nativeElement.classList.remove("hidden")
     } else {
