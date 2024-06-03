@@ -71,12 +71,11 @@ export class ToysShippingComponent implements OnInit {
     private oServiceOrder: OntimizeService,
     private dialog: MatDialog,
   ) {
-    
   }
 
   ngOnInit() {
     this.logged = this.jukidsAuthService.isLoggedIn();
-    
+
     this.form = document.getElementById("formShipments");
 
     const conf2 = this.oServiceOrder.getDefaultServiceConfiguration('orders');
@@ -175,7 +174,7 @@ export class ToysShippingComponent implements OnInit {
     this.oServiceToy.insert(av, "order").subscribe(result => {
     })
     this.checkout();
-    }    
+    }
   }
 
   newSubmit() {
@@ -183,7 +182,7 @@ export class ToysShippingComponent implements OnInit {
     let arrayErrores: any[] = [];
 
     const getFieldValues = this.formShipments.getFieldValues(['order_id', 'price', 'shipping_address', 'buyer_phone', 'shipment_company']);
-    
+
     let errorName = "ERROR_NAME_VALIDATION";
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
@@ -239,10 +238,21 @@ export class ToysShippingComponent implements OnInit {
   insertRedirect() {
     this.router.navigate(["main/toys/toysDetail", this.toyId]);
   }
+
+
+  isLogged() {
+    //Se cierra el dialogo al iniciar sesion
+    if (this.jukidsAuthService.isLoggedIn() && this.dialog.getDialogById('login')) {
+      this.dialog.closeAll();
+    }
+    return this.jukidsAuthService.isLoggedIn();
+  }
+
   modal(idModal: string) {
     this.dialog.open(LoginComponent, {
       id: idModal,
       disableClose: false,
     });
   }
+
 }

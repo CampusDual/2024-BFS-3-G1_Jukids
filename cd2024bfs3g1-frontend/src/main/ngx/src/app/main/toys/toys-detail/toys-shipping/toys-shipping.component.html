@@ -52,7 +52,7 @@
 
           <div *ngIf="!logged;else encourageRegister" class="warning">
             <p>
-              <span>                
+              <span>
                 <button class="link" type="button" (click)="modal('login')">
                   {{ 'LOGIN' | oTranslate}}
                 </button>
@@ -73,7 +73,8 @@
       <div #buyInfo class="cardInfo">
         <div class="divDetail">
           <div class="containerPrice">
-            <o-row *ngIf="!this.issetSend || !shippingInput.getValue();else sendPrice" class="price">
+            <o-row *ngIf="!this.issetSend || !shippingInput.getValue();else sendPrice"
+              class="price">
               {{(priceInput.getValue()*1) + this.warrantyPrice | number: '1.2-2' }}
               <span class="currency"> €</span>
             </o-row>

@@ -114,6 +114,7 @@
   "ERROR_PHONE_VALIDATION": "Introduzca un teléfono valido, debe contener 9 digitos y empezar por 6,7,8 ó 9.",
   "ERROR_ERROR_COMPANY_VALIDATION_VALIDATION": "Introduzca una compañía de envio",
   "SELECT_POINT_ON_MAP":"Seleccione un punto",
+  "PUBLICAR": "PUBLICAR",
   "YOUR_PRODUCTS":"Mis productos",
   "MY_PROFILE":"Mi perfil",
   "MY_TOYS":"Mis juguetes",
