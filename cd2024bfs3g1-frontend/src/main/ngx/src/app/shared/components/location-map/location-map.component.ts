@@ -28,6 +28,7 @@ export class LocationMapComponent {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
+    this.isEditable == undefined ? this.isEditable=true : "";
   }
 
   ngOnInit() {
@@ -39,14 +40,13 @@ export class LocationMapComponent {
       this.center = this.latitude + ',' + this.longitude;
     });
   }
+  handleClick(e) {
+    this.isEditable && this.getPosition(e);
+  }
   
   getPosition(e) {
-    let path = e.originalEvent.view.location.pathname;
-    let pathArray= path.split("/")
-    if(pathArray[3] != "toysDetail") {
-      this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
-      this.isEditable && this.createMarker(e.latlng.lat, e.latlng.lng);
-    }
+    this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
+    this.createMarker(e.latlng.lat, e.latlng.lng);
   }
 
   hasLocation(){
