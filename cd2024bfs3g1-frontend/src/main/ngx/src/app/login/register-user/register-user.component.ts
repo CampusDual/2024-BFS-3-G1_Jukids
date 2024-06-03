@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService, NavigationService, ServiceResponse, OUserInfoService, OFormComponent } from 'ontimize-web-ngx';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MainService } from '../../shared/services/main.service';
 import { UserInfoService } from '../../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LoginComponent } from '../login.component';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 
 
 
@@ -13,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './register-user.component.html',
   styleUrls: ['./register-user.component.scss']
 })
-export class RegisterUserComponent implements OnInit{
+export class RegisterUserComponent implements OnInit {
   @ViewChild('form') form: OFormComponent;
   public registerForm: UntypedFormGroup = new UntypedFormGroup({});
   public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
@@ -22,10 +24,11 @@ export class RegisterUserComponent implements OnInit{
   public sessionExpired = false;
   private redirect = '/toys';
 
-  constructor (
+  constructor(
     private router: Router,
+    private loginComponent: LoginComponent,
     @Inject(NavigationService) private navigationService: NavigationService,
-    @Inject(AuthService) private authService: AuthService,
+    @Inject(JukidsAuthService) private jukidsAuthService: JukidsAuthService,
     @Inject(MainService) private mainService: MainService,
     @Inject(UserInfoService) private userInfoService: UserInfoService,
     @Inject(DomSanitizer) private domSanitizer: DomSanitizer,
@@ -40,10 +43,10 @@ export class RegisterUserComponent implements OnInit{
     this.registerForm.addControl('email', this.userCtrl);
     this.registerForm.addControl('password', this.pwdCtrl);
 
-    if (this.authService.isLoggedIn()) {
+    if (this.jukidsAuthService.isLoggedIn()) {
       this.router.navigate([this.redirect]);
     } else {
-      this.authService.clearSessionData();
+      this.jukidsAuthService.clearSessionData();
     }
   }
 
@@ -53,7 +56,7 @@ export class RegisterUserComponent implements OnInit{
 
     if (userName && userName.length > 0 && password && password.length > 0) {
       const self = this;
-      this.authService.login(userName, password)
+      this.jukidsAuthService.login(userName, password)
         .subscribe(() => {
           self.sessionExpired = false;
           this.loadUserInfo();
@@ -88,4 +91,7 @@ export class RegisterUserComponent implements OnInit{
     }
   }
 
+  public cancel() {
+    this.loginComponent.isRegistering = false;
+  }
 }

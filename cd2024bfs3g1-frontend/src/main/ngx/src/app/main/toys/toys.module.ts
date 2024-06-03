@@ -7,13 +7,16 @@ import { ToysNewComponent } from './toys-new/toys-new.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LocationMapComponent } from 'src/app/shared/components/location-map/location-map.component';
 import { ToysDetailComponent } from './toys-detail/toys-detail.component';
+import { ToysShippingComponent } from './toys-detail/toys-shipping/toys-shipping.component';
 
 @NgModule({
   declarations: [
     ToysHomeComponent,
     ToysNewComponent,
     // LocationMapComponent,
-    ToysDetailComponent
+    ToysDetailComponent,
+    ToysShippingComponent,
+    ToysDetailComponent,
   ],
   imports: [
     CommonModule,

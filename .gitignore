@@ -28,6 +28,7 @@ local.properties
 .settings/
 .loadpath
 .factorypath
+.vscode
 
 # External tool builders
 .externalToolBuilders/

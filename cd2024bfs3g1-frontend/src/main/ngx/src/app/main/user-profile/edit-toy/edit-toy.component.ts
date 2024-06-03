@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, DialogService, ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 
 @Component({
@@ -20,14 +21,14 @@ export class EditToyComponent implements OnInit {
   public locationSelected = false;
 
   constructor(
-    private authService: AuthService,
+    private jukidsAuthService: JukidsAuthService,
     private router: Router,
     private ontimizeService: OntimizeService,
     private toysMapService: ToysMapService,
     private translate: OTranslateService,
     protected dialogService: DialogService,
   ) {
-      if (!this.authService.isLoggedIn()) {
+      if (!this.jukidsAuthService.isLoggedIn()) {
         const self = this;
         self.router.navigate(["/toys"]);
       }
@@ -78,7 +79,7 @@ export class EditToyComponent implements OnInit {
   newSubmit() {
 
     let arrayErrores: any [] = [];
-    const getFieldValues = this.formToyEdit.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude']);
+    const getFieldValues = this.formToyEdit.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','category','status']);
 
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
@@ -88,6 +89,8 @@ export class EditToyComponent implements OnInit {
     let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION";
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     let errorLocation = "ERROR_LOCATION_VALIDATION";
+    let errorCategory = "ERROR_CATEGORY_VALIDATION";
+    let errorStatus = "ERROR_STATUS_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
 
     if(getFieldValues.photo === undefined  ){
@@ -114,6 +117,12 @@ export class EditToyComponent implements OnInit {
     if(getFieldValues.longitude === undefined || getFieldValues.latitude === undefined){
       this.isMapLatLongSelected = false;
       arrayErrores.push(this.translate.get(errorLocation));
+    }
+    if(getFieldValues.category === undefined){
+      arrayErrores.push(this.translate.get(errorCategory));
+    }
+    if(getFieldValues.status === undefined){
+      arrayErrores.push(this.translate.get(errorStatus));
     }
     if(arrayErrores.length > 0 ) {
       let stringErrores = "";

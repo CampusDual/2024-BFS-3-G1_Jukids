@@ -9,10 +9,22 @@
 
 .pop-up-span {
     display: flex;
-    justify-content: center;
+    align-items: center;
     gap: 5px;
-    text-align: center;
     margin-top: 5px;
     margin-bottom: 5px;
     /* background-color: rgb(234, 170, 124); */
+}
+
+.warning {
+    padding: 0.75rem;
+    background-color: #FFCC99;
+    border: none;
+    margin: 1.25rem 0;
+    border-radius: 0.5rem;
+}
+
+.target{
+    margin-bottom: .75rem;
+    margin-top: .5rem;
 }

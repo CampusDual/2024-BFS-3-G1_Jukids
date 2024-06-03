@@ -1,0 +1,104 @@
+<div class="navigation-tree-container">
+  <div class="back-category">
+    <a class="category" style="padding-left:20px;color: rgb(145, 145, 145);" href="/main">{{ "ALL_TOYS" | oTranslate }}</a>
+    <div>></div>
+    <a class="category" style="margin-left:20px;color:rgb(145, 145, 145);" href="/main/user-profile">{{ "MY_PROFILE" | oTranslate }}</a>
+    <div>></div>
+      <span class="category" style="padding-left: 20px;">
+      {{ "PURCHASED_TOYS" | oTranslate }}</span>
+  </div>
+</div>
+
+<mat-tab-group fxFill>
+  <mat-tab label="{{ 'PENDING_SEND_TOY' | oTranslate }}">
+    <o-table #tableSend fxFlex attr="tableSend" service="shipments" entity="pendingSend" keys="toyid"
+      title="{{ 'PENDING_SEND_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
+      visible-columns="photo;name;total_price" show-title="true" pagination-controls="no"
+      show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
+      edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
+      class="table" detail-mode="none">
+      <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
+        <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
+        </o-table-cell-renderer-image>
+      </o-table-column>
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
+        max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
+        currency-symbol-position="right" tooltip="yes"></o-table-column>    
+    </o-table>
+
+  </mat-tab>
+
+  <mat-tab label="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}">
+    <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive" keys="toyid"
+      title="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}" columns="toyid;photo;name;tracking_number;total_price"
+      visible-columns="photo;name;tracking_number;total_price;edit-btn" show-title="true" pagination-controls="no"
+      show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
+      edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
+      class="table" detail-mode="none">
+
+      <!--<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>-->
+
+      <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
+        <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
+        </o-table-cell-renderer-image>
+      </o-table-column>
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="tracking_number" title="{{ 'TRACKING_NUMBER' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
+        max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
+        currency-symbol-position="right" tooltip="yes"></o-table-column>
+      <o-table-column class="button btn-solid" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}">
+        <o-table-cell-renderer-action attr="edit" class="action" (onClick)="checkReceive($event)"
+          text="{{ 'RECEIVED' | oTranslate }}"></o-table-cell-renderer-action>
+      </o-table-column>
+    </o-table>
+
+  </mat-tab>
+
+  <mat-tab label="{{ 'RECEIVED_TOYS' | oTranslate }}">
+    <o-table #tableConfirm fxFlex attr="tableConfirm" service="shipments" entity="pendingConfirm" keys="toyid"
+      title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;photo;name;total_price"
+      visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no"
+      show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
+      edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
+      class="table"  detail-mode="none">
+
+      <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
+        <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
+        </o-table-cell-renderer-image>
+      </o-table-column>
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
+        max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
+        currency-symbol-position="right" tooltip="yes"></o-table-column>
+      <o-table-column class="button btn-solid" attr="edit-btn" title="{{ 'CONFIRM' | oTranslate }}">
+        <o-table-cell-renderer-action attr="edit" class="action" (onClick)="checkOk($event)"
+          text="{{ 'CONFIRM' | oTranslate }}"></o-table-cell-renderer-action>
+      </o-table-column>
+    </o-table>
+  </mat-tab>
+
+  <mat-tab label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}">
+    <o-table #tablePurchased fxFlex attr="tablePurchased" service="orders" entity="Purchased" keys="toyid"
+      title="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
+      visible-columns="photo;name;total_price" show-title="true" pagination-controls="no" show-filter-option="no"
+      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
+      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table"  detail-mode="none">
+      <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
+        <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
+        </o-table-cell-renderer-image>
+      </o-table-column>
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
+        max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
+        currency-symbol-position="right" tooltip="yes"></o-table-column>
+    </o-table>
+  </mat-tab>
+
+</mat-tab-group>

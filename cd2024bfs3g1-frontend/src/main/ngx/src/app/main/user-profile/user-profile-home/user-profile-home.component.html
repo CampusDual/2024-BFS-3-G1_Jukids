@@ -3,8 +3,12 @@
 </div>
 
 <div class="card-container">
-    <div class="user-profile-home-listcard" (click)="toToyList()">
-        <img class="icon-image" src="assets/images/horsetoy.jpg">
-        <h2 style="margin-left: 12px; align-self: center;">{{ 'MY_TOYS' | oTranslate }}</h2>
+    <div class="card user-profile-home-listcard" (click)="toToyList()">
+        <img class="icon-image" src="assets/images/horsetoy.png">
+        <h2 style="margin-bottom:0; align-self: center;">{{ 'MY_TOYS' | oTranslate }}</h2>
+    </div>
+    <div class="card  user-profile-home-listcard" (click)="toBuyList()">
+        <img class="icon-image" src="assets/images/shoppingbag.png">
+        <h2 style="margin-bottom:0; align-self: center;">{{ 'PURCHASED_TOYS' | oTranslate }}</h2>
     </div>
 </div>

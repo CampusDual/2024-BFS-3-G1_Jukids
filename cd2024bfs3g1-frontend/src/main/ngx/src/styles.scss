@@ -120,9 +120,24 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
 .noresize textarea{
   resize:none !important;
 }
-
 }
 
 mat-toolbar {
   box-shadow: none !important;
 }
+
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
+  color: #ff5349 !important;
+}
+
+#saveButton .mat-mdc-button-persistent-ripple{
+  width: 30px;
+  left: 9px !important;
+}
+
+//Necesario para ocultar el icono de menu
+o-app-header  mat-icon {
+  display: none !important;
+}
+
+

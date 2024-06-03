@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { OntimizeService, DialogService } from 'ontimize-web-ngx';
 import { ToysMapService } from '../../services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
+import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'location-map',
@@ -13,6 +14,7 @@ export class LocationMapComponent {
   latitude: number = 42.240599;
   longitude: number = -8.720727;
   public center:string = '42.240599, -8.720727';
+  @Input() isEditable: boolean;
 
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
 
@@ -39,8 +41,12 @@ export class LocationMapComponent {
   }
   
   getPosition(e) {
-    this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
-    this.createMarker(e.latlng.lat, e.latlng.lng);
+    let path = e.originalEvent.view.location.pathname;
+    let pathArray= path.split("/")
+    if(pathArray[3] != "toysDetail") {
+      this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
+      this.isEditable && this.createMarker(e.latlng.lat, e.latlng.lng);
+    }
   }
 
   hasLocation(){

@@ -2,10 +2,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, NavigationService, ServiceResponse, OUserInfoService } from 'ontimize-web-ngx';
+import { AuthService, NavigationService, ServiceResponse, OUserInfoService, O_TRANSLATE_SERVICE, OTranslateService } from 'ontimize-web-ngx';
 import { Observable } from 'rxjs';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
+import { MatDialog } from '@angular/material/dialog';
+import { JukidsAuthService } from '../shared/services/jukids-auth.service';
 
 @Component({
   selector: 'login',
@@ -20,16 +22,19 @@ export class LoginComponent implements OnInit {
 
   public sessionExpired = false;
   private redirect = '/toys';
+  isAdmin: boolean = false;
+  public isRegistering = false;
 
   constructor(
     private actRoute: ActivatedRoute,
     private router: Router,
     @Inject(NavigationService) private navigationService: NavigationService,
-    @Inject(AuthService) private authService: AuthService,
+    @Inject(JukidsAuthService) private JukidsAuthService: JukidsAuthService,
     @Inject(MainService) private mainService: MainService,
     @Inject(OUserInfoService) private oUserInfoService: OUserInfoService,
     @Inject(UserInfoService) private userInfoService: UserInfoService,
-    @Inject(DomSanitizer) private domSanitizer: DomSanitizer
+    @Inject(DomSanitizer) private domSanitizer: DomSanitizer,
+    private dialog: MatDialog
   ) {
     const qParamObs: Observable<any> = this.actRoute.queryParams;
     qParamObs.subscribe(params => {
@@ -37,9 +42,9 @@ export class LoginComponent implements OnInit {
         if (params['session-expired']) {
           this.sessionExpired = (params['session-expired'] === 'true');
         } else {
-          if (params['redirect']) {
-            this.redirect = params['redirect'];
-          }
+          // if (params['redirect']) {
+          //   this.redirect = params['redirect'];
+          // }
           this.sessionExpired = false;
         }
       }
@@ -52,11 +57,15 @@ export class LoginComponent implements OnInit {
     this.loginForm.addControl('username', this.userCtrl);
     this.loginForm.addControl('password', this.pwdCtrl);
 
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate([this.redirect]);
-    } else {
-      this.authService.clearSessionData();
+    if (!this.JukidsAuthService.isLoggedIn()) {
+      this.JukidsAuthService.clearSessionData();
     }
+
+  }
+
+
+  public register() {
+    this.isRegistering = true;
   }
 
   public login() {
@@ -64,11 +73,11 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.password;
     if (userName && userName.length > 0 && password && password.length > 0) {
       const self = this;
-      this.authService.login(userName, password)
+      this.JukidsAuthService.login(userName, password)
         .subscribe(() => {
           self.sessionExpired = false;
           this.loadUserInfo();
-          self.router.navigate([this.redirect]);
+          // self.router.navigate([this.redirect]);
         }, this.handleError);
     }
   }
@@ -88,6 +97,10 @@ export class LoginComponent implements OnInit {
           });
         }
       );
+  }
+
+  closeModal() {
+    this.dialog.getDialogById('login').close();
   }
 
   private handleError(error) {

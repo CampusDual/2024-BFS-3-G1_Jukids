@@ -1,59 +1,80 @@
-<o-form class="form" editable-detail="no" show-header="no">
+<o-form class="form" editable-detail="yes" show-header="no">
 
-  <o-column title="{{ 'SEARCH_BAR' | oTranslate }}">
-    <o-row layout-align="space-between center">
+  <div class="searchFilters">    
+    <o-combo appearance="outline" label="category" id="category" null-selection="no" attr="category"
+      service="categories" entity="category" keys="categoryid" value-column="codigo" columns="categoryid;name;codigo"
+      searchable="true" visible-columns="codigo" multiple="yes" translate="yes" fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
+    </o-combo>
 
-      <o-text-input attr="name" read-only="no" fxFlex="100" label="Search"></o-text-input>
+    <o-combo appearance="outline" label="status" id="status" null-selection="no" attr="status" service="statuses"
+      entity="status" keys="statusid" value-column="code" columns="statusid;name;code" searchable="true"
+      visible-columns="code" multiple="yes" translate="yes" fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18"></o-combo>
 
+    <o-combo #price appearance="outline" id="price" [static-data]="pricesArray" value-column="priceCode"
+      columns="priceCode;priceText;attr_price" visible-columns="attr_price" null-selection="no" attr="price"
+      translate="yes" fxFlex="100" fxFlex.gt-xs="22" fxFlex.gt-sm="12">
+    </o-combo>
 
-      <o-row layout-align="end center" class="btn-container">
-        <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="filter-button"
-          matTooltip="{{ 'Search' | oTranslate }}">
+    <o-row layout-align="space-between center" fxFlex="grow" fxFlex="100" fxFlex.gt-sm="50" fxLayoutGap="10px">
+
+      <o-text-input attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}"
+        appearance="outline"></o-text-input>
+
+      <o-text-input #latInput attr="latitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
+      <o-text-input #longInput attr="longitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
+
+      <o-row class="btn-container">
+        <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search"
+          class="button btn-outline-light" matTooltip="{{ 'Search' | oTranslate }}">
           <mat-icon class="material-icons">search</mat-icon>
         </button>
-        <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="filter-button"
-          matTooltip="{{ 'Clear' | oTranslate }}">
+        <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear"
+          class="button btn-outline-light" matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
           <mat-icon class="material-icons">clear</mat-icon>
         </button>
+        <button (click)="openMap()" class="button btn-outline-light reverse"><mat-icon>location_on</mat-icon></button>
       </o-row>
-
-    </o-row>
-  </o-column>
-  <o-filter-builder #filterBuilder attr="thefilter" filters="NAME:name;DESCRIPTION:name" [target]="toysGrid"
-    query-on-change="no" query-on-change-delay="500" [expression-builder]="createFilter"></o-filter-builder>
+    </o-row>    
+    <div *ngIf="showMap" fxFlex="100" >
+      <p class="titleMap">{{ 'TITLE_MAP_HOME' | oTranslate }}</p>
+      <location-map></location-map>
+    </div>
+    <o-filter-builder #filterBuilder attr="thefilter"
+    filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status;PRICE:price;LATITUDE:latitude;LONGITUDE:longitude;"
+    [target]="toysGrid" query-on-change="no" query-on-change-delay="500"
+    [expression-builder]="createFilter"></o-filter-builder>
+  </div>
 </o-form>
 
+<div>
+  <o-grid #toysGrid attr="toysGrid" service="toys" entity="toyAvailable" keys="toyid" detail-form-route="toysDetail"
+    columns="toyid;name;price;latitude;longitude;distance" pageable="yes" query-rows="20" page-size-options="20"
+    refresh-button="no" quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
+    [cols]="cols" gutter-size="15" grid-item-height="1:1.5" sortable-columns="distance" orderable="no"
+    sort-column="distance">
 
-<o-column-collapsible title="{{ 'VIEW_MAP' | oTranslate }}" appearance="legacy" expanded="no" icon="location_on"
-  class="collapsible">
-  <location-map></location-map>
-</o-column-collapsible>
+    <o-grid-item *ngFor="let data of toysGrid.getDataArray()" (onClick)="openDetail(data)">
 
-<div >
-  <o-grid #toysGrid attr="toysGrid" service="toys" entity="toy" keys="toyid" detail-form-route="toysDetail"
-    columns="toyid;photo;name;price;latitude;longitude" query-rows="20" page-size-options="20" refresh-button="no"
-    quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
-    (onDataLoaded)="addLocation($event)">
-    <o-grid-item *ngFor="let data of toysGrid.dataArray" (onClick)="openDetail(data)">
-      <o-column layout-padding class="toy-card">
-        <o-image class="img-toy" show-controls="false" enabled="false" [data]="data.photo"
-          style="margin-top:8px;"></o-image>
-  
-        <div class="body" style="padding: 0 1em;" fxLayout="column" fxLayoutAlign="start center">
-          <h4 class="toy-title">{{ data.name }}</h4>
-  
-          <div fxLayout="row" fxLayoutGap=".5em">
-            <div fxLayout="column" fxLayoutAlign="start center">
-              <mat-icon>credit_card</mat-icon>
-              <mat-icon *ngIf="data.location != null">connect_without_contact</mat-icon>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="start start">
-              <span>{{ data.price }} €</span>
-              <span *ngIf="data.location != null">{{data.location}} Km</span>
-            </div>
+      <div class="card">
+
+        <ng-container *ngIf="data.distance != null">
+          <div class=" card-distance">
+            <span>{{ data.distance | number : '1.2-2'}} km</span>
           </div>
+        </ng-container>
+        <img class="image-header" src="{{baseUrl}}/restapi/get-image?toyId={{data.toyid}}">
+        <div class="card-body">
+          <h4>{{ data.name }}</h4>
+          <p class="price"><span>€</span> {{ data.price | number: '1.2-2' }}</p>
         </div>
-      </o-column>
+
+      </div>
+
     </o-grid-item>
+
   </o-grid>
+
+
+
+
 </div>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup
+        xmlns="http://www.ontimize.com/schema/jdbc"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+        catalog="" schema="${mainschema}" table="shipments"
+        datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>shipment_id</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>shipment_id</Column>
+    </UpdateKeys>
+    <GeneratedKey>shipment_id</GeneratedKey>
+    <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.shipments
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="shipmentJoin">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="price" prefix="t" />
+                <AmbiguousColumn name="order_id" prefix="o" />
+                <AmbiguousColumn name="toyid" prefix="t" />
+            </AmbiguousColumns>
+            <Sentence>
+            <![CDATA[
+                 SELECT
+                     #COLUMNS#
+                 FROM
+                     ${mainschema}.shipments s
+                 INNER JOIN
+                     ${mainschema}.orders o ON o.order_id = s.order_id
+                 INNER JOIN
+                     ${mainschema}.toys t ON o.toyid = t.toyid
+                 #WHERE#
+            ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+</JdbcEntitySetup>
