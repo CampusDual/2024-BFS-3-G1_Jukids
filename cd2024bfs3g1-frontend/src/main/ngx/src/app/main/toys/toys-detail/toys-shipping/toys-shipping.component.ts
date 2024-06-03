@@ -10,8 +10,8 @@ import { StripeComponent } from 'src/app/shared/components/stripe/stripe.compone
 })
 export class ToysShippingComponent implements OnInit {
 
-  // El 0.1 se refiere al 10% de comisión
-  public commission: number = 0.07;
+  // En commission ponemos el tanto por ciento de comision
+  public commission: number = 7;
   public warrantyPrice: number;
   // Se contenplan 3 euros de gastos de envio
   public priceSend: number = 3.00;
@@ -31,7 +31,7 @@ export class ToysShippingComponent implements OnInit {
   }]
   public defaultCompany = 'Correos';
 
-  //Usuario loggedaro
+  //Usuario loggeado
   public logged: boolean = false;
 
   private form: Element;
@@ -109,7 +109,7 @@ export class ToysShippingComponent implements OnInit {
     this.stripe.product = this.toyName.getValue();
     this.stripe.email = this.toyEmail.getValue();
     //setCalculatePrice
-    this.warrantyPrice = (Number)((this.priceToy.getValue() * this.commission).toFixed(2));
+    this.warrantyPrice = (Number)(((this.priceToy.getValue() / (1 - this.commission / 100)) - this.priceToy.getValue()).toFixed(2));
     //setOrder_id
     this.order_id.setValue(this.toyId.getValue());
     //setPriceSend
