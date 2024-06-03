@@ -1,5 +1,4 @@
 mat-card-header mat-card-title{
-    /* width: max-content; */
     height: fit-content;
     min-width: max-content;
 }
