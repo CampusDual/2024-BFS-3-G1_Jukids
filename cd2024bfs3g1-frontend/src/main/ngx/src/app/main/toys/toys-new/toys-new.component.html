@@ -30,11 +30,17 @@
                 <o-checkbox *ngIf="toyService == 'toyowner';else encourageRegister" id="shipping" #shipping fxFlex="50"
                     attr="shipping" label="{{ 'SHIPPING'  | oTranslate }}">
                 </o-checkbox>
+
                 <ng-template #encourageRegister>
                     <div class="warning">
-                        <p><!--<a href="/login">¡Registrate!</a>--> ¡Registrate! Encontrarás más opciones y llegarás a más gente</p>
+                        <span>{{ 'INICIA SESIÓN' | oTranslate }}</span>
+                        <!--<a href="/login">¡Registrate!</a>-->
+                        <button class="button btn-outline-light" type="button" (click)="modal('login')">
+                            {{ 'LOGIN' | oTranslate}}
+                        </button>
                     </div>
                 </ng-template>
+
             </div>
 
             <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
@@ -60,14 +66,14 @@
 
             <o-row layout-align="end center" layout-margin-top>
                 <button class="button btn-outline-light" (click)="cancel()">
-                    <mat-icon class="btn-icon">close</mat-icon>
-                    <span>cancel</span>
+                    <span>{{ 'cancel' | oTranslate }}</span>
                 </button>
-                <button attr="submit" (click)="newSubmit()" class="button btn-outline-light reverse">
-                    <mat-icon class="btn-icon">save</mat-icon>
-                    <span>ok</span>
+                <button attr="submit" (click)="newSubmit()" class="button btn-outline-light">
+                    <!-- <mat-icon class="btn-icon">save</mat-icon> -->
+                    <span>{{ 'PUBLICAR' | oTranslate }}</span>
                 </button>
             </o-row>
         </o-column>
     </div>
 </o-form>
+
