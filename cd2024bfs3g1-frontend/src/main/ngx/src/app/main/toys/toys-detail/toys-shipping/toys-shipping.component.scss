@@ -135,7 +135,7 @@
                     div {
                         display: flex;
 
-                        span{
+                        span {
                             margin-left: 0.5rem;
                         }
                     }
@@ -207,18 +207,33 @@
             max-width: 200px;
         }
     }
-     .tooltip {
-            display: inline-block;
-            cursor: pointer;
-          }
 
-          .tooltip-icon {
-            margin-top: 5px;
-            color: black;
-            font-size: 17px;
-            vertical-align: middle;
-          }
-          span {
-            padding: 0.2rem;
-          }
+    .tooltip {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .tooltip-icon {
+        margin-top: 5px;
+        color: black;
+        font-size: 17px;
+        vertical-align: middle;
+    }
+
+    span {
+        padding: 0.2rem;
+    }
+
+    .link {
+        border: none;
+        background-color: transparent;
+        text-decoration-line: underline;
+        color: rgb(0, 102, 204);
+        &:hover{
+            color: rgb(85, 26, 139);
+        }
+        &:visited{
+            color: rgb(85, 26, 139);
+        }
+    }
 }

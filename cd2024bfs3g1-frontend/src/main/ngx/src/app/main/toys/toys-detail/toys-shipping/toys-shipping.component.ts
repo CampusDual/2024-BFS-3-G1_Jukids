@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { LoginComponent } from 'src/app/login/login.component';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 
 @Component({
   selector: 'app-toys-shipping',
@@ -63,14 +66,17 @@ export class ToysShippingComponent implements OnInit {
     private router: Router,
     protected dialogService: DialogService,
     private translate: OTranslateService,
-    private authService: AuthService,
+    private jukidsAuthService: JukidsAuthService,
     private oServiceToy: OntimizeService,
     private oServiceOrder: OntimizeService,
+    private dialog: MatDialog,
   ) {
-    this.logged = this.authService.isLoggedIn();
+    
   }
 
   ngOnInit() {
+    this.logged = this.jukidsAuthService.isLoggedIn();
+    
     this.form = document.getElementById("formShipments");
 
     const conf2 = this.oServiceOrder.getDefaultServiceConfiguration('orders');
@@ -142,7 +148,7 @@ export class ToysShippingComponent implements OnInit {
     this.stripe.checkoutStripe(this.issetSend);
   }
   newBuy() {
-    //Comentarios de este metodo pra logeado
+    //Comentarios de este metodo para logeado
     if (!this.logged) {
       this.buyButton.nativeElement.classList.add("hidden")
       this.emailForm.nativeElement.classList.remove("hidden")
@@ -191,6 +197,7 @@ export class ToysShippingComponent implements OnInit {
     let errorName = "ERROR_NAME_VALIDATION";
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
+    var regExpPhone = new RegExp('^[6-9][0-9]{8}$');
     let errorAddress = "ERROR_ADDRESS_VALIDATION";
     let errorPhone = "ERROR_PHONE_VALIDATION";
     let errorCompany = "ERROR_COMPANY_VALIDATION";
@@ -204,7 +211,7 @@ export class ToysShippingComponent implements OnInit {
     if (getFieldValues.shipping_address === undefined || getFieldValues.shipping_address.trim() === "") {
       arrayErrores.push(this.translate.get(errorAddress));
     }
-    if (getFieldValues.buyer_phone === undefined || getFieldValues.buyer_phone.trim() === "") {
+    if (getFieldValues.buyer_phone === undefined || getFieldValues.buyer_phone.trim() === "" || !regExpPhone.test(getFieldValues.buyer_phone.trim())) {
       arrayErrores.push(this.translate.get(errorPhone));
     }
     if (getFieldValues.shipment_company === undefined) {
@@ -241,5 +248,11 @@ export class ToysShippingComponent implements OnInit {
 
   insertRedirect() {
     this.router.navigate(["main/toys/toysDetail", this.toyId]);
+  }
+  modal(idModal: string) {
+    this.dialog.open(LoginComponent, {
+      id: idModal,
+      disableClose: false,
+    });
   }
 }

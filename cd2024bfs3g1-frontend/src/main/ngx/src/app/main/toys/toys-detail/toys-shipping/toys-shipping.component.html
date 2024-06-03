@@ -40,8 +40,8 @@
               read-only="no" required="yes" max-length="150"></o-text-input>
           </div>
           <div class="divLabel">
-            <o-text-input #buyerPhone attr="buyer_phone" label="{{'usr_phone' | oTranslate}}" fxFlex="100"
-              read-only="no" required="yes" max-length="150"></o-text-input>
+            <o-integer-input #buyerPhone attr="buyer_phone" label="{{'usr_phone' | oTranslate}}" fxFlex="100"
+              read-only="no" required="yes" max-length="9" min-length="9"></o-integer-input>
           </div>
           <div class="divLabel">
             <o-combo #shipmentCompany attr="shipment_company" label="{{'company' | oTranslate}}"
@@ -51,7 +51,14 @@
           <span class="note">*{{'NOTE_SEND' | oTranslate}}</span>
 
           <div *ngIf="!logged;else encourageRegister" class="warning">
-            <p><!--<a href="/login/new"></a>-->¡Registrate! Para comprar con envio </p>
+            <p>
+              <span>                
+                <button class="link" type="button" (click)="modal('login')">
+                  {{ 'LOGIN' | oTranslate}}
+                </button>
+              </span>
+              {{ 'CON_ENVIO' | oTranslate }}
+            </p>
           </div>
 
           <ng-template #encourageRegister>
@@ -66,8 +73,7 @@
       <div #buyInfo class="cardInfo">
         <div class="divDetail">
           <div class="containerPrice">
-            <o-row *ngIf="!this.issetSend || !shippingInput.getValue();else sendPrice"
-              class="price">
+            <o-row *ngIf="!this.issetSend || !shippingInput.getValue();else sendPrice" class="price">
               {{(priceInput.getValue()*1) + this.warrantyPrice | number: '1.2-2' }}
               <span class="currency"> €</span>
             </o-row>
