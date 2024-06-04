@@ -46,7 +46,7 @@ export class ToysHomeComponent implements OnInit {
   // }
   // ]
 
-  public cols: number = 5;
+  public cols: number = 8;
   private location: any;
   public arrayData: Array<any> = [];
 

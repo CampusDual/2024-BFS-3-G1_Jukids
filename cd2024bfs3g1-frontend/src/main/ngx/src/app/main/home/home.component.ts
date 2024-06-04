@@ -90,11 +90,8 @@ export class HomeComponent implements OnInit {
   }
 
   public openDetail(data: any): void {
-    console.log("OPENDETAIL: ");
-
     // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
     const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
-
-    this.router.navigate(["/toysDetail", toyId]);
+    this.router.navigate(["./toys/toysDetail", toyId]);
   }
 }

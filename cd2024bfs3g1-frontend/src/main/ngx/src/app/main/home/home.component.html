@@ -7,76 +7,166 @@
 
   <div class="categories-container">
     
-
-    <p>Figuras</p>
-    <div class="cat-row">
-      <o-grid
-        #toysGrid
-        attr="toysGrid"
-        service="toys"
-        entity="toyAvailable"
-        keys="toyid"
-        detail-form-route="toysDetail"
-        columns="toyid;name;price;latitude;longitude;distance"
-        pageable="yes"
-        query-rows="1"
-        refresh-button="no"
-        quick-filter="no"
-        show-page-size="yes"
-        [cols]="cols"
-        gutter-size="15"
-        grid-item-height="1:1.5"
-        sortable-columns="distance"
-        sort-column="distance"
-      >
-        <o-grid-item
-          *ngFor="let data of toysGrid.getDataArray()"
-          (onClick)="openDetail(data)"
+    <!-- <p class="row-title">{{ 'FIGURES_CATCHY_PHRASE' | oTranslate }}</p> -->
+    <p class="row-title">Las figuras más molonas</p>
+    <div class="grid-container">
+        <o-grid
+          #figuresGrid
+          attr="figuresGrid"
+          service="toys"
+          entity="toyAvailable"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price;latitude;longitude;distance"
+          pageable="yes"
+          query-rows="5"
+          refresh-button="no"
+          tool
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          sortable-columns="distance"
+          sort-column="distance"
+          show-footer="no"
+          controls="false"
+          
         >
-          <div class="card">
-            <ng-container *ngIf="data.distance != null">
-              <div class="card-distance">
-                <span>{{ data.distance | number : "1.2-2" }} km</span>
+          <o-grid-item
+            *ngFor="let data of figuresGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
               </div>
-            </ng-container>
-            <img
-              class="image-header"
-              src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-            />
-            <div class="card-body">
-              <h4>{{ data.name }}</h4>
-              <p class="price">
-                <span>€</span> {{ data.price | number : "1.2-2" }}
-              </p>
             </div>
-          </div>
-        </o-grid-item>
-      </o-grid>
+          </o-grid-item>
+        </o-grid>
     </div>
 
-    <p>Construcción</p>
-    <div class="cat-row">
+    <!-- <p class="row-title">{{ 'FIGURES_CATCHY_PHRASE' | oTranslate }}</p> -->
+    <p class="row-title">Construye tu propio mundo</p>
+    <div class="grid-container">
+      <div>
+        <o-grid
+          #legoGrid
+          attr="legoGrid"
+          service="toys"
+          entity="toyAvailable"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price;latitude;longitude;distance"
+          pageable="yes"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          sortable-columns="distance"
+          sort-column="distance"
+          show-footer="no"
+          controls="false"
+        >
+          <o-grid-item
+            *ngFor="let data of legoGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+      </div>
+    </div>
+
+    <!-- <p class="row-title">{{ 'FIGURES_CATCHY_PHRASE' | oTranslate }}</p> -->
+    <p class="row-title">Los mejor valorados</p>
+    <div class="grid-container">
+      <div>
+        <o-grid
+          #topRatedGrid
+          attr="topRatedGrid"
+          service="toys"
+          entity="toyAvailable"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price;latitude;longitude;distance"
+          pageable="yes"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.5"
+          sortable-columns="distance"
+          sort-column="distance"
+          show-footer="no"
+          controls="false"
+        >
+          <o-grid-item
+            *ngFor="let data of topRatedGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+      </div>
+    </div>
+
+    <!-- <p class="row-title">{{ 'FIGURES_CATCHY_PHRASE' | oTranslate }}</p> -->
+    <p class="row-title">Consolas! Consolas de videojuegos!!</p>
+    <div>
       <o-grid
-        #toysGrid
-        attr="toysGrid"
+        #videoGamesGrid
+        attr="videoGamesGrid"
         service="toys"
         entity="toyAvailable"
         keys="toyid"
         detail-form-route="toysDetail"
         columns="toyid;name;price;latitude;longitude;distance"
         pageable="yes"
-        query-rows="1"
+        query-rows="5"
         refresh-button="no"
         quick-filter="no"
-        show-page-size="yes"
         [cols]="cols"
         gutter-size="15"
         grid-item-height="1:1.5"
         sortable-columns="distance"
         sort-column="distance"
+        show-footer="no"
+        controls="false"
       >
         <o-grid-item
-          *ngFor="let data of toysGrid.getDataArray()"
+          *ngFor="let data of videoGamesGrid.getDataArray()"
           (onClick)="openDetail(data)"
         >
           <div class="card">

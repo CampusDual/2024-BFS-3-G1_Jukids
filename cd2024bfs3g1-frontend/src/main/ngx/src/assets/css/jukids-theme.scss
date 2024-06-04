@@ -180,7 +180,7 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   margin-top: 10px;
-  background-color: #ffa36614;
+  background-color: #ffffff;
   color: #333;
   font-family: Arial, sans-serif;
 
@@ -201,7 +201,8 @@ nav {
   > {
     .image-header {
       width: 100%;
-      height: 85%;
+      height: 75%;
+      min-height: 75%;
       border-radius: .75rem;
       object-fit: cover;
 

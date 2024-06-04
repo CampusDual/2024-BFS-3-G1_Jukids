@@ -4,6 +4,8 @@
 
 .banner {
 height: 200px;
+scale:2.3 1;
+
 }
 
 .categories-container {
@@ -13,9 +15,13 @@ height: 200px;
     justify-items: center;
 }
 
-.cat-row {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    background-color: yellowgreen;
+.grid-container {
+    background-color: rgba(239, 239, 239, 0.543);
+    border-radius: 10px;
+}
+
+.row-title {
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+    padding-left: 1%;
 }
