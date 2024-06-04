@@ -161,6 +161,7 @@
   "sta_incomplete": "Incompleto",
   "CHART_MONTH": "Mes",
   "CHART_MOVEMENT": "Movimientos en nuestra página",
+  "CHART_DELIVERIES": "Compras Con y Sin Envío",
   "CHART_GROSS_INCOME": "Ingresos brutos",
   "OUR_GRAPHS": "Nuestras gráficas",
   "SALUTE": "Hola",
@@ -209,6 +210,7 @@
   "SHIPMENT_AVAILABLE": "ENVÍO DISPONIBLE",
   "STATUS": "ESTADO",
   "UNREGISTERED_SELLER_WARNING": "AVISO* Este juguete ha sido subido por un usuario/a anónimo/a. No puedes comprarlo directamente en nuestra plataforma. Puedes ponerte en contacto con la persona que lo haya subido por email.",
-  "TITLE_MAP_HOME": "Encuentra juguetes cerca de ti (marca tu ubicación para obtener la distancia a la que se encuentran)"
-
+  "TITLE_MAP_HOME": "Encuentra juguetes cerca de ti (marca tu ubicación para obtener la distancia a la que se encuentran)",
+  "shipment": "Con Envío",
+  "noshipment": "Sin Envío"
 }

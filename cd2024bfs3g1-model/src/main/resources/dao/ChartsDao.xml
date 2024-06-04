@@ -31,10 +31,17 @@
         <Query id = "total_delivers">
             <Sentence>
                 <![CDATA[
-                SELECT
-                (SELECT COUNT(*) FROM orders) AS "Total Compras",
-                (SELECT COUNT(*) FROM shipments) AS "Con Envíos",
-                ((SELECT COUNT(*) FROM orders) - (SELECT COUNT(*) FROM shipments)) AS "Sin Envío";
+                select
+                'noshipment' shipmentype,COUNT(o.order_id) - COUNT(s.order_id)  total
+                FROM
+                orders o
+                LEFT JOIN shipments s ON o.order_id = s.order_id
+                union
+                select
+                'shipment' shipmentype , COUNT(s.order_id)  total
+                FROM
+                orders o
+                LEFT JOIN shipments s ON o.order_id = s.order_id;
             ]]>
             </Sentence>
         </Query>
