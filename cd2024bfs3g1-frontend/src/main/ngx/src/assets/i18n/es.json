@@ -209,6 +209,11 @@
   "SHIPMENT_AVAILABLE": "ENVÍO DISPONIBLE",
   "STATUS": "ESTADO",
   "UNREGISTERED_SELLER_WARNING": "AVISO* Este juguete ha sido subido por un usuario/a anónimo/a. No puedes comprarlo directamente en nuestra plataforma. Puedes ponerte en contacto con la persona que lo haya subido por email.",
-  "TITLE_MAP_HOME": "Encuentra juguetes cerca de ti (marca tu ubicación para obtener la distancia a la que se encuentran)"
-
+  "TITLE_MAP_HOME": "Encuentra juguetes cerca de ti (marca tu ubicación para obtener la distancia a la que se encuentran)",
+  "VGAMES_DESC_ICON": "Videojuegos, consolas, accesorios... ¡Y más!",
+  "BABY_DESC_ICON": "Los mejores juguetes pera las personas más pequeñas",
+  "LEGO_DESC_ICON": "Contrucción a raudales",
+  "FIGURE_DESC_ICON": "Todas las figuras de puedas imaginar",
+  "DOLL_DESC_ICON": "Muñecas de todas las épocas",
+  "PUZZLE_DESC_ICON": "¿A quién le amarga un puzzle?"
 }
