@@ -134,12 +134,14 @@ public class OrderService implements IOrderService{
         //Recuperamos TOYS - PRICE
         //Calculamos ORDER - TOTAL_PRICE
 
-        double JUKIDS_COMMISSION = 1.07;
+        //Porcentaje que deseamos de comision
+
+        double JUKIDS_COMMISSION = 7;
 
         BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
         double toyPrice = toyPriceDecimal.doubleValue();
 
-        double totalPrice = toyPrice * JUKIDS_COMMISSION;
+        double totalPrice = toyPrice / (1 - JUKIDS_COMMISSION / 100);
 
         orderData.put(OrderDao.ATTR_TOTAL_PRICE, totalPrice);
 
@@ -229,14 +231,16 @@ public class OrderService implements IOrderService{
         //Recuperamos TOYS - PRICE y SHIPMENTS - PRICE
         //Calculamos ORDER - TOTAL_PRICE
 
-        double JUKIDS_COMMISSION = 1.07;
+        //Porcentaje que deseamos de comision
+
+        double JUKIDS_COMMISSION = 7;
 
         BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
         double toyPrice = toyPriceDecimal.doubleValue();
 
         Double shipmentPrice = (Double) shipmentData.get(ShipmentDao.ATTR_PRICE);
 
-        double totalPrice = toyPrice * JUKIDS_COMMISSION + shipmentPrice;
+        double totalPrice = (toyPrice / (1 - JUKIDS_COMMISSION / 100)) + shipmentPrice;
 
         orderData.put(OrderDao.ATTR_TOTAL_PRICE, totalPrice);
 
@@ -302,5 +306,35 @@ public class OrderService implements IOrderService{
         errorEntityResult.setMessage(mensaje);
 
         return errorEntityResult;
+    }
+
+    @Override
+    public EntityResult ordersWithToysQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        if (email != null) {
+
+            HashMap<String, Object> keysValues = new HashMap<>();
+            keysValues.put(UserDao.LOGIN, email);
+            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+
+            if (userData.isEmpty() || userData.isWrong()) {
+
+                return createError("Error al recuperar el usuario");
+            }
+
+            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+            keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
+
+            return this.daoHelper.query(this.orderDao, keyMap, attrList, OrderDao.QUERY_JOIN_ORDERS_TOYS);
+
+        }else{
+
+            return createError("No estas logueado");
+        }
     }
 }

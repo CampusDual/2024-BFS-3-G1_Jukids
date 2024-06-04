@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService, DialogService, ODialogConfig, OFormComponent, OTableBase, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
 })
 
 export class UserPurchasedToylistComponent {
+  baseUrl: string;
   public userInfo;
   private redirect = '/toys';
 
@@ -36,7 +38,8 @@ export class UserPurchasedToylistComponent {
     private router: Router,
     protected dialogService: DialogService,
     private oServiceShipment: OntimizeService,
-    public userInfoService: UserInfoService) {
+    public userInfoService: UserInfoService,
+    private sharedDataService:SharedDataService) {
 
     const conf2 = this.oServiceShipment.getDefaultServiceConfiguration('shipments');
     this.oServiceShipment.configureService(conf2);
@@ -83,4 +86,17 @@ export class UserPurchasedToylistComponent {
     }
   }
 
+  onRate(toyId:number,toyPhoto: string, toyName:string, sellerId:number, sellerName:string, buyerId:number){
+    // Almacenar valores para compartirlos a través del servicio
+    this.sharedDataService.setData({ toyId, toyPhoto, toyName, sellerId, sellerName, buyerId});
+    this.router.navigate(["/survey"]);
+  }
+
+  ngOnInit(): void {
+    this.baseUrl = window.location.origin;
+    
+    if (this.baseUrl.includes('localhost')) {
+      this.baseUrl = 'http://localhost:8080';
+    }
+  }
 }
