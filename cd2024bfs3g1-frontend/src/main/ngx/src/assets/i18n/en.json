@@ -113,6 +113,8 @@
   "ERROR_ADDRESS_VALIDATION": "Enter address",
   "ERROR_PHONE_VALIDATION": "Enter phone",
   "ERROR_ERROR_COMPANY_VALIDATION_VALIDATION": "Enter shipping company",
+  "ERROR_STARS_VALIDATION": "Enter seller's rating",
+  "ERROR_COMMENT_VALIDATION": "Enter seller's comment",
   "YOUR_PRODUCTS":"My products",
   "MY_PROFILE":"My profile",
   "MY_TOYS":"My toys",
@@ -208,5 +210,14 @@
   "SHIPMENT_AVAILABLE": "SHIPMENT AVAILABLE",
   "STATUS": "STATUS",
   "UNREGISTERED_SELLER_WARNING": "WARNING* This toy has been published by an unregistered user. It can't be bought directly from JUKIDS. You can contact the seller by email.",
-  "TITLE_MAP_HOME": "Find toys near you (mark your location to get their distance)"
+  "TITLE_MAP_HOME": "Find toys near you (mark your location to get their distance)",
+  "ACKNOWLEDGEMENT_IN_SURVEY": "Thank you for shopping at JuKids!",
+  "EXPERIENCE_IN_SURVEY": "Tell us about your experience with",
+  "JUKID_POINTS": "JuKid points",
+  "COMMENT_IN_SURVEY": "Type your comment...",
+  "RATE_BUTTON_IN_SURVEY": "Rate",
+  "SELLER":"Seller",
+  "BY_RATED": "By ",
+  "MY_RATINGS": "My ratings",
+  "BACK_BUTTON": "Back"
 }

@@ -113,6 +113,8 @@
   "ERROR_ADDRESS_VALIDATION": "Introduzca una dirección",
   "ERROR_PHONE_VALIDATION": "Introduzca un teléfono",
   "ERROR_ERROR_COMPANY_VALIDATION_VALIDATION": "Introduzca una compañía de envio",
+  "ERROR_STARS_VALIDATION": "Introduzca la valoración del vendedor",
+  "ERROR_COMMENT_VALIDATION": "Introduzca el comentario del vendedor",
   "SELECT_POINT_ON_MAP":"Seleccione un punto",
   "YOUR_PRODUCTS":"Mis productos",
   "MY_PROFILE":"Mi perfil",
@@ -209,6 +211,14 @@
   "SHIPMENT_AVAILABLE": "ENVÍO DISPONIBLE",
   "STATUS": "ESTADO",
   "UNREGISTERED_SELLER_WARNING": "AVISO* Este juguete ha sido subido por un usuario/a anónimo/a. No puedes comprarlo directamente en nuestra plataforma. Puedes ponerte en contacto con la persona que lo haya subido por email.",
-  "TITLE_MAP_HOME": "Encuentra juguetes cerca de ti (marca tu ubicación para obtener la distancia a la que se encuentran)"
-
+  "TITLE_MAP_HOME": "Encuentra juguetes cerca de ti (marca tu ubicación para obtener la distancia a la que se encuentran)",
+  "ACKNOWLEDGEMENT_IN_SURVEY": "¡Gracias por comprar en JuKids!",
+  "EXPERIENCE_IN_SURVEY": "Coméntanos cómo fue tu experiencia con",
+  "JUKID_POINTS": "Puntos JuKid",
+  "COMMENT_IN_SURVEY": "Escriba su valoración...",
+  "RATE_BUTTON_IN_SURVEY": "Valorar",
+  "SELLER":"Vendedor",
+  "BY_RATED": "Por ",
+  "MY_RATINGS": "Mis valoraciones",
+  "BACK_BUTTON": "Volver"
 }
