@@ -13,4 +13,5 @@ public class ChartDao extends OntimizeJdbcDaoSupport {
 
     public static final String QUERY_TOTAL_ORDERS = "total_orders";
     public static final String QUERY_TOTAL_DELIVERS = "total_delivers";
+    public static final String QUERY_CATEGORY_REVENUE = "category_revenue";
 }

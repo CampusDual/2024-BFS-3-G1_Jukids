@@ -63,4 +63,15 @@ public class ChartService implements IChartService {
             }
             return this.daoHelper.query(chartDao, keyMap, attrList,ChartDao.QUERY_TOTAL_DELIVERS);
     }
+
+    public EntityResult categoryRevenueQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
+        String role = Utils.getRole();
+        if (!ADMIN.equalsIgnoreCase(role)) {
+            EntityResult error = new EntityResultMapImpl();
+            error.setCode(EntityResult.OPERATION_WRONG);
+            error.setMessage("No tienes permisos para acceder");
+            return error;
+        }
+        return this.daoHelper.query(chartDao, keyMap, attrList,ChartDao.QUERY_CATEGORY_REVENUE);
+    }
 }

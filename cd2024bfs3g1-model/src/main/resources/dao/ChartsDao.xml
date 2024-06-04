@@ -38,5 +38,17 @@
             ]]>
             </Sentence>
         </Query>
+        <Query id = "category_revenue">
+            <Sentence>
+                <![CDATA[
+                SELECT
+	            t.category as "Categoria",
+	            ROUND(SUM(t.price) * 5.5 / 107, 2) AS "Comision"
+                FROM toys t
+                GROUP BY t.category
+                ORDER BY t.category;
+            ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>
