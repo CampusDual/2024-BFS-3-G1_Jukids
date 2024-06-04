@@ -7,13 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-profile-ratings.component.scss']
 })
 export class UserProfileRatingsComponent implements OnInit {
-
   private redirect = '/main/user-profile';
   baseUrl: string;
 
-  constructor(
+  constructor (
     private router: Router
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.baseUrl = window.location.origin;
@@ -26,5 +25,4 @@ export class UserProfileRatingsComponent implements OnInit {
     const self = this;
       self.router.navigate([this.redirect]);
   }
-
 }

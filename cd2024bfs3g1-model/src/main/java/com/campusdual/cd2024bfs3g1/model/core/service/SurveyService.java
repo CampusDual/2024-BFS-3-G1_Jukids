@@ -64,13 +64,6 @@ public class SurveyService implements ISurveyService {
 
     @Override
     public EntityResult surveyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-
-        /* System.out.println(attrMap.get("toy_id"));
-        System.out.println(attrMap.get("seller_id"));
-        System.out.println(attrMap.get("buyer_id"));
-        System.out.println(attrMap.get("rating"));
-        System.out.println(attrMap.get("comment")); */
-
         this.daoHelper.insert(this.surveyDao, attrMap);
 
         Map<String, Object> updateStatus = new HashMap<>();
