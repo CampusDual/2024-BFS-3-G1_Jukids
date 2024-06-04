@@ -94,4 +94,9 @@ export class HomeComponent implements OnInit {
     const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
     this.router.navigate(["./toys/toysDetail", toyId]);
   }
+
+  searchCategory(category):void {
+      this.router.navigate(['/main/toys'], {queryParams:{categoryReceived: category}});
+      
+    }
 }
