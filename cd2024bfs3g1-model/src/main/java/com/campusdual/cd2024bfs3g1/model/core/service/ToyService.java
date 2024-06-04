@@ -69,6 +69,93 @@ public class ToyService implements IToyService {
         return this.daoHelper.query(this.toyDao, keyMap, attrList);
     }
 
+    ////Querys con las diferentes categorias
+    @Override
+    public EntityResult toyChildrensToysQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_CHILDRENSTOYS);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyBoardQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_BOARD);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyPlushiesQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_PLUSHIES);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyDollsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_DOLLS);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyActionToysQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_ACCIONTOYS);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyVideogamesQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_VIDEOGAMES);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyCraftsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_CRAFTS);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyPedagogicalQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_PEDAGOGICAL);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toySportQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_SPORT);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyElectronicQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_ELECTRONIC);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyFiguresQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_FIGURES);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyCollectiblesQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_COLLECTIBLES);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyAntiquesQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_ANTIQUES);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyCardsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_CARDS);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+
+
     @Override
     public AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
 
@@ -195,8 +282,6 @@ public class ToyService implements IToyService {
         return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, ToyDao.QUERY_V_TOYS_DISTANCES);
 
     }
-
-
 
     private EntityResult searchByDistance(Map<String, Object> keyMap, List<String> attrList) {
 
