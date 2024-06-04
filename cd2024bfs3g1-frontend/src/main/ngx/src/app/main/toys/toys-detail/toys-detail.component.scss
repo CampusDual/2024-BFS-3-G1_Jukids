@@ -105,7 +105,7 @@
                  }
             }
             .mail-to-seller {
-                color: #ff5349;
+                color: #ff9037;
                 font-size: small;
                 text-decoration: none;
             }
@@ -241,19 +241,19 @@
 }
 
 .plus {
-    border-color: #ff5349;
-    color: #ff5349 !important;
+    border-color: #ff9037;
+    color: #ff9037 !important;
 
     &:hover {
         color: #fff !important;
-        background-color: #FFA366;
-        border-color: #ffa366;
+        background-color: #ff9037;
+        border-color: #ff9037;
       }
   
       &.reverse {
         color: #fff;
-        background-color: #FFA366;
-        border-color: #ffa366;
+        background-color: #ff9037;
+        border-color: #ff9037;
       }
 }
 

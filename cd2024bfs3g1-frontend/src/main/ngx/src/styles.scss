@@ -14,7 +14,6 @@
   padding: 0 54px
 }
 
-
 .o-column > div.o-container .o-container-scroll.o-container-gap,
 .o-row > div.o-container .o-container-scroll.o-container-gap {
   padding: 15px;
@@ -41,70 +40,26 @@
   }
 }
 
-.register-container button{
-  background-color: #ffcc99!important;
-  border: 2px solid #ffa366!important;
-  box-shadow: -3px 5px 0px #ff5349!important;
-  color: #ff5349!important;
-  border-radius: 1.5rem!important;
-}
-
-.register-container mat-icon{
-  color: #ff5349!important;
-}
-
-.register-form{
-
-  .mdc-text-field--filled:not(.mdc-text-field--disabled){
-    background-color: transparent;
-  }
-
-  @media(max-width:450px) {
-    button.mat-mdc-button-base.mat-mdc-outlined-button{
-      height: 26px;
-    }
-
-    .o-form .o-form-toolbar button.mat-mdc-outlined-button,
-    .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons
-    .o-table-button button.mat-mdc-outlined-button{
-      padding: 0 10px;
-    }
-
-    button.mat-mdc-button-base.mat-mdc-button, button.mat-mdc-button-base.mat-mdc-unelevated-button,
-     button.mat-mdc-button-base.mat-mdc-raised-button,
-     button.mat-mdc-button-base.mat-mdc-outlined-button{
-      min-width: 52px;
-    }
-
-  }
- .mat-grid-list {
-      padding: 1rem;
-
-      .mat-grid-tile{
-        padding: 1rem;
-      }
-    }
- }
 .o-app-sidenav .o-app-sidenav-menu-group:not([disabled=true]) a:hover,
 .o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a:hover{
-  background-color: #ffa366;
-  border-left: 8px solid #e1193d;
+  background-color: #FD8F35;
+  border-left: 8px solid #F11F43;
 }
 
 .o-app-sidenav .o-app-sidenav-menu-group:not([disabled=true])
 a.o-app-sidenav-viewer-sidenav-item-selected,
 .o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
-  border-left: 8px solid #e1193d;
-  background-color: #ffa366;
+  border-left: 8px solid #F11F43;
+  background-color: #FD8F35;
 }
 
 .o-app-sidenav .o-app-sidenav-sidenav .o-app-sidenav-menu-group-level-1
 .o-app-sidenav-menu-item:not([disabled=true]) a:hover{
-  background-color: #ffa366;
+  background-color: #FD8F35;
 }
 
 ::-webkit-scrollbar-thumb{
-  background-color: #ffa366;
+  background-color: #FD8F35;
 }
 
 ::-webkit-scrollbar-track{
@@ -127,7 +82,7 @@ mat-toolbar {
 }
 
 .o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
-  color: #ff5349 !important;
+  color: #FD8F35 !important;
 }
 
 #saveButton .mat-mdc-button-persistent-ripple{
