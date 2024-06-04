@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup
+        xmlns="http://www.ontimize.com/schema/jdbc"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+        catalog="" schema="${mainschema}" table="surveys"
+        datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>survey_id</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>survey_id</Column>
+    </UpdateKeys>
+    <GeneratedKey>survey_id</GeneratedKey>
+    <Queries>
+        <Query id="getNameBuyerId">
+            <Sentence>
+                <![CDATA[
+                SELECT
+                    #COLUMNS#
+                FROM ${mainschema}.surveys s
+                    INNER JOIN ${mainschema}.usr_user u ON s.buyer_id = u.usr_id
+                    INNER JOIN ${mainschema}.toys t ON s.toy_id = t.toyid
+                #WHERE#
+            ]]>
+            </Sentence>
+        </Query>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        ${mainschema}.surveys
+                    #WHERE#
+                    #ORDER#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="userAverageRating">
+            <Sentence>
+                <![CDATA[
+                   SELECT
+                        #COLUMNS#
+                   from
+                        v_average_surveys
+                   #WHERE#
+            ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+</JdbcEntitySetup>

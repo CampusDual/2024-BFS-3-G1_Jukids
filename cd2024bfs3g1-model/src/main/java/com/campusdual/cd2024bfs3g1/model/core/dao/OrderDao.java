@@ -17,6 +17,7 @@ public class OrderDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_BUYER_EMAIL = "buyer_email";
     public static final String ATTR_ORDER_DATE  = "order_date";
     public static final String ATTR_TOTAL_PRICE = "total_price";
+    public static final String QUERY_JOIN_ORDERS_TOYS = "getOrdersWithToys";
 }
 
 

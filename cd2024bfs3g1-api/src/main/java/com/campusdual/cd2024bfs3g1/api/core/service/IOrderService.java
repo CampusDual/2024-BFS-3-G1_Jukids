@@ -15,5 +15,5 @@ public interface IOrderService {
 
     EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException;
     EntityResult orderAndShipmentInsert(Map<String,Object>shipmentData)throws OntimizeJEERuntimeException;
-
+    EntityResult ordersWithToysQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }
