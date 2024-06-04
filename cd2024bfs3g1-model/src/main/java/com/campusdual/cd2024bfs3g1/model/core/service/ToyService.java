@@ -331,6 +331,11 @@ public class ToyService implements IToyService {
         return result;
     }
 
+    @Override
+    public EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
+    }
+
     private EntityResult createError(String mensaje){
 
         EntityResult errorEntityResult = new EntityResultMapImpl();
