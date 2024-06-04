@@ -208,5 +208,11 @@
   "SHIPMENT_AVAILABLE": "SHIPMENT AVAILABLE",
   "STATUS": "STATUS",
   "UNREGISTERED_SELLER_WARNING": "WARNING* This toy has been published by an unregistered user. It can't be bought directly from JUKIDS. You can contact the seller by email.",
-  "TITLE_MAP_HOME": "Find toys near you (mark your location to get their distance)"
+  "TITLE_MAP_HOME": "Find toys near you (mark your location to get their distance)",
+  "VGAMES_DESC_ICON": "Videogames, game consoles, accesories... You name it!",
+  "BABY_DESC_ICON": "Best toys for the tiniest people",
+  "LEGO_DESC_ICON": "All you can build!",
+  "FIGURE_DESC_ICON": "Action figures, and much more",
+  "DOLL_DESC_ICON": "Your favourite dolls from all times",
+  "PUZZLE_DESC_ICON": "Buy puzzles for your brain muscles"
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { Expression, FilterExpressionUtils, OComboComponent, OFilterBuilderComponent, OTextInputComponent } from "ontimize-web-ngx";
 import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
 import { ToysMapService } from "src/app/shared/services/toys-map.service";
@@ -17,6 +17,8 @@ import { LocationMapComponent } from "src/app/shared/components/location-map/loc
 })
 export class ToysHomeComponent implements OnInit {
   subscription: Subscription;
+
+  @Input() categoryReceived: string;
 
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
   @ViewChild("price") protected priceCombo: OComboComponent;
@@ -88,6 +90,11 @@ export class ToysHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.actRoute.queryParams.subscribe(params => {
+      const data: any = params['categoryReceived'] || null;
+      console.log(data);
+    });
+
     //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
 

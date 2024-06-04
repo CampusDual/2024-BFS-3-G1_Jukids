@@ -41,3 +41,24 @@
     color: rgb(0, 0, 0);
     padding-left: 1%;
 }
+
+.icon {
+    margin-top: 10px;
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+    background-color: rgba(224, 224, 224, 0.74);
+    border-radius:15px;
+    &:hover {
+        transform: scale(1.1);
+        transition: all;
+        transition: 0.3s;
+    }
+}
+
+.icons-container {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
