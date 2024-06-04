@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { LoginComponent } from 'src/app/login/login.component';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from 'src/app/login/login.component';
 
 @Component({
   selector: 'app-toys-shipping',
@@ -34,8 +34,6 @@ export class ToysShippingComponent implements OnInit {
   }]
   public defaultCompany = 'Correos';
 
-  //Usuario loggedaro
-  public logged: boolean = false;
 
   private form: Element;
   @ViewChild('toyId') toyId: OTextInputComponent;
@@ -66,13 +64,11 @@ export class ToysShippingComponent implements OnInit {
     private router: Router,
     protected dialogService: DialogService,
     private translate: OTranslateService,
-    private authService: AuthService,
     private jukidsAuthService: JukidsAuthService,
     private oServiceToy: OntimizeService,
     private oServiceOrder: OntimizeService,
     private dialog: MatDialog,
   ) {
-    this.logged = this.authService.isLoggedIn();
   }
 
   ngOnInit() {
@@ -103,12 +99,6 @@ export class ToysShippingComponent implements OnInit {
   }
 
   setData(): void {
-    console.log("toyId:", this.toyId.getValue());
-    console.log("name:", this.toyName.getValue());
-    console.log("Email:", this.toyEmail.getValue());
-    console.log("price:", this.priceToy.getValue());
-    console.log("shippingInput:", this.shippingInput.getValue());
-
     // setStripe
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();
@@ -122,19 +112,17 @@ export class ToysShippingComponent implements OnInit {
 
     //Formulario de envio desabilitado
     if (!this.shippingInput.getValue()) {
-      console.log("no envio")
       this.issetSend = false;
       this.form.classList.add("hidden")
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
     }
-    //disabled !logged
-    if (!this.logged) {
+    //disabled !isLogged()
+    if (!this.isLogged()) {
       this.AcceptPayButton.nativeElement.classList.add("hidden")
     }
     if (!this.shippingInput.getValue()) {
-      console.log("no envio")
       this.issetSend = false;
       this.form.classList.add("hidden")
       this.buyButton.nativeElement.classList.remove("hidden")
@@ -147,12 +135,11 @@ export class ToysShippingComponent implements OnInit {
     this.stripe.checkoutStripe(this.issetSend);
   }
   newBuy() {
-    //Comentarios de este metodo pra logeado
-    if (!this.logged) {
+    //Comentarios de este metodo para logeado
+    if (!this.isLogged()) {
       this.buyButton.nativeElement.classList.add("hidden")
       this.emailForm.nativeElement.classList.remove("hidden")
     } else {
-      console.log(this.toyId.getValue())
       const avOrder = { "toyid": this.toyId.getValue() }
       this.oServiceOrder.insert(avOrder, "order").subscribe(result => {
       })
@@ -183,19 +170,19 @@ export class ToysShippingComponent implements OnInit {
     this.oServiceToy.insert(av, "order").subscribe(result => {
     })
     this.checkout();
-    }    
+    }
   }
-º
+
   newSubmit() {
 
     let arrayErrores: any[] = [];
 
     const getFieldValues = this.formShipments.getFieldValues(['order_id', 'price', 'shipping_address', 'buyer_phone', 'shipment_company']);
-    console.log(getFieldValues)
 
     let errorName = "ERROR_NAME_VALIDATION";
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
+    var regExpPhone = new RegExp('^[6-9][0-9]{8}$');
     let errorAddress = "ERROR_ADDRESS_VALIDATION";
     let errorPhone = "ERROR_PHONE_VALIDATION";
     let errorCompany = "ERROR_COMPANY_VALIDATION";
@@ -209,7 +196,7 @@ export class ToysShippingComponent implements OnInit {
     if (getFieldValues.shipping_address === undefined || getFieldValues.shipping_address.trim() === "") {
       arrayErrores.push(this.translate.get(errorAddress));
     }
-    if (getFieldValues.buyer_phone === undefined || getFieldValues.buyer_phone.trim() === "") {
+    if (getFieldValues.buyer_phone === undefined || getFieldValues.buyer_phone.trim() === "" || !regExpPhone.test(getFieldValues.buyer_phone.trim())) {
       arrayErrores.push(this.translate.get(errorPhone));
     }
     if (getFieldValues.shipment_company === undefined) {
