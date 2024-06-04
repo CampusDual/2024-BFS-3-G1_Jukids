@@ -187,7 +187,7 @@
       <div class="map-container" fxLayout="column" fxLayoutGap="4px">
           <p class="map-title">{{ "TOY_LOCATION" | oTranslate }}</p>
         <div class="map-box">
-          <location-map isEditable="false" attr="detailMap" #detailMap></location-map>
+          <location-map [isEditable]="isEditable" attr="detailMap" #detailMap></location-map>
         </div>
       </div>
     </o-column>

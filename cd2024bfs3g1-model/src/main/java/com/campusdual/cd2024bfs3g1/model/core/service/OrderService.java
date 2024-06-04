@@ -134,12 +134,14 @@ public class OrderService implements IOrderService{
         //Recuperamos TOYS - PRICE
         //Calculamos ORDER - TOTAL_PRICE
 
-        double JUKIDS_COMMISSION = 1.07;
+        //Porcentaje que deseamos de comision
+
+        double JUKIDS_COMMISSION = 7;
 
         BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
         double toyPrice = toyPriceDecimal.doubleValue();
 
-        double totalPrice = toyPrice * JUKIDS_COMMISSION;
+        double totalPrice = toyPrice / (1 - JUKIDS_COMMISSION / 100);
 
         orderData.put(OrderDao.ATTR_TOTAL_PRICE, totalPrice);
 
@@ -229,14 +231,16 @@ public class OrderService implements IOrderService{
         //Recuperamos TOYS - PRICE y SHIPMENTS - PRICE
         //Calculamos ORDER - TOTAL_PRICE
 
-        double JUKIDS_COMMISSION = 1.07;
+        //Porcentaje que deseamos de comision
+
+        double JUKIDS_COMMISSION = 7;
 
         BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
         double toyPrice = toyPriceDecimal.doubleValue();
 
         Double shipmentPrice = (Double) shipmentData.get(ShipmentDao.ATTR_PRICE);
 
-        double totalPrice = toyPrice * JUKIDS_COMMISSION + shipmentPrice;
+        double totalPrice = (toyPrice / (1 - JUKIDS_COMMISSION / 100)) + shipmentPrice;
 
         orderData.put(OrderDao.ATTR_TOTAL_PRICE, totalPrice);
 

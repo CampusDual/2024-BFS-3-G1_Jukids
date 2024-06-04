@@ -6,6 +6,9 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MainService } from 'src/app/shared/services/main.service';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from 'src/app/login/login.component';
+
 
 @Component({
   selector: 'app-toys-new',
@@ -33,6 +36,7 @@ export class ToysNewComponent implements OnInit{
     protected dialogService: DialogService,
     private translate: OTranslateService,
     private jukidsAuthService: JukidsAuthService,
+    private dialog: MatDialog,
     @Inject(MainService) private mainService: MainService
   ) {
 
@@ -100,7 +104,7 @@ export class ToysNewComponent implements OnInit{
     if(getFieldValues.price === undefined){
       arrayErrores.push(this.translate.get(errorPrice));
     }
-    if(getFieldValues.price < 0){
+    if(getFieldValues.price < 1){
       arrayErrores.push(this.translate.get(errorNegativePrice));
     }
     if(getFieldValues.price > 9999999){
@@ -156,5 +160,24 @@ export class ToysNewComponent implements OnInit{
     const self = this;
       self.router.navigate([this.redirect]);
   }
+
+
+  isLogged() {
+    //Se cierra el dialogo al iniciar sesion
+    if (this.jukidsAuthService.isLoggedIn() && this.dialog.getDialogById('login')) {
+      this.dialog.closeAll();
+    }
+    return this.jukidsAuthService.isLoggedIn();
+  }
+
+  modal(idModal: string) {
+    this.dialog.open(LoginComponent, {
+      id: idModal,
+      disableClose: false,
+    });
+  }
+
+
+
 }
 

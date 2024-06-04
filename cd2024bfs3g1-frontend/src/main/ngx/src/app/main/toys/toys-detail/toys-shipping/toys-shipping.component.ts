@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { LoginComponent } from 'src/app/login/login.component';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 
 @Component({
   selector: 'app-toys-shipping',
@@ -10,8 +13,8 @@ import { StripeComponent } from 'src/app/shared/components/stripe/stripe.compone
 })
 export class ToysShippingComponent implements OnInit {
 
-  // El 0.1 se refiere al 10% de comisión
-  public commission: number = 0.07;
+  // En commission ponemos el tanto por ciento de comision
+  public commission: number = 7;
   public warrantyPrice: number;
   // Se contenplan 3 euros de gastos de envio
   public priceSend: number = 3.00;
@@ -31,7 +34,7 @@ export class ToysShippingComponent implements OnInit {
   }]
   public defaultCompany = 'Correos';
 
-  //Usuario loggedaro
+  //Usuario logueado
   public logged: boolean = false;
 
   private form: Element;
@@ -43,10 +46,6 @@ export class ToysShippingComponent implements OnInit {
   @ViewChild('formShipments') formShipments: OFormComponent;
   @ViewChild('orderId') order_id: OTextInputComponent;
   @ViewChild('price') price: OTextInputComponent;
-  // @ViewChild('name') name: OTextInputComponent;
-  // @ViewChild('shippingAddress') address;
-  // @ViewChild('buyerPhone') phone;
-  // @ViewChild('shipmentCompany') company;
   @ViewChild('onlyBuy') buyOption;
   @ViewChild('BuySend') buySendOption;
   @ViewChild('buyInfo') buyInfo;
@@ -63,11 +62,11 @@ export class ToysShippingComponent implements OnInit {
     private router: Router,
     protected dialogService: DialogService,
     private translate: OTranslateService,
-    private authService: AuthService,
+    private jukidsAuthService: JukidsAuthService,
     private oServiceToy: OntimizeService,
     private oServiceOrder: OntimizeService,
+    private dialog: MatDialog,
   ) {
-    this.logged = this.authService.isLoggedIn();
   }
 
   ngOnInit() {
@@ -98,38 +97,27 @@ export class ToysShippingComponent implements OnInit {
   }
 
   setData(): void {
-    console.log("toyId:", this.toyId.getValue());
-    console.log("name:", this.toyName.getValue());
-    console.log("Email:", this.toyEmail.getValue());
-    console.log("price:", this.priceToy.getValue());
-    console.log("shippingInput:", this.shippingInput.getValue());
 
-    // setStripe
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();
     this.stripe.email = this.toyEmail.getValue();
-    //setCalculatePrice
-    this.warrantyPrice = (Number)((this.priceToy.getValue() * this.commission).toFixed(2));
-    //setOrder_id
+    this.warrantyPrice = (Number)(((this.priceToy.getValue() / (1 - this.commission / 100)) - this.priceToy.getValue()).toFixed(2));
     this.order_id.setValue(this.toyId.getValue());
-    //setPriceSend
     this.price.setValue(this.priceSend);
 
-    //Formulario de envio desabilitado
+    //Formulario de envio deshabilitado
     if (!this.shippingInput.getValue()) {
-      console.log("no envio")
       this.issetSend = false;
       this.form.classList.add("hidden")
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
     }
-    //disabled !logged
-    if (!this.logged) {
+
+    if (!this.isLogged()) {
       this.AcceptPayButton.nativeElement.classList.add("hidden")
     }
     if (!this.shippingInput.getValue()) {
-      console.log("no envio")
       this.issetSend = false;
       this.form.classList.add("hidden")
       this.buyButton.nativeElement.classList.remove("hidden")
@@ -142,12 +130,11 @@ export class ToysShippingComponent implements OnInit {
     this.stripe.checkoutStripe(this.issetSend);
   }
   newBuy() {
-    //Comentarios de este metodo pra logeado
-    if (!this.logged) {
+    //Comentarios de este metodo para logeado
+    if (!this.isLogged()) {
       this.buyButton.nativeElement.classList.add("hidden")
       this.emailForm.nativeElement.classList.remove("hidden")
     } else {
-      console.log(this.toyId.getValue())
       const avOrder = { "toyid": this.toyId.getValue() }
       this.oServiceOrder.insert(avOrder, "order").subscribe(result => {
       })
@@ -178,19 +165,19 @@ export class ToysShippingComponent implements OnInit {
     this.oServiceToy.insert(av, "order").subscribe(result => {
     })
     this.checkout();
-    }    
+    }
   }
-º
+
   newSubmit() {
 
     let arrayErrores: any[] = [];
 
     const getFieldValues = this.formShipments.getFieldValues(['order_id', 'price', 'shipping_address', 'buyer_phone', 'shipment_company']);
-    console.log(getFieldValues)
 
     let errorName = "ERROR_NAME_VALIDATION";
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
+    var regExpPhone = new RegExp('^[6-9][0-9]{8}$');
     let errorAddress = "ERROR_ADDRESS_VALIDATION";
     let errorPhone = "ERROR_PHONE_VALIDATION";
     let errorCompany = "ERROR_COMPANY_VALIDATION";
@@ -204,7 +191,7 @@ export class ToysShippingComponent implements OnInit {
     if (getFieldValues.shipping_address === undefined || getFieldValues.shipping_address.trim() === "") {
       arrayErrores.push(this.translate.get(errorAddress));
     }
-    if (getFieldValues.buyer_phone === undefined || getFieldValues.buyer_phone.trim() === "") {
+    if (getFieldValues.buyer_phone === undefined || getFieldValues.buyer_phone.trim() === "" || !regExpPhone.test(getFieldValues.buyer_phone.trim())) {
       arrayErrores.push(this.translate.get(errorPhone));
     }
     if (getFieldValues.shipment_company === undefined) {
@@ -242,4 +229,21 @@ export class ToysShippingComponent implements OnInit {
   insertRedirect() {
     this.router.navigate(["main/toys/toysDetail", this.toyId]);
   }
+
+
+  isLogged() {
+    //Se cierra el dialogo al iniciar sesion
+    if (this.jukidsAuthService.isLoggedIn() && this.dialog.getDialogById('login')) {
+      this.dialog.closeAll();
+    }
+    return this.jukidsAuthService.isLoggedIn();
+  }
+
+  modal(idModal: string) {
+    this.dialog.open(LoginComponent, {
+      id: idModal,
+      disableClose: false,
+    });
+  }
+
 }

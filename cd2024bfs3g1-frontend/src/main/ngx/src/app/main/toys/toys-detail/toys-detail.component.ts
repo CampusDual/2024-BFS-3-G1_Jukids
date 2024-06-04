@@ -15,6 +15,7 @@ export class ToysDetailComponent implements OnInit{
   private location: any;
   protected service: OntimizeService;
   showCheckout = false;
+  isEditable = false;
   ratingData: string;
   varRating: number;
 
