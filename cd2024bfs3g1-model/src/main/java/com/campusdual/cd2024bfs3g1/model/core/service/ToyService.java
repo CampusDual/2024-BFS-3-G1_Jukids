@@ -70,6 +70,18 @@ public class ToyService implements IToyService {
     }
 
     @Override
+    public EntityResult toyChildrensToysQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_CHILDRENSTOYS);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult toyBoardQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_BOARD);
+        return toyAvailableQuery(keyMap, attrList);
+    }
+
+    @Override
     public AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
 
         //Extraer el basicExpression
