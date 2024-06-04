@@ -28,6 +28,7 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final Integer STATUS_SENT = 2;
     public static final Integer STATUS_RECEIVED = 3;
     public static final Integer STATUS_PURCHASED  = 4;
+    public static final Integer STATUS_RATED  = 5;
 
     //Agregar referencias de columnas en vista v_toy_distances
     public static final String QUERY_V_TOYS_DISTANCES = "getNearbyToys";
