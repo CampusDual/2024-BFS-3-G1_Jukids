@@ -104,28 +104,20 @@ public class PaymentService implements IPaymentService {
             System.out.println(toyData.get( ToyDao.ATTR_DESCRIPTION ) );
             System.out.println(toyData.get( ToyDao.ATTR_PRICE ) );
 
-            // Transformar dato de precio
+            // Recuperar dato de precio
             BigDecimal price = (BigDecimal) toyData.get(ToyDao.ATTR_PRICE);
-            //multipicar x 100 + 5%
+            //multipicar x 100
             price = price.multiply( new BigDecimal(100) );
-            //Creamos variable de comision y se la añadimos
-            BigDecimal commissionRate = BigDecimal.valueOf(1.07);
-            price = price.multiply(commissionRate);
-            System.out.println("shipment " + shipment);
-            //Corroboramos si el chechout incluye o no un Shipment, y si es true le añadimos 3 euros
+            //Creamos variable de comision igual a 100 menos la comision deseada
+            BigDecimal commissionRate = BigDecimal.valueOf(0.93);
+            price = price.divide(commissionRate, 4);
+
+            //Comprobamos si el checkout incluye Shipment y en caso afirmativo le añadimos 3 euros
             if(shipment){
                price = price.add(new BigDecimal(300));
             }
             System.out.println(price);
 
-
-
-            //System.out.println(toyData.get( ToyDao.ATTR_PHOTO ) );  //Demasiado grande para pasar como argumento
-            System.out.println("TOYURL: " + toyUrl);
-
-            System.out.println("TOYIMAGE: "+ baseUrl+"/restapi/get-image?toyId="+toyid );
-//
-//        System.out.println( "ENTITY RESULT TOY: " + toy);
 
             SessionCreateParams params =
                     SessionCreateParams.builder()

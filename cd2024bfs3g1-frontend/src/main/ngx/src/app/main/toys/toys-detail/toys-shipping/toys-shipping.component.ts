@@ -13,8 +13,8 @@ import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 })
 export class ToysShippingComponent implements OnInit {
 
-  // El 0.1 se refiere al 10% de comisión
-  public commission: number = 0.07;
+  // En commission ponemos el tanto por ciento de comision
+  public commission: number = 7;
   public warrantyPrice: number;
   // Se contenplan 3 euros de gastos de envio
   public priceSend: number = 3.00;
@@ -34,6 +34,8 @@ export class ToysShippingComponent implements OnInit {
   }]
   public defaultCompany = 'Correos';
 
+  //Usuario logueado
+  public logged: boolean = false;
 
   private form: Element;
   @ViewChild('toyId') toyId: OTextInputComponent;
@@ -44,10 +46,6 @@ export class ToysShippingComponent implements OnInit {
   @ViewChild('formShipments') formShipments: OFormComponent;
   @ViewChild('orderId') order_id: OTextInputComponent;
   @ViewChild('price') price: OTextInputComponent;
-  // @ViewChild('name') name: OTextInputComponent;
-  // @ViewChild('shippingAddress') address;
-  // @ViewChild('buyerPhone') phone;
-  // @ViewChild('shipmentCompany') company;
   @ViewChild('onlyBuy') buyOption;
   @ViewChild('BuySend') buySendOption;
   @ViewChild('buyInfo') buyInfo;
@@ -99,18 +97,15 @@ export class ToysShippingComponent implements OnInit {
   }
 
   setData(): void {
-    // setStripe
+
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();
     this.stripe.email = this.toyEmail.getValue();
-    //setCalculatePrice
-    this.warrantyPrice = (Number)((this.priceToy.getValue() * this.commission).toFixed(2));
-    //setOrder_id
+    this.warrantyPrice = (Number)(((this.priceToy.getValue() / (1 - this.commission / 100)) - this.priceToy.getValue()).toFixed(2));
     this.order_id.setValue(this.toyId.getValue());
-    //setPriceSend
     this.price.setValue(this.priceSend);
 
-    //Formulario de envio desabilitado
+    //Formulario de envio deshabilitado
     if (!this.shippingInput.getValue()) {
       this.issetSend = false;
       this.form.classList.add("hidden")
@@ -118,7 +113,7 @@ export class ToysShippingComponent implements OnInit {
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
     }
-    //disabled !isLogged()
+
     if (!this.isLogged()) {
       this.AcceptPayButton.nativeElement.classList.add("hidden")
     }
