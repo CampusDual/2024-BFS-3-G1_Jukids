@@ -1,11 +1,27 @@
 .banner-box {
-   display: flex;
-}
+    display: flex;
+    position: relative;
+    align-items: start;
+    justify-content: center;
+    gap: 15px;
+    width: 100vw;
 
-.banner {
-height: 200px;
-scale:2.3 1;
-
+    .banner-background {
+        position: absolute;
+        width: 100%;
+        height: 90%;
+        background-color: #ff903714;
+        z-index: 2;
+    }
+    
+    .banner-svg {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 15px;
+        width: 77%;
+        z-index: 4;
+    }
 }
 
 .categories-container {

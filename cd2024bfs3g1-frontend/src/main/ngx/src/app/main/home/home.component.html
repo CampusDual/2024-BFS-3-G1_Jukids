@@ -1,8 +1,11 @@
 <div fxLayout="column" layout-padding fxLayoutAlign="center center">
   <div class="banner-box">
-    <img class="banner" src="assets/images/banner.webp" />
+    <div class="banner-svg">
+      <img src="assets/images/svg/svg_compra_venta.svg"/>
+      <img src="assets/images/svg/svg_skate.svg"/>
+    </div>
+    <div class="banner-background"></div>
   </div>
-
   <!-- buttons to category filtered queries -->
   <div class="icons-container">
     <img id="childrenToys" (click)="searchCategory('cat_ChildrensToys')" src="../../../assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
@@ -11,15 +14,15 @@
     <img id="dolls" (click)="searchCategory('cat_Dolls')" src="../../../assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
     <img id="actionToys" (click)="searchCategory('cat_ActionToys')" src="../../../assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
     <img id="videogames" (click)="searchCategory('cat_Videogames')" src="../../../assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
-    <!-- <img id="crafts" (click)="searchCategory('cat_Crafts')" src="../../../assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
+    <img id="crafts" (click)="searchCategory('cat_Crafts')" src="../../../assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
     <img id="pedagogical" (click)="searchCategory('cat_Pedagogical')" src="../../../assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
-    <img id="sports" (click)="searchCategory('cat_Sport')" src="../../../assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}"> -->
-    <!-- <img id="electronic" (click)="searchCategory('cat_Electronic')" src="../../../assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
+    <img id="sports" (click)="searchCategory('cat_Sport')" src="../../../assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+    <img id="electronic" (click)="searchCategory('cat_Electronic')" src="../../../assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
     <img id="figures" (click)="searchCategory('cat_Figures')" src="../../../assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
     <img id="collectibles" (click)="searchCategory('cat_Collectibles')" src="../../../assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
     <img id="antiques" (click)="searchCategory('cat_Antiques')" src="../../../assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
     <img id="cards" (click)="searchCategory('cat_Cards')" src="../../../assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
-    <img id="others" (click)="searchCategory('cat_Others')" src="../../../assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}"> -->
+    <img id="others" (click)="searchCategory('cat_Others')" src="../../../assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
   </div>
 
   <div class="categories-container">

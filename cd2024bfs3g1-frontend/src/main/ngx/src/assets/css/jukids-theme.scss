@@ -10,6 +10,16 @@ $breakpoint-large: '(min-width: 960px) and (max-width: 1279.98px)';
 $breakpoint-xlarge: '(min-width: 1280px) and (max-width: 1919.98px)';
 $breakpoint-xxlarge: '(min-width: 1920px)';
 
+//Definir colores como variables
+$color-orange: #FD8F35;
+$color-dark-orange: #D34A24;
+$color-red:#F11F43;
+$color-blue: #3C7F72;
+$color-orange-bg: #FD8F3514;
+$color-white: #fff;
+$color-black: #000;
+
+
 // Mixin para aplicar estilos según los breakpoints
 @mixin respond-to($breakpoint) {
   @if $breakpoint ==small {
@@ -86,7 +96,7 @@ $primary: mat.define-palette($mat-custom-primary);
 $accent: $primary;
 $primary-dark: mat.define-palette($mat-custom-primary-dark);
 $accent-dark: $primary-dark;
-$secondary-color: #ffffff;
+$secondary-color: $color-white;
 
 /* Light theme */
 $theme: ontimize-style.o-mat-light-theme($primary, $accent);
@@ -101,7 +111,7 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 }
 
 .o-app-header nav {
-  background-color: #ffa366;
+  background-color: $color-orange;
 }
 
 
@@ -109,7 +119,7 @@ div .navMenu,
 div .sidenav-toggle-container,
 .o-app-sidenav-menuitem,
 nav {
-  background-color: #ffa366;
+  background-color: $color-orange
 }
 
 .mat-icon {
@@ -125,12 +135,12 @@ nav {
 
 // Menu hamburguesa
 .mat-sidenav-content {
-  background-color: #fff;
+  background-color: $color-white;
 
 }
 
 .navMenu {
-  background-color: #ffa366;
+  background-color: $color-orange;
 
 }
 
@@ -143,12 +153,11 @@ nav {
 }
 
 .o-grid .o-column {
-  background-color: #ffffff;
+  background-color: $color-white;
   color: #333;
   font-family: Arial, sans-serif;
-  // border: 0.125rem solid #ffa366;
   border-radius: .75rem;
-  box-shadow: 0.1rem 0.1rem 0.15rem #ff5439;
+  box-shadow: 0.1rem 0.1rem 0.15rem $color-orange;
   transition: transform .4s ease;
 
   &:hover {
@@ -180,22 +189,19 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   margin-top: 10px;
-  background-color: #ffffff;
+  background-color: $color-orange-bg;
   color: #333;
   font-family: Arial, sans-serif;
-
-  // border: 1px solid #ffa366;
   border-radius: .75rem;
-
   transition: all .2s ease;
 
   &:hover {
     // transform: translate(0, -10px);
-    box-shadow: 0px 0px 5px 0px #fb6d09;
+    box-shadow: 0px 0px 5px 0px $color-orange;
 
-    // .price {
-    //   color: #b0b0b0;
-    // }
+    .price {
+      color: $color-orange;
+    }
   }
 
   > {
@@ -214,7 +220,7 @@ nav {
     top: 12px;
     left: 12px;
     z-index: 10;
-    background-color: #fff;
+    background-color: $color-white;
     border-radius: 0.75rem;
     padding: 10px;
     box-shadow: 0px 0px 5px 0px #5a5a5a;
@@ -336,48 +342,54 @@ nav {
 
   //Categoria color
   &.btn-solid {
-    border-color: #FFA366;
-    color: #000;
-    background-color: #FFA366;
+    border-color: $color-blue;
+    color: $color-white;
+    background-color: $color-blue;
     padding: .5rem 1.2rem !important;
 
     &:hover {
       box-shadow: 0 2px 4px #0000003d;
     }
+
+    &.reverse {
+      border-color: $color-orange;
+      color: $color-black;
+      background-color: $color-orange;
+    }
   }
 
   &.btn-outline-dark {
-    border-color: #fff;
-    color: #fff;
+    border-color: $color-white;
+    color: $color-white;
     background-color: transparent;
 
     &:hover {
-      color: #ff5349;
-      background-color: #fff;
+      color: $color-orange;
+      background-color: $color-white;
     }
 
     &.reverse {
-      color: #ff5349;
-      background-color: #fff;
+      color: $color-orange;
+      background-color: $color-white;
 
     }
   }
 
   &.btn-outline-light {
-    border-color: #ff5349;
-    color: #ff5349;
-    background-color: #fff;
+    border-color: $color-orange;
+    color: $color-orange;
+    background-color: $color-white;
 
     &:hover {
-      color: #fff;
-      background-color: #FFA366;
-      border-color: #ffa366;
+      color: $color-white;
+      background-color: $color-orange;
+      border-color: $color-orange;
     }
 
     &.reverse {
-      color: #fff;
-      background-color: #FFA366;
-      border-color: #ffa366;
+      color: $color-white;
+      background-color: $color-orange;
+      border-color: $color-orange;
     }
   }
 
@@ -397,7 +409,7 @@ nav {
 
   .login {
     width: 50%;
-    background-color: #ffffff;
+    background-color: $color-white;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -410,7 +422,7 @@ nav {
       padding-bottom: 1rem;
 
       .slogan {
-        color: #ff5349;
+        color: #3C7F72;
       }
     }
 
@@ -418,7 +430,7 @@ nav {
       text-align: center;
 
       .slogan {
-        color: #ff5349;
+        color: #3C7F72;
       }
     }
 
@@ -465,7 +477,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #FFFDED;
+    background-color: $color-orange-bg;
 
     img {
       width: 75%;
@@ -492,11 +504,11 @@ nav {
     right: 1rem;
     cursor: pointer;
 
-    .btn-close{
+    .btn-close {
       width: 2rem;
       height: 2rem;
       font-size: 2rem;
-      color: #ff5349;
+      color: #F11F43;
     }
 
   }
@@ -504,7 +516,7 @@ nav {
   .link {
     cursor: pointer;
     font-weight: 600;
-    color: #ff5349;
+    color: $color-orange;
 
     &:hover {
       text-decoration: underline;
@@ -535,14 +547,11 @@ nav {
     gap: 10px;
   }
 
-  
+
 }
 
 
 o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
 o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
-  background: #ffa366;
+  background: $color-orange;
 }
-
-
-
