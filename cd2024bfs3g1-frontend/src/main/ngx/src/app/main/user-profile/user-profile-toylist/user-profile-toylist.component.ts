@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { OTableBase, OTableColumnComponent, OTextInputComponent, OntimizeService } from 'ontimize-web-ngx';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
-import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile-toylist',
@@ -61,8 +60,7 @@ export class UserProfileToylistComponent implements OnInit{
     this.oServiceToys
       .query(filter, columns, "sumPriceToysSold")
       .subscribe({
-        next: (resp:any) => {
-          console.log(resp.data[0].price);
+        next: (resp:any) => {      
           if (resp.code === 0 && resp.data.length > 0) {
             this.infoToysSold = ": " +  resp.data[0].price.toFixed(1) + " €";
           } else {
