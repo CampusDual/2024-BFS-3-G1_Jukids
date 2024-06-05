@@ -543,5 +543,22 @@ o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.m
   background: #ffa366;
 }
 
+.btn-container o-row .o-container-scroll o-scroll div{
+ align-items: center!important;
+}
 
+o-row.btn-container o-text-input.search-bar{
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.mat-elevation-z3{
+  box-shadow: none!important;
+}
+
+.o-form-content-wrapper .mat-expansion-panel-header#mat-expansion-panel-header-0{
+  max-width: 52%!important;
+}
