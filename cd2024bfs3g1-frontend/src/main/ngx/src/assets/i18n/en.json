@@ -226,5 +226,6 @@
   "SELLER":"Seller",
   "BY_RATED": "By ",
   "MY_RATINGS": "My ratings",
-  "BACK_BUTTON": "Back"
+  "BACK_BUTTON": "Back",
+  "AVAILABLE_MONEY": "You have sold: "
 }

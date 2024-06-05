@@ -227,5 +227,6 @@
   "MY_RATINGS": "Mis valoraciones",
   "BACK_BUTTON": "Volver",
   "shipment": "Con envío (%)",
-  "noshipment": "Sin envío (%)"
+  "noshipment": "Sin envío (%)",
+  "AVAILABLE_MONEY": "Has vendido en total: "
 }

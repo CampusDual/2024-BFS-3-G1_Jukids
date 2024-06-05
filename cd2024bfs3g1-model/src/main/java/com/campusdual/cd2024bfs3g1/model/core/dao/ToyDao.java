@@ -33,6 +33,7 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     //Agregar referencias de columnas en vista v_toy_distances
     public static final String QUERY_V_TOYS_DISTANCES = "getNearbyToys";
     public static final String ATTR_DISTANCE = "distance";
+    public static final String QUERY_V_SUM_PRICE_TOYS_SOLD = "sumPriceToysSold";
 
 
 }
