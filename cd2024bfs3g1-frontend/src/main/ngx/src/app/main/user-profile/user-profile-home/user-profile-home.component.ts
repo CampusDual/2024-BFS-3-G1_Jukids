@@ -69,4 +69,9 @@ export class UserProfileHomeComponent implements OnInit {
   toMyRatings() {
     this.router.navigate(['/main/user-profile/ratings']);
   }
+
+  toMyEdit(){
+    this.router.navigate(['/main/user-profile/edit-user']);
+  }
+
 }

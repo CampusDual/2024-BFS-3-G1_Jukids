@@ -534,7 +534,7 @@ nav {
     gap: 10px;
   }
 
-  
+
 }
 
 
@@ -543,5 +543,20 @@ o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.m
   background: #ffa366;
 }
 
+.editProfile{
+  color: #ffa366;
+  background-color: #fff;
+  border-radius: 0.4rem;
+  border: 2px solid;
+  padding: 0.2rem 1rem;
 
+}
 
+.header-user-profile h2{
+    max-width: 15%;
+}
+.header-user-profile div{
+  margin-left: 15rem;
+  margin-top: -3rem;
+  margin-bottom: 2rem;
+}
