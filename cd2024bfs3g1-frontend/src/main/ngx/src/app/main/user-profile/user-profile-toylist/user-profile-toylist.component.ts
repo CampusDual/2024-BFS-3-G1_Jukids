@@ -18,7 +18,6 @@ export class UserProfileToylistComponent implements OnInit{
   private STATUS_SENT: Number = 2;
   private STATUS_RECEIVED: Number = 3;
   private STATUS_PURCHASED: Number = 4;
-  sumPriceData: string;
   infoToysSold: string;
 
   @ViewChild('tableSend') protected tableSend :OTableBase ;
@@ -37,12 +36,11 @@ export class UserProfileToylistComponent implements OnInit{
     public userInfoService: UserInfoService,
     protected injector: Injector) {
 
-    const toysConf = this.oServiceToys.getDefaultServiceConfiguration('toys');
     const conf2 = this.oServiceShipment.getDefaultServiceConfiguration('shipments');
+    const toysConf = this.oServiceToys.getDefaultServiceConfiguration('toys');
+
     this.oServiceShipment.configureService(conf2);
     this.oServiceToys.configureService(toysConf);
-
-
 
     this.userInfo = this.userInfoService.getUserInfo();
     if (!this.jukidsAuthService.isLoggedIn()) {
@@ -50,14 +48,15 @@ export class UserProfileToylistComponent implements OnInit{
       self.router.navigate([this.redirect]);
     }
   }
-  
+
   ngOnInit(): void {
 
     const filter = {
       usr_id: this.userInfo.usr_id
-    };
+    }
 
-    const columns = ["usr_id", "price"];
+    const columns = ["price"];
+
     this.oServiceToys
       .query(filter, columns, "sumPriceToysSold")
       .subscribe({
@@ -78,6 +77,5 @@ export class UserProfileToylistComponent implements OnInit{
       this.tableSend.refresh();
     })
   }
-
 
 }
