@@ -28,7 +28,6 @@ mat-card-header mat-card-title{
 
 .back-category {
     width: 100%;
-    background-color: rgba(227, 227, 227, 0.407);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -39,8 +38,13 @@ mat-card-header mat-card-title{
 .category {
     scale: 100%;
     align-content: center;
-    padding-right: 30px;
+    padding-right: 1rem;
     font-weight: 400;
     height: 100%;
     color: #0000009c;
+    margin-left: 1rem;
+}
+
+.total_price_sold{
+    margin-left: 1.2rem;
 }

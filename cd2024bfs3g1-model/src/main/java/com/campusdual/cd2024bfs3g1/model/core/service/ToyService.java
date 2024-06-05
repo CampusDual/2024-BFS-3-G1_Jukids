@@ -355,7 +355,7 @@ public class ToyService implements IToyService {
             }
 
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
+            keyMap.put(ToyDao.ATTR_USR_ID, idUser);
 
             return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
 
