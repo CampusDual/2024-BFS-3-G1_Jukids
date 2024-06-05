@@ -115,6 +115,9 @@ export class ToysHomeComponent implements OnInit {
 
     });
 
+
+
+
     //Control de columnas en o-grid
     this.layoutChanges.subscribe((result) => {
       if (result.breakpoints[Breakpoints.XSmall]) {
@@ -310,6 +313,9 @@ export class ToysHomeComponent implements OnInit {
 
   // ------- FILTER MAP---------------
   showMap:boolean = false;
-  openMap(){this.showMap = !this.showMap}
+  openMap(){
+    this.showMap = !this.showMap
+    this.toysMapService.getUserGeolocation();
+  }
 
 }
