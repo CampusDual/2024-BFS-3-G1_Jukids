@@ -1,8 +1,8 @@
-<o-form class="form" editable-detail="yes" show-header="no">
+<o-form class="form" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()" >
 
   <o-row>
     <div class="searchBar">
-      <o-text-input  attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>
+      <o-text-input  #searcher attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>
       <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="button btn-outline-light" matTooltip="{{ 'Search' | oTranslate }}">
         <mat-icon class="material-icons">search</mat-icon>
       </button>
@@ -14,7 +14,7 @@
 
   <o-column-collapsible attr="container" title="{{ 'FILTERS_TOYS' | oTranslate }}" icon="filter_list" elevation="3" appearance="none" expanded="no" layout-align="start stretch">
     <div class="searchFilters">
-      <o-combo appearance="outline" label="category" id="category" null-selection="no" attr="category"
+      <o-combo #categoryField appearance="outline" label="category" id="category" null-selection="no" attr="category"
         service="categories" entity="category" keys="categoryid" value-column="codigo" columns="categoryid;name;codigo"
         searchable="true" visible-columns="codigo" multiple="yes" translate="yes" fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
       </o-combo>
@@ -52,7 +52,7 @@
 <div>
   <o-grid #toysGrid attr="toysGrid" service="toys" entity="toyAvailable" keys="toyid" detail-form-route="toysDetail"
     columns="toyid;name;price;latitude;longitude;distance" pageable="yes" query-rows="20" page-size-options="20"
-    refresh-button="no" quick-filter="no" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
+    refresh-button="no" quick-filter="no" query-on-init="false" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
     [cols]="cols" gutter-size="15" grid-item-height="1:1.5" sortable-columns="distance" orderable="no"
     sort-column="distance">
 

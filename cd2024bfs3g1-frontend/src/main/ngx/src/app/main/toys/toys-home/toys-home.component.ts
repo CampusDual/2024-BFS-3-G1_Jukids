@@ -21,6 +21,8 @@ export class ToysHomeComponent implements OnInit {
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
   @ViewChild("price") protected priceCombo: OComboComponent;
   @ViewChild("range") protected rangeCombo: OComboComponent;
+  @ViewChild('searcher') public searcher: OTextInputComponent;
+  @ViewChild("categoryField") protected categoryField: OComboComponent;
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
@@ -317,5 +319,20 @@ export class ToysHomeComponent implements OnInit {
     this.showMap = !this.showMap
     this.toysMapService.getUserGeolocation();
   }
+
+  searchReceivedParams() {
+    this.actRoute.queryParams.subscribe(params => {
+      const category: any = params['category'] || null;
+      const keyword: any = params['keyword'] || null;
+      if(category != undefined) {
+        let arrayNuevo = [];
+        arrayNuevo.push(category);
+        this.categoryField.setValue(arrayNuevo);
+      }
+      if(keyword != undefined) {
+        this.searcher.setValue(keyword);
+      }
+      this.toyGrid.reloadData();
+  })}
 
 }
