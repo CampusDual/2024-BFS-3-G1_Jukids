@@ -7,7 +7,7 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
   templateUrl: './survey.component.html',
   styleUrls: ['./survey.component.scss']
 })
-export class SurveyComponent{
+export class SurveyComponent {
   baseUrl: string;
   public selectedStar: number = 0;
   @ViewChild('comment') protected comment: ElementRef;
