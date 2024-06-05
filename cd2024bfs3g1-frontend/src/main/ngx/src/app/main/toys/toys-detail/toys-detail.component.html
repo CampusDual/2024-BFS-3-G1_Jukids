@@ -1,189 +1,120 @@
 <div class="navigation-tree-container">
   <div class="back-category">
-    <a class="category" style="padding-left: 20px; color: rgb(145, 145, 145);" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
+    <a class="category" style="padding-left: 20px; color: rgb(145, 145, 145);" href="/main/toys">{{ "ALL_TOYS" |
+      oTranslate }}</a>
     <p>>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-      <span class="category">
+    <span class="category">
       {{ category.getValue() | oTranslate }}</span>
   </div>
 </div>
 
 <!-- main container -->
 <div class="box">
-  <o-form
-    class="form"
-    style="background-color: transparent"
-    attr="toysDetail"
-    service="toys"
-    entity="toy"
-    keys="toyid"
-    show-header-navigation="no"
-    show-header="no"
-    layout-direction="column"
-    (onDataLoaded)="onFormDataLoaded($event)"
-  >
+  <o-form class="form" style="background-color: transparent" attr="toysDetail" service="toys" entity="toy" keys="toyid"
+    show-header-navigation="no" show-header="no" layout-direction="column" (onDataLoaded)="onFormDataLoaded($event)">
     <!-- hidden inputs for data recovery -->
-    <o-text-input
-      #toyId
-      attr="toyid"
-      oHidden
-      sql-type="INTEGER"
-      enabled="yes"
-    ></o-text-input>
-    <o-text-input
-      #usr_id
-      attr="usr_id"
-      sql-type="INTEGER"
-      enabled="yes"
-      oHidden
-    ></o-text-input>
-    <o-text-input
-      #category
-      attr="category"
-      fxFlex="100"
-      read-only="yes"
-      oHidden
-    ></o-text-input>
-    <o-text-input
-      #nameInput
-      attr="name"
-      fxFlex="100"
-      read-only="yes"
-      oHidden
-    ></o-text-input>
-    <o-currency-input
-      #priceInput
-      attr="price"
-      fxFlex="100"
-      read-only="yes"
-      min-decimal-digits="2"
-      max-decimal-digits="2"
-      oHidden
-    ></o-currency-input>
-    <o-text-input
-      #shipping
-      attr="shipping"
-      fxFlex="100"
-      read-only="yes"
-      oHidden
-    ></o-text-input>
-    <o-textarea-input
-      #descInput
-      attr="description"
-      fxFlex="100"
-      read-only="yes"
-      oHidden
-    ></o-textarea-input>
-    <o-email-input
-      #emailInput
-      attr="email"
-      fxFlex="100"
-      read-only="yes"
-      oHidden
-    ></o-email-input>
-    <o-text-input
-      #latitude
-      attr="latitude"
-      fxFlex="100"
-      read-only="yes"
-      oHidden
-    ></o-text-input>
-    <o-text-input
-      #longitude
-      attr="longitude"
-      fxFlex="100"
-      read-only="yes"
-      oHidden
-    ></o-text-input>
-    <o-text-input
-      #status
-      attr="status"
-      fxFlex="100"
-      read-only="yes"
-      oHidden
-    ></o-text-input>
-  <o-form class="form" attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no" detail-form-route="toysBuy"
-    show-header="no" layout-direction="column" (onDataLoaded)="setStripe()">
-    <o-text-input #toyId attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
+    <o-text-input #toyId attr="toyid" oHidden sql-type="INTEGER" enabled="yes"></o-text-input>
+    <o-text-input #usr_id attr="usr_id" sql-type="INTEGER" enabled="yes" oHidden></o-text-input>
+    <o-text-input #category attr="category" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #nameInput attr="name" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-currency-input #priceInput attr="price" fxFlex="100" read-only="yes" min-decimal-digits="2"
+      max-decimal-digits="2" oHidden></o-currency-input>
+    <o-text-input #shipping attr="shipping" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-textarea-input #descInput attr="description" fxFlex="100" read-only="yes" oHidden></o-textarea-input>
+    <o-email-input #emailInput attr="email" fxFlex="100" read-only="yes" oHidden></o-email-input>
+    <o-text-input #latitude attr="latitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #longitude attr="longitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #status attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-form class="form" attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
+      detail-form-route="toysBuy" show-header="no" layout-direction="column" (onDataLoaded)="setStripe()">
+      <o-text-input #toyId attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
-    <!-- main column & div -->
-    <o-column style="background-color: transparent;">
-      <div fxLayoutGap="0px" fxLayout="row" class="toys-detail-column">
+      <!-- main column & div -->
+      <o-column style="background-color: transparent;">
+        <div fxLayoutGap="0px" fxLayout="row" class="toys-detail-column">
 
-        <!-- left column  -->
-        <o-column fxFlex="70" class="left-col">
-          <!-- image  -->
-          <o-image
-            class="image"
-            auto-fit="yes"
-            height="600px"
-            attr="photo"
-            read-only="yes"
-            empty-image="assets/images/no-image.png"
-            sql-type="OTHER"
-            show-controls="no"
-          ></o-image>
-          <!-- buy button  -->
-          <div class="button" style="border: none;"
-            *ngIf="usr_id.getValue() != undefined; else unRegisteredUser"
-          >
-            <button style="text-transform: uppercase;" class="button btn-outline-light" (click)="openBuy(toyId.getValue())">
-              <span>{{ "BUY" | oTranslate }}</span>
-            </button>
-          </div>
-          <!-- contact seller  -->
-          <ng-template #unRegisteredUser>
-            <div class="transparent">
-              <button class="button btn-outline-light plus">
-                <a class="plus" style="border: none; background-color: transparent;text-decoration:none;color:black; text-transform: uppercase;" href="mailto:{{ emailInput.getValue() }}
+          <!-- left column  -->
+          <o-column fxFlex="70" class="left-col">
+            <!-- image  -->
+            <o-image class="image" auto-fit="yes" height="600px" attr="photo" read-only="yes"
+              empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
+            <!-- buy button  -->
+
+            <button 
+                class="button btn-solid extra"
+                (click)="openBuy(toyId.getValue())"
+                *ngIf="usr_id.getValue() != undefined; else unRegisteredUser"
+                >
+                <span>{{ "BUY" | oTranslate }}</span>
+              </button>
+            <div class="" style="border: none;" >
+              
+            </div>
+            <!-- contact seller  -->
+            <ng-template #unRegisteredUser>
+              <div class="transparent">
+                <button class="button btn-outline-light plus">
+                  <a class="plus"
+                    style="border: none; background-color: transparent;text-decoration:none;color:black; text-transform: uppercase;"
+                    href="mailto:{{ emailInput.getValue() }}
                 ?Subject=¡Quiero tu juguete {{ nameInput.getValue() }} de JUKIDS!
                 &body=Hola!%20Me%20gustaría%20comprar%20tu%20juguete%20{{ nameInput.getValue() }}">
-                  {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}</a>
-              </button>
-            </div>
-          </ng-template>
-     
-        </o-column>
+                    {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}</a>
+                </button>
+              </div>
+            </ng-template>
 
-        <!-- right column -->
-        <o-column fxFlex="30" class="inf-column">
-          <div fxLayout="column" class="right-column">
-            <!-- price + name + shipping + status-->
-            <div fxLayout="column" class="price-name-ship">
-              <o-row style="align-self: flex-start;" class="price"
-              >{{ priceInput.getValue() }} <span>€</span></o-row>
-              <o-row class="title">{{ nameInput.getValue() }}</o-row>
-              <div class="shipping">
-                <o-row class="title" >
-                  <p *ngIf="shipping.getValue(); else noShipping" class="shippable">
-                    {{ "SHIPMENT_AVAILABLE" | oTranslate }}
-                </p>
-                <ng-template #noShipping>
-                  <p class="no-shippable">{{ "SALE_IN_PERSON_ONLY" | oTranslate }}</p>
-                </ng-template></o-row>
-                <p class="status">{{ status.getValue() | oTranslate }}</p>
-                <o-row class="description">{{ descInput.getValue() }}</o-row>
+          </o-column>
+
+          <!-- right column -->
+          <o-column fxFlex="30" class="inf-column">
+            <div fxLayout="column" class="right-column">
+              <!-- price + name + shipping + status-->
+              <div fxLayout="column" class="price-name-ship">
+                <o-row style="align-self: flex-start;" class="price">{{ priceInput.getValue() }} <span>€</span></o-row>
+                <o-row class="title">{{ nameInput.getValue() }}</o-row>
+                <div class="shipping">
+                  <o-row class="title">
+                    <p *ngIf="shipping.getValue(); else noShipping" class="shippable">
+                      {{ "SHIPMENT_AVAILABLE" | oTranslate }}
+                    </p>
+                    <ng-template #noShipping>
+                      <p class="no-shippable">{{ "SALE_IN_PERSON_ONLY" | oTranslate }}</p>
+                    </ng-template>
+                  </o-row>
+                  <p class="status">{{ status.getValue() | oTranslate }}</p>
+                  <o-row class="description">{{ descInput.getValue() }}</o-row>
+                </div>
+              </div>
+              <!-- email  -->
+              <div class="email-container">
+                <p style="font-size: small; color: #00000060;" *ngIf="(usr_id.getValue() == undefined)">{{
+                  "UNREGISTERED_SELLER_WARNING" | oTranslate }}</p>
+                <p style="background-color: transparent;">{{ emailInput.getValue() }}</p>
+
+                <ng-container *ngIf="isLogged && isNotTheSeller">
+                  <button class="button btn-outline-light reverse" (click)="chatSeller()">Contacta con el
+                    vendedor</button>
+                </ng-container>
+
               </div>
             </div>
-            <!-- email  -->
-            <div class="email-container">
-              <p style="font-size: small; color: #00000060;" *ngIf="(usr_id.getValue() == undefined)">{{ "UNREGISTERED_SELLER_WARNING" | oTranslate }}</p>
-              <p style="background-color: transparent;">{{ emailInput.getValue() }}</p>
-            </div>
-          </div>
-        </o-column>
-      </div>
-    </o-column>
-
-    <!-- map -->
-    <o-column class="map-column">
-      <div class="map-container" fxLayout="column" fxLayoutGap="4px">
-          <p class="map-title">{{ "TOY_LOCATION" | oTranslate }}</p>
-        <div class="map-box">
-          <location-map isEditable="false" attr="detailMap" #detailMap></location-map>
+          </o-column>
         </div>
-      </div>
-    </o-column>
+      </o-column>
 
-  </o-form>
+      <!-- map -->
+      <o-column class="map-column">
+        <div class="map-container" fxLayout="column" fxLayoutGap="4px">
+          <p class="map-title">{{ "TOY_LOCATION" | oTranslate }}</p>
+          <div class="map-box">
+            <location-map isEditable="false" attr="detailMap" #detailMap></location-map>
+          </div>
+        </div>
+      </o-column>
 
-<app-stripe #stripe></app-stripe>
+    </o-form>
+
+
+
+    <app-stripe #stripe></app-stripe>

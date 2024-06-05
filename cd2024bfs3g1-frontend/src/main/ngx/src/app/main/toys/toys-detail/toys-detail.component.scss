@@ -5,7 +5,6 @@
 
     .back-category {
         width: 60%;
-        background-color: rgba(227, 227, 227, 0.407);
         display: flex;
         justify-content: flex-start;
         align-content: center;
@@ -55,6 +54,7 @@
         @media screen and (max-width: 1000px) {
             flex-direction: column !important;
             justify-self: center !important;
+            gap: 15px;
             o-column {
                 max-width: 100% !important;
             }
@@ -288,4 +288,11 @@
             justify-items: center;
         }
     }
+}
+.extra {
+    width: 80%;
+    padding: 10px 0px;
+    margin: 0 auto;
+    text-transform: uppercase;
+
 }

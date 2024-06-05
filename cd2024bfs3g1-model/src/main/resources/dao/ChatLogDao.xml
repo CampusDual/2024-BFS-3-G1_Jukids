@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup
+        xmlns="http://www.ontimize.com/schema/jdbc"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+        catalog="" schema="${mainschema}" table="chat_log"
+        datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>customerId</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>customerId</Column>
+    </UpdateKeys>
+    <GeneratedKey>customerId</GeneratedKey>
+
+
+    <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                     SELECT
+                        cl.customer_id,
+                        cl.owner_id,
+                        cl.toy_id,
+                        cl.msg,
+                        cl.inserted_date,
+                        u.usr_name customer_name,
+                        u.usr_photo customer_avatar,
+                        t.price,
+                        t.name toy_name,
+                        uu.usr_name  seller_name,
+                        uu.usr_photo seller_avatar
+                     FROM chat_log cl
+                        JOIN usr_user u on u.usr_id = cl.customer_id
+                        JOIN toys t on t.toyid = cl.toy_id
+                        JOIN usr_user uu on t.usr_id = uu.usr_id
+                     #WHERE#
+                        ORDER BY cl.inserted_date asc
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+</JdbcEntitySetup>

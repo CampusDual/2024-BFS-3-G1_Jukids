@@ -1,14 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { OMapModule } from 'ontimize-web-ngx-map';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
-import { OMapModule } from 'ontimize-web-ngx-map';
 import { LocationMapComponent } from './components/location-map/location-map.component';
 import { StripeComponent } from './components/stripe/stripe.component';
-import { NgxStripeModule } from 'ngx-stripe';
-import { environment } from 'src/environments/environment';
 import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { environment } from 'src/environments/environment';
+import { NgxStripeModule } from 'ngx-stripe';
+import { SocketIoConfig } from 'ngx-socket-io';
+
+
+//Socket io configuration
+const config: SocketIoConfig = { url: environment.apiEndpoint, options: {} };
 
 @NgModule({
   imports: [
@@ -22,7 +28,8 @@ import { CheckoutComponent } from './components/stripe/checkout/checkout.compone
     LocationMapComponent,
     HomeToolbarComponent,
     StripeComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ChatComponent
   ],
   exports: [
     CommonModule,
@@ -31,7 +38,8 @@ import { CheckoutComponent } from './components/stripe/checkout/checkout.compone
     OMapModule,
     LocationMapComponent,
     OMapModule,
-    StripeComponent
+    StripeComponent,
+    ChatComponent
   ]
 })
 export class SharedModule {

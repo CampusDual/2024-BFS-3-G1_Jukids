@@ -10,6 +10,14 @@ import { MainService } from './shared/services/main.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JukidsAuthService } from './shared/services/jukids-auth.service';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+
+
+
+
+//Socket io configuration
+const config: SocketIoConfig = { url: environment.socketIoEnpoint, options: {} };
+
 
 
 // Standard providers...
@@ -27,7 +35,8 @@ export const customProviders: any = [
     OntimizeWebModule.forRoot(CONFIG),
     OntimizeWebModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    SocketIoModule.forRoot(config)    
   ],
   declarations: [
     AppComponent
