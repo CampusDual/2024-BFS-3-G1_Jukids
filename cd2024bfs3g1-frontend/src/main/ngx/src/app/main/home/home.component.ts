@@ -96,7 +96,6 @@ export class HomeComponent implements OnInit {
   }
 
   searchCategory(category):void {
-      this.router.navigate(['/main/toys'], {queryParams:{categoryReceived: category}});
-      
+      this.router.navigate(['/main/toys'], {queryParams:{category: category}});
     }
 }
