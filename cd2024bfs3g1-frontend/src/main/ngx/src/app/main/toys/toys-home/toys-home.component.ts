@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from "@angular/core";
 import { Expression, FilterExpressionUtils, OComboComponent, OFilterBuilderComponent, OTextInputComponent } from "ontimize-web-ngx";
 import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
 import { ToysMapService } from "src/app/shared/services/toys-map.service";
@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { LocationMapComponent } from "src/app/shared/components/location-map/location-map.component";
+import { __values } from "tslib";
 
 @Component({
   selector: "app-toys-home",
@@ -23,10 +24,13 @@ export class ToysHomeComponent implements OnInit {
   @ViewChild("toysGrid") protected toyGrid: OGridComponent;
   @ViewChild("price") protected priceCombo: OComboComponent;
   @ViewChild("range") protected rangeCombo: OComboComponent;
+  @ViewChild("categoryField") protected categoryField: OComboComponent;
+  @ViewChild('latInput') public latInput: OTextInputComponent;
+  @ViewChild('longInput') public longInput: OTextInputComponent;
+  @ViewChild('filterBuilder') public filterBuilder: OFilterBuilderComponent;
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
-
 
   //================= Variable de RANGO  =================
   // public selectedAll = 0
@@ -52,16 +56,6 @@ export class ToysHomeComponent implements OnInit {
   private location: any;
   public arrayData: Array<any> = [];
 
-
-  @ViewChild('latInput')
-  public latInput: OTextInputComponent;
-
-  @ViewChild('longInput')
-  public longInput: OTextInputComponent;
-
-  @ViewChild('filterBuilder')
-  public filterBuilder: OFilterBuilderComponent;
-
   private layoutChanges = this.breakpointObserver.observe([
     Breakpoints.XSmall,
     Breakpoints.Small,
@@ -86,15 +80,9 @@ export class ToysHomeComponent implements OnInit {
 
     // Inicializar el precio predeterminado
     this.precioPredeterminado = 1000000; // Valor que representa "Todos" los precios
-
   }
 
   ngOnInit() {
-    this.actRoute.queryParams.subscribe(params => {
-      const data: any = params['categoryReceived'] || null;
-      console.log(data);
-    });
-
     //Se escuchan los cambios del servicio
     this.toysMapService.getLocation().subscribe(data => {
 
@@ -104,22 +92,9 @@ export class ToysHomeComponent implements OnInit {
       console.log(this.latInput.getValue());
       console.log(this.longInput.getValue());
       console.log(this.longInput.isEmpty());
-
+      
       //Recargar el grid con las tarjetas
-      console.log("DATAARRAY:", this.toyGrid.dataArray);
-      console.log("DATAARRAY:", this.toyGrid.getDataArray());
-
-
       this.toyGrid.reloadData();
-
-
-
-      // this.toyGrid.dataArray.forEach(element => {
-      //   console.log(element.latitude);
-      //   console.log(element.longitude);
-      // })
-
-
     });
 
     //Control de columnas en o-grid
@@ -141,15 +116,23 @@ export class ToysHomeComponent implements OnInit {
     if (this.baseUrl.includes('localhost')) {
       this.baseUrl = 'http://localhost:8080';
     }
-
   }
+
+  searchReceivedParams() {
+    this.actRoute.queryParams.subscribe(params => {
+      const data: any = params['categoryReceived'] || null;
+      if(data != undefined) {
+
+        let arrayNuevo = [];
+        arrayNuevo.push(data);
+        this.categoryField.setValue(arrayNuevo);
+      }
+  })}
 
   public openDetail(data: any): void {
     console.log("OPENDETAIL: ");
-
     // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
     const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
-
     this.router.navigate(["/toysDetail", toyId]);
   }
 
@@ -157,65 +140,38 @@ export class ToysHomeComponent implements OnInit {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
 
-  //Se calcula la distancia a la que se encuentra el objeto al punto del mapa que sea a seleccionado previamente
-  // calculateDistance(rowData: any): number {
-  //   const R: number = 6371; // Radio de la Tierra en kilómetros
-  //   let isset = this.location != undefined;
-  //   let lat1: number = (isset) ? this.location.latitude : 0;
-  //   let lon1: number = (isset) ? this.location.longitude : 0;
-
-  //   let lat2: number = rowData['latitude'];
-  //   let lon2: number = rowData['longitude'];
-
-  //   function deg2rad(deg: number): number {
-  //     return deg * (Math.PI / 180);
-  //   }
-
-  //   let dLat: number = deg2rad(lat2 - lat1);
-  //   let dLon: number = deg2rad(lon2 - lon1);
-  //   let a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-  //     + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2))
-  //     * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  //   let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  //   let distance = R * c;
-  //   return Math.round(distance * 100.0) / 100.0; // Redondear a 2 decimales
-  // }
-
-
-  //Se añade una localización a los datos recogidos del grid y existe un punto en el mapa
-  // addLocation(e) {
-  //   if (this.location != undefined) {
-  //     e.forEach(element => {
-  //       element.location = this.calculateDistance(element);
-  //     })
-  //     //Ordenar el array por distancia
-  //     e.sort((a, b) => a.location - b.location);
-  //   }
-  //   this.arrayData = e;
-  //   //Inserción del nuevo array en los datos del grid
-  //   this.toyGrid.dataArray = this.arrayData;
-  //   this.toyGrid.pageSizeChanged();
-  // }
 
   createFilter(values: Array<{ attr: string, value: any }>): Expression {
+    console.log('VALORES DENTRO DE VALUES EN createFilter');
+    console.log(values);
+    // console.log(values[2].attr);
+    // console.log(values[2].value);
     let filtersOR: Array<Expression> = [];
     let categoryExpressions: Array<Expression> = [];
     let priceExpressions: Array<Expression> = [];
     let statusExpressions: Array<Expression> = [];
     let latLongExpressions: Array<Expression> = [];
 
-
     console.log(values);
 
-
     values.forEach(fil => {
+      console.log(fil);
       if (!fil.value) return; // Salir temprano si no hay valor
 
       if (fil.attr === "DESCRIPTION" || fil.attr === "NAME") {
         filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
       } else if (fil.attr === "CATEGORY") {
+        console.log('lo hizo');
+        console.log(fil.value);
         if (Array.isArray(fil.value)) {
           fil.value.forEach(val => {
+            console.log('DEBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+            console.log("val");
+            console.log(val);
+            console.log("fil");
+            console.log(fil);
+            console.log("fil.attr");
+            console.log(fil.attr);
             categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
           });
         } else {
@@ -236,8 +192,6 @@ export class ToysHomeComponent implements OnInit {
       } else if (fil.attr === "LONGITUDE") {
         latLongExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("LONGITUDE", fil.value));
       }
-
-
     });
 
     // Construir la expresión OR para CATEGORY
@@ -287,15 +241,12 @@ export class ToysHomeComponent implements OnInit {
         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND)
       );
     }
-
     return combinedExpression;
   }
-
 
   clearFilters(): void {
     this.priceCombo.setValue(this.precioPredeterminado);
     this.toyGrid.reloadData();
-
   }
 
   public pricesArray = [
@@ -318,5 +269,4 @@ export class ToysHomeComponent implements OnInit {
   // ------- FILTER MAP---------------
   showMap:boolean = false;
   openMap(){this.showMap = !this.showMap}
-
 }

@@ -1,6 +1,10 @@
-<o-form class="form" editable-detail="yes" show-header="no">
+<!-- <o-form class="form" editable-detail="yes" show-header="no" parent-keys="category-route"> -->
+  <!-- <o-form class="form" editable-detail="yes" show-header="no"> -->
+  <o-form class="form" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()">
+  
   <div class="searchFilters">
     <o-combo
+      #categoryField
       appearance="outline"
       label="category"
       id="category"
@@ -87,9 +91,10 @@
       ></o-text-input>
 
       <o-row class="btn-container">
-        <button
+        <button style="color: blue;"
           attr="filter"
           [oFilterBuilderQuery]="filterBuilder"
+          query-on-change="true"
           type="RAISED"
           label="Search"
           class="button btn-outline-light"
@@ -122,7 +127,7 @@
       attr="thefilter"
       filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status;PRICE:price;LATITUDE:latitude;LONGITUDE:longitude;"
       [target]="toysGrid"
-      query-on-change="no"
+      query-on-change="yes"
       query-on-change-delay="500"
       [expression-builder]="createFilter"
     ></o-filter-builder>
