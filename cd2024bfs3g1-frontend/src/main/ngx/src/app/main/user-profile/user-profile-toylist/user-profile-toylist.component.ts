@@ -62,7 +62,7 @@ export class UserProfileToylistComponent implements OnInit{
       .subscribe({
         next: (resp:any) => {      
           if (resp.code === 0 && resp.data.length > 0) {
-            this.infoToysSold = ": " +  resp.data[0].price.toFixed(1) + " €";
+            this.infoToysSold = resp.data[0].price.toFixed(1) + " €";
           } else {
             this.infoToysSold = "0 €";
           }
