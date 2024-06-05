@@ -70,6 +70,7 @@
       fxLayoutGap="10px"
     >
       <o-text-input
+      #searcher
         attr="name"
         read-only="no"
         fxFlex="100"
@@ -127,7 +128,7 @@
       attr="thefilter"
       filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status;PRICE:price;LATITUDE:latitude;LONGITUDE:longitude;"
       [target]="toysGrid"
-      query-on-change="yes"
+      query-on-change="no"
       query-on-change-delay="500"
       [expression-builder]="createFilter"
     ></o-filter-builder>
@@ -145,6 +146,7 @@
     columns="toyid;name;price;latitude;longitude;distance"
     pageable="yes"
     query-rows="20"
+    query-on-init="false"
     page-size-options="20"
     refresh-button="no"
     quick-filter="no"

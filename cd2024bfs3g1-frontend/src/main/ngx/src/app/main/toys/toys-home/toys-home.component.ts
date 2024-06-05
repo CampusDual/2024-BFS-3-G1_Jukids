@@ -27,6 +27,7 @@ export class ToysHomeComponent implements OnInit {
   @ViewChild("categoryField") protected categoryField: OComboComponent;
   @ViewChild('latInput') public latInput: OTextInputComponent;
   @ViewChild('longInput') public longInput: OTextInputComponent;
+  @ViewChild('searcher') public searcher: OTextInputComponent;
   @ViewChild('filterBuilder') public filterBuilder: OFilterBuilderComponent;
 
   //============== Variable de URL BASE =================
@@ -120,13 +121,17 @@ export class ToysHomeComponent implements OnInit {
 
   searchReceivedParams() {
     this.actRoute.queryParams.subscribe(params => {
-      const data: any = params['categoryReceived'] || null;
-      if(data != undefined) {
-
+      const category: any = params['category'] || null;
+      const keyword: any = params['keyword'] || null;
+      if(category != undefined) {
         let arrayNuevo = [];
-        arrayNuevo.push(data);
+        arrayNuevo.push(category);
         this.categoryField.setValue(arrayNuevo);
       }
+      if(keyword != undefined) {
+        this.searcher.setValue(keyword);
+      }
+      this.toyGrid.reloadData();
   })}
 
   public openDetail(data: any): void {
