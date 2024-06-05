@@ -1,0 +1,64 @@
+<div class="chat-container">
+    <div class="close-modal" (click)="closeModal()">
+        <mat-icon class="btn-close">close</mat-icon>
+    </div>
+    <div class="chat-container-header">
+        <div class="jukids-logo">
+            <img src="{{baseUrl}}/restapi/get-image?toyId={{data.toyId}}" alt="">
+        </div>
+        <div class="header-title-info">
+            <h4>{{ toyName }}</h4>
+            <span class="price">{{ price | currency: 'EUR'}}</span>
+        </div>
+
+    </div>
+
+    <div #chatContainer class="chat-container-body">
+
+
+        <ng-container *ngFor="let message of messages">
+
+            <div [ngClass]=" { 
+                'chat-message-container-receiver': message.ownerMsg == 99,  
+                'chat-message-container-sender' :  message.ownerMsg != 99,
+                } ">
+                <div class="chat-message">
+                    <img class="user-profile" src="assets/images/user_profile.png" alt="">
+                    <span class="message">{{ message.message }}</span>
+                </div>
+            </div>
+
+        </ng-container>
+
+
+
+
+    </div>
+
+    <div class="progress-bar" *ngIf="msgCount < 0 ">
+        <span>Cargando mensajes..</span>
+        <div class="progress-spinner">
+            <mat-spinner></mat-spinner>
+        </div>
+    </div>
+
+    <div class="chat-container-footer">
+        <input #chatInput class="chat-input" type="text" placeholder="Escribe tu mensaje"
+            (keyup.enter)="sendMessage(chatInput.value)">
+
+
+        <button class="chat-btn-send" (click)="sendMessage(chatInput.value)">
+
+            <svg class="send-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M20 4L3 11L10 14M20 4L13 21L10 14M20 4L10 14" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </svg>
+
+        </button>
+    </div>
+
+</div>
