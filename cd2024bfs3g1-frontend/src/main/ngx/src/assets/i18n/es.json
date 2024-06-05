@@ -164,10 +164,10 @@
   "sta_incomplete": "Incompleto",
   "CHART_MONTH": "Mes",
   "CHART_MOVEMENT": "Movimientos en nuestra página",
-  "CHART_DELIVERIES": "Compras Con y Sin Envío",
-  "CHART_CATEGORIE": "Ingresos Netos por Categoría",
-  "CHART_GROSS_INCOME": "Ingresos brutos €",
-  "Income": "Ingresos €",
+  "CHART_DELIVERIES": "Compras con y sin envío",
+  "CHART_CATEGORIE": "Ingresos netos por categoría",
+  "CHART_GROSS_INCOME": "Ingresos brutos (€)",
+  "Income": "Ingresos (€)",
   "OUR_GRAPHS": "Nuestras gráficas",
   "SALUTE": "Hola",
   "MAXIMUM PRICE": "Precio máximo",
@@ -226,6 +226,6 @@
   "BY_RATED": "Por ",
   "MY_RATINGS": "Mis valoraciones",
   "BACK_BUTTON": "Volver",
-  "shipment": "Con Envío",
-  "noshipment": "Sin Envío"
+  "shipment": "Con envío (%)",
+  "noshipment": "Sin envío (%)"
 }
