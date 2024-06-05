@@ -1,6 +1,6 @@
 <o-form class="form" editable-detail="yes" show-header="no">
 
-  <div class="searchFilters">    
+  <div class="searchFilters">
     <o-combo appearance="outline" label="category" id="category" null-selection="no" attr="category"
       service="categories" entity="category" keys="categoryid" value-column="codigo" columns="categoryid;name;codigo"
       searchable="true" visible-columns="codigo" multiple="yes" translate="yes" fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
@@ -32,9 +32,9 @@
           class="button btn-outline-light" matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
           <mat-icon class="material-icons">clear</mat-icon>
         </button>
-        <button (click)="openMap()" class="button btn-outline-light reverse"><mat-icon>location_on</mat-icon></button>
+        <button (click)="openMap()" class="button btn-outline-light reverse"><mat-icon>map</mat-icon></button>
       </o-row>
-    </o-row>    
+    </o-row>
     <div *ngIf="showMap" fxFlex="100" >
       <p class="titleMap">{{ 'TITLE_MAP_HOME' | oTranslate }}</p>
       <location-map></location-map>
@@ -64,7 +64,7 @@
         </ng-container>
         <img class="image-header" src="{{baseUrl}}/restapi/get-image?toyId={{data.toyid}}">
         <div class="card-body">
-          <h4>{{ data.name }}</h4>
+          <h4 class="truncate">{{ data.name }}</h4>
           <p class="price"><span>€</span> {{ data.price | number: '1.2-2' }}</p>
         </div>
 

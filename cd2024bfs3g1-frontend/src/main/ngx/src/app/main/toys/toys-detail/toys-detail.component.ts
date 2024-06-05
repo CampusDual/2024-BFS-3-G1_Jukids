@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { OEmailInputComponent, OTextInputComponent } from 'ontimize-web-ngx';
+import { OEmailInputComponent, OTextInputComponent, OntimizeService } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
@@ -13,7 +13,11 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 export class ToysDetailComponent implements OnInit{
 
   private location: any;
+  protected service: OntimizeService;
   showCheckout = false;
+  isEditable = false;
+  ratingData: string;
+  varRating: number;
 
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('usr_id') usr_id: OTextInputComponent;
@@ -27,8 +31,16 @@ export class ToysDetailComponent implements OnInit{
   @ViewChild('stripe') stripe: StripeComponent;
 
  constructor(
-    private toysMapService: ToysMapService, private router: Router
-  ) {}
+    private toysMapService: ToysMapService, private router: Router, protected injector: Injector
+  ) {
+    this.service = this.injector.get(OntimizeService);
+    this.configureService();
+  }
+
+  protected configureService() {
+    const conf = this.service.getDefaultServiceConfiguration("surveys");
+    this.service.configureService(conf);
+  }
 
   openBuy(toyid): void {
     this.router.navigate(["main/toys/toysDetail/toysBuy", toyid]);
@@ -45,6 +57,22 @@ export class ToysDetailComponent implements OnInit{
   onFormDataLoaded(data: any) {
     this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue())
     this.setStripe();
+
+    const filter = {
+      usr_id: this.usr_id.getValue(),
+    };
+    const columns = ["usr_name", "usr_photo", "rating"];
+    this.service
+      .query(filter, columns, "userAverageRating")
+      .subscribe((resp) => {
+        console.log(resp.data[0]);
+        if (resp.code === 0 && resp.data.length > 0) {
+          this.varRating = resp.data[0].rating.toFixed(1);
+          this.ratingData = resp.data[0].usr_name + " : " + this.varRating;
+        } else {
+          this.ratingData = resp.data[0].usr_name;
+        }
+      });
   }
 
   setStripe(): void {
