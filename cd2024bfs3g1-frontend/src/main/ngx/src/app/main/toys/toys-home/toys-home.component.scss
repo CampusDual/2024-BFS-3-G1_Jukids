@@ -72,3 +72,17 @@
     margin-bottom: .5rem;
     color:rgba(0, 0, 0, 0.70);
 }
+
+.searchBar{
+  flex: 1 1 100%;
+  box-sizing: border-box;
+  max-width: 60% ;
+  margin-left: auto;
+  margin-right: auto;
+
+  o-text-input {
+    padding: 0.5rem;
+  }
+}
+
+
