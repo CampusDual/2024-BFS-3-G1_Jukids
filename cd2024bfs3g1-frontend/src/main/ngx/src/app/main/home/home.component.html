@@ -1,578 +1,279 @@
 <div fxLayout="column" layout-padding fxLayoutAlign="center center">
-    <div class="banner-box">
-      <div class="banner-svg">
-        <img src="assets/images/svg/svg_compra_venta.svg"/>
-        <img src="assets/images/svg/svg_skate.svg"/>
-      </div>
-      <div class="banner-background"></div>
+  <div class="banner-box">
+    <div class="banner-svg">
+      <img src="assets/images/svg/banner-es.svg" />
     </div>
-  
-    <!-- buttons to category filtered queries -->
-    <div class="icons-container">
-      <img id="childrenToys" (click)="searchCategory('cat_ChildrensToys')" src="../../../assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
-      <img id="boardGames" (click)="searchCategory('cat_Board')" src="../../../assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
-      <img id="plushies" (click)="searchCategory('cat_Plushies')" src="../../../assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
-      <img id="dolls" (click)="searchCategory('cat_Dolls')" src="../../../assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
-      <img id="actionToys" (click)="searchCategory('cat_ActionToys')" src="../../../assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
-      <img id="videogames" (click)="searchCategory('cat_Videogames')" src="../../../assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
-      <img id="crafts" (click)="searchCategory('cat_Crafts')" src="../../../assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
-      <img id="pedagogical" (click)="searchCategory('cat_Pedagogical')" src="../../../assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
-      <img id="sports" (click)="searchCategory('cat_Sport')" src="../../../assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
-      <img id="electronic" (click)="searchCategory('cat_Electronic')" src="../../../assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
-      <img id="figures" (click)="searchCategory('cat_Figures')" src="../../../assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
-      <img id="collectibles" (click)="searchCategory('cat_Collectibles')" src="../../../assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
-      <img id="antiques" (click)="searchCategory('cat_Antiques')" src="../../../assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
-      <img id="cards" (click)="searchCategory('cat_Cards')" src="../../../assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
-      <img id="others" (click)="searchCategory('cat_Others')" src="../../../assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
+    <div class="banner-background bg-color-orange-bg"></div>
+  </div>
+
+  <!-- buttons to category filtered queries -->
+  <div class="icons-container">
+    <img id="childrenToys" (click)="searchCategory('cat_ChildrensToys')" src="../../../assets/icons/cube.png"
+      class="icon bg-color-orange" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
+    <img id="boardGames" (click)="searchCategory('cat_Board')" src="../../../assets/icons/invaders.png"
+      class="icon bg-color-dark-orange" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
+    <img id="plushies" (click)="searchCategory('cat_Plushies')" src="../../../assets/icons/lego.png"
+      class="icon bg-color-red" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
+    <img id="dolls" (click)="searchCategory('cat_Dolls')" src="../../../assets/icons/figure.png"
+      class="icon bg-color-blue" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+    <img id="actionToys" (click)="searchCategory('cat_ActionToys')" src="../../../assets/icons/doll.png"
+      class="icon bg-color-orange" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
+  </div>
+
+  <div class="categories-container">
+
+    <!-- <p class="row-title">{{ 'FIGURES_CATCHY_PHRASE' | oTranslate }}</p> -->
+    <p class="row-title">FIGURAS CON PASADO, FIGURAS CON HISTORIA</p>
+    <div class="grid-container">
+      <o-grid #figuresGrid attr="figuresGrid" service="toys" entity="toyFigures" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of figuresGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
     </div>
-  
-    <div class="categories-container">
-      
-          <!-- <p class="row-title">{{ 'FIGURES_CATCHY_PHRASE' | oTranslate }}</p> -->
-      <p class="row-title">FIGURAS CON PASADO, FIGURAS CON HISTORIA</p>
-      <div class="grid-container">
-          <o-grid
-            #figuresGrid
-            attr="figuresGrid"
-            service="toys"
-            entity="toyFigures"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of figuresGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">LOS PELUCHES MÁS CUQUIS</p>
-      <div class="grid-container">
-          <o-grid
-            #plushiesGrid
-            attr="plushiesGrid"
-            service="toys"
-            entity="toyPlushies"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of plushiesGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">JUGUETES INFANTILES</p>
-      <div class="grid-container">
-          <o-grid
-            #childrensToysGrid
-            attr="childrensToysGrid"
-            service="toys"
-            entity="toyChildrensToys"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of childrensToysGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">JUEGOS DE MESA Y PUZZLES</p>
-      <div class="grid-container">
-          <o-grid
-            #boardGrid
-            attr="boardGrid"
-            service="toys"
-            entity="toyBoard"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of boardGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">NUESTRAS MUÑECAS</p>
-      <div class="grid-container">
-          <o-grid
-            #dollsGrid
-            attr="dollsGrid"
-            service="toys"
-            entity="toyDolls"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of dollsGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">JUGUETES DE ACCIÓN</p>
-      <div class="grid-container">
-          <o-grid
-            #actionToysGrid
-            attr="actionToysGrid"
-            service="toys"
-            entity="toyActionToys"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of actionToysGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">VIDEOJUEGOS! CONSOLAS! ¡CONSOLAS Y VIDEOJUEGOS!</p>
-      <div class="grid-container">
-          <o-grid
-            #videogamesGrid
-            attr="videogamesGrid"
-            service="toys"
-            entity="toyVideogames"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of videogamesGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">JUEGOS DE MANUALIDADES Y CONSTRUCCIÓN</p>
-      <div class="grid-container">
-          <o-grid
-            #craftsGrid
-            attr="craftsGrid"
-            service="toys"
-            entity="toyCrafts"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of craftsGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">JUGUETES PEDAGÓGICOS</p>
-      <div class="grid-container">
-          <o-grid
-            #pedagogicalGrid
-            attr="pedagogicalGrid"
-            service="toys"
-            entity="toyPedagogical"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of pedagogicalGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">JUGUETES DEPORTIVOS</p>
-      <div class="grid-container">
-          <o-grid
-            #sportGrid
-            attr="sportGrid"
-            service="toys"
-            entity="toySport"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of sportGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">JUGUETES ELECTRÓNICOS</p>
-      <div class="grid-container">
-          <o-grid
-            #electronicGrid
-            attr="electronicGrid"
-            service="toys"
-            entity="toyElectronic"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-          >
-            <o-grid-item
-              *ngFor="let data of electronicGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">COLECCIONABLES</p>
-      <div class="grid-container">
-          <o-grid
-            #collectiblesGrid
-            attr="collectiblesGrid"
-            service="toys"
-            entity="toyCollectibles"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of collectiblesGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">RETROKIDS</p>
-      <div class="grid-container">
-          <o-grid
-            #antiquesGrid
-            attr="antiquesGrid"
-            service="toys"
-            entity="toyAntiques"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-          >
-            <o-grid-item
-              *ngFor="let data of antiquesGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      <p class="row-title">JUEGOS DE CARTAS</p>
-      <div class="grid-container">
-          <o-grid
-            #cardsGrid
-            attr="cardsGrid"
-            service="toys"
-            entity="toyCards"
-            keys="toyid"
-            detail-form-route="toysDetail"
-            columns="toyid;name;price"          
-            query-rows="5"
-            refresh-button="no"
-            quick-filter="no"
-            [cols]="cols"
-            gutter-size="0"
-            grid-item-height="1:1.3"
-            show-footer="no"
-            controls="false"
-            
-          >
-            <o-grid-item
-              *ngFor="let data of cardsGrid.getDataArray()"
-              (onClick)="openDetail(data)"
-            >
-              <div class="card">
-                <img
-                  class="image-header"
-                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-                />
-                <div class="card-body">
-                  <h4>{{ data.name }}</h4>
-                  <p class="price">
-                    <span>€</span> {{ data.price | number : "1.2-2" }}
-                  </p>
-                </div>
-              </div>
-            </o-grid-item>
-          </o-grid>
-      </div>
-      
+    <p class="row-title">LOS PELUCHES MÁS CUQUIS</p>
+    <div class="grid-container">
+      <o-grid #plushiesGrid attr="plushiesGrid" service="toys" entity="toyPlushies" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of plushiesGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">JUGUETES INFANTILES</p>
+    <div class="grid-container">
+      <o-grid #childrensToysGrid attr="childrensToysGrid" service="toys" entity="toyChildrensToys" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of childrensToysGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">JUEGOS DE MESA Y PUZZLES</p>
+    <div class="grid-container">
+      <o-grid #boardGrid attr="boardGrid" service="toys" entity="toyBoard" keys="toyid" detail-form-route="toysDetail"
+        columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no" [cols]="cols" gutter-size="0"
+        grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of boardGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">NUESTRAS MUÑECAS</p>
+    <div class="grid-container">
+      <o-grid #dollsGrid attr="dollsGrid" service="toys" entity="toyDolls" keys="toyid" detail-form-route="toysDetail"
+        columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no" [cols]="cols" gutter-size="0"
+        grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of dollsGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">JUGUETES DE ACCIÓN</p>
+    <div class="grid-container">
+      <o-grid #actionToysGrid attr="actionToysGrid" service="toys" entity="toyActionToys" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of actionToysGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">VIDEOJUEGOS! CONSOLAS! ¡CONSOLAS Y VIDEOJUEGOS!</p>
+    <div class="grid-container">
+      <o-grid #videogamesGrid attr="videogamesGrid" service="toys" entity="toyVideogames" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of videogamesGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">JUEGOS DE MANUALIDADES Y CONSTRUCCIÓN</p>
+    <div class="grid-container">
+      <o-grid #craftsGrid attr="craftsGrid" service="toys" entity="toyCrafts" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of craftsGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">JUGUETES PEDAGÓGICOS</p>
+    <div class="grid-container">
+      <o-grid #pedagogicalGrid attr="pedagogicalGrid" service="toys" entity="toyPedagogical" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of pedagogicalGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">JUGUETES DEPORTIVOS</p>
+    <div class="grid-container">
+      <o-grid #sportGrid attr="sportGrid" service="toys" entity="toySport" keys="toyid" detail-form-route="toysDetail"
+        columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no" [cols]="cols" gutter-size="0"
+        grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of sportGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">JUGUETES ELECTRÓNICOS</p>
+    <div class="grid-container">
+      <o-grid #electronicGrid attr="electronicGrid" service="toys" entity="toyElectronic" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of electronicGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">COLECCIONABLES</p>
+    <div class="grid-container">
+      <o-grid #collectiblesGrid attr="collectiblesGrid" service="toys" entity="toyCollectibles" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of collectiblesGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">RETROKIDS</p>
+    <div class="grid-container">
+      <o-grid #antiquesGrid attr="antiquesGrid" service="toys" entity="toyAntiques" keys="toyid"
+        detail-form-route="toysDetail" columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no"
+        [cols]="cols" gutter-size="0" grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of antiquesGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+    <p class="row-title">JUEGOS DE CARTAS</p>
+    <div class="grid-container">
+      <o-grid #cardsGrid attr="cardsGrid" service="toys" entity="toyCards" keys="toyid" detail-form-route="toysDetail"
+        columns="toyid;name;price" query-rows="5" refresh-button="no" quick-filter="no" [cols]="cols" gutter-size="0"
+        grid-item-height="1:1.3" show-footer="no" controls="false">
+        <o-grid-item *ngFor="let data of cardsGrid.getDataArray()" (onClick)="openDetail(data)">
+          <div class="card">
+            <img class="image-header" src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}" />
+            <div class="card-body">
+              <h4>{{ data.name }}</h4>
+              <p class="price">
+                <span>€</span> {{ data.price | number : "1.2-2" }}
+              </p>
+            </div>
+          </div>
+        </o-grid-item>
+      </o-grid>
     </div>
   </div>
+</div>

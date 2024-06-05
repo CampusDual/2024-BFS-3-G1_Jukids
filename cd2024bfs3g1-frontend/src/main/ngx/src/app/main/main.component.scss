@@ -22,9 +22,12 @@
 
 .title {
   margin-left: 1rem;
+  display: flex;
+  align-items: center;
   color: #fff;
   font-size: x-large;
   cursor: pointer;
+  width: 120px;
 }
 
 
