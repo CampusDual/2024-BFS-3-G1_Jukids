@@ -52,6 +52,12 @@
                 <location-map (click)="handleMapClick($event)"></location-map>
             </div>
 
+            <o-real-input id="longitude" #longitude fxFlex="50" attr="longitude" style="display: none"
+                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
+            </o-real-input>
+            <o-real-input  id="latitude" #latitude fxFlex="50" attr="latitude" style="display: none"
+                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
+            </o-real-input>
 
             <o-row layout-align="end center" layout-margin-top>
                 <button class="button btn-outline-light" (click)="cancel()">
