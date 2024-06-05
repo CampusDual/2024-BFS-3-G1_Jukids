@@ -45,6 +45,18 @@ mat-card-header mat-card-title{
     margin-left: 1rem;
 }
 
-.total_price_sold{
-    margin-left: 1.2rem;
+.total {
+    width: fit-content;
+    margin: 0.5rem 0;
+    padding: 0 1rem;
+    border: 1px solid #d4d4d4;
+    border-radius: .25rem;
+}
+
+.total-price{
+    font-weight: 500;
+}
+
+.total-amount {
+    font-weight: 600;
 }

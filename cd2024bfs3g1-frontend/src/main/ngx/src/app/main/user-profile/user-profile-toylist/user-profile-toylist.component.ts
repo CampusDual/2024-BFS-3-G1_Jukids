@@ -50,6 +50,7 @@ export class UserProfileToylistComponent implements OnInit{
       self.router.navigate([this.redirect]);
     }
   }
+  
   ngOnInit(): void {
 
     const filter = {

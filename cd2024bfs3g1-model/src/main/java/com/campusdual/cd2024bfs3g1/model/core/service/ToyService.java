@@ -339,30 +339,8 @@ public class ToyService implements IToyService {
     @Override
     public EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException{
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        if (email != null) {
-
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-            if (userData.isEmpty() || userData.isWrong()) {
-
-                return createError("Error al recuperar el usuario");
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put(ToyDao.ATTR_USR_ID, idUser);
 
             return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
-
-        }else{
-
-            return createError("No estas logueado");
-        }
     }
 
     private EntityResult createError(String mensaje){
