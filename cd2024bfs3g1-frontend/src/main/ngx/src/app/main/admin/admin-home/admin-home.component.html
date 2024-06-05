@@ -5,7 +5,10 @@
 <h2>{{ 'CHART_MOVEMENT' | oTranslate }}</h2>
 <o-chart #discretebar entity="totalOrders" service="charts" type="discreteBar" x-label="{{ 'CHART_MONTH' | oTranslate }}" y-label="{{ 'CHART_GROSS_INCOME' | oTranslate }}" x-data-type="string" x-axis="order_month" y-axis="month_total_price" xFormatting="dateFormat"></o-chart>
 <h2>{{ 'CHART_DELIVERIES' | oTranslate }}</h2>
-<o-chart type="pie" layout-fill service="charts" entity="totalDelivers" x-axis="shipmentype" y-axis="total" x-label="{{ 'shipment' | oTranslate }}" y-label="{{ 'noshipment' | oTranslate }}" translate="yes"></o-chart>
+<o-chart type="pie" layout-fill service="charts" entity="totalDelivers" x-axis="shipmentype" y-axis="percentage" x-label="{{ 'shipment' | oTranslate }}" y-label="{{ 'noshipment' | oTranslate }}" translate="yes" show-legend="false"></o-chart>
+<div class="format-legend"></div>
+<h2>{{ 'CHART_CATEGORIE' | oTranslate }}</h2>
+<o-chart type="discreteBar" x-label="{{ 'category' | oTranslate }}" y-label="{{ 'Income' | oTranslate }}" entity="categoryRevenue" service="charts" x-axis="Categoria" y-axis="Comision" ></o-chart>
 </div>
 </div>
 
