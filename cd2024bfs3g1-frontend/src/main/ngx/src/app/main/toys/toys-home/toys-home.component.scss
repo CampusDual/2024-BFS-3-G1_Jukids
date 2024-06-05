@@ -73,6 +73,13 @@
     color:rgba(0, 0, 0, 0.70);
 }
 
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
 .searchBar{
   flex: 1 1 100%;
   box-sizing: border-box;
