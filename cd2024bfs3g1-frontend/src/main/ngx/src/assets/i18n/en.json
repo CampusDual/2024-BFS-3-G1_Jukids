@@ -221,5 +221,12 @@
   "SELLER":"Seller",
   "BY_RATED": "By ",
   "MY_RATINGS": "My ratings",
-  "BACK_BUTTON": "Back"
+  "BACK_BUTTON": "Back",
+  "myInfo": "My info",
+  "userNameProfile": "Name",
+  "lastnameProfile": "Surname",
+  "emailProfile": "Email",
+  "mediaProfile": "My rating",
+  "noRating": "No rating yet"
+
 }
