@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'ratings', component: UserProfileRatingsComponent},
   { path: 'toylist/:toyid', component: EditToyComponent },
   { path: 'edit-toy/:toyid', component: EditToyComponent },
-  { path: 'edit-user', component: EditUserComponent }
+  { path: 'edit-user', component: EditUserComponent },
+  { path: 'edit-user/:user_id', component: EditUserComponent },
 
 ]
 

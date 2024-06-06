@@ -93,7 +93,7 @@ export class UserProfileHomeComponent implements OnInit {
   }
 
   toMyEdit(){
-    this.router.navigate(['/main/user-profile/edit-user']);
+    this.router.navigate(['/main/user-profile/edit-user/',this.usrId]);
   }
 
 }
