@@ -1,7 +1,8 @@
-import { Component, OnInit, Injector } from '@angular/core';
+import { Component, OnInit, Injector, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { OntimizeService } from 'ontimize-web-ngx';
+import { OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
+import { MainService } from 'src/app/shared/services/main.service';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
@@ -17,11 +18,17 @@ export class UserProfileHomeComponent implements OnInit {
   varRating: number = 0;
   ratingData: string = 'No rating available';
 
+  @ViewChild('usr_id') usrIdField : OTextInputComponent;
+
+  usrId : number = null;
+  mainInfo: any = {};
+  
   constructor(
     private jukidsAuthService: JukidsAuthService,
     private router: Router,
     public userInfoService: UserInfoService,
-    protected injector: Injector
+    protected injector: Injector,
+    private mainService: MainService
   ) {
     this.userInfo = this.userInfoService.getUserInfo();
     if (!this.jukidsAuthService.isLoggedIn()) {
@@ -38,13 +45,28 @@ export class UserProfileHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onFormDataLoaded(); // Cargar los datos al iniciar
+    this.mainService.getUserInfo().subscribe((result: ServiceResponse) => {
+        this.usrId = result.data["usr_id"]; 
+        this.usrIdField.setValue(this.usrId);
+        this.mainInfo = result.data;  // Guardar los datos en mainInfo
+        this.dataLoaded(); // Cargar los datos al cargar el id
+    })
   }
 
-  onFormDataLoaded() {
+  dataLoaded() {
     const filter = {
-      usr_id: this.userInfo.usr_id // Usa directamente el usr_id de userInfo
+      //usr_id: this.userInfo.usr_id 
+      usr_id: this.usrId
     };
+
+    // consulta para datos de usuario
+    const confUser = this.service.getDefaultServiceConfiguration('userowner');
+    this.service.configureService(confUser);
+
+    // consulta para rating
+    const confSurveys = this.service.getDefaultServiceConfiguration('surveys');
+    this.service.configureService(confSurveys);
+    
     const columns = ['usr_name', 'usr_photo', 'rating'];
     this.service
       .query(filter, columns, 'userAverageRating')
