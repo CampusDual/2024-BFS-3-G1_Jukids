@@ -91,4 +91,13 @@ export class MainComponent implements OnInit {
     });
   }
 
+  newToy(){
+    if(this.jkAuthService.isLoggedIn()){
+      const redirect = '/main/toys/new';
+      this.router.navigate([redirect]);
+    } else {
+      this.modal('login');
+    }
+  }
+
 }
