@@ -7,28 +7,53 @@
     <div class="banner-background"></div>
   </div>
   <!-- buttons to category filtered queries -->
-  <div class="icons-container">
-    <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
-    <img id="childrenToys" (click)="searchCategory('cat_ChildrensToys')" src="assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
-    <img id="boardGames" (click)="searchCategory('cat_Board')" src="assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
-    <img id="plushies" (click)="searchCategory('cat_Plushies')" src="assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
-    <img id="dolls" (click)="searchCategory('cat_Dolls')" src="assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
-    <img id="actionToys" (click)="searchCategory('cat_ActionToys')" src="assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
-    <img id="videogames" (click)="searchCategory('cat_Videogames')" src="assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
-    <img id="crafts" (click)="searchCategory('cat_Crafts')" src="assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
-    <img id="pedagogical" (click)="searchCategory('cat_Pedagogical')" src="assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
-    <img id="sports" (click)="searchCategory('cat_Sport')" src="assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
-    <img id="electronic" (click)="searchCategory('cat_Electronic')" src="assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
-    <img id="collectibles" (click)="searchCategory('cat_Collectibles')" src="assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
-    <img id="antiques" (click)="searchCategory('cat_Antiques')" src="assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
-    <img id="cards" (click)="searchCategory('cat_Cards')" src="assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
-    <img id="others" (click)="searchCategory('cat_Others')" src="assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
+  <div class="icons-box">
+    <div class="claim">
+      <p>Busca entre las categorías más populares de JUKIDS</p>
+    </div>
+    <div class="icons-container">
+      <div class="boxita">
+        <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+        <div class="icon-name">FIGURAS</div>
+      </div>
+      <div class="boxita">
+          <img id="videogames" (click)="searchCategory('cat_Videogames')" src="assets/icons/controller.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
+          <div class="icon-name">VIDEOJUEGOS</div>
+      </div>
+      <div class="boxita">
+          <img id="childrenToys" (click)="searchCategory('cat_ChildrensToys')" src="assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
+          <div class="icon-name">INFANTILES</div>
+      </div>
+      <div class="boxita">
+        <img id="collectibles" (click)="searchCategory('cat_Collectibles')" src="assets/icons/collectibles.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
+        <div class="icon-name">COLECCIONISTA</div>
+      </div>
+      <div class="boxita">
+        <img id="plushies" (click)="searchCategory('cat_Plushies')" src="assets/icons/teddybear.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
+        <div class="icon-name">PELUCHES</div>
+      </div>
+      <div class="boxita">
+        <img id="dolls" (click)="searchCategory('cat_Dolls')" src="assets/icons/doll.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+          <div class="icon-name">MUÑECAS</div>
+        </div>
+      <!-- <img id="actionToys" (click)="searchCategory('cat_ActionToys')" src="assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}"> -->
+      <!-- <img id="boardGames" (click)="searchCategory('cat_Board')" src="assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}"> -->
+      <!-- <img id="crafts" (click)="searchCategory('cat_Crafts')" src="assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
+      <img id="pedagogical" (click)="searchCategory('cat_Pedagogical')" src="assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
+      <img id="sports" (click)="searchCategory('cat_Sport')" src="assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+      <img id="electronic" (click)="searchCategory('cat_Electronic')" src="assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}">
+      <img id="antiques" (click)="searchCategory('cat_Antiques')" src="assets/icons/lego.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
+      <img id="cards" (click)="searchCategory('cat_Cards')" src="assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+      <img id="others" (click)="searchCategory('cat_Others')" src="assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}"> -->
+    </div>
   </div>
 
   <div class="categories-container">
     
-        <!-- <p class="row-title">{{ 'FIGURES_CATCHY_PHRASE' | oTranslate }}</p> -->
-    <p class="row-title">FIGURAS CON PASADO, FIGURAS CON HISTORIA</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'FIGURES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Figures')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #figuresGrid
@@ -67,7 +92,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">LOS PELUCHES MÁS CUQUIS</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'PUSHIES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Plushies')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #plushiesGrid
@@ -106,7 +134,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">JUQUETES INFANTILES</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'CHILDRENS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_ChildrensToys')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #childrensToysGrid
@@ -145,7 +176,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">JUEGOS DE MESA Y PUZZLES</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'BOARD_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Board')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #boardGrid
@@ -184,7 +218,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">NUESTRAS MUÑECAS</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'DOLLS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Dolls')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #dollsGrid
@@ -223,7 +260,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">JUGUETES DE ACCIÓN</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'ACTION_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_ActionToys')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #actionToysGrid
@@ -262,7 +302,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">VIDEOJUEGOS! CONSOLAS! ¡CONSOLAS Y VIDEOJUEGOS!</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'VGAMES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Videogames')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #videogamesGrid
@@ -280,7 +323,6 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
         >
           <o-grid-item
             *ngFor="let data of videogamesGrid.getDataArray()"
@@ -301,7 +343,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">JUEGOS DE MANUALIDADES Y CONSTRUCCIÓN</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'CRAFTS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Crafts')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #craftsGrid
@@ -340,7 +385,11 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">JUGUETES PEDAGÓGICOS</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'PEDAGOGICAL_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Pedagogical')" class="anchor">VER TODO</a>
+    </div>
+    <p class="row-title"></p>
     <div class="grid-container">
         <o-grid
           #pedagogicalGrid
@@ -379,7 +428,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">JUGUETES DEPORTIVOS</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'SPORTS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Sport')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #sportGrid
@@ -418,7 +470,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">JUGUETES ELECTRÓNICOS</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'ELECTRONIC_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Electronic')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #electronicGrid
@@ -456,7 +511,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">COLECCIONABLES</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'COLLECTIBLES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Collectibles')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #collectiblesGrid
@@ -495,7 +553,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">RETROKIDS</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'ANTIQUES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Antiques')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #antiquesGrid
@@ -533,7 +594,10 @@
           </o-grid-item>
         </o-grid>
     </div>
-    <p class="row-title">JUEGOS DE CARTAS</p>
+    <div class="title-box">
+      <p class="row-title">{{ 'CARDS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Cards')" class="anchor">VER TODO</a>
+    </div>
     <div class="grid-container">
         <o-grid
           #cardsGrid
