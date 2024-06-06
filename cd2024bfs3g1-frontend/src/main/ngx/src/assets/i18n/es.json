@@ -111,7 +111,7 @@
   "ERROR_STATUS_VALIDATION": "Introduzca un estado válido",
   "ERROR_HIGHER_MILLION_VALIDATION": "El precio no puede superar los 10 millones de €",
   "ERROR_ADDRESS_VALIDATION": "Introduzca una dirección",
-  "ERROR_PHONE_VALIDATION": "Introduzca un teléfono valido, debe contener 9 digitos y empezar por 6,7,8 ó 9.",
+  "ERROR_PHONE_VALIDATION": "Introduzca un teléfono válido, debe contener 9 digitos y empezar por 6,7,8 ó 9.",
   "ERROR_ERROR_COMPANY_VALIDATION_VALIDATION": "Introduzca una compañía de envio",
   "ERROR_STARS_VALIDATION": "Introduzca la valoración del vendedor",
   "ERROR_COMMENT_VALIDATION": "Introduzca el comentario del vendedor",
@@ -228,5 +228,7 @@
   "BACK_BUTTON": "Volver",
   "shipment": "Con envío (%)",
   "noshipment": "Sin envío (%)",
-  "AVAILABLE_MONEY": "Has vendido en total: "
+  "AVAILABLE_MONEY": "Has vendido en total: ",
+  "TOY_UNAVAILABLE": "Este producto ya no se encuentra disponible!",
+  "WE_ARE_SORRY": "Sentimos las molestias"
 }
