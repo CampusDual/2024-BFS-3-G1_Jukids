@@ -16,14 +16,7 @@
       </o-combo>
 
       <o-row layout-align="space-between center" fxFlex="grow" fxFlex="100" fxFlex.gt-sm="50" fxLayoutGap="10px">
-        <o-text-input
-        #searcher
-        attr="name"
-        read-only="no"
-        fxFlex="100"
-        label="{{ 'SEARCH_BAR' | oTranslate }}"
-        appearance="outline"
-      ></o-text-input>
+        <o-text-input #searcher attr="name" hidden></o-text-input>
         <o-text-input #latInput attr="latitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
         <o-text-input #longInput attr="longitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
 
