@@ -21,6 +21,7 @@ export class MainComponent implements OnInit {
   @ViewChild('appLayout')
   public appLayout: OAppLayoutComponent;
   public rolename : string;
+  protected userInfo;
 
   @ViewChild('userConfiguration')
   public userConfiguration: OUserInfoConfigurationDirective;
@@ -30,7 +31,6 @@ export class MainComponent implements OnInit {
   adminRedirect(){
     this.router.navigateByUrl('/main/admin');
   }
-
 
   constructor(
     protected injector: Injector,
@@ -43,19 +43,23 @@ export class MainComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-
   isLogged() {
     //Se cierra el dialogo al iniciar sesion
     if (this.jkAuthService.isLoggedIn() && this.dialog.getDialogById('login')) {
       this.dialog.closeAll();
+
+     // Se obtiene la información del usuario logueado
+     this.userInfo = this.userInfoService.getUserInfo();
+     this.rolename = this.userInfo.rolename;
     }
+     
     return this.jkAuthService.isLoggedIn();
   }
 
   //Con este metodo verificamos que el usuario que se ha logueado, tenga una propiedad rolename y su valor sea el de admin
   validAdmin(){
     return (this.rolename && this.rolename == "admin");
-   }
+  }
 
   ngOnInit() {
     this.loadUserInfo();
@@ -72,7 +76,7 @@ export class MainComponent implements OnInit {
           }
           
           //Recogemos el campo rolename en el front que trajimos del back y lo asignamos a una variable publica en el componente
-          if (result.data['rolename']) {
+           if (result.data['rolename']) {
             this.rolename = result.data['rolename']
           }
           this.oUserInfoService.setUserInfo({
@@ -83,12 +87,10 @@ export class MainComponent implements OnInit {
       );
   }
 
-
   modal(idModal: string) {
     this.dialog.open(LoginComponent, {
       id: idModal,
       disableClose: false,
     });
   }
-
 }
