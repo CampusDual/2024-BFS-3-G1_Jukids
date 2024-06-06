@@ -13,6 +13,7 @@ import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 })
 export class ToysShippingComponent implements OnInit {
 
+
   // En commission ponemos el tanto por ciento de comision
   public commission: number = 7;
   public warrantyPrice: number;
@@ -226,10 +227,9 @@ export class ToysShippingComponent implements OnInit {
     }
   }
 
-  insertRedirect() {
-    this.router.navigate(["main/toys/toysDetail", this.toyId]);
-  }
-
+  backDetail(toyId):void{
+     this.router.navigate(["main/toys/toysDetail", toyId]);
+   }
 
   isLogged() {
     //Se cierra el dialogo al iniciar sesion
