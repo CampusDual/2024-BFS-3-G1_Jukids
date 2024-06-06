@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { OFormComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
-import { race } from 'rxjs';
 import { MainService } from 'src/app/shared/services/main.service';
 
 @Component({
@@ -11,23 +10,17 @@ import { MainService } from 'src/app/shared/services/main.service';
 })
 export class EditUserComponent implements OnInit {
   private redirect = '/main/user-profile';
-  baseUrl: string;
   protected service: OntimizeService;
 
-  @ViewChild('usr_id') usrIdField : OTextInputComponent;
   @ViewChild('formUserEdit') formUserEdit: OFormComponent;
-  /*@ViewChild('nameInput') nameInput : OTextInputComponent;
-  @ViewChild('surnameInput') surnameInput : OTextInputComponent;
-  @ViewChild('passwordInput') passwordInput : OTextInputComponent;
-  @ViewChild('emailInput') emailInput : OTextInputComponent;*/
 
-  usrId : number = null;
+  usrId: number = null;
   mainInfo: any = {};
 
-  constructor (
+  constructor(
     private router: Router,
     private mainService: MainService,
-    private injector : Injector
+    private injector: Injector
   ) {
     this.service = this.injector.get(OntimizeService);
     this.configureService();
@@ -40,24 +33,45 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.mainService.getUserInfo().subscribe((result: ServiceResponse) => {
-      this.usrId = result.data["usr_id"]; 
-      //this.usrIdField.setValue(this.usrId);
+      this.usrId = result.data["usr_id"];
       this.mainInfo = result.data;
-      this.dataLoaded();
-  })
+      this.loadFormData();
+    });
   }
 
-  dataLoaded() {
-    const filter = {
-      //usr_id: this.userInfo.usr_id 
-      usr_id: this.usrId
-    };
-
-    // consulta para datos de usuario
-    const confUser = this.service.getDefaultServiceConfiguration('userowner');
-    this.service.configureService(confUser);
+  loadFormData() {
+    if (this.formUserEdit) {
+      this.formUserEdit.setData(this.mainInfo);
+    }
   }
-  profileRedirect(){
+
+  saveForm() {
+    const formData = this.formUserEdit.getDataValues();
+    if (this.validateData(formData)) {
+      this.service.update(formData, ['usr_id']).subscribe(
+        response => {
+          if (response.code === 0) {
+            this.router.navigate([this.redirect]);
+          } else {
+            console.error('Error updating user profile', response.message);
+          }
+        },
+        error => {
+          console.error('Error updating user profile', error);
+        }
+      );
+    }
+  }
+
+  validateData(data: any): boolean {
+    return data.usr_name && data.usr_surname && data.usr_login && data.usr_password;
+  }
+
+  profileRedirect() {
+    this.router.navigate([this.redirect]);
+  }
+
+  redirectHome(){
     const self = this;
       self.router.navigate([this.redirect]);
   }

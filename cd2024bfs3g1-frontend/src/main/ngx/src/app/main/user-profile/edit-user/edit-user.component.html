@@ -1,54 +1,44 @@
 <div class="box">
-    <o-form #formUserEdit class="form" id="formUserEdit" #formToyEdit attr="usersDetail" service="userowner" entity="user" keys="user_id"
-      show-header-navigation="false" show-header="true" fxLayout="column" header-actions="D"
-      show-header-actions-text="false" undo-button="no">
-      
-      <div>Id usuario: {{mainInfo?.usr_id}}</div>
-      <div>Name usuario: {{mainInfo?.usr_name}}</div>
-      <div>Apellido usuario: {{mainInfo?.usr_surname}}</div>
-      <div>Contraseña usuario: {{mainInfo?.old_password}}</div>
-      <div>Correo usuario: {{mainInfo?.usr_login}}</div>
-      
-      
-      <o-text-input attr="usr_id" sql-type="INTEGER" enabled="yes" editable="no" read-only="yes"></o-text-input>
+  <o-form #formUserEdit class="form" id="formUserEdit" attr="usersDetail" service="userowner" entity="user" keys="usr_id"
+    show-header-navigation="false" show-header="true" fxLayout="column" 
+    show-header-actions-text="false" undo-button="no" (onUpdate)="redirectHome()">
+    
+    <div>Id usuario: {{mainInfo?.usr_id}}</div>
+    <div>Name usuario: {{mainInfo?.usr_name}}</div>
+    <div>Apellido usuario: {{mainInfo?.usr_surname}}</div>
+    <div>Contraseña usuario: {{mainInfo?.usr_password}}</div>
+    <div>Correo usuario: {{mainInfo?.usr_login}}</div>
+    
+    <o-text-input attr="usr_id" sql-type="INTEGER" enabled="no" editable="no" read-only="yes"></o-text-input>
 
-      <o-column>
-        <div fxLayoutGap="25px" fxLayout="row" class="toys-detail-column">
-          <o-column fxFlex="30" class="total-column">
-            <o-image class="image-container" auto-fit="yes" attr="photo" read-only="no"
-              empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER" show-controls="no"></o-image>
-          </o-column>
-  
-          <o-column class="inf-column total-column">
-  
-            <div>
-              <div>
-                <o-text-input #nameInput attr="usr_name" fxFlex="100" read-only="no" 
-                  max-length="150"></o-text-input>
-              </div>
-              <div class="divInput">
-                <o-text-input #surnameInput attr="usr_surname" fxFlex="100" read-only="no" 
+    <o-column>
+      <div fxLayoutGap="25px" fxLayout="row" class="toys-detail-column">
+        <o-column fxFlex="30" class="total-column">
+          <o-image class="image-container" auto-fit="yes" attr="photo" read-only="no"
+            empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER" show-controls="no"></o-image>
+        </o-column>
+
+        <o-column class="inf-column total-column">
+          <div>
+            <div class="divInput">
+              <o-text-input #nameInput attr="usr_name" fxFlex="100" read-only="no" 
                 max-length="150"></o-text-input>
-              </div>
-              <div class="divInput">
-                <o-password-input #passwordInput attr="usr_password" fxFlex="100" read-only="no" 
-                max-length="150"></o-password-input>
-              </div>
-              <div class="divInput">
-                <o-email-input #emailInput attr="usr_email" fxFlex="100" read-only="no"
-                max-length="150"></o-email-input>
-              </div>
             </div>
-          </o-column>
-        </div>
-      </o-column>
-  
-      <div o-form-toolbar-buttons>
-        <button id="saveButton" type="button" class="o-form-toolbar-button button btn-outline-light" mat-icon-button
-           attr="updateButton">
-          <mat-icon>save</mat-icon>
-        </button>
+            <div class="divInput">
+              <o-text-input #surnameInput attr="usr_surname" fxFlex="100" read-only="no" 
+              max-length="150"></o-text-input>
+            </div>
+            <div class="divInput">
+              <o-password-input #passwordInput attr="usr_password" fxFlex="100" read-only="no" 
+              max-length="150"></o-password-input>
+            </div>
+            <div class="divInput">
+              <o-email-input #emailInput attr="usr_login" fxFlex="100" read-only="no"
+              max-length="150"></o-email-input>
+            </div>
+          </div>
+        </o-column>
       </div>
-  
-    </o-form>
-  </div>
+    </o-column>
+  </o-form>
+</div>
