@@ -6,16 +6,18 @@
       <mat-icon class="btn-close">close</mat-icon>
     </div>
 
+    <div class="logo-header">
+      <img src="assets/images/jukids_logo_no_background.png" alt="">
+    </div>
+
     <ng-container *ngIf="!isRegistering">
       <div class="login-title-container" fxLayout="column">
         <h1 class="slogan">{{ 'SLOGAN' | oTranslate }}</h1>
         <p class="session-expired text" *ngIf="sessionExpired">{{ 'ERROR_SESSION_EXPIRED' | oTranslate }}</p>
         <span class="title_text">{{ 'LOGIN_TITLE' | oTranslate }}</span>
       </div>
-      <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
-
-        <div fxLayout="column" fxLayoutGap="10px">
-
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">        
+        <div fxLayout="column" fxLayoutGap="10px">          
           <mat-form-field fxFill class="search">
             <input matInput class="mat-input" #user placeholder="{{ 'usr_email' | oTranslate }}" id="username"
               [formControl]="userCtrl">
@@ -23,7 +25,6 @@
               {{ 'ERROR_USER_REQUIRED' | oTranslate }}
             </mat-error>
           </mat-form-field>
-
           <mat-form-field fxFill class="search" style="padding-bottom: 30px;">
             <input matInput class="mat-input" #password placeholder="{{ 'PASSWORD' | oTranslate }}" id="password"
               type="password" [formControl]="pwdCtrl">
@@ -31,9 +32,7 @@
               {{ 'ERROR_PASS_REQUIRED' | oTranslate }}
             </mat-error>
           </mat-form-field>
-
           <button class="button btn-solid" type="submit">{{ 'LOGIN' | oTranslate }}</button>
-
         </div>
 
       </form>
