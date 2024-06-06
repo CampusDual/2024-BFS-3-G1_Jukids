@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { MatTabGroup } from '@angular/material/tabs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService, DialogService, ODialogConfig, OFormComponent, OTableBase, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { AuthService, DialogService, ODialogConfig, SnackBarService, OSnackBarConfig, OFormComponent, OTableBase, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
@@ -14,6 +15,9 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
 export class UserPurchasedToylistComponent {
   public userInfo;
   private redirect = '/toys';
+  
+  //Indice inicial para pestañas de tablas
+  public currentTabIndex = 0; //First Tab
 
   //Constantes de estado de toy
   private STATUS_AVAILABLE:Number  = 0;
@@ -22,7 +26,6 @@ export class UserPurchasedToylistComponent {
   private STATUS_RECEIVED: Number = 3;
   private STATUS_PURCHASED: Number = 4;
 
-
   private status = true;
   @ViewChild('formToy') protected formReceived: OFormComponent;
   @ViewChild('toyId') toyId: OTextInputComponent;
@@ -30,11 +33,14 @@ export class UserPurchasedToylistComponent {
   @ViewChild('tableReceived') protected tableReceived :OTableBase ;
   @ViewChild('tableConfirm') protected tableConfirm :OTableBase ;
   @ViewChild('tablePurchased') protected tablePurchased :OTableBase ;
+  @ViewChild('tabs') tabGroup: MatTabGroup;
 
   constructor(
     private authService: AuthService,
     private router: Router,
+    private translate: OTranslateService,
     protected dialogService: DialogService,
+    protected snackBarService: SnackBarService,
     private oServiceShipment: OntimizeService,
     public userInfoService: UserInfoService) {
 
@@ -48,26 +54,53 @@ export class UserPurchasedToylistComponent {
     }
   }
 
-  //Cambia de estado 2 a 3 y refesca las tablas de ambos estado
-  public checkReceive(e){
-    const kv = {"toyid": e.toyid};
-    const av = {"transaction_status": this.STATUS_RECEIVED}
-    this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
-      this.tableReceived.refresh();
-      this.tableConfirm.refresh();      
-    })
+  //Cambia de estado 2 a 3 y refesca las tablas de ambos estados
+  //pide confirmación, muestra mensaje de confirmación, lanza a la siguiente pestaña actualizada  
+  public checkReceive(e: any) {
+    if (this.dialogService) {
+      this.dialogService.confirm(this.translate.get('CONFIRMATION_TITLE'), this.translate.get('RECEPTION_CONFIRMATION'));
+      this.dialogService.dialogRef.afterClosed().subscribe( result => {
+        if(result) {
+          //let selectedIndex = this.tabGroup.selectedIndex;
+          this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual     
+          const kv = {"toyid": e.toyid};
+          const av = {"transaction_status": this.STATUS_RECEIVED}
+          this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
+            this.tableReceived.refresh();
+            this.tableConfirm.refresh();
+            this.currentTabIndex = this.currentTabIndex + 1; //actualica el indice de pestaña a la siguiente una vez confirmado        
+          })
+          this.snackBarService.open(this.translate.get('CONFIRMED'));
+        } else {
+          this.snackBarService.open(this.translate.get('CANCELLED'));
+        }
+      })
+    }
   }
 
-  //Cambia de estado 3 a 4 y refesca las tablas de ambos estado
-  public checkOk(e){
-    const kv = {"toyid": e.toyid};
-    const av = {"transaction_status": this.STATUS_PURCHASED}    
-    this.oServiceShipment.update(kv, av, "shipmentConfirmed").subscribe(result => {
-      this.tableConfirm.refresh();
-      this.tablePurchased.refresh();
-    })
+  //Cambia de estado 3 a 4 y refesca las tablas de ambos estados
+  //Pide confirmación, muestra mensaje de confirmación, lanza a la siguiente pestaña actualizada
+  public checkOk(e: any){
+      if (this.dialogService) {
+      this.dialogService.confirm(this.translate.get('CONFIRMATION_TITLE'), this.translate.get('OK_CONFIRMATION'));
+      this.dialogService.dialogRef.afterClosed().subscribe( result => {
+        if(result) {
+          this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual  
+          const kv = {"toyid": e.toyid};
+          const av = {"transaction_status": this.STATUS_PURCHASED}    
+          this.oServiceShipment.update(kv, av, "shipmentConfirmed").subscribe(result => {
+            this.tableConfirm.refresh();
+            this.tablePurchased.refresh();
+            this.currentTabIndex = this.currentTabIndex + 1; //actualica el indice de pestaña a la siguiente una vez confirmado
+          })
+          this.snackBarService.open(this.translate.get('CONFIRMED'));
+        } else {
+          this.snackBarService.open(this.translate.get('CANCELLED'));
+        }
+      })
+    }
   }
-
+  
   showCustom(
     icon: string,
     btnText: string,
