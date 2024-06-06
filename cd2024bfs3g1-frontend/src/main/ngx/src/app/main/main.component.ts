@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { OAppLayoutComponent, OUserInfoConfigurationDirective, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
+import { OAppLayoutComponent, OUserInfoConfigurationDirective, OUserInfoService, ServiceResponse, OTextInputComponent } from 'ontimize-web-ngx';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -70,7 +70,7 @@ export class MainComponent implements OnInit {
           if (result.data['usr_photo']) {
             (avatar as any) = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + result.data['usr_photo']);
           }
-          
+
           //Recogemos el campo rolename en el front que trajimos del back y lo asignamos a una variable publica en el componente
           if (result.data['rolename']) {
             this.rolename = result.data['rolename']
@@ -89,6 +89,10 @@ export class MainComponent implements OnInit {
       id: idModal,
       disableClose: false,
     });
+  }
+
+  searchNameAndDescription(nameAndDescripcion: string){
+    this.router.navigate(['/main/toys'], {queryParams:{keyword: nameAndDescripcion}});
   }
 
 }

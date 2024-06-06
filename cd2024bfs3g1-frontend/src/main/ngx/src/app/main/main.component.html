@@ -4,6 +4,12 @@
       <div class="nav-left-side">
         <p class="title" routerLink="/">JuKids</p>
       </div>
+      <div class="searchBar">
+        <!--<o-text-input  #searcher attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>-->
+        <!--<input #searcher read-only="no" name="{{ 'SEARCH_BAR' | oTranslate }}" appearance="outline" fxFlex="100">-->
+        <o-text-input  #searcher attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>
+        <button (click)="searchNameAndDescription(searcher.getValue())" class="button btn-outline-light" type="RAISED">Buscar</button>
+      </div>
       <div class="nav-right-side">
         <button *ngIf="validAdmin()" class="button btn-outline-dark" type="button" (click)="adminRedirect()">
           {{ 'ADMIN' | oTranslate }}

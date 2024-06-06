@@ -1,17 +1,4 @@
 <o-form class="form" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()" >
-
-  <o-row>
-    <div class="searchBar">
-      <o-text-input  #searcher attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>
-      <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="button btn-outline-light" matTooltip="{{ 'Search' | oTranslate }}">
-        <mat-icon class="material-icons">search</mat-icon>
-      </button>
-      <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="button btn-outline-light" matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
-        <mat-icon class="material-icons">clear</mat-icon>
-      </button>
-    </div>
-  </o-row>
-
   <o-column-collapsible attr="container" title="{{ 'FILTERS_TOYS' | oTranslate }}" icon="filter_list" elevation="3" appearance="none" expanded="no" layout-align="start stretch">
     <div class="searchFilters">
       <o-combo #categoryField appearance="outline" label="category" id="category" null-selection="no" attr="category"
@@ -34,6 +21,12 @@
         <o-text-input #longInput attr="longitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
 
         <o-row class="btn-container">
+          <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="button btn-outline-light" matTooltip="{{ 'Search' | oTranslate }}">
+            <mat-icon class="material-icons">search</mat-icon>
+          </button>
+          <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="button btn-outline-light" matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
+            <mat-icon class="material-icons">clear</mat-icon>
+          </button>
           <button (click)="openMap()" class="button btn-outline-light reverse"><mat-icon>map</mat-icon></button>
         </o-row>
       </o-row>
