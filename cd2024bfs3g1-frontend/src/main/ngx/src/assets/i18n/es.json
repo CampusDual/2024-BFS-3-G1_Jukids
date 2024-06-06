@@ -204,6 +204,7 @@
   "CONFIRM": "Confirmar",
   "SALE_TOY":"En venta",
   "PENDING_SEND_TOY":"Pendiente de envío",
+  "SEND_CONFIRMATION": "¿Quieres confirmar el envío de producto?",
   "PENDING_CONFIRM_TOY":"Pendiente de confirmar llegada",
   "SOLD_TOY":"Vendidos",
   "SENDER_DATA": "Datos del remitente",

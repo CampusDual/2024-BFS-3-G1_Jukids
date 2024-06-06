@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { AuthService, DialogService, ODialogConfig, SnackBarService, OSnackBarConfig, OFormComponent, OTableBase, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { AuthService, DialogService, ODialogConfig, SnackBarService, OFormComponent, OTableBase, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
@@ -10,7 +10,6 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
   templateUrl: './user-profile-buylist.component.html',
   styleUrls: ['./user-profile-buylist.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 
 export class UserPurchasedToylistComponent {
@@ -64,13 +63,12 @@ export class UserPurchasedToylistComponent {
       this.dialogService.confirm(this.translate.get('CONFIRMATION_TITLE'), this.translate.get('RECEPTION_CONFIRMATION'));
       this.dialogService.dialogRef.afterClosed().subscribe( result => {
         if(result) {
-          //let selectedIndex = this.tabGroup.selectedIndex;
-          this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual
           const kv = {"toyid": e.toyid};
           const av = {"transaction_status": this.STATUS_RECEIVED}
-          this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
+          this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {      
             this.tableReceived.refresh();
             this.tableConfirm.refresh();
+            this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual
             this.currentTabIndex = this.currentTabIndex + 1; //actualica el indice de pestaña a la siguiente una vez confirmado
           })
           this.snackBarService.open(this.translate.get('CONFIRMED'));
@@ -88,12 +86,12 @@ export class UserPurchasedToylistComponent {
       this.dialogService.confirm(this.translate.get('CONFIRMATION_TITLE'), this.translate.get('OK_CONFIRMATION'));
       this.dialogService.dialogRef.afterClosed().subscribe( result => {
         if(result) {
-          this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual
           const kv = {"toyid": e.toyid};
           const av = {"transaction_status": this.STATUS_PURCHASED}
           this.oServiceShipment.update(kv, av, "shipmentConfirmed").subscribe(result => {
             this.tableConfirm.refresh();
             this.tablePurchased.refresh();
+            this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual          
             this.currentTabIndex = this.currentTabIndex + 1; //actualica el indice de pestaña a la siguiente una vez confirmado
           })
           this.snackBarService.open(this.translate.get('CONFIRMED'));
