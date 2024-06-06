@@ -9,14 +9,46 @@
   <!-- buttons to category filtered queries -->
   <div class="icons-box">
     <div class="claim">
-      <p>Busca entre las categorías más populares de JUKIDS</p>
+      <p class="category-search-claim">Busca entre las categorías más populares de JUKIDS</p>
     </div>
-    <div class="icons-container">
-      <div class="boxita">
-        <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/figure.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+    <div class="smallcards-container">
+      <div>
+        <div class="smallcard">
+          <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/figure.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+        </div>
         <div class="icon-name">FIGURAS</div>
       </div>
-      <div class="boxita">
+      <div>
+        <div class="smallcard">
+          <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/figure.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+        </div>
+        <div class="icon-name">FIGURAS</div>
+      </div>
+      <div>
+        <div class="smallcard">
+          <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/figure.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+        </div>
+        <div class="icon-name">FIGURAS</div>
+      </div>
+      <div>
+        <div class="smallcard">
+          <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/figure.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+        </div>
+        <div class="icon-name">FIGURAS</div>
+      </div>
+      <div>
+        <div class="smallcard">
+          <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/figure.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+        </div>
+        <div class="icon-name">FIGURAS</div>
+      </div>
+      <div>
+        <div class="smallcard">
+          <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/figure.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
+        </div>
+        <div class="icon-name">FIGURAS</div>
+      </div>
+      <!-- <div class="boxita">
           <img id="videogames" (click)="searchCategory('cat_Videogames')" src="assets/icons/controller.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
           <div class="icon-name">VIDEOJUEGOS</div>
       </div>
@@ -35,7 +67,7 @@
       <div class="boxita">
         <img id="dolls" (click)="searchCategory('cat_Dolls')" src="assets/icons/doll.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
           <div class="icon-name">MUÑECAS</div>
-        </div>
+        </div> -->
       <!-- <img id="actionToys" (click)="searchCategory('cat_ActionToys')" src="assets/icons/doll.png" class="icon" title="{{ 'DOLL_DESC_ICON' | oTranslate }}"> -->
       <!-- <img id="boardGames" (click)="searchCategory('cat_Board')" src="assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}"> -->
       <!-- <img id="crafts" (click)="searchCategory('cat_Crafts')" src="assets/icons/invaders.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
@@ -51,6 +83,7 @@
   <div class="categories-container">
     
     <div class="title-box">
+      <p class="row-title-small">{{ 'FIGURES' | oTranslate }}</p>
       <p class="row-title">{{ 'FIGURES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
       <a (click)="searchCategory('cat_Figures')" class="anchor">VER TODO</a>
     </div>

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OntimizeService } from 'ontimize-web-ngx';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -14,16 +15,26 @@ export class HomeComponent implements OnInit {
   private longitude: any;
   private location: any;
   public cols: number = 5;
+  public queryrows: number = 5;
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
+
+  private layoutChanges = this.breakpointObserver.observe([
+    Breakpoints.XSmall,
+    Breakpoints.Small,
+    Breakpoints.Medium,
+    Breakpoints.Large,
+    Breakpoints.XLarge
+  ]);
 
   constructor(
     private router: Router,
     private actRoute: ActivatedRoute,
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
-    private  toysMapService: ToysMapService
+    private  toysMapService: ToysMapService,
+    private breakpointObserver: BreakpointObserver,
   ) {
      //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
@@ -40,6 +51,26 @@ export class HomeComponent implements OnInit {
     if (this.baseUrl.includes('localhost')) {
       this.baseUrl = 'http://localhost:8080';
     }
+
+    //Control de columnas en o-grid
+    this.layoutChanges.subscribe((result) => {
+      if (result.breakpoints[Breakpoints.XSmall]) {
+        this.cols = 2;
+        this.queryrows = 2;
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        this.cols = 3;
+        this.queryrows = 3;
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        this.cols = 4;
+        this.queryrows = 4;
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        this.cols = 5;
+        this.queryrows = 5;
+      } else if (result.breakpoints[Breakpoints.XLarge]) {
+        this.cols = 5;
+        this.queryrows = 5;
+      }
+    });
   }
 
    navigate() {

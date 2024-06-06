@@ -33,11 +33,15 @@
 }
 
 .categories-container {
-    margin-top: 50px;
+    margin-top: 20px;
     width: 80%;
     display: flex;
     flex-direction: column;
     justify-items: center;
+
+    @media screen and (max-width: 550px) {
+        margin-top: 5px;
+    }
 }
 
 .grid-container {
@@ -50,34 +54,77 @@
     color: rgb(0, 0, 0);
     padding-left: 1%;
     text-transform: uppercase;
+    @media screen and (max-width: 550px) {
+        display: none;
+    }
+}
+.row-title-small {
+    display: none;
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+    padding-left: 1%;
+    text-transform: uppercase;
+    @media screen and (max-width: 550px) {
+        display: contents;
+    }
 }
 
 .icons-box{
     display: flex;
     flex-direction: column;
     width: 80%;
+    margin: auto;
     justify-items: center;
-    margin-top: 5px;
     .claim {
         width: fit-content;
         align-self: center;
+
+        .category-search-claim {
+            @media screen and (max-width: 800px) {
+                display: none;
+            }
+        }
     }
-    .icons-container {
-        align-self: center;
-        width: 60%;
+    .smallcards-container {
+        margin: auto;
+        margin-top: 10px;
+        width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        .boxita {
+        align-self: center;
+        gap: 12px;
+        justify-content: center;
+        height: fit-content;
+        @media screen and (max-width: 550px) {
+            display: grid;
+            grid-template-columns: repeat(3,100px);  /* 3 columns */
+            grid-template-rows: repeat(2,100px); /* 3 rows  */
+            grid-gap:1px 1px; /* 50 pixels of space added between rows and 30 pixels added between columns  */
+        }
+        .smallcard {
             display: flex;
-            width: fit-content;
+            width: 100px;
+            height: 100px;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            @media screen and (max-width: 800px) {
+                width: 75px;
+                height: 75px;
+            }
+            @media screen and (max-width: 650px) {
+                width: 65px;
+                height: 65px;
+            }
+            @media screen and (max-width: 550px) {
+                width: 80px;
+                height: 80px;
+            }
+            }
             .icon {
-                height: 50px;
-                width: 50px;
-                padding: 8px;
+                height: 100%;
+                width: 100%;
+                justify-self: center;
                 background-color: rgba(224, 224, 224, 0.74);
                 border-radius:15px;
                 &:hover {
@@ -89,10 +136,13 @@
             .icon-name{
                 margin-top: 15px;
                 font-size: smaller;
+                @media screen and (max-width: 800px) {
+                    display: none;
+                }
             }
         }
     }
-}
+
 
 .anchor {
     margin-left: 10px;
