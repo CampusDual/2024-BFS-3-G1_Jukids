@@ -238,6 +238,13 @@ public class ToyService implements IToyService {
     }
 
     @Override
+    public EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException{
+
+        return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
+    }
+
+    @Override
     @Transactional
     public EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException{
 
@@ -305,13 +312,6 @@ public class ToyService implements IToyService {
         return result;
     }
 
-    @Override
-    public EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList)
-            throws OntimizeJEERuntimeException{
-
-            return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
-    }
-
     private EntityResult createError(String mensaje){
 
         EntityResult errorEntityResult = new EntityResultMapImpl();
@@ -320,5 +320,4 @@ public class ToyService implements IToyService {
 
         return errorEntityResult;
     }
-
 }

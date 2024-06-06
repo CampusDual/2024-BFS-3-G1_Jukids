@@ -37,51 +37,17 @@ public class OrderService implements IOrderService{
     @Override
     public EntityResult orderQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        if (email != null) {
-
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = List.of(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-            if (userData.isEmpty() || userData.isWrong()) {
-
-                return createError("Error al recuperar el usuario");
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+            Integer idUser = (Integer) idGetter();
             keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
-
             return this.daoHelper.query(this.orderDao, keyMap, attrList);
 
-        }else{
-
-            return createError("No estas logueado");
-        }
     }
 
     //Muestra juguetes del estado 4
     @Override
     public EntityResult PurchasedQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        HashMap<String, Object> keysValues = new HashMap<>();
-        keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = List.of(UserDao.USR_ID);
-        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-        if (userData.isEmpty() || userData.isWrong()) {
-
-            return createError("Error al recuperar el usuario");
-        }
-
-        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-
+        Integer idUser = (Integer) idGetter();
         Map<String, Object> searchValues = new HashMap<>();
         searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
         searchValues.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PURCHASED);
@@ -98,18 +64,7 @@ public class OrderService implements IOrderService{
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-
-        HashMap<String, Object> keysValues = new HashMap<>();
-        keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = List.of(UserDao.USR_ID);
-        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-        if (userData.isEmpty() || userData.isWrong()) {
-
-            return createError("Error al recuperar el usuario");
-        }
-
-        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+        Integer idUser = (Integer) idGetter();
 
         //Poblamos orderData, el HashMap que usaremos para el insert en ORDERS
 
@@ -195,18 +150,7 @@ public class OrderService implements IOrderService{
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-
-        HashMap<String, Object> keysValues = new HashMap<>();
-        keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = List.of(UserDao.USR_ID);
-        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-        if (userData.isEmpty() || userData.isWrong()) {
-
-            return createError("Error al recuperar el usuario");
-        }
-
-        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+        Integer idUser = (Integer) idGetter();
 
         //Creamos y poblamos orderData, el HashMap que usaremos para el insert en ORDERS
 
@@ -300,18 +244,16 @@ public class OrderService implements IOrderService{
         return result;
     }
 
-    private EntityResult createError(String mensaje){
+    @Override
+    public EntityResult ordersWithToysQuery(Map<String, Object> keyMap, List<String> attrList)throws OntimizeJEERuntimeException {
 
-        EntityResult errorEntityResult = new EntityResultMapImpl();
-        errorEntityResult.setCode(EntityResult.OPERATION_WRONG);
-        errorEntityResult.setMessage(mensaje);
+        Integer idUser = (Integer) idGetter();
+        keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
 
-        return errorEntityResult;
+        return this.daoHelper.query(this.orderDao, keyMap, attrList, OrderDao.QUERY_JOIN_ORDERS_TOYS);
     }
 
-    @Override
-    public EntityResult ordersWithToysQuery(Map<String, Object> keyMap, List<String> attrList)
-            throws OntimizeJEERuntimeException {
+    public Object idGetter(){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
@@ -328,14 +270,19 @@ public class OrderService implements IOrderService{
                 return createError("Error al recuperar el usuario");
             }
 
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
-
-            return this.daoHelper.query(this.orderDao, keyMap, attrList, OrderDao.QUERY_JOIN_ORDERS_TOYS);
+            return userData.getRecordValues(0).get(UserDao.USR_ID);
 
         }else{
 
             return createError("No estas logueado");
         }
+    }
+
+    private EntityResult createError(String mensaje){
+
+        EntityResult errorEntityResult = new EntityResultMapImpl();
+        errorEntityResult.setCode(EntityResult.OPERATION_WRONG);
+        errorEntityResult.setMessage(mensaje);
+        return errorEntityResult;
     }
 }

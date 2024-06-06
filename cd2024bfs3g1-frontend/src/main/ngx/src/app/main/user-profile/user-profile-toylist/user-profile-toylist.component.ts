@@ -22,8 +22,6 @@ export class UserProfileToylistComponent implements OnInit{
 
   @ViewChild('tableSend') protected tableSend :OTableBase ;
   @ViewChild('senderAddress') protected senderAddress :OTextInputComponent;
-  @ViewChild('senderAddress') protected shipmentAddress: OTableColumnComponent;
-  @ViewChild('senderAddress') protected shipmentCompany: OTableColumnComponent;
 
   public userInfo;
   private redirect = '/toys';
@@ -31,16 +29,9 @@ export class UserProfileToylistComponent implements OnInit{
   constructor(
     private jukidsAuthService: JukidsAuthService,
     private router: Router,
-    private oServiceShipment: OntimizeService,
-    private oServiceToys: OntimizeService,
+    private oService: OntimizeService,
     public userInfoService: UserInfoService,
     protected injector: Injector) {
-
-    const conf2 = this.oServiceShipment.getDefaultServiceConfiguration('shipments');
-    const toysConf = this.oServiceToys.getDefaultServiceConfiguration('toys');
-
-    this.oServiceShipment.configureService(conf2);
-    this.oServiceToys.configureService(toysConf);
 
     this.userInfo = this.userInfoService.getUserInfo();
     if (!this.jukidsAuthService.isLoggedIn()) {
@@ -57,7 +48,8 @@ export class UserProfileToylistComponent implements OnInit{
 
     const columns = ["price"];
 
-    this.oServiceToys
+    this.configureToyService();
+    this.oService
       .query(filter, columns, "sumPriceToysSold")
       .subscribe({
         next: (resp:any) => {      
@@ -70,10 +62,25 @@ export class UserProfileToylistComponent implements OnInit{
       });
   }
 
+  public configureToyService(){
+
+    const toysConf = this.oService.getDefaultServiceConfiguration('toys');
+    this.oService.configureService(toysConf);
+  
+  }
+
+  public configureShipmentService(){
+
+    const ShipmentsConf = this.oService.getDefaultServiceConfiguration('shipments');
+    this.oService.configureService(ShipmentsConf);
+  
+  }
+
   public sendSubmit(e) {
     const kv = { "toyid": e };
-    const av = { "sender_address": this.senderAddress.getValue(),"transaction_status": this.STATUS_SENT }
-    this.oServiceShipment.update(kv, av, "shipmentSent").subscribe(result => {
+    const av = { "sender_address": this.senderAddress.getValue() }
+    this.configureShipmentService();
+    this.oService.update(kv, av, "shipmentSent").subscribe(result => {
       this.tableSend.refresh();
     })
   }

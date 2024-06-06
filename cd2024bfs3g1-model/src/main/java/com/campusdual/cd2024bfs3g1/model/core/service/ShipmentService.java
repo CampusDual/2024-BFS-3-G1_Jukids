@@ -58,54 +58,18 @@ public class ShipmentService implements IShipmentService {
     @Override
     public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
+        Integer idUser = (Integer) idGetter();
+        keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
+        keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PENDING_SHIPMENT);
 
-        if (email != null) {
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = List.of(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-            if (userData.isWrong()) {
-                return userData;
-            }
-
-            if (userData.isEmpty()) {
-
-                return createError("No se encuentra el usuario: " + email);
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
-            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PENDING_SHIPMENT);
-
-            return this.daoHelper.query(this.shipmentDao, keyMap, attrList, "shipmentJoin");
-
-        }else{
-
-            return createError("No estas logueado");
-        }
+        return this.daoHelper.query(this.shipmentDao, keyMap, attrList, "shipmentJoin");
     }
 
     //Muestra juguetes del estado 2
     @Override
     public EntityResult pendingReceiveQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        HashMap<String, Object> keysValues = new HashMap<>();
-        keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = List.of(UserDao.USR_ID);
-        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-        if (userData.isEmpty() || userData.isWrong()) {
-
-            return createError("Error al recuperar el usuario");
-        }
-
-        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+        Integer idUser = (Integer) idGetter();
 
         Map<String, Object> searchValues = new HashMap<>();
         searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
@@ -118,20 +82,7 @@ public class ShipmentService implements IShipmentService {
     @Override
     public EntityResult pendingConfirmQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        HashMap<String, Object> keysValues = new HashMap<>();
-        keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = List.of(UserDao.USR_ID);
-        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-        if (userData.isEmpty() || userData.isWrong()) {
-
-            return createError("Error al recuperar el usuario");
-        }
-
-        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+        Integer idUser = (Integer) idGetter();
 
         Map<String, Object> searchValues = new HashMap<>();
         searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
@@ -145,20 +96,7 @@ public class ShipmentService implements IShipmentService {
     @Transactional
     public EntityResult shipmentSentUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        HashMap<String, Object> keysValues = new HashMap<>();
-        keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = List.of(UserDao.USR_ID);
-        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-        if (userData.isEmpty() || userData.isWrong()) {
-
-            return createError("Error al recuperar el usuario");
-        }
-
-        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+        Integer idUser = (Integer) idGetter();
 
         //Recuperamos el SHIPMENT_ID y el TOY_ID
 
@@ -231,24 +169,7 @@ public class ShipmentService implements IShipmentService {
     @Transactional
     public EntityResult shipmentReceivedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        HashMap<String, Object> keysValues = new HashMap<>();
-        keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = List.of(UserDao.USR_ID);
-        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-        if (userData.isEmpty() || userData.isWrong()) {
-
-            return createError("Error al recuperar el usuario");
-        }
-
-        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-
-        if (!keyMap.containsKey(ToyDao.ATTR_ID)) {
-            return createError("Falta el ID del juguete en la solicitud");
-        }
+        Integer idUser = (Integer) idGetter();
 
         //Especificamos los parámetros de busqueda
 
@@ -263,7 +184,7 @@ public class ShipmentService implements IShipmentService {
         EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, "shipmentJoin");
 
         if (shipmentData.isEmpty() || shipmentData.isWrong()) {
-            return createError("El envío no existeo no tienes los permisos necesarios");
+            return createError("El envío no existe o no tienes los permisos necesarios");
         }
 
         //Actualizamos TOYS - TRANSACTION_STATUS a 3
@@ -292,20 +213,7 @@ public class ShipmentService implements IShipmentService {
     @Transactional
     public EntityResult shipmentConfirmedUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        HashMap<String, Object> keysValues = new HashMap<>();
-        keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = List.of(UserDao.USR_ID);
-        EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-        if (userData.isEmpty() || userData.isWrong()) {
-
-            return createError("Error al recuperar el usuario");
-        }
-
-        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+        Integer idUser = (Integer) idGetter();
 
         //Especificamos los parámetros de busqueda
 
@@ -344,12 +252,36 @@ public class ShipmentService implements IShipmentService {
         return result;
     }
 
+    public Object idGetter(){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+
+        if (email != null) {
+
+            HashMap<String, Object> keysValues = new HashMap<>();
+            keysValues.put(UserDao.LOGIN, email);
+            List<String> attributes = List.of(UserDao.USR_ID);
+            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
+
+            if (userData.isEmpty() || userData.isWrong()) {
+
+                return createError("Error al recuperar el usuario");
+            }
+
+            return userData.getRecordValues(0).get(UserDao.USR_ID);
+
+        }else{
+
+            return createError("No estas logueado");
+        }
+    }
+
     private EntityResult createError(String mensaje){
 
         EntityResult errorEntityResult = new EntityResultMapImpl();
         errorEntityResult.setCode(EntityResult.OPERATION_WRONG);
         errorEntityResult.setMessage(mensaje);
-
         return errorEntityResult;
     }
 }
