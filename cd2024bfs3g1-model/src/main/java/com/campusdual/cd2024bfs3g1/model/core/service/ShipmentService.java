@@ -26,8 +26,6 @@ public class ShipmentService implements IShipmentService {
     @Autowired
     private ShipmentDao shipmentDao;
     @Autowired
-    private OrderDao orderDao;
-    @Autowired
     private UserDao userDao;
     @Autowired
     private ToyDao toyDao;
@@ -66,7 +64,7 @@ public class ShipmentService implements IShipmentService {
         if (email != null) {
             HashMap<String, Object> keysValues = new HashMap<>();
             keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            List<String> attributes = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
             if (userData.isWrong()) {
@@ -99,7 +97,7 @@ public class ShipmentService implements IShipmentService {
 
         HashMap<String, Object> keysValues = new HashMap<>();
         keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        List<String> attributes = List.of(UserDao.USR_ID);
         EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
         if (userData.isEmpty() || userData.isWrong()) {
@@ -125,7 +123,7 @@ public class ShipmentService implements IShipmentService {
 
         HashMap<String, Object> keysValues = new HashMap<>();
         keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        List<String> attributes = List.of(UserDao.USR_ID);
         EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
         if (userData.isEmpty() || userData.isWrong()) {
@@ -152,7 +150,7 @@ public class ShipmentService implements IShipmentService {
 
         HashMap<String, Object> keysValues = new HashMap<>();
         keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        List<String> attributes = List.of(UserDao.USR_ID);
         EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
         if (userData.isEmpty() || userData.isWrong()) {
@@ -238,7 +236,7 @@ public class ShipmentService implements IShipmentService {
 
         HashMap<String, Object> keysValues = new HashMap<>();
         keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        List<String> attributes = List.of(UserDao.USR_ID);
         EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
         if (userData.isEmpty() || userData.isWrong()) {
@@ -299,7 +297,7 @@ public class ShipmentService implements IShipmentService {
 
         HashMap<String, Object> keysValues = new HashMap<>();
         keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        List<String> attributes = List.of(UserDao.USR_ID);
         EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
         if (userData.isEmpty() || userData.isWrong()) {

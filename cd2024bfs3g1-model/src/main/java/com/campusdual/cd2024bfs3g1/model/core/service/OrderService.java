@@ -44,7 +44,7 @@ public class OrderService implements IOrderService{
 
             HashMap<String, Object> keysValues = new HashMap<>();
             keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            List<String> attributes = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
             if (userData.isEmpty() || userData.isWrong()) {
@@ -72,7 +72,7 @@ public class OrderService implements IOrderService{
 
         HashMap<String, Object> keysValues = new HashMap<>();
         keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        List<String> attributes = List.of(UserDao.USR_ID);
         EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
         if (userData.isEmpty() || userData.isWrong()) {
@@ -101,7 +101,7 @@ public class OrderService implements IOrderService{
 
         HashMap<String, Object> keysValues = new HashMap<>();
         keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        List<String> attributes = List.of(UserDao.USR_ID);
         EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
         if (userData.isEmpty() || userData.isWrong()) {
@@ -198,7 +198,7 @@ public class OrderService implements IOrderService{
 
         HashMap<String, Object> keysValues = new HashMap<>();
         keysValues.put(UserDao.LOGIN, email);
-        List<String> attributes = Arrays.asList(UserDao.USR_ID);
+        List<String> attributes = List.of(UserDao.USR_ID);
         EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
         if (userData.isEmpty() || userData.isWrong()) {
@@ -239,7 +239,7 @@ public class OrderService implements IOrderService{
         double toyPrice = toyPriceDecimal.doubleValue();
 
         Integer priceInteger = (Integer) shipmentData.get(ShipmentDao.ATTR_PRICE);
-        Double shipmentPrice = priceInteger.doubleValue();
+        double shipmentPrice = priceInteger.doubleValue();
 
         double totalPrice = (toyPrice / (1 - JUKIDS_COMMISSION / 100)) + shipmentPrice;
 
@@ -320,7 +320,7 @@ public class OrderService implements IOrderService{
 
             HashMap<String, Object> keysValues = new HashMap<>();
             keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            List<String> attributes = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
             if (userData.isEmpty() || userData.isWrong()) {

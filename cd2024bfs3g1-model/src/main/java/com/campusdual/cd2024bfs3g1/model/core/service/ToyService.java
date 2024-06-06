@@ -3,9 +3,7 @@ package com.campusdual.cd2024bfs3g1.model.core.service;
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserLocationDao;
-import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.AdvancedEntityResultMapImpl;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
@@ -16,16 +14,12 @@ import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -44,8 +38,6 @@ public class ToyService implements IToyService {
     private OrderDao orderDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
-    @Autowired
-    private UserDao userDao;
 
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
@@ -101,25 +93,6 @@ public class ToyService implements IToyService {
 
 
         return  this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
-    }
-
-    @Override
-    public EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-
-        if(((Number) attrMap.get("price")).floatValue() < 0){
-            EntityResult errorPrice = new EntityResultMapImpl();
-            errorPrice.setCode(EntityResult.OPERATION_WRONG);
-            errorPrice.setMessage("El precio no puede ser negativo");
-            return errorPrice;
-        }
-
-        if(!Utils.validaEmail((String) attrMap.get("email"))) {
-            EntityResult error = new EntityResultMapImpl();
-            error.setCode(EntityResult.OPERATION_WRONG);
-            error.setMessage("El correo electrónico no es correcto");
-            return error;
-        }
-        return this.daoHelper.insert(this.toyDao, attrMap);
     }
 
     private AdvancedEntityResult advanceEntitySearchByDistance(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy, Hashtable<String, Object> fields) {
@@ -201,8 +174,6 @@ public class ToyService implements IToyService {
 
     }
 
-
-
     private EntityResult searchByDistance(Map<String, Object> keyMap, List<String> attrList) {
 
         // Borrar todas las localizaciones de mas de 10 minutos.
@@ -266,7 +237,6 @@ public class ToyService implements IToyService {
         return result;
     }
 
-
     @Override
     @Transactional
     public EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException{
@@ -276,7 +246,6 @@ public class ToyService implements IToyService {
         //Recuperamos TOY - PRICE y TOY - TRANSACTION_STATUS
 
         Integer toyId = (Integer) orderData.get(OrderDao.ATTR_TOY_ID);
-        String userEmail = (String) orderData.get(OrderDao.ATTR_BUYER_EMAIL);
 
         HashMap<String, Object> toyKeyValues = new HashMap<>();
         toyKeyValues.put(ToyDao.ATTR_ID, toyId);

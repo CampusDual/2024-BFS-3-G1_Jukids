@@ -38,7 +38,7 @@ public class ToyOwnerService implements IToyOwnerService {
         if (email != null) {
             HashMap<String, Object> keysValues = new HashMap<>();
             keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            List<String> attributes = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
             if (userData.isWrong()) {
@@ -71,7 +71,7 @@ public class ToyOwnerService implements IToyOwnerService {
         if (email != null) {
             HashMap<String, Object> keysValues = new HashMap<>();
             keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            List<String> attributes = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
             if (userData.isWrong()) {
@@ -105,7 +105,7 @@ public class ToyOwnerService implements IToyOwnerService {
         if (email != null) {
             HashMap<String, Object> keysValues = new HashMap<>();
             keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            List<String> attributes = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
             if (userData.isWrong()) {
@@ -139,7 +139,7 @@ public class ToyOwnerService implements IToyOwnerService {
         if (email != null) {
             HashMap<String, Object> keysValues = new HashMap<>();
             keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            List<String> attributes = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
             if (userData.isWrong()) {
@@ -175,7 +175,7 @@ public class ToyOwnerService implements IToyOwnerService {
         if (email != null) {
             HashMap<String, Object> keysValues = new HashMap<>();
             keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
+            List<String> attributes = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
 
             if (userData.isWrong()) {
@@ -208,7 +208,7 @@ public class ToyOwnerService implements IToyOwnerService {
         if (userLogin != null) {
             HashMap<String, Object> keysValues = new HashMap<>();
             keysValues.put(UserDao.LOGIN, userLogin);
-            List<String> attrList = Arrays.asList(UserDao.USR_ID);
+            List<String> attrList = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keysValues, attrList);
 
             if (userData.isWrong()) {
@@ -241,7 +241,7 @@ public class ToyOwnerService implements IToyOwnerService {
 
             HashMap<String, Object> keyUserValues = new HashMap<>();
             keyUserValues.put(UserDao.LOGIN, userLogin);
-            List<String> attrList = Arrays.asList(UserDao.USR_ID);
+            List<String> attrList = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keyUserValues, attrList);
 
             if (userData.isWrong()) {
@@ -257,7 +257,7 @@ public class ToyOwnerService implements IToyOwnerService {
 
             HashMap<String, Object> keyToyValues = new HashMap<>();
             keyToyValues.put(ToyDao.ATTR_USR_ID, idUser);
-            List<String> toyList = Arrays.asList(ToyDao.ATTR_USR_ID);
+            List<String> toyList = List.of(ToyDao.ATTR_USR_ID);
             EntityResult toyData = this.daoHelper.query(toyDao, keyToyValues, toyList);
 
             Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
@@ -285,7 +285,7 @@ public class ToyOwnerService implements IToyOwnerService {
 
             HashMap<String, Object> keyUserValues = new HashMap<>();
             keyUserValues.put(UserDao.LOGIN, userLogin);
-            List<String> attrList = Arrays.asList(UserDao.USR_ID);
+            List<String> attrList = List.of(UserDao.USR_ID);
             EntityResult userData = this.daoHelper.query(userDao, keyUserValues, attrList);
 
             if (userData.isWrong()) {
@@ -301,7 +301,7 @@ public class ToyOwnerService implements IToyOwnerService {
 
             HashMap<String, Object> keyToyValues = new HashMap<>();
             keyToyValues.put(ToyDao.ATTR_USR_ID, idUser);
-            List<String> toyList = Arrays.asList(ToyDao.ATTR_USR_ID);
+            List<String> toyList = List.of(ToyDao.ATTR_USR_ID);
             EntityResult toyData = this.daoHelper.query(toyDao, keyToyValues, toyList);
             Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
 
