@@ -232,5 +232,7 @@
   "BY_RATED": "By ",
   "MY_RATINGS": "My ratings",
   "BACK_BUTTON": "Back",
-  "AVAILABLE_MONEY": "You have sold: "
+  "AVAILABLE_MONEY": "You have sold: ",
+  "TOY_UNAVAILABLE": "This product is not longer available!",
+  "WE_ARE_SORRY": "We are sorry for the inconvenience"
 }
