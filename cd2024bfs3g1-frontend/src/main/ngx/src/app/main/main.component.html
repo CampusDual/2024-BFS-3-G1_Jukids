@@ -7,8 +7,11 @@
       <div class="searchBar">
         <!--<o-text-input  #searcher attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>-->
         <!--<input #searcher read-only="no" name="{{ 'SEARCH_BAR' | oTranslate }}" appearance="outline" fxFlex="100">-->
-        <o-text-input  #searcherkey attr="searcherkey" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>
-        <button (click)="searchNameAndDescription()" class="button btn-outline-light" type="RAISED">Buscar</button>
+        <o-form>
+
+          <o-text-input  #searcherkey attr="searcherkey" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>
+          <button (click)="searchNameAndDescription()" class="button btn-outline-light" type="RAISED">Buscar</button>
+        </o-form>
       </div>
       <div class="nav-right-side">
         <button *ngIf="validAdmin()" class="button btn-outline-dark" type="button" (click)="adminRedirect()">
