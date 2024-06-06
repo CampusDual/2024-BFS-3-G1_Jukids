@@ -5,12 +5,11 @@
         <p class="title" routerLink="/">JuKids</p>
       </div>
       <div class="searchBar">
-        <!--<o-text-input  #searcher attr="name" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>-->
-        <!--<input #searcher read-only="no" name="{{ 'SEARCH_BAR' | oTranslate }}" appearance="outline" fxFlex="100">-->
         <o-form>
-
-          <o-text-input  #searcherkey attr="searcherkey" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>
-          <button (click)="searchNameAndDescription()" class="button btn-outline-light" type="RAISED">Buscar</button>
+          <div class="search-container">
+            <o-text-input  #searcherkey attr="searcherkey" read-only="no" fxFlex="100" label="{{ 'SEARCH_BAR' | oTranslate }}" icon="search" appearance="outline"></o-text-input>
+            <button (click)="searchNameAndDescription()" class="search-button" type="RAISED">Buscar</button>
+          </div>
         </o-form>
       </div>
       <div class="nav-right-side">
@@ -28,10 +27,9 @@
   </o-app-layout-header>
 
   <o-user-info-configuration show-profile="no" show-settings="no">
-
     <o-user-info-configuration-item name="{{ 'MY_PROFILE' | oTranslate }}" icon="format_list_bulleted"
       route="/main/user-profile"></o-user-info-configuration-item>
-
   </o-user-info-configuration>
   <router-outlet></router-outlet>
 </o-app-layout>
+

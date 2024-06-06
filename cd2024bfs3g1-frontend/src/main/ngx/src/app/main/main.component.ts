@@ -37,6 +37,7 @@ export class MainComponent implements OnInit {
     this.router.navigateByUrl("/main/admin");
   }
 
+
   constructor(
     protected injector: Injector,
     private router: Router,
@@ -47,6 +48,7 @@ export class MainComponent implements OnInit {
     private oUserInfoService: OUserInfoService,
     private dialog: MatDialog
   ) {}
+
 
   isLogged() {
     //Se cierra el dialogo al iniciar sesion
@@ -86,6 +88,7 @@ export class MainComponent implements OnInit {
     });
   }
 
+
   modal(idModal: string) {
     this.dialog.open(LoginComponent, {
       id: idModal,
@@ -93,13 +96,8 @@ export class MainComponent implements OnInit {
     });
   }
 
-  searchNameAndDescription() {
-    console.log(this.searcherkey.getValue())
-    if(!this.searcherkey.isEmpty()){
-           this.router.navigate(["/main/toys"], {
-        queryParams: { keyword: this.searcherkey.getValue() },
-      });
-    }
- 
+  searchNameAndDescription(){
+    if (!this.searcherkey.isEmpty ())
+    this.router.navigate(['/main/toys'], {queryParams:{keyword: this.searcherkey.getValue()}});
   }
 }
