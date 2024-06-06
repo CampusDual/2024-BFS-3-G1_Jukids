@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { AuthService, DialogService, ODialogConfig, SnackBarService, OSnackBarConfig, OFormComponent, OTableBase, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
@@ -13,9 +14,10 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
 })
 
 export class UserPurchasedToylistComponent {
+  baseUrl: string;
   public userInfo;
   private redirect = '/toys';
-  
+
   //Indice inicial para pestañas de tablas
   public currentTabIndex = 0; //First Tab
 
@@ -42,7 +44,8 @@ export class UserPurchasedToylistComponent {
     protected dialogService: DialogService,
     protected snackBarService: SnackBarService,
     private oServiceShipment: OntimizeService,
-    public userInfoService: UserInfoService) {
+    public userInfoService: UserInfoService,
+    private sharedDataService:SharedDataService) {
 
     const conf2 = this.oServiceShipment.getDefaultServiceConfiguration('shipments');
     this.oServiceShipment.configureService(conf2);
@@ -55,20 +58,20 @@ export class UserPurchasedToylistComponent {
   }
 
   //Cambia de estado 2 a 3 y refesca las tablas de ambos estados
-  //pide confirmación, muestra mensaje de confirmación, lanza a la siguiente pestaña actualizada  
+  //pide confirmación, muestra mensaje de confirmación, lanza a la siguiente pestaña actualizada
   public checkReceive(e: any) {
     if (this.dialogService) {
       this.dialogService.confirm(this.translate.get('CONFIRMATION_TITLE'), this.translate.get('RECEPTION_CONFIRMATION'));
       this.dialogService.dialogRef.afterClosed().subscribe( result => {
         if(result) {
           //let selectedIndex = this.tabGroup.selectedIndex;
-          this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual     
+          this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual
           const kv = {"toyid": e.toyid};
           const av = {"transaction_status": this.STATUS_RECEIVED}
           this.oServiceShipment.update(kv, av, "shipmentReceived").subscribe(result => {
             this.tableReceived.refresh();
             this.tableConfirm.refresh();
-            this.currentTabIndex = this.currentTabIndex + 1; //actualica el indice de pestaña a la siguiente una vez confirmado        
+            this.currentTabIndex = this.currentTabIndex + 1; //actualica el indice de pestaña a la siguiente una vez confirmado
           })
           this.snackBarService.open(this.translate.get('CONFIRMED'));
         } else {
@@ -85,9 +88,9 @@ export class UserPurchasedToylistComponent {
       this.dialogService.confirm(this.translate.get('CONFIRMATION_TITLE'), this.translate.get('OK_CONFIRMATION'));
       this.dialogService.dialogRef.afterClosed().subscribe( result => {
         if(result) {
-          this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual  
+          this.currentTabIndex = this.tabGroup.selectedIndex; //recoge el indice de pestaña actual
           const kv = {"toyid": e.toyid};
-          const av = {"transaction_status": this.STATUS_PURCHASED}    
+          const av = {"transaction_status": this.STATUS_PURCHASED}
           this.oServiceShipment.update(kv, av, "shipmentConfirmed").subscribe(result => {
             this.tableConfirm.refresh();
             this.tablePurchased.refresh();
@@ -100,7 +103,7 @@ export class UserPurchasedToylistComponent {
       })
     }
   }
-  
+
   showCustom(
     icon: string,
     btnText: string,
@@ -116,4 +119,17 @@ export class UserPurchasedToylistComponent {
     }
   }
 
+  onRate(toyId:number,toyPhoto: string, toyName:string, sellerId:number, sellerName:string, buyerId:number){
+    // Almacenar valores para compartirlos a través del servicio
+    this.sharedDataService.setData({ toyId, toyPhoto, toyName, sellerId, sellerName, buyerId});
+    this.router.navigate(["/survey"]);
+  }
+
+  ngOnInit(): void {
+    this.baseUrl = window.location.origin;
+
+    if (this.baseUrl.includes('localhost')) {
+      this.baseUrl = 'http://localhost:8080';
+    }
+  }
 }

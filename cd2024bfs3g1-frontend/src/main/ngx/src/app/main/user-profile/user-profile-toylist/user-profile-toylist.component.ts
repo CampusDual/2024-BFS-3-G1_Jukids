@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatTabGroup } from '@angular/material/tabs';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
+import { OTableBase, OTableColumnComponent, OTextInputComponent, OntimizeService } from 'ontimize-web-ngx';
 import { AuthService, OTableBase, OTableColumnComponent, OTextInputComponent, OntimizeService } from 'ontimize-web-ngx';
 import { OTranslateService, DialogService, ODialogConfig, SnackBarService, OSnackBarConfig } from 'ontimize-web-ngx';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
@@ -16,12 +17,13 @@ import { from } from 'rxjs';
 
 })
 
-export class UserProfileToylistComponent {
+export class UserProfileToylistComponent implements OnInit{
   private STATUS_AVAILABLE: Number = 0;
   private STATUS_PENDING_SHIPMENT: Number = 1;
   private STATUS_SENT: Number = 2;
   private STATUS_RECEIVED: Number = 3;
   private STATUS_PURCHASED: Number = 4;
+  infoToysSold: string;
 
   //Indice inicial para pestañas de tablas
   public currentToysTabIndex = 0; //First Tab
@@ -42,10 +44,15 @@ export class UserProfileToylistComponent {
     protected dialogService: DialogService,
     protected snackBarService: SnackBarService,
     private oServiceShipment: OntimizeService,
-    public userInfoService: UserInfoService) {
+    private oServiceToys: OntimizeService,
+    public userInfoService: UserInfoService,
+    protected injector: Injector) {
 
     const conf2 = this.oServiceShipment.getDefaultServiceConfiguration('shipments');
+    const toysConf = this.oServiceToys.getDefaultServiceConfiguration('toys');
+
     this.oServiceShipment.configureService(conf2);
+    this.oServiceToys.configureService(toysConf);
 
     this.userInfo = this.userInfoService.getUserInfo();
     if (!this.jukidsAuthService.isLoggedIn()) {
@@ -54,14 +61,35 @@ export class UserProfileToylistComponent {
     }
   }
 
-  //Metodo de confirmar el envio por parte del vendedor 
+  ngOnInit(): void {
+
+    const filter = {
+      usr_id: this.userInfo.usr_id
+    }
+
+    const columns = ["price"];
+
+    this.oServiceToys
+      .query(filter, columns, "sumPriceToysSold")
+      .subscribe({
+        next: (resp:any) => {
+          if (resp.code === 0 && resp.data.length > 0) {
+            this.infoToysSold = resp.data[0].price.toFixed(1) + " €";
+          } else {
+            this.infoToysSold = "0 €";
+          }
+        }
+      });
+  }
+
+  //Metodo de confirmar el envio por parte del vendedor
   //(con doble confirmacion, mensaje de confirmación y salto a la siguiente pestaña actualizada)
   public sendSubmit(e: any) {
     if (this.dialogService) {
       this.dialogService.confirm(this.translate.get('CONFIRMATION_TITLE'), this.translate.get('OK_CONFIRMATION'));
       this.dialogService.dialogRef.afterClosed().subscribe( result => {
         if(result) {
-          this.currentToysTabIndex = this.toysTabGroup.selectedIndex; //recoge el indice de pestaña actual          
+          this.currentToysTabIndex = this.toysTabGroup.selectedIndex; //recoge el indice de pestaña actual
           const kv = { "toyid": e };
           const av = { "sender_address": this.senderAddress.getValue(),"transaction_status": this.STATUS_SENT }
           this.oServiceShipment.update(kv, av, "shipmentSent").subscribe(result => {
@@ -75,5 +103,5 @@ export class UserProfileToylistComponent {
       })
     }
   }
-  
+
 }

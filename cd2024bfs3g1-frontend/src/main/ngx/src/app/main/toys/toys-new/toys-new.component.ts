@@ -50,10 +50,16 @@ export class ToysNewComponent implements OnInit{
     const serviceConfig = this.ontimizeService.getDefaultServiceConfiguration(this.toyService);
     this.ontimizeService.configureService(serviceConfig);
     //Se escuchan los cambios del servicio
-    this.toysMapService.getLocation().subscribe(data => {
-      this.location = data;
-
+    this.toysMapService.getLocation().subscribe(location => {
+      if (location) {
+        this.lat.setValue(location.latitude);
+        this.lon.setValue(location.longitude);
+        this.isMapLatLongSelected = true; // Set flag to indicate location selection
+      }
     });
+
+    this.toysMapService.getUserGeolocation(); // Call to get user's location
+
 
     setTimeout(() => {
       this.mainService.getUserInfo().subscribe((data)=>{
