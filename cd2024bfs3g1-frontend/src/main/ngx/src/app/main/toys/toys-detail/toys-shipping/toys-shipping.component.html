@@ -1,4 +1,4 @@
-<button class="backBtn" mat-flat-button [routerLink]="['/']">
+<button class="backBtn" (click)="backDetail(toyId.getValue())" mat-flat-button>
   <mat-icon>arrow_back_ios_new</mat-icon>
   {{'BACKBTN' | oTranslate}}
 </button>
@@ -19,16 +19,16 @@
 
     <mat-radio-group *ngIf="shippingInput.getValue()" #buyOption class="radioGroup" aria-label=""
       (change)="showFormShipments()">
-      <mat-radio-button #BuySend value="1" checked>{{'BUY_AND_SEND' | oTranslate}}</mat-radio-button>
       <mat-radio-button #onlyBuy value="2">{{'BUY' | oTranslate}}</mat-radio-button>
+      <mat-radio-button #BuySend value="1" checked>{{'BUY_AND_SEND' | oTranslate}}</mat-radio-button>
     </mat-radio-group>
 
 
-    <div class="cardShipments">
+    <div class="cardShipments" ngif="issetSend">
 
       <o-form id="formShipments" class="formShipments" #formShipments service="orders" entity="orderAndShipment"
         keys="shipment_id" show-header-navigation="no" show-header="no" layout-direction="column" header-actions="I"
-        (onDataLoaded)="setData()">
+        (onDataLoaded)="setData()" >
         <h2>{{'TITLE_FORM_SHIPMENTS' | oTranslate}}</h2>
         <o-column>
           <div class="divLabel">
@@ -117,7 +117,7 @@
             </div>
           </div>
         </div>
-        <button #buyButton class="button btn-checkout hidden" (click)="newBuy()">
+        <button #buyButton class="button btn-checkout" (click)="newBuy()">
           <span>{{'PAY' | oTranslate}}</span>
         </button>
 
@@ -129,14 +129,8 @@
             <button #payButton class="button btn-checkout" (click)="paySubmit()">{{'CONFIRM' | oTranslate }}</button>
           </o-form>
         </div>
-
-
-
       </div>
-
     </div>
-
-
   </o-form>
 
 
