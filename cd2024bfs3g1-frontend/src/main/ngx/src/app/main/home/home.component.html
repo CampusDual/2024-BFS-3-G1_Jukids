@@ -9,33 +9,33 @@
   <!-- buttons to category filtered queries -->
   <div class="icons-box">
     <div class="claim">
-      <p class="category-search-claim">Busca entre las categorías más populares de JUKIDS</p>
+      <p class="category-search-claim">{{ 'SEARCH_CATEGORIES' | oTranslate }}</p>
     </div>
     <div class="smallcards-container">
 
       <div class="smallcard">
           <img id="figures" (click)="searchCategory('cat_Figures')" src="assets/icons/figure.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
-        <div class="icon-name">FIGURAS</div>
+        <div class="icon-name">{{ 'FIGURES' | oTranslate }}</div>
       </div>
       <div class="smallcard">
           <img id="videogames" (click)="searchCategory('cat_Videogames')" src="assets/icons/controller.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
-        <div class="icon-name">VIDEOJUEGOS</div>
+        <div class="icon-name">{{ 'VGAMES' | oTranslate }}</div>
         </div>
         <div class="smallcard">
           <img id="childrenToys" (click)="searchCategory('cat_ChildrensToys')" src="assets/icons/cube.png" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}">
-        <div class="icon-name">INFANTILES</div>
+        <div class="icon-name">{{ 'CHILDRENSTOYS' | oTranslate }}</div>
       </div>
       <div class="smallcard">
           <img id="collectibles" (click)="searchCategory('cat_Collectibles')" src="assets/icons/collectibles.png" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}">
-        <div class="icon-name">COLECCIÓN</div>
+        <div class="icon-name">{{ 'COLLECTIBLES' | oTranslate }}</div>
       </div>
       <div class="smallcard">
           <img id="plushies" (click)="searchCategory('cat_Plushies')" src="assets/icons/teddybear.png" class="icon" title="{{ 'LEGO_DESC_ICON' | oTranslate }}">
-        <div class="icon-name">PELUCHES</div>
+        <div class="icon-name">{{ 'PLUSHIES' | oTranslate }}</div>
       </div>
       <div class="smallcard">
           <img id="dolls" (click)="searchCategory('cat_Dolls')" src="assets/icons/doll.png" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}">
-        <div class="icon-name">MUÑECAS</div>
+        <div class="icon-name">{{ 'FIGURES' | oTranslate }}</div>
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'FIGURES' | oTranslate }}</p>
       <p class="row-title">{{ 'FIGURES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Figures')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Figures')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -88,7 +88,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'PLUSHIES' | oTranslate }}</p>
       <p class="row-title">{{ 'PUSHIES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Plushies')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Plushies')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -131,7 +131,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'CHILDRENSTOYS' | oTranslate }}</p>
       <p class="row-title">{{ 'CHILDRENS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_ChildrensToys')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_ChildrensToys')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -174,7 +174,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'BOARDGAMES' | oTranslate }}</p>
       <p class="row-title">{{ 'BOARD_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Board')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Board')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -217,7 +217,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'DOLLS' | oTranslate }}</p>
       <p class="row-title">{{ 'DOLLS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Dolls')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Dolls')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -260,7 +260,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'ACTION_TOYS' | oTranslate }}</p>
       <p class="row-title">{{ 'ACTION_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_ActionToys')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_ActionToys')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -303,7 +303,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'VGAMES' | oTranslate }}</p>
       <p class="row-title">{{ 'VGAMES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Videogames')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Videogames')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -345,7 +345,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'CRAFTS' | oTranslate }}</p>
       <p class="row-title">{{ 'CRAFTS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Crafts')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Crafts')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -388,7 +388,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'PEDAGOGICAL' | oTranslate }}</p>
       <p class="row-title">{{ 'PEDAGOGICAL_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Pedagogical')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Pedagogical')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <p class="row-title"></p>
     <div class="grid-container">
@@ -432,7 +432,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'SPORTS' | oTranslate }}</p>
       <p class="row-title">{{ 'SPORTS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Sport')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Sport')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -475,7 +475,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'ELECTRONIC' | oTranslate }}</p>
       <p class="row-title">{{ 'ELECTRONIC_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Electronic')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Electronic')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -517,7 +517,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'COLLECTIBLES' | oTranslate }}</p>
       <p class="row-title">{{ 'COLLECTIBLES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Collectibles')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Collectibles')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -560,7 +560,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'ANTIQUES' | oTranslate }}</p>
       <p class="row-title">{{ 'ANTIQUES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Antiques')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Antiques')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -602,7 +602,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'CARDS' | oTranslate }}</p>
       <p class="row-title">{{ 'CARDS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Cards')" class="anchor">VER TODO</a>
+      <a (click)="searchCategory('cat_Cards')" class="anchor">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid

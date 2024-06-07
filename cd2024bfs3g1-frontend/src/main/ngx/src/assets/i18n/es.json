@@ -245,7 +245,7 @@
   "PUZZLE_DESC_ICON": "¿A quién le amarga un puzzle?",
   "FIGURES_LANDING_CATCHY_PHRASE": "Figuras con pasado, figuras con historia",
   "PUSHIES_LANDING_CATCHY_PHRASE": "Los peluches más cuquis",
-  "CHILDRENS_LANDING_CATCHY_PHRASE": "Para las personas más pequeñas de la casa",
+  "CHILDRENS_LANDING_CATCHY_PHRASE": "Juguetes infantiles",
   "BOARD_LANDING_CATCHY_PHRASE": "Juegos de mesa y puzzles",
   "DOLLS_LANDING_CATCHY_PHRASE": "Las mejores muñecas de todos los tiempos",
   "ACTION_LANDING_CATCHY_PHRASE": "Juguetes de acción",
@@ -255,7 +255,8 @@
   "SPORTS_LANDING_CATCHY_PHRASE": "Juguetes deportivos",
   "ELECTRONIC_LANDING_CATCHY_PHRASE": "Los mejores juguetes electrónicos",
   "COLLECTIBLES_LANDING_CATCHY_PHRASE": "Presume en tus estanterías con nuestros juguetes de colección",
-  "ANTIQUES_LANDING_CATCHY_PHRASE": "Los mejores juguetes RETROKIDS",
+  "ANTIQUES_LANDING_CATCHY_PHRASE": "RETROKIDS",
+  "CARDS_LANDING_CATCHY_PHRASE": "Juegos de cartas",
   "FIGURES": "Figuras",
   "PLUSHIES": "Peluches",
   "CHILDRENSTOYS": "Infantil",
@@ -268,5 +269,7 @@
   "ELECTRONIC": "Electrónicos",
   "COLLECTIBLES": "De colección",
   "ANTIQUES": "RetroJIDS",
-  "CARDS": "Juegos de cartas"
+  "CARDS": "Juegos de cartas",
+  "SEE_ALL": "Ver todo",
+  "SEARCH_CATEGORIES": "Categorías JUKIDS más polpulares"
 }
