@@ -1,4 +1,5 @@
 <o-form class="form" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()" >
+  <div class="collapsible-container">
   <o-column-collapsible attr="container" title="{{ 'FILTERS_TOYS' | oTranslate }}" icon="filter_list" elevation="3" appearance="none" expanded="no" layout-align="start stretch">
     <div class="searchFilters">
       <o-combo #categoryField appearance="outline" label="category" id="category" null-selection="no" attr="category"
@@ -40,6 +41,7 @@
       [expression-builder]="createFilter"></o-filter-builder>
     </div>
     </o-column-collapsible>
+  </div>
 </o-form>
 
 <div>
