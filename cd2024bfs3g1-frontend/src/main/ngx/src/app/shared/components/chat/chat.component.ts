@@ -12,7 +12,7 @@ import { ServiceResponse } from 'ontimize-web-ngx';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, OnDestroy  {
+export class ChatComponent implements OnInit  {
 
   baseUrl: string;
   toyId: number;
@@ -50,12 +50,9 @@ export class ChatComponent implements OnInit, OnDestroy  {
       this.baseUrl = 'http://localhost:8080';
     }
 
-
-    
-
     //============================= AL INICIAR TIENE QUE CONECTAR VER SI HAY QUE CREAR LA SALA =============================
     let chatJR: ChatJoinRoomInterface = {
-      customerId: this.data.customer_id,
+      customerId: this.customer_id,
       toyId: this.toyId
     }
     this.chatService.joinRoom(chatJR);
@@ -71,12 +68,14 @@ export class ChatComponent implements OnInit, OnDestroy  {
         console.log(err);
       }
     });
+
     //============================= Ver mensajes y actualizar =============================
     this.chatService.getMessage().subscribe({
       next: (data: ChatMessageResponseInterface) => {
         // console.log("messages: ", this.messages);
         let nowInsertedDateChat;
-        if(data.insertedDate.includes("CEST")) {
+        if( typeof data.insertedDate == "string" 
+            && data.insertedDate.indexOf('CEST') > -1 ) {
             nowInsertedDateChat = new Date();
             data.insertedDate = nowInsertedDateChat;
         }
@@ -105,6 +104,7 @@ export class ChatComponent implements OnInit, OnDestroy  {
     this.dialog.getDialogById('Chat').close();
     this.messages = [];
     this.msgCount = -1;
+    this.chatService.disconnectRoom();
   }
 
   sendMessage(message: string) {
@@ -124,11 +124,6 @@ export class ChatComponent implements OnInit, OnDestroy  {
   }
 
   
- 
-  
-  ngOnDestroy(): void {
-    this.chatService.disconnectRoom();
-  }
 
 
 }
