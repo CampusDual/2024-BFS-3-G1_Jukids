@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogService, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, OComboComponent, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { LoginComponent } from 'src/app/login/login.component';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-toys-shipping',
@@ -18,7 +19,7 @@ export class ToysShippingComponent implements OnInit {
   // En commission ponemos el tanto por ciento de comision
   public commission: number = 7;
   public warrantyPrice: number;
-  // Se contenplan 3 euros de gastos de envio
+  // Se contemplan 3 euros de gastos de envio
   public priceSend: number = 3.00;
   public issetSend: boolean = false;
   // Compañias de envio
@@ -54,9 +55,12 @@ export class ToysShippingComponent implements OnInit {
   @ViewChild('buyButton') buyButton;
   @ViewChild('emailForm') emailForm;
   @ViewChild('buyerEmail') protected buyerEmail: OEmailInputComponent;
+  @ViewChild('orderId') protected orderId: OTextInputComponent;
+  @ViewChild('shippingAddress') protected shippingAddress: OTextInputComponent;
+  @ViewChild('buyerPhone') protected buyerPhone: OTextInputComponent;
+  @ViewChild('shipmentCompany') protected shipmentCompany: OComboComponent;
   @ViewChild('buttonAcceptPay') AcceptPayButton;
   @ViewChild('stripe') stripe: StripeComponent;
-
   @ViewChild('buy') buy: any;
 
   constructor(
@@ -138,9 +142,23 @@ export class ToysShippingComponent implements OnInit {
       this.emailForm.nativeElement.classList.remove("hidden")
     } else {
       const avOrder = { "toyid": this.toyId.getValue() }
-      this.oServiceOrder.insert(avOrder, "order").subscribe(result => {
-      })
-      this.checkout();
+
+      this.oServiceOrder.insert(avOrder, "order").pipe(
+        catchError(error => {
+          let availableError = this.translate.get("WE_ARE_SORRY");
+          this.showCustom("error", "Ok", this.translate.get("TOY_UNAVAILABLE"), availableError);
+          return throwError(error);
+        })
+      ).subscribe(result => {
+        if (result.code !== 1) {
+
+          this.checkout();
+        } else {
+          let availableError = "";
+          this.showCustom("error", "Ok", this.translate.get("TOY_UNAVAILABLE"), availableError);
+          return;
+        }
+      });
     }
   }
 
@@ -164,9 +182,22 @@ export class ToysShippingComponent implements OnInit {
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
     }else{
       const av = { "toyid": this.toyId.getValue(), "buyer_email": this.buyerEmail.getValue() }
-    this.oServiceToy.insert(av, "order").subscribe(result => {
-    })
-    this.checkout();
+    this.oServiceToy.insert(av, "order").pipe(
+        catchError(error => {
+          let availableError = this.translate.get("WE_ARE_SORRY");
+          this.showCustom("error", "Ok", this.translate.get("TOY_UNAVAILABLE"), availableError);
+          return throwError(error);
+        })
+      ).subscribe(result => {
+        if (result.code !== 1) {
+
+          this.checkout();
+        } else {
+          let availableError = this.translate.get("WE_ARE_SORRY");
+          this.showCustom("error", "Ok", this.translate.get("TOY_UNAVAILABLE"), availableError);
+          return;
+        }
+      });
     }
   }
 
@@ -184,12 +215,6 @@ export class ToysShippingComponent implements OnInit {
     let errorPhone = "ERROR_PHONE_VALIDATION";
     let errorCompany = "ERROR_COMPANY_VALIDATION";
 
-    // if(getFieldValues.name === undefined || getFieldValues.name.trim() === ""){
-    //   arrayErrores.push(this.translate.get(errorName));
-    // }
-    // if(getFieldValues.email_buyer === undefined || getFieldValues.email_buyer.trim() === "" || !regExpEmail.test(getFieldValues.email_buyer.trim())){
-    //   arrayErrores.push(this.translate.get(errorEmail));
-    // }
     if (getFieldValues.shipping_address === undefined || getFieldValues.shipping_address.trim() === "") {
       arrayErrores.push(this.translate.get(errorAddress));
     }
@@ -197,7 +222,6 @@ export class ToysShippingComponent implements OnInit {
       arrayErrores.push(this.translate.get(errorPhone));
     }
     if (getFieldValues.shipment_company === undefined) {
-      // getFieldValues.company = this.defaultCompany;
       arrayErrores.push(this.translate.get(errorCompany));
     }
 
@@ -208,8 +232,31 @@ export class ToysShippingComponent implements OnInit {
       }
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
     } else {
-      this.formShipments.insert();
-      this.checkout();
+
+      const avOrder =  {
+
+        "order_id": this.orderId.getValue(),
+        "shipping_address": this.shippingAddress.getValue(),
+        "buyer_phone": this.buyerPhone.getValue(),
+        "shipment_company": this.shipmentCompany.getValue(),
+        "price":this.price.getValue()
+       }
+
+      this.oServiceOrder.insert(avOrder, "orderAndShipment").pipe(
+        catchError(error => {
+          let availableError = this.translate.get("WE_ARE_SORRY");
+          this.showCustom("error", "Ok", this.translate.get("TOY_UNAVAILABLE"), availableError);
+          return throwError(error);
+        })
+      ).subscribe(result => {
+        if (result.code !== 1) {
+          this.checkout();
+        } else {
+          let availableError = this.translate.get("WE_ARE_SORRY");
+          this.showCustom("error", "Ok", this.translate.get("TOY_UNAVAILABLE"), availableError);
+          return;
+        }
+      });
     }
   }
 
