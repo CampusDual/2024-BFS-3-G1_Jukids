@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IUserOwnerService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
+import com.fasterxml.jackson.core.Base64Variant;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -25,6 +26,9 @@ public class UserOwnerService implements IUserOwnerService {
     private UserDao userDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private UserAndRoleService userAndRoleService;
+
     @Override
     public EntityResult userQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -50,7 +54,7 @@ public class UserOwnerService implements IUserOwnerService {
 
             return this.daoHelper.query(this.userDao, keyMap, attrList);
 
-        }else{
+        } else {
 
             return createError("No estas logueado");
         }
@@ -79,12 +83,20 @@ public class UserOwnerService implements IUserOwnerService {
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
             keyMap.put(UserDao.USR_ID, idUser);
 
+            // Encriptar la contraseña si está presente en los atributos
+            if (attrMap.containsKey("usr_password")) {
+                String password = (String) attrMap.get("usr_password");
+                String encodedPassword = userAndRoleService.encryptPassword(password);
+                attrMap.put("usr_password", encodedPassword);
+            }
+
             return this.daoHelper.update(this.userDao, attrMap, keyMap);
         } else {
-            return createError("No estas logueado");
+            return createError("No estás logueado");
         }
     }
-    private EntityResult createError(String mensaje){
+
+    private EntityResult createError(String mensaje) {
 
         EntityResult errorEntityResult = new EntityResultMapImpl();
         errorEntityResult.setCode(EntityResult.OPERATION_WRONG);

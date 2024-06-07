@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
+import { OFormComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { MainService } from 'src/app/shared/services/main.service';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
@@ -11,15 +11,18 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
   styleUrls: ['./user-profile-home.component.css']
 })
 export class UserProfileHomeComponent implements OnInit {
+  
+    @ViewChild('usr_id') usrIdField : OTextInputComponent;
+    @ViewChild('formUserDetail') formUserDetail:OFormComponent;
+      //============== Variable de URL BASE =================
+  public baseUrl: string;
+
   public userInfo;
   private redirect = '/toys';
   protected service: OntimizeService;
 
   varRating: number = 0;
   ratingData: string = 'No rating available';
-
-  @ViewChild('usr_id') usrIdField : OTextInputComponent;
-
   usrId : number = null;
   mainInfo: any = {};
   
@@ -43,7 +46,12 @@ export class UserProfileHomeComponent implements OnInit {
     const conf = this.service.getDefaultServiceConfiguration('surveys');
     this.service.configureService(conf);
   }
-
+  loadFormData() {
+    if (this.formUserDetail) {
+      this.formUserDetail.setData(this.mainInfo);
+    }
+  }
+  
   ngOnInit(): void {
     this.mainService.getUserInfo().subscribe((result: ServiceResponse) => {
         this.usrId = result.data["usr_id"]; 
@@ -51,6 +59,11 @@ export class UserProfileHomeComponent implements OnInit {
         this.mainInfo = result.data;  // Guardar los datos en mainInfo
         this.dataLoaded(); // Cargar los datos al cargar el id
     })
+
+    this.baseUrl = window.location.origin;
+    if (this.baseUrl.includes('localhost')) {
+      this.baseUrl = 'http://localhost:8080';
+    }
   }
 
   dataLoaded() {
@@ -71,7 +84,7 @@ export class UserProfileHomeComponent implements OnInit {
     this.service
       .query(filter, columns, 'userAverageRating')
       .subscribe((resp) => {
-        console.log(resp.data[0]);
+        console.log(resp.data);
         if (resp.code === 0 && resp.data.length > 0) {
           this.varRating = resp.data[0].rating.toFixed(1);;
         } else {

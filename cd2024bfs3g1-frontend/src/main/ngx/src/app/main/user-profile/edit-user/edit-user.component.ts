@@ -12,6 +12,7 @@ export class EditUserComponent implements OnInit {
   private redirect = '/main/user-profile';
   protected service: OntimizeService;
 
+
   @ViewChild('formUserEdit') formUserEdit: OFormComponent;
 
   usrId: number = null;
@@ -20,7 +21,8 @@ export class EditUserComponent implements OnInit {
   constructor(
     private router: Router,
     private mainService: MainService,
-    private injector: Injector
+    private injector: Injector,
+     
   ) {
     this.service = this.injector.get(OntimizeService);
     this.configureService();
@@ -44,7 +46,7 @@ export class EditUserComponent implements OnInit {
       this.formUserEdit.setData(this.mainInfo);
     }
   }
-
+  
   saveForm() {
     const formData = this.formUserEdit.getDataValues();
     if (this.validateData(formData)) {
@@ -62,9 +64,25 @@ export class EditUserComponent implements OnInit {
       );
     }
   }
-
+  loadUpdatedUserData() {
+    if (this.usrId !== null) {
+      this.service.query({ usr_id: this.usrId }, ['usr_id', 'usr_name', 'usr_surname', 'usr_login', 'usr_password', 'usr_photo']).subscribe(
+        res => {
+          if (res.code === 0) {
+            this.mainInfo = res.data[0];
+            this.loadFormData();
+          } else {
+            console.error('Error loading updated user data', res.message);
+          }
+        },
+        error => {
+          console.error('Error loading updated user data', error);
+        }
+      );
+    }
+  }
   validateData(data: any): boolean {
-    return data.usr_name && data.usr_surname && data.usr_login && data.usr_password;
+    return data.usr_name && data.usr_surname && data.usr_login && data.usr_password && data.usr_photo;
   }
 
   profileRedirect() {
