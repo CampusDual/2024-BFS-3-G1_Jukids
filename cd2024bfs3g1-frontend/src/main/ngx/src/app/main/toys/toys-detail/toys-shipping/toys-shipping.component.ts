@@ -82,7 +82,7 @@ export class ToysShippingComponent implements OnInit {
   showFormShipments() {
     if (this.buyOption._checked) {
       this.issetSend = false;
-      this.form.classList.add("hidden")
+  
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")

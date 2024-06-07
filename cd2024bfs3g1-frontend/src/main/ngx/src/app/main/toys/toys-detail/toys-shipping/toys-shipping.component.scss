@@ -38,22 +38,26 @@
         width: 100%;
         padding: 0.75rem 0;
     }
+    .custom-button{
+        background-color: gainsboro;
+        border-radius: 10px;
+        mat-icon{
+            margin-right: 0.3rem;
+        }
+    }
 
     .radioGroup {
         display: flex;
         justify-content: space-evenly;
-        margin-bottom: 2rem;
-
-        mat-radio-button {
-            margin: 5px 20px;
-        }
+        border: none;
     }
 
     .cardShipments {
         display: flex;
         justify-content: center;
-        gap: 24px;
+        gap: 2rem;
         margin-top: 1.75rem;
+    
 
         @media screen and (max-width: 900px) {
             flex-direction: column;
@@ -165,6 +169,10 @@
             }
         }
 
+    }
+    .divLabel{
+        margin-bottom: 1rem;
+        border-radius: 10px;
     }
 
     .btn-checkout {
