@@ -290,10 +290,11 @@ public class SocketIOService {
             //Recibo los datos del lado del seller
             EntityResult sellerData = toyService.getToysSellerDataQuery(sellerDataKeyMap, sellerDataAttrList);
 
+            //Recibo los datos del lado del customer
             EntityResult customerData = this.daoHelper.query( this.userDao, customerDataKeyMap, customerDataAttrList );
 
             sendMessage.setCustomerId(
-                    customerData.get( UserDao.USR_ID ).toString()
+                    customerData.getRecordValues(0).get(UserDao.USR_ID).toString()
             );
             sendMessage.setOwnerId(
                     recieveMessage.getCustomerId()
@@ -308,7 +309,7 @@ public class SocketIOService {
                    new Date().toString()
             );
             sendMessage.setCustomerName(
-                    customerData.get( UserDao.NAME ).toString()
+                    customerData.getRecordValues(0).get(UserDao.NAME).toString()
             );
             sendMessage.setCustomerAvatar(
                     (customerData.get( UserDao.PHOTO ) != null ) ?

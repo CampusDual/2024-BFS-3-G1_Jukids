@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, Inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, Inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ChatMessageModelInterface, ChatMessageResponseInterface } from '../../interfaces/chat-message.interface';
 import { ChatService } from '../../services/chat.service';
@@ -12,7 +12,7 @@ import { ServiceResponse } from 'ontimize-web-ngx';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class ChatComponent implements OnInit, OnDestroy  {
 
   baseUrl: string;
   toyId: number;
@@ -32,27 +32,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private chatService: ChatService,
-    private jkAuthService: JukidsAuthService
+    private chatService: ChatService
   ) {
     this.chatService.connect();
   }
 
-  /**
-   * 
-   * 
-   *  constructor(private socket: Socket) { }
-
-  ngOnInit(): void {
-    this.socket.fromEvent('message').subscribe((data: any) => {
-      console.log(data);
-    });
-  }
-   * 
-   * 
-   * 
-   * 
-   */
 
   ngOnInit(): void {
     // console.log("MODAL DATA:", this.data);
@@ -66,6 +50,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.baseUrl = 'http://localhost:8080';
     }
 
+
+    
 
     //============================= AL INICIAR TIENE QUE CONECTAR VER SI HAY QUE CREAR LA SALA =============================
     let chatJR: ChatJoinRoomInterface = {
@@ -88,18 +74,20 @@ export class ChatComponent implements OnInit, OnDestroy {
     //============================= Ver mensajes y actualizar =============================
     this.chatService.getMessage().subscribe({
       next: (data: ChatMessageResponseInterface) => {
+        // console.log("messages: ", this.messages);
+        let nowInsertedDateChat;
+        if(data.insertedDate.includes("CEST")) {
+            nowInsertedDateChat = new Date();
+            data.insertedDate = nowInsertedDateChat;
+        }
         // console.log("DATA: ", data);
         this.messages.push(data);
         //Ver control para bajarlo a abajo de todo.
+        // console.log("messages: ", this.messages);              
       },
       error: (err: any) => {
         console.log(err);
       },
-      complete: () => {
-        console.log('complete, messages: ', this.messages );
-        this.scrollToBottom();
-      }
-
     });
 
 
@@ -115,6 +103,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.dialog.getDialogById('Chat').close();
+    this.messages = [];
     this.msgCount = -1;
   }
 
@@ -131,10 +120,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.chatInput.nativeElement.value = '';
 
+    
   }
 
   
-
+ 
   
   ngOnDestroy(): void {
     this.chatService.disconnectRoom();

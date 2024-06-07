@@ -597,7 +597,7 @@ nav {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
     overflow-y: auto;
 
     // border-top: 2px solid rgb(0, 0, 0);
@@ -636,6 +636,21 @@ nav {
           background-color: #ffffff;
           border: 2px solid #ffa366;
           transform: translateY(1.5rem);
+
+          .message-user-name {
+            font-size: 0.9em;
+            padding-bottom: 5px;                            
+            font-weight: bold;
+            color: #067e6a;
+          }
+
+          .message-date {
+            font-size: 0.7em;
+            margin-top: 0.4rem;
+            margin-right: 0.4rem;
+            color: #8b8b8b;
+            text-align: end;
+          }
         }
       }
     }
@@ -679,6 +694,21 @@ nav {
           border-radius: 0.75rem 0 0.75rem 0.75rem;
           background-color: #ffa366;
           transform: translateY(1.5rem);
+
+          .message-user-name {
+            font-size: 0.9em;
+            padding-bottom: 5px;                            
+            font-weight: bold;
+            color: #067e6a;
+            text-align: end;
+          }
+
+          .message-date {
+            font-size: 0.7em;
+            margin-top: 0.4rem;
+            margin-right: 0.4rem;
+            color: #8b8b8b;
+          }
         }
       }
     }

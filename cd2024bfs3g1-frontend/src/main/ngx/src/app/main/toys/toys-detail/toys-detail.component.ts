@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { OCurrencyInputComponent, OEmailInputComponent, OTextInputComponent, ServiceResponse } from 'ontimize-web-ngx';
+import { OCurrencyInputComponent, OEmailInputComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { ChatComponent } from 'src/app/shared/components/chat/chat.component';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
