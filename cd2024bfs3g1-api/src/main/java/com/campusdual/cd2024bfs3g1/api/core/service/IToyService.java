@@ -52,4 +52,5 @@ public interface IToyService {
     AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
 
     EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException;
+    EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList);
 }

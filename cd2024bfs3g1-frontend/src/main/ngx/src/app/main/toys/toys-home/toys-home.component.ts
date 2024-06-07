@@ -33,6 +33,7 @@ export class ToysHomeComponent implements OnInit {
   //============== Variable de URL BASE =================
   public baseUrl: string;
 
+
   //================= Variable de RANGO  =================
   // public selectedAll = 0
   // public rangeArray = [{
@@ -93,11 +94,10 @@ export class ToysHomeComponent implements OnInit {
       console.log(this.latInput.getValue());
       console.log(this.longInput.getValue());
       console.log(this.longInput.isEmpty());
-      
+
       //Recargar el grid con las tarjetas
       this.toyGrid.reloadData();
     });
-
     //Control de columnas en o-grid
     this.layoutChanges.subscribe((result) => {
       if (result.breakpoints[Breakpoints.XSmall]) {
@@ -118,7 +118,6 @@ export class ToysHomeComponent implements OnInit {
       this.baseUrl = 'http://localhost:8080';
     }
   }
-
   searchReceivedParams() {
     this.actRoute.queryParams.subscribe(params => {
       const category: any = params['category'] || null;
@@ -273,5 +272,9 @@ export class ToysHomeComponent implements OnInit {
 
   // ------- FILTER MAP---------------
   showMap:boolean = false;
-  openMap(){this.showMap = !this.showMap}
+  openMap(){
+    this.showMap = !this.showMap
+    this.toysMapService.getUserGeolocation();
+  }
+
 }

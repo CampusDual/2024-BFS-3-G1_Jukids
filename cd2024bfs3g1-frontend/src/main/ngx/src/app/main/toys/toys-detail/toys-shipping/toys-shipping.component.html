@@ -19,8 +19,8 @@
 
     <mat-radio-group *ngIf="shippingInput.getValue()" #buyOption class="radioGroup" aria-label=""
       (change)="showFormShipments()">
-      <mat-radio-button #onlyBuy value="1">{{'BUY' | oTranslate}}</mat-radio-button>
-      <mat-radio-button #BuySend value="2" checked>{{'BUY_AND_SEND' | oTranslate}}</mat-radio-button>
+      <mat-radio-button #BuySend value="1" checked>{{'BUY_AND_SEND' | oTranslate}}</mat-radio-button>
+      <mat-radio-button #onlyBuy value="2">{{'BUY' | oTranslate}}</mat-radio-button>
     </mat-radio-group>
 
 
@@ -41,7 +41,7 @@
           </div>
           <div class="divLabel">
             <o-text-input #buyerPhone attr="buyer_phone" label="{{'usr_phone' | oTranslate}}" fxFlex="100"
-              read-only="no" required="yes" max-length="150"></o-text-input>
+              read-only="no" required="yes" max-length="9" min-length="9"></o-text-input>
           </div>
           <div class="divLabel">
             <o-combo #shipmentCompany attr="shipment_company" label="{{'company' | oTranslate}}"
@@ -50,8 +50,15 @@
           </div>
           <span class="note">*{{'NOTE_SEND' | oTranslate}}</span>
 
-          <div *ngIf="!logged;else encourageRegister" class="warning">
-            <p><!--<a href="/login/new"></a>-->¡Registrate! Para comprar con envio </p>
+          <div *ngIf="!isLogged();else encourageRegister" class="warning">
+            <p>
+              <span>
+                <button class="link" type="button" (click)="modal('login')">
+                  {{ 'LOGIN' | oTranslate}}
+                </button>
+              </span>
+              {{ 'CON_ENVIO' | oTranslate }}
+            </p>
           </div>
 
           <ng-template #encourageRegister>
