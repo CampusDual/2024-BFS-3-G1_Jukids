@@ -1,7 +1,7 @@
 import { Component, ViewChild, Inject, OnInit} from '@angular/core';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { DialogService,  ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
-import { OUserInfoService, AuthService, OEmailInputComponent } from 'ontimize-web-ngx';
+import { DialogService,  ODialogConfig, OFormComponent, ORadioComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { OEmailInputComponent } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MainService } from 'src/app/shared/services/main.service';
@@ -28,6 +28,8 @@ export class ToysNewComponent implements OnInit{
   @ViewChild('latitude') protected lat: ORealInputComponent;
   @ViewChild('longitude') protected lon: ORealInputComponent;
   @ViewChild('usr_email') protected usr_email: OEmailInputComponent;
+
+  @ViewChild('status') public radioStatus: ORadioComponent;
 
   constructor(
     private router: Router,
@@ -85,7 +87,6 @@ export class ToysNewComponent implements OnInit{
     let arrayErrores: any [] = [];
     const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','category','status']);
 
-    console.log(getFieldValues);
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
     let errorDescription = "ERROR_DESCRIPTION_VALIDATION";
@@ -126,9 +127,11 @@ export class ToysNewComponent implements OnInit{
     if(getFieldValues.category === ""){
       arrayErrores.push(this.translate.get(errorCategory));
     }
-    if(getFieldValues.status === ""){
+
+    if(this.radioStatus && this.radioStatus.value === undefined ){
       arrayErrores.push(this.translate.get(errorStatus));
     }
+    
     if(arrayErrores.length > 0 ) {
       let stringErrores = "";
       for(let i = 0; i < arrayErrores.length; i++){
@@ -138,8 +141,6 @@ export class ToysNewComponent implements OnInit{
     }else{
       this.formToy.insert();
     }
-
-    console.log(this.formToy);
   }
 
   showCustom(
@@ -182,8 +183,5 @@ export class ToysNewComponent implements OnInit{
       disableClose: false,
     });
   }
-
-
-
 }
 
