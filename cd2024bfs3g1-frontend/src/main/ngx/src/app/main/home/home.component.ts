@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogService, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { EventEmitter } from 'stream';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
   public cols: number = 5;
   public queryrows: number = 5;
   public rows: number = 1;
+  public language:string = "es";
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
@@ -36,6 +38,7 @@ export class HomeComponent implements OnInit {
     protected dialogService: DialogService,
     private  toysMapService: ToysMapService,
     private breakpointObserver: BreakpointObserver,
+    private translate: OTranslateService,
   ) {
      //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
@@ -72,8 +75,13 @@ export class HomeComponent implements OnInit {
         this.queryrows = 5;
       }
     });
+   
+    this.translate.onLanguageChanged.subscribe(data=>{
+      this.language = data;
+      console.log(data);
+    });
   }
-
+ 
    navigate() {
      this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
    }

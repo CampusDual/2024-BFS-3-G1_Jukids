@@ -1,7 +1,10 @@
 <div fxLayout="column" layout-padding fxLayoutAlign="center center">
   <div class="banner-box">
-    <div class="banner-svg">
+    <div *ngIf='language == "es"' class="banner-svg">
       <img src="assets/images/svg/banner-es.svg" />
+    </div>
+    <div *ngIf='language == "en"'class="banner-svg">
+      <img  src="assets/images/svg/banner-en.svg" />
     </div>
     <div class="banner-background bg-color-orange-bg"></div>
   </div>
@@ -41,7 +44,7 @@
   </div>
 
   <div class="categories-container">
-    
+
     <div class="title-box">
       <p class="row-title-small">{{ 'FIGURES' | oTranslate }}</p>
       <p class="row-title">{{ 'FIGURES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
@@ -55,7 +58,7 @@
           entity="toyFigures"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           [query-rows]="queryrows"
           refresh-button="no"
           quick-filter="no"
@@ -64,7 +67,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of figuresGrid.getDataArray()"
@@ -98,7 +101,7 @@
           entity="toyPlushies"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -107,7 +110,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of plushiesGrid.getDataArray()"
@@ -141,7 +144,7 @@
           entity="toyChildrensToys"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -150,7 +153,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of childrensToysGrid.getDataArray()"
@@ -184,7 +187,7 @@
           entity="toyBoard"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -193,7 +196,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of boardGrid.getDataArray()"
@@ -227,7 +230,7 @@
           entity="toyDolls"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -236,7 +239,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of dollsGrid.getDataArray()"
@@ -270,7 +273,7 @@
           entity="toyActionToys"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -279,7 +282,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of actionToysGrid.getDataArray()"
@@ -313,7 +316,7 @@
           entity="toyVideogames"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -355,7 +358,7 @@
           entity="toyCrafts"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -364,7 +367,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of craftsGrid.getDataArray()"
@@ -399,7 +402,7 @@
           entity="toyPedagogical"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -408,7 +411,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of pedagogicalGrid.getDataArray()"
@@ -442,7 +445,7 @@
           entity="toySport"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -451,7 +454,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of sportGrid.getDataArray()"
@@ -485,7 +488,7 @@
           entity="toyElectronic"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -527,7 +530,7 @@
           entity="toyCollectibles"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -536,7 +539,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of collectiblesGrid.getDataArray()"
@@ -570,7 +573,7 @@
           entity="toyAntiques"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -612,7 +615,7 @@
           entity="toyCards"
           keys="toyid"
           detail-form-route="toysDetail"
-          columns="toyid;name;price"          
+          columns="toyid;name;price"
           query-rows="5"
           refresh-button="no"
           quick-filter="no"
@@ -621,7 +624,7 @@
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
-          
+
         >
           <o-grid-item
             *ngFor="let data of cardsGrid.getDataArray()"
@@ -642,6 +645,6 @@
           </o-grid-item>
         </o-grid>
     </div>
-    
+
   </div>
 </div>
