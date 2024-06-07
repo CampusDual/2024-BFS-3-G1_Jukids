@@ -635,11 +635,11 @@ nav {
           border-radius: 0 0.75rem 0.75rem 0.75rem;
           background-color: #ffffff;
           border: 2px solid #ffa366;
-          transform: translateY(1.5rem);
+          transform: translateY(1rem);
 
           .message-user-name {
             font-size: 0.9em;
-            padding-bottom: 5px;                            
+            padding-bottom: 5px;
             font-weight: bold;
             color: #067e6a;
           }
@@ -651,6 +651,7 @@ nav {
             color: #8b8b8b;
             text-align: end;
           }
+
         }
       }
     }
@@ -692,12 +693,13 @@ nav {
           margin-left: 0.5rem;
           padding: 0.5rem;
           border-radius: 0.75rem 0 0.75rem 0.75rem;
+          border: 2px solid #ffa366 ;
           background-color: #ffa366;
-          transform: translateY(1.5rem);
+          transform: translateY(1rem);
 
           .message-user-name {
             font-size: 0.9em;
-            padding-bottom: 5px;                            
+            padding-bottom: 5px;
             font-weight: bold;
             color: #067e6a;
             text-align: end;
