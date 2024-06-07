@@ -52,14 +52,14 @@ export class MainComponent implements OnInit {
      this.userInfo = this.userInfoService.getUserInfo();
      this.rolename = this.userInfo.rolename;
     }
-     
+
     return this.jkAuthService.isLoggedIn();
   }
 
   //Con este metodo verificamos que el usuario que se ha logueado, tenga una propiedad rolename y su valor sea el de admin
   validAdmin(){
     return (this.rolename && this.rolename == "admin");
-  }
+   }
 
   ngOnInit() {
     this.loadUserInfo();
@@ -74,7 +74,7 @@ export class MainComponent implements OnInit {
           if (result.data['usr_photo']) {
             (avatar as any) = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + result.data['usr_photo']);
           }
-          
+
           //Recogemos el campo rolename en el front que trajimos del back y lo asignamos a una variable publica en el componente
            if (result.data['rolename']) {
             this.rolename = result.data['rolename']
@@ -93,4 +93,14 @@ export class MainComponent implements OnInit {
       disableClose: false,
     });
   }
+
+  newToy(){
+    if(this.jkAuthService.isLoggedIn()){
+      const redirect = '/main/toys/new';
+      this.router.navigate([redirect]);
+    } else {
+      this.modal('login');
+    }
+  }
+
 }
