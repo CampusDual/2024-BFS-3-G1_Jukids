@@ -94,9 +94,65 @@ $theme: ontimize-style.o-mat-light-theme($primary, $accent);
 /* Dark theme */
 $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 
+/* Lato: CSS classes */
+.lato-thin {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.lato-light {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lato-bold {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lato-black {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.lato-thin-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.lato-light-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.lato-regular-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.lato-bold-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
 
 * {
-  font-family: Arial, Helvetica, sans-serif !important;
+  //font-family: "Lato", Arial, Helvetica, sans-serif, !important;
+  font-family: "Lato", sans-serif, Arial, Helvetica, sans-serif,  !important;
+  //font-family: 'Lato', Arial, Helvetica, sans-serif, !important;
   /* Establece la tipografía para todo el texto */
 }
 

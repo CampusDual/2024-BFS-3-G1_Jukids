@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { OntimizeService, DialogService } from 'ontimize-web-ngx';
 import { ToysMapService } from '../../services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
+
 import { ReturnStatement } from '@angular/compiler';
 
 @Component({
@@ -59,6 +60,7 @@ export class LocationMapComponent {
     }
     return this.center;
   }
+  
 
   createMarker(lat, lng){
     this.oMapBasic.addMarker(
@@ -74,6 +76,29 @@ export class LocationMapComponent {
 
     this.isMapLatLongSelected = true;
   }
-  
+
+
+  	// Se crea un icono personalizado
+/* 	locationIcon = L.icon({
+		iconUrl: 'location_searching.svg',
+		iconSize: [38, 95], // tamaño del icono
+		}); */
+	 
+	// Se crea un objeto marcador, se establece la opción de icono personalizado y se añade al mapa en las coordenadas indicadas
+	/* marker = L.marker([36.7204,-4.4150], {icon: locationIcon}).addTo(map); */
+
+
+/*   var myIcon = L.icon({
+    iconUrl: 'my-icon.png',
+    iconSize: [38, 95],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    shadowUrl: 'my-icon-shadow.png',
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+}); */
+
+/* L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
+   */
 
 }

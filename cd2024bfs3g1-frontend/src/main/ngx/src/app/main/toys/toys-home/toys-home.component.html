@@ -32,13 +32,17 @@
           class="button btn-outline-light" matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
           <mat-icon class="material-icons">clear</mat-icon>
         </button>
+
         <button (click)="openMap()" class="button btn-outline-light reverse"><mat-icon>map</mat-icon></button>
       </o-row>
     </o-row>
     <div *ngIf="showMap" fxFlex="100" >
       <p class="titleMap">{{ 'TITLE_MAP_HOME' | oTranslate }}</p>
+      <p class="searchMap">{{ 'SEARCH_MAP_HOME' | oTranslate }}</p>
       <location-map></location-map>
     </div>
+
+
     <o-filter-builder #filterBuilder attr="thefilter"
     filters="NAME:name;DESCRIPTION:name;CATEGORY:category;STATUS:status;PRICE:price;LATITUDE:latitude;LONGITUDE:longitude;"
     [target]="toysGrid" query-on-change="no" query-on-change-delay="500"
