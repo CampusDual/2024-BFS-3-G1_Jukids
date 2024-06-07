@@ -63,17 +63,19 @@
                         <p class="Form-p">{{ 'SELECT_PRODUCT_LOCATION'  | oTranslate }}</p>
                     </div>
 
-                    <div class="Form-spec Form-spec--location" [ngClass]="{'not-selected': !isMapLatLongSelected }">
+                    <div class="Form-spec">
                         <location-map (click)="handleMapClick($event)"></location-map>
+                    
+                        <o-real-input id="longitude" hidden="yes" #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
+                        </o-real-input>
+                    
+                        <o-real-input id="latitude" hidden="yes"  #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
+                        </o-real-input>
                     </div>
-                    <o-real-input id="longitude" hidden="yes" #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
-                    </o-real-input>
-                    <o-real-input id="latitude" hidden="yes"  #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
-                    </o-real-input>
                 </div>
             </div>
             <div class="Form-row Form-row--buttons">
-                <button class="button btn-outline" (click)="cancel()">
+                <button class="button btn-outline-light" (click)="cancel()">
                     <span>{{ 'cancel' | oTranslate }}</span>
                 </button>
                 <button class="button btn-solid" attr="submit" (click)="newSubmit()">
