@@ -84,7 +84,7 @@
   </mat-tab>
   <mat-tab label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" mat-align-tabs="start">
     <div class="list" fxLayout="column">
-      <o-list #list attr="list" service="orders" entity="ordersWithToys" key="order_id"
+      <o-list #list attr="list" service="orders" entity="purchased" key="order_id"
           columns="t.toyid;photo;name;price;transaction_status;t.usr_id;usr_name;buyer_id"
           detail-mode="none" refresh-button="none" delete-button="none" quick-filter="none">
         <mat-card *ngFor="let row of list.dataArray" [o-list-item]="row">

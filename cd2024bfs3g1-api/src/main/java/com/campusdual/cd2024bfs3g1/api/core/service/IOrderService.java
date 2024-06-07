@@ -10,10 +10,8 @@ public interface IOrderService {
 
     EntityResult orderQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
-    //Muestra juguetes del estado 4
-    EntityResult PurchasedQuery(Map<String, Object> shipmentData, List<String> attrList) throws OntimizeJEERuntimeException;
-
+    EntityResult purchasedQuery(Map<String, Object> keyMap, List<String> attrList);
     EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException;
     EntityResult orderAndShipmentInsert(Map<String,Object>shipmentData)throws OntimizeJEERuntimeException;
-    EntityResult ordersWithToysQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+
 }
