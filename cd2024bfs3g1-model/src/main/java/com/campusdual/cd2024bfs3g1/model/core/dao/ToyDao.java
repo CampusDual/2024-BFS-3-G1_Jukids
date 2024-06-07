@@ -34,6 +34,7 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final String QUERY_V_TOYS_DISTANCES = "getNearbyToys";
     public static final String ATTR_DISTANCE = "distance";
     public static final String QUERY_V_SUM_PRICE_TOYS_SOLD = "sumPriceToysSold";
+    public static final String QUERY_USER_AVG_RATING = "userAverageRating";
 
 
 }

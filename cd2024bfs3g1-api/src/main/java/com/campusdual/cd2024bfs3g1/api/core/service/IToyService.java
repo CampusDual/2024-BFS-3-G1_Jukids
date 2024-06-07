@@ -15,6 +15,8 @@ public interface IToyService {
 
     AdvancedEntityResult toyPaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
 
+    EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList);
+
     AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
 
     EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException;

@@ -40,11 +40,6 @@ public class SurveyService implements ISurveyService {
     }
 
     @Override
-    public EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList) {
-        return this.daoHelper.query(surveyDao, keyMap, attrList, SurveyDao.QUERY_USER_AVG_RATING);
-    }
-
-    @Override
     public EntityResult surveyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
 
         this.daoHelper.insert(this.surveyDao, attrMap);

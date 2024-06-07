@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.SurveyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserLocationDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
@@ -35,6 +36,8 @@ public class ToyService implements IToyService {
     @Autowired
     private OrderDao orderDao;
     @Autowired
+    private SurveyDao surveyDao;
+    @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
     @Override
@@ -62,6 +65,11 @@ public class ToyService implements IToyService {
             return  searchByDistance( keyMap, attrList );
         }
         return this.daoHelper.query(this.toyDao, keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return this.daoHelper.query(surveyDao, keyMap, attrList, SurveyDao.QUERY_USER_AVG_RATING);
     }
 
     @Override

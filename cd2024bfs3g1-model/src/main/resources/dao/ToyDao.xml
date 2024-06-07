@@ -74,5 +74,16 @@
     ]]>
             </Sentence>
         </Query>
+        <Query id="userAverageRating">
+            <Sentence>
+                <![CDATA[
+                   SELECT
+                        #COLUMNS#
+                   from
+                        v_average_surveys
+                   #WHERE#
+            ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>
