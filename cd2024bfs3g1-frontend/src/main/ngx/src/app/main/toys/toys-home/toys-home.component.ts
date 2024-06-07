@@ -1,14 +1,13 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from "@angular/core";
+import {  Component, Input, OnInit, ViewChild } from "@angular/core";
 import { Expression, FilterExpressionUtils, OComboComponent, OFilterBuilderComponent, OTextInputComponent } from "ontimize-web-ngx";
 import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
 import { ToysMapService } from "src/app/shared/services/toys-map.service";
-import { DialogService, ODialogConfig } from "ontimize-web-ngx";
+import { DialogService } from "ontimize-web-ngx";
 import { Subscription } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { LocationMapComponent } from "src/app/shared/components/location-map/location-map.component";
 import { __values } from "tslib";
 
 @Component({
@@ -33,26 +32,7 @@ export class ToysHomeComponent implements OnInit {
   //============== Variable de URL BASE =================
   public baseUrl: string;
 
-
   //================= Variable de RANGO  =================
-  // public selectedAll = 0
-  // public rangeArray = [{
-  //   code: 0,
-  //   range: "Ver todos"
-  // },
-  // {
-  //   code: 50,
-  //   range: "a menos de 50km"
-  // },
-  // {
-  //   code: 100,
-  //   range: "a menos de 100km"
-  // },
-  // {
-  //   code: 200,
-  //   range: "a menos de 200km"
-  // }
-  // ]
 
   public cols: number = 8;
   private location: any;
@@ -90,10 +70,6 @@ export class ToysHomeComponent implements OnInit {
 
       this.latInput.setValue(data.latitude);
       this.longInput.setValue(data.longitude);
-
-      console.log(this.latInput.getValue());
-      console.log(this.longInput.getValue());
-      console.log(this.longInput.isEmpty());
 
       //Recargar el grid con las tarjetas
       this.toyGrid.reloadData();
@@ -134,7 +110,6 @@ export class ToysHomeComponent implements OnInit {
   })}
 
   public openDetail(data: any): void {
-    console.log("OPENDETAIL: ");
     // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
     const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
     this.router.navigate(["/toysDetail", toyId]);
@@ -146,36 +121,20 @@ export class ToysHomeComponent implements OnInit {
 
 
   createFilter(values: Array<{ attr: string, value: any }>): Expression {
-    console.log('VALORES DENTRO DE VALUES EN createFilter');
-    console.log(values);
-    // console.log(values[2].attr);
-    // console.log(values[2].value);
     let filtersOR: Array<Expression> = [];
     let categoryExpressions: Array<Expression> = [];
     let priceExpressions: Array<Expression> = [];
     let statusExpressions: Array<Expression> = [];
     let latLongExpressions: Array<Expression> = [];
 
-    console.log(values);
-
     values.forEach(fil => {
-      console.log(fil);
       if (!fil.value) return; // Salir temprano si no hay valor
 
       if (fil.attr === "DESCRIPTION" || fil.attr === "NAME") {
         filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
       } else if (fil.attr === "CATEGORY") {
-        console.log('lo hizo');
-        console.log(fil.value);
         if (Array.isArray(fil.value)) {
           fil.value.forEach(val => {
-            console.log('DEBEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
-            console.log("val");
-            console.log(val);
-            console.log("fil");
-            console.log(fil);
-            console.log("fil.attr");
-            console.log(fil.attr);
             categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
           });
         } else {

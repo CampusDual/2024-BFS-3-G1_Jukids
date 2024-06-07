@@ -3,13 +3,11 @@
 </div>
 <o-form #form class="form-register" attr="usersNew" (onInsert)="login()" service="registers" entity="register"
     keys="usr_id" header-actions="R;I;U;D" show-header="no" show-header-navigation="no">
-    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" style="padding-bottom: 30px;">
-
+    <div class="register-inputs" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
         <o-text-input width="100%" attr="usr_name" required="yes"></o-text-input>
         <o-text-input width="100%" attr="usr_surname" required="yes"></o-text-input>
         <o-email-input width="100%" attr="usr_login" label="Email" required="yes"></o-email-input>
-        <o-password-input width="100%" attr="usr_password" label="password" required="yes"
-            show-password-button="yes"></o-password-input>
+        <o-password-input width="100%" attr="usr_password" label="password" required="yes" show-password-button="yes"></o-password-input>
     </div>
     <button class="button btn-solid" type="submit" (click)="form.insert()">{{ 'REGISTER' | oTranslate }}</button>
 </o-form>
