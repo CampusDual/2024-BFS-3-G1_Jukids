@@ -73,6 +73,13 @@
     color:rgba(0, 0, 0, 0.70);
 }
 
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
 .grid {
     width: 80%;
     margin: 0 auto;

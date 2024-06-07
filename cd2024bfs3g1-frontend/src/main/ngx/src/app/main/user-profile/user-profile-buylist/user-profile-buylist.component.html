@@ -9,8 +9,8 @@
   </div>
 </div>
 
-<mat-tab-group fxFill>
-  <mat-tab label="{{ 'PENDING_SEND_TOY' | oTranslate }}">
+<mat-tab-group fxFill #tabs [selectedIndex]="currentTabIndex">
+  <mat-tab #tabSend attr="tabSend" label="{{ 'PENDING_SEND_TOY' | oTranslate }}">
     <o-table #tableSend fxFlex attr="tableSend" service="shipments" entity="pendingSend" keys="toyid"
       title="{{ 'PENDING_SEND_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
       visible-columns="photo;name;total_price" show-title="true" pagination-controls="no"
@@ -25,12 +25,12 @@
         tooltip="yes"></o-table-column>
       <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
         max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
-        currency-symbol-position="right" tooltip="yes"></o-table-column>    
+        currency-symbol-position="right" tooltip="yes"></o-table-column>
     </o-table>
 
   </mat-tab>
 
-  <mat-tab label="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}">
+  <mat-tab #tabReceived attr="tabReceived" label="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}">
     <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive" keys="toyid"
       title="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}" columns="toyid;photo;name;tracking_number;total_price"
       visible-columns="photo;name;tracking_number;total_price;edit-btn" show-title="true" pagination-controls="no"
@@ -59,13 +59,13 @@
 
   </mat-tab>
 
-  <mat-tab label="{{ 'RECEIVED_TOYS' | oTranslate }}">
+  <mat-tab #tabConfirm attr="tabConfirm" label="{{ 'RECEIVED_TOYS' | oTranslate }}">
     <o-table #tableConfirm fxFlex attr="tableConfirm" service="shipments" entity="pendingConfirm" keys="toyid"
       title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;photo;name;total_price"
       visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no"
       show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
       edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
-      class="table"  detail-mode="none">
+      class="table" detail-mode="none">
 
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
@@ -83,22 +83,34 @@
     </o-table>
   </mat-tab>
 
-  <mat-tab label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}">
-    <o-table #tablePurchased fxFlex attr="tablePurchased" service="orders" entity="Purchased" keys="toyid"
-      title="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
-      visible-columns="photo;name;total_price" show-title="true" pagination-controls="no" show-filter-option="no"
-      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
-      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table"  detail-mode="none">
-      <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
-        <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
-        </o-table-cell-renderer-image>
-      </o-table-column>
-      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
-        tooltip="yes"></o-table-column>
-      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
-        max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
-        currency-symbol-position="right" tooltip="yes"></o-table-column>
-    </o-table>
+  <mat-tab #tabPurchased attr="tabPurchased" label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" mat-align-tabs="start">
+    <div class="list" fxLayout="column">
+      <o-list #list attr="list" service="orders" entity="ordersWithToys" key="order_id"
+          columns="t.toyid;photo;name;price;transaction_status;t.usr_id;usr_name;buyer_id"
+          detail-mode="none" refresh-button="none" delete-button="none" quick-filter="none">
+        <mat-card *ngFor="let row of list.dataArray" [o-list-item]="row">
+          <div fxLayout="row" fxLayoutGap="2.25rem">
+            <o-column>
+              <div class="photo-container">
+                <img src="{{baseUrl}}/restapi/get-image?toyId={{row.toyid}}" >
+              </div>
+            </o-column>
+            <div class="info-row">
+              <div class="info-container">
+                <div class="info-text">
+                  <mat-card-title>{{ row.name }}</mat-card-title>
+                  <mat-card-subtitle>{{ row.price }} €</mat-card-subtitle>
+                </div>
+                <div fxLayout="row" class="container-survey">
+                  <button class="button btn-outline-light" *ngIf="row.transaction_status == 4" (click)="onRate(row.toyid, row.photo, row.name, row.usr_id, row.usr_name, row.buyer_id)">
+                    <span>Valorar</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </o-list>
+    </div>
   </mat-tab>
-
 </mat-tab-group>

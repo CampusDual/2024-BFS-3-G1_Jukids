@@ -10,6 +10,7 @@ import { MainService } from './shared/services/main.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JukidsAuthService } from './shared/services/jukids-auth.service';
+import { SharedModule } from './shared/shared.module';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 
@@ -36,7 +37,8 @@ export const customProviders: any = [
     OntimizeWebModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    SocketIoModule.forRoot(config)    
+    SocketIoModule.forRoot(config),
+    SharedModule
   ],
   declarations: [
     AppComponent

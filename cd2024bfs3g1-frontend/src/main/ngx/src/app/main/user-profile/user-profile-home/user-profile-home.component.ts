@@ -25,11 +25,7 @@ export class UserProfileHomeComponent implements OnInit {
     }
   }
   
-  ngOnInit(): void {
-    console.log('hey');
-    console.log(this.userInfo);
-  }
-;
+  ngOnInit(): void {}
 
   toToyList() {
     this.router.navigate(["/main/user-profile/toylist"]);
@@ -37,6 +33,10 @@ export class UserProfileHomeComponent implements OnInit {
 
   toBuyList() {
     this.router.navigate(["/main/user-profile/buylist"]);
+  }
+
+  toMyRatings(){
+    this.router.navigate(["/main/user-profile/ratings"]);
   }
 
 }

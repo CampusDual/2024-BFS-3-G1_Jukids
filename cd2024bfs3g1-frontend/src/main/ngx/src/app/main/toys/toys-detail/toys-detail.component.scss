@@ -5,6 +5,7 @@
 
     .back-category {
         width: 60%;
+        background-color: rgba(227, 227, 227, 0.407);
         display: flex;
         justify-content: flex-start;
         align-content: center;
@@ -54,7 +55,6 @@
         @media screen and (max-width: 1000px) {
             flex-direction: column !important;
             justify-self: center !important;
-            gap: 15px;
             o-column {
                 max-width: 100% !important;
             }
@@ -209,12 +209,18 @@
                 .email-container {
                     background-color: transparent;
                     align-content: end;
-                    .email {
+
+
+
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                        white-space: inherit;
                         margin-bottom: 10px;
                         padding-right: 5px;
                         font-size: small;
                         background-color: transparent;
-                    }
+
+
                 }
             }
         }
@@ -249,7 +255,7 @@
         background-color: #FFA366;
         border-color: #ffa366;
       }
-  
+
       &.reverse {
         color: #fff;
         background-color: #FFA366;
@@ -294,5 +300,23 @@
     padding: 10px 0px;
     margin: 0 auto;
     text-transform: uppercase;
+}
 
+.rating-div{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: .35rem;
+}
+
+.rating-seller {
+  display: block;
+}
+
+.star-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color:goldenrod;
+  position: relative;
+  transform: translateY(-.1rem);
 }

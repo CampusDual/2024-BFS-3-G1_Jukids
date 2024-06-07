@@ -9,18 +9,20 @@ import { StripeComponent } from './components/stripe/stripe.component';
 import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { environment } from 'src/environments/environment';
+import { SurveyComponent } from './components/survey/survey.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { SocketIoConfig } from 'ngx-socket-io';
 
-
 //Socket io configuration
 const config: SocketIoConfig = { url: environment.apiEndpoint, options: {} };
+
 
 @NgModule({
   imports: [
     OntimizeWebModule,
     OMapModule,
     NgxStripeModule.forRoot(environment.stripe_public_key),
+    CommonModule
   ],
   declarations: [
     FilterComponent,
@@ -29,6 +31,7 @@ const config: SocketIoConfig = { url: environment.apiEndpoint, options: {} };
     HomeToolbarComponent,
     StripeComponent,
     CheckoutComponent,
+    SurveyComponent,
     ChatComponent
   ],
   exports: [

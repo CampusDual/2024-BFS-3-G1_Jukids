@@ -63,6 +63,17 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="sumPriceToysSold">
+            <Sentence>
+                <![CDATA[
+           SELECT
+                #COLUMNS#
+           from
+                v_sum_price_toys_sold
+           #WHERE#
+    ]]>
+            </Sentence>
+        </Query>
         <Query id="getToysSellerData">
             <AmbiguousColumns>
                 <AmbiguousColumn name="usr_id" prefix="t"/>

@@ -20,4 +20,21 @@ export class ToysMapService {
     return this.location;
   }
 
+ 
+  public getUserGeolocation() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.setLocation(position.coords.latitude, position.coords.longitude);
+        },
+        (err) => {
+          console.error(`Error: ${err.message}`);
+        }
+      );
+    } else {
+      console.error("Geolocalización no compatible en este navegador.");
+    }
+  }
+  
+
 }

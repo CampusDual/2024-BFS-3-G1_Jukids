@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { CheckoutComponent } from './shared/components/stripe/checkout/checkout.component';
+import { SurveyComponent } from './shared/components/survey/survey.component';
 import { ChatComponent } from './shared/components/chat/chat.component';
 
 export const routes: Routes = [
@@ -9,6 +10,7 @@ export const routes: Routes = [
   //{ path: 'register', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   { path: 'chat', component: ChatComponent},
   { path: 'checkout', component: CheckoutComponent },
+  { path: 'survey', component: SurveyComponent },
   { path: '**', redirectTo: 'main', pathMatch: 'full' },
   { path: '', redirectTo: 'main', pathMatch: 'full' },
 ];
