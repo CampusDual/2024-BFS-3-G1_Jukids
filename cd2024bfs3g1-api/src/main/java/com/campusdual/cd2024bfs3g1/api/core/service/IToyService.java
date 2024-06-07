@@ -20,4 +20,6 @@ public interface IToyService {
     AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
 
     EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException;
+
+    EntityResult getToysSellerDataQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }

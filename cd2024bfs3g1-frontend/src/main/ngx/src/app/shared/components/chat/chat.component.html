@@ -19,12 +19,12 @@
         <ng-container *ngFor="let message of messages">
 
             <div [ngClass]=" { 
-                'chat-message-container-receiver': message.ownerMsg == 99,  
-                'chat-message-container-sender' :  message.ownerMsg != 99,
+                'chat-message-container-receiver': message.ownerId == 99,  
+                'chat-message-container-sender' :  message.ownerId != 99,
                 } ">
                 <div class="chat-message">
                     <img class="user-profile" src="assets/images/user_profile.png" alt="">
-                    <span class="message">{{ message.message }}</span>
+                    <span class="message">{{ message.msg }}</span>
                 </div>
             </div>
 

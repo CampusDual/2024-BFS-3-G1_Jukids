@@ -4,6 +4,9 @@ import com.campusdual.cd2024bfs3g1.model.core.chat.data.SendMessage;
 import com.campusdual.cd2024bfs3g1.model.core.chat.data.RecieveMessage;
 import com.campusdual.cd2024bfs3g1.model.core.chat.data.UserInfoDataConnect;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ChatLogDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.UserRoleDao;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
@@ -11,6 +14,7 @@ import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +24,15 @@ import java.util.*;
 public class SocketIOService {
     @Autowired
     private ChatLogService chatLogService;
+
+    @Autowired
+    private ToyService toyService;
+
+    @Autowired
+    private UserRoleDao userRoleDao;
+
+    @Autowired
+    private DefaultOntimizeDaoHelper daoHelper;
 
     @Autowired
     private SocketIOServer socketServer;
@@ -81,23 +94,35 @@ public class SocketIOService {
         @Override
         public void onData(SocketIOClient client, RecieveMessage recieveMessage, AckRequest acknowledge) throws Exception {
 
-            //Generación de codigo de Sala -/ CustomerID + "C" + ToyID /-
-            String room = recieveMessage.getCustomerId() + "C" + recieveMessage.getToyId();
 
 
-            //Emitir formateado con SendMessage
-            SendMessage sendMessage =  createMessageResponse( recieveMessage );
+            try {
+                /** Generación de codigo de Sala -/ CustomerID + "C" + ToyID /- **/
+                String room = recieveMessage.getCustomerId() + "C" + recieveMessage.getToyId();
+
+                /** Se crea el objeto de respuesta con createMessageResponse **/
+                SendMessage sendMessage =  createMessageResponse( recieveMessage );
+
+                /** Emitimos **/
+                socketServer.getRoomOperations( room ).sendEvent("receiveMessage", sendMessage);
+
+                /** Insertamos a ChatLog **/
+                Map<String, Object> attrMap = new HashMap<>();
+                attrMap.put(ChatLogDao.ATTR_CUSTOMER_ID, recieveMessage.getCustomerId() );
+                attrMap.put(ChatLogDao.ATTR_OWNER_ID,  recieveMessage.getCustomerId() );
+                attrMap.put(ChatLogDao.ATTR_TOY_ID,  recieveMessage.getToyId() );
+                attrMap.put(ChatLogDao.ATTR_MSG, recieveMessage.getMessage() );
+                chatLogService.chatLogInsert( attrMap );
+
+                acknowledge.sendAckData("Message send to target user successfully");
+
+            } catch (Exception ex) {
+                System.out.println("ERROR EN INSERCION en Chat_Log");
+                acknowledge.sendAckData( ex.getMessage() );
+            }
 
 
-
-
-
-            //Emitimos
-            socketServer.getRoomOperations( room ).sendEvent("receiveMessage", sendMessage);
-
-            /**
-            *   Esto manda un mensaje a un sender especifico
-            **/
+            /**  Esto manda un mensaje a un sender especifico **/
 
             //socketServer.getBroadcastOperations().sendEvent("test", client, message.getMessage() );
 
@@ -111,7 +136,6 @@ public class SocketIOService {
             /**
              * After sending message to target user we can send acknowledge to sender
              */
-            acknowledge.sendAckData("Message send to target user successfully");
         }
     };
 
@@ -126,14 +150,14 @@ public class SocketIOService {
             //Ingresa al room
             client.joinRoom(room);
 
-            //Retornar mensajes en el caso de que haya
+            //Retornar mensajes en el caso de que haya  TEST: cId: 99 / tId: 374
             //Parseo a int
             int cId = Integer.parseInt(userInfoDataConnect.getCustomerId());
             int toyId = Integer.parseInt(userInfoDataConnect.getToyId());
 
             //Where
             Map<String, Object> keyMap = new HashMap<>();
-                keyMap.put(ChatLogDao.ATTR_CUSTOMER_ID, 99 );
+                keyMap.put(ChatLogDao.ATTR_CUSTOMER_ID, cId );
                 keyMap.put(ChatLogDao.ATTR_TOY_ID, 374 );
 
 
@@ -198,17 +222,19 @@ public class SocketIOService {
          msg.setMsg( recordValues.get( ChatLogDao.ATTR_MSG).toString() );
          msg.setInsertedDate( recordValues.get( ChatLogDao.ATTR_INSERTED_DATE).toString() );
          msg.setCustomerName( recordValues.get( ChatLogDao.ATTR_CUSTOMER_NAME).toString() );
-         msg.setCustomerAvatar( recordValues.get( ChatLogDao.ATTR_CUSTOMER_AVATAR).toString() );
+         msg.setCustomerAvatar(
+        (recordValues.get( ChatLogDao.ATTR_CUSTOMER_AVATAR) != null ) ?
+                recordValues.get( ChatLogDao.ATTR_CUSTOMER_AVATAR).toString()
+                : ""
+         );
          msg.setPrice( recordValues.get( ChatLogDao.ATTR_PRICE).toString() );
          msg.setToyName( recordValues.get( ChatLogDao.ATTR_TOY_NAME).toString() );
          msg.setSellerName( recordValues.get( ChatLogDao.ATTR_SELLER_NAME).toString() );
-         msg.setSellerAvatar( recordValues.get( ChatLogDao.ATTR_SELLER_AVATAR).toString() );
-
-//        msg.setCustomerName( (String) recordValues.get( ChatLogDao.ATTR_CUSTOMER_NAME ) );
-//        msg.setSellerName( (String) recordValues.get( ChatLogDao.ATTR_SELLER_NAME ) );
-//        msg.setOwnerId(  recordValues.get( ChatLogDao.ATTR_OWNER_ID ).toString() );
-//        msg.setMsg( (String) recordValues.get( ChatLogDao.ATTR_MSG) );
-//        msg.setInsertedDate(  recordValues.get( ChatLogDao.ATTR_INSERTED_DATE ).toString() );
+         msg.setSellerAvatar(
+                 (recordValues.get( ChatLogDao.ATTR_SELLER_AVATAR) != null ) ?
+                         recordValues.get( ChatLogDao.ATTR_SELLER_AVATAR).toString()
+                         : ""
+         );
 
         return  msg;
     }
@@ -216,7 +242,122 @@ public class SocketIOService {
 
     private SendMessage createMessageResponse(RecieveMessage recieveMessage) {
 
+        int tId = Integer.parseInt( recieveMessage.getToyId());
+
         SendMessage sendMessage = new SendMessage();
+
+
+//        private  String customerId; -----cId
+//        private  String toyId; ----- tId
+//        private  String message; --- msg
+
+        /** INICIO Parametros de Consulta para el SellerData **/
+            //Where
+            Map<String, Object> sellerDataKeyMap = new HashMap<>();
+            sellerDataKeyMap.put(ToyDao.ATTR_ID, tId );
+
+            //Columnas a consultar
+            List<String> sellerDataAttrList = Arrays.asList(
+                    ToyDao.ATTR_ID,
+                    ToyDao.ATTR_NAME,
+                    ToyDao.ATTR_PRICE,
+                    "u_seller."+UserDao.NAME,
+                    "u_seller."+UserDao.PHOTO
+            );
+        /** FIN Parametros de Consulta para el SellerData **/
+
+        /** INICIO Consulta para el CustomerDATA **/
+
+            //Where
+            Map<String, Object> customerDataKeyMap = new HashMap<>();
+            customerDataKeyMap.put(ToyDao.ATTR_ID, tId );
+
+            //Columnas a consultar
+            List<String> customerDataAttrList = Arrays.asList(
+                    UserDao.USR_ID,
+                    UserDao.NAME,
+                    UserDao.PHOTO
+            );
+
+        /** FIN Parametros de Consulta para el CustomerDATA **/
+
+        try {
+            //Recibo los datos del lado del seller
+            EntityResult sellerData = toyService.getToysSellerDataQuery(sellerDataKeyMap, sellerDataAttrList);
+
+            EntityResult customerData = this.daoHelper.query( this.userRoleDao, customerDataKeyMap, customerDataAttrList );
+
+            sendMessage.setCustomerId(
+                    customerData.get( UserDao.USR_ID ).toString()
+            );
+            sendMessage.setOwnerId(
+                    recieveMessage.getCustomerId()
+            );
+            sendMessage.setToyId(
+                    recieveMessage.getToyId()
+            );
+            sendMessage.setMsg(
+                    recieveMessage.getMessage()
+            );
+            sendMessage.setInsertedDate(
+                   new Date().toString()
+            );
+            sendMessage.setCustomerName(
+                    customerData.get( UserDao.NAME ).toString()
+            );
+            sendMessage.setCustomerAvatar(
+                    (customerData.get( UserDao.PHOTO ) != null ) ?
+                            customerData.get( UserDao.PHOTO ).toString()
+                            : ""
+            );
+            sendMessage.setPrice(
+                    sellerData.get(ToyDao.ATTR_PRICE).toString()
+            );
+            sendMessage.setToyName(
+                    sellerData.get(ToyDao.ATTR_NAME).toString()
+            );
+            sendMessage.setSellerName(
+                    sellerData.get( UserDao.NAME ).toString()
+            );
+            sendMessage.setSellerAvatar(
+                    (sellerData.get( UserDao.PHOTO) != null ) ?
+                            sellerData.get( UserDao.PHOTO ).toString()
+                            : ""
+            );
+
+            //Recibo los datos del lado del customer
+
+
+
+        } catch (Exception ex) {
+            System.out.println("ERROR EL CreateMessageResponse: " + ex.getMessage() );
+        }
+
+
+        /**
+         * TODO:
+         *  Del customerId sacar -> Name, Avatar
+         *  Del toyID sacar ->
+         **/
+
+
+
+        //QUERY ->  Seller ( getToysSellerData )
+        //QUERY ->  Customer ( User )
+
+
+
+//        private String customerId;   ----cId
+//        private String ownerId; -----cId
+//        private String toyId; ----- tId   /
+//        private String msg; ----- msg
+//        private String insertedDate; --- Date()
+//        private String customerName; ----cId
+//        private String customerAvatar; ----cId
+//        private String price;  -----tId   /
+//        private String toyName; -----tId    /
+//        private String sellerName; -----tId   /
+//        private String sellerAvatar; -----tId   /
 
         /**
          *     private String customerName;

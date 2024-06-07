@@ -90,7 +90,7 @@ export class ChatComponent implements OnInit {
     //============================= Ver mensajes y actualizar =============================
     this.chatService.getMessage().subscribe({
       next: (data: ChatMessageResponseInterface) => {
-        // console.log("DATA: ", data);
+        console.log("DATA: ", data);
         this.messages.push(data);
         //Ver control para bajarlo a abajo de todo.
       },
