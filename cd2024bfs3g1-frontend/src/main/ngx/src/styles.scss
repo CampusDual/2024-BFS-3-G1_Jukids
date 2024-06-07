@@ -82,6 +82,6 @@ o-app-header mat-icon {
 //Cambiar tamaño mapa para toyDetail
 app-toys-detail o-map {
   @media screen and (min-width: 960px) {
-    height: 220px !important;
+    height: 200px !important;
   }
 }

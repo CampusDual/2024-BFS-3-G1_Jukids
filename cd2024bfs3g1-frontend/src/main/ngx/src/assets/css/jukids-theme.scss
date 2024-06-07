@@ -388,11 +388,19 @@ nav {
     &:hover {
       box-shadow: 0 2px 4px #0000003d;
     }
-
     &.reverse {
       border-color: $color-orange;
       color: $color-black;
       background-color: $color-orange;
+    }
+  }
+  &.btn-solid-list {
+    border-color: $color-blue;
+    color: $color-white;
+    background-color: $color-blue;    
+
+    &:hover {
+      box-shadow: 0 2px 4px #0000003d;
     }
   }
 

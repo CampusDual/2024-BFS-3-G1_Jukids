@@ -122,14 +122,14 @@
                 height: 100%;
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 40px;
+                margin-bottom: 24px;
 
                 @media screen and (max-width: 960px) {
                     margin-top: 40px;
                 }
 
                 .inf-text {
-                    margin-bottom: 20px;
+                    margin-bottom: 15px;
 
                     @media screen and (max-width: 600px) {
                         margin-top: 10px;
@@ -181,7 +181,7 @@
                 }
 
                 .email-container {
-                    margin-top: 30px;
+                    margin-top: 15px;
                 }
             }
 
@@ -206,7 +206,7 @@
     align-items: center;
 }
 
-button {
+button{
     margin: 0.5rem 0;
 }
 

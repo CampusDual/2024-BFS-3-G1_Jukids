@@ -25,6 +25,7 @@
     <o-text-input #latitude attr="latitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #longitude attr="longitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #status attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #transactionStatus attr="transaction_status" fxFlex="100" read-only="yes" oHidden></o-text-input>
 
     <o-form attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
       detail-form-route="toysBuy" show-header="no" layout-direction="column" (onDataLoaded)="setStripe()">
@@ -82,7 +83,7 @@
               </div>
 
               <!-- email  -->
-              <div class="email-container">
+              <div class="email-container" *ngIf="transactionStatus.getValue() == 0">
                 <a class="link" href="mailto:{{ emailInput.getValue() }}
                 ?Subject=¡Quiero tu juguete {{ nameInput.getValue() }} de JUKIDS!
                 &body=Hola!%20Me%20gustaría%20comprar%20tu%20juguete%20{{ nameInput.getValue() }}">
@@ -98,7 +99,7 @@
             </div>
             <!-- buy button  -->
             <div>
-              <button class="button btn-solid buttonBuy" (click)="openBuy(toyId.getValue())">
+              <button *ngIf="transactionStatus.getValue() == 0" class="button btn-solid buttonBuy" (click)="openBuy(toyId.getValue())">
                 {{ "BUY" | oTranslate }}
               </button>
             </div>
