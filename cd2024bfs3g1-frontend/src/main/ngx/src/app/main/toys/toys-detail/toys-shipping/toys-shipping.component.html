@@ -34,16 +34,16 @@
           </div>
           <div class="divLabel">
             <o-text-input #shippingAddress attr="shipping_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
-              read-only="no" required="yes" max-length="150"></o-text-input>
+              read-only="no" required="yes" max-length="150" appearance="outline"></o-text-input>
           </div>
           <div class="divLabel">
             <o-text-input #buyerPhone attr="buyer_phone" label="{{'usr_phone' | oTranslate}}" fxFlex="100"
-              read-only="no" required="yes" max-length="9" min-length="9"></o-text-input>
+              read-only="no" required="yes" max-length="9" min-length="9" appearance="outline"></o-text-input>
           </div>
           <div class="divLabel">
             <o-combo class="company" #shipmentCompany attr="shipment_company" label="{{'company' | oTranslate}}"
               [static-data]="dataCompany" [data]="defaultCompany" value-column="code" columns="code;company"
-              visible-columns="company" required="yes" read-only="false" null-selection="no"></o-combo>
+              visible-columns="company" required="yes" read-only="false" null-selection="no" appearance="outline"></o-combo>
           </div>
           <span class="note">*{{'NOTE_SEND' | oTranslate}}</span>
 
