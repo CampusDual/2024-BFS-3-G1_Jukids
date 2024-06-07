@@ -9,8 +9,8 @@
   </div>
 </div>
 
-<mat-tab-group>
-  <mat-tab label="{{ 'PENDING_SEND_TOY' | oTranslate }}">
+<mat-tab-group fxFill #tabs [selectedIndex]="currentTabIndex">
+  <mat-tab #tabSend attr="tabSend" label="{{ 'PENDING_SEND_TOY' | oTranslate }}">
     <o-table #tableSend fxFlex attr="tableSend" service="shipments" entity="pendingSend" keys="toyid"
       title="{{ 'PENDING_SEND_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
       visible-columns="photo;name;total_price" show-title="true" pagination-controls="no"
@@ -25,12 +25,12 @@
         tooltip="yes"></o-table-column>
       <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
         max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
-        currency-symbol-position="right" tooltip="yes"></o-table-column>    
+        currency-symbol-position="right" tooltip="yes"></o-table-column>
     </o-table>
 
   </mat-tab>
 
-  <mat-tab label="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}">
+  <mat-tab #tabReceived attr="tabReceived" label="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}">
     <o-table #tableReceived fxFlex attr="tableReceived" service="shipments" entity="pendingReceive" keys="toyid"
       title="{{ 'PENDING_ARRIVAL_TOY' | oTranslate }}" columns="toyid;photo;name;tracking_number;total_price"
       visible-columns="photo;name;tracking_number;total_price;edit-btn" show-title="true" pagination-controls="no"
@@ -59,7 +59,7 @@
 
   </mat-tab>
 
-  <mat-tab label="{{ 'RECEIVED_TOYS' | oTranslate }}">
+  <mat-tab #tabConfirm attr="tabConfirm" label="{{ 'RECEIVED_TOYS' | oTranslate }}">
     <o-table #tableConfirm fxFlex attr="tableConfirm" service="shipments" entity="pendingConfirm" keys="toyid"
       title="{{ 'RECEIVED_TOYS' | oTranslate }}" columns="toyid;photo;name;total_price"
       visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no"
@@ -82,9 +82,10 @@
       </o-table-column>
     </o-table>
   </mat-tab>
-  <mat-tab label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" mat-align-tabs="start">
+
+  <mat-tab #tabPurchased attr="tabPurchased" label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" mat-align-tabs="start">
     <div class="list" fxLayout="column">
-      <o-list #list attr="list" service="orders" entity="ordersWithToys" key="t.toyid"
+      <o-list #list attr="list" service="orders" entity="ordersWithToys" key="order_id"
           columns="t.toyid;photo;name;price;transaction_status;t.usr_id;usr_name;buyer_id"
           detail-form-route="toysDetail" refresh-button="none" delete-button="none" quick-filter="none">
         <mat-card *ngFor="let row of list.dataArray" [o-list-item]="row">

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserProfileToylistComponent } from './user-profile-toylist/user-profile-toylist.component';
 import { EditToyComponent } from './edit-toy/edit-toy.component';
@@ -11,13 +11,14 @@ const routes: Routes = [
   { path: '', component: UserProfileHomeComponent },
   { path: 'toylist', component: UserProfileToylistComponent },
   { path: 'buylist', component: UserPurchasedToylistComponent },
-  { path: 'ratings', component: UserProfileRatingsComponent},  
+  { path: 'ratings', component: UserProfileRatingsComponent},
   // { path: 'toylist/edit-toy/:toyid', component: EditToyComponent },
   { path: 'toylist/toysDetail/:toyid', component: ToysDetailComponent },
   { path: 'buylist/toysDetail/:toyid', component: ToysDetailComponent },
   { path: 'toylist/:toyid', component: EditToyComponent },
- 
-] 
+  { path: 'edit-toy/:toyid', component: EditToyComponent }
+
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
