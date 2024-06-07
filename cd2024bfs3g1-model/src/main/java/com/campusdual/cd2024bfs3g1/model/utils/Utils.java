@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 public class Utils {
 
+    private static final int JUKIDS_COMMISSION = 7;
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     private static final int TRACK_MAX_LENGTH = 10;
     private static final Random RANDOM = new SecureRandom();
@@ -138,10 +139,9 @@ public class Utils {
     }
 
     public static double calculateTotalPrice(EntityResult toyData) {
-        double jukidsCommission = 7;
         BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
         double toyPrice = toyPriceDecimal.doubleValue();
-        return toyPrice / (1 - jukidsCommission / 100);
+        return toyPrice / (1 - (double) JUKIDS_COMMISSION / 100);
     }
 
     public static double calculateTotalPriceWithShipment(EntityResult toyData, double shipmentPrice) {
