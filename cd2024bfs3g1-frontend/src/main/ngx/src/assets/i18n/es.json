@@ -10,7 +10,7 @@
   "client_permission": "Permisos de cliente",
   "confirm_new_password": "Confirmar nueva contraseña",
   "DARK_MODE": "Modo nocturno",
-  "DONT_HAVE_ACCOUNT": "No tienes cuenta?",
+  "DONT_HAVE_ACCOUNT": "¿No tienes cuenta?",
   "delete": "Borrar",
   "ERROR_MIN_LENGTH_REQUIRED": "El valor introducido tiene que tener una longitud mínima de 8 caracteres",
   "ERROR_PASS_REQUIRED": "Contraseña incorrecta.",

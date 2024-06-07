@@ -25,7 +25,7 @@
               {{ 'ERROR_USER_REQUIRED' | oTranslate }}
             </mat-error>
           </mat-form-field>
-          <mat-form-field fxFill class="search" style="padding-bottom: 30px;">
+          <mat-form-field fxFill class="search">
             <input matInput class="mat-input" #password placeholder="{{ 'PASSWORD' | oTranslate }}" id="password"
               type="password" [formControl]="pwdCtrl">
             <mat-error *ngIf="pwdCtrl.hasError('required')">

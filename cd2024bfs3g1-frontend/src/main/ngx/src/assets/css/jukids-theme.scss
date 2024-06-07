@@ -16,12 +16,14 @@ $color-dark-orange: #D34A24;
 $color-red: #F11F43;
 $color-blue: #3C7F72;
 $color-orange-bg: #FD8F3514;
+$color-red-bg: rgba(241, 31, 66, 0.8);
+$color-blue-bg: hsla(169, 36%, 37%, 0.60);
 $color-white: #fff;
 $color-black: #000;
 
 
 // Mixin para aplicar estilos según los breakpoints
-@mixin respond-to($breakpoint) {
+@mixin respond-to($breakpoint) {  
   @if $breakpoint ==small {
     @media #{$breakpoint-small} {
       @content;
@@ -146,9 +148,6 @@ nav {
 .color-blue{
   color: $color-blue;
 }
-.color-orange-bg{
-  color: $color-orange-bg;
-}
 
 .bg-color-orange{
   background-color: $color-orange;
@@ -156,14 +155,14 @@ nav {
 .bg-color-dark-orange{
   background-color: $color-dark-orange;
 }
+.bg-color-orange-transparent{
+  background-color: $color-orange-bg;
+}
 .bg-color-red{
-  background-color: $color-red;
+  background-color: $color-red-bg;
 }
 .bg-color-blue{
-  background-color: $color-blue;
-}
-.bg-color-orange-bg{
-  background-color: $color-orange-bg;
+  background-color: $color-blue-bg;
 }
 
 
@@ -241,7 +240,8 @@ nav {
   > {
     .image-header {
       width: 100%;
-      height: 85%;
+      height: 75%;
+      min-height: 75%;
       border-radius: .75rem;
       object-fit: cover;
 
@@ -265,7 +265,6 @@ nav {
     padding: 1rem;
     justify-self: center;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     gap: 0.5rem;
 
@@ -377,18 +376,26 @@ nav {
   //Categoria color
   &.btn-solid {
     border-color: $color-blue;
-    color: $color-white;
+    color: $color-white !important;
     background-color: $color-blue;
     padding: .5rem 1.2rem !important;
 
     &:hover {
       box-shadow: 0 2px 4px #0000003d;
     }
-
     &.reverse {
       border-color: $color-orange;
       color: $color-black;
       background-color: $color-orange;
+    }
+  }
+  &.btn-solid-list {
+    border-color: $color-blue;
+    color: $color-white;
+    background-color: $color-blue;    
+
+    &:hover {
+      box-shadow: 0 2px 4px #0000003d;
     }
   }
 
@@ -615,12 +622,27 @@ nav {
     padding: 10px 0px;
     gap: 10px;
   }
-
-
 }
-
 
 o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
 o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
   background: $color-orange;
+}
+// ==================================== BORDER MAP ====================================
+o-map mat-sidenav-container{
+  border-radius: 8px;
+}
+
+// ==================================== SCROLLBAR ====================================
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-orange $color-orange-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $color-orange;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
 }

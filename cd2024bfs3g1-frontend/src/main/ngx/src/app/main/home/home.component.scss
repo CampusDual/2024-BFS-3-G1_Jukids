@@ -12,7 +12,7 @@
         height: 90%;
         z-index: 2;
     }
-    
+
     .banner-svg {
         display: flex;
         align-items: start;
@@ -21,7 +21,7 @@
         width: 77%;
         z-index: 4;
 
-        img{
+        img {
             width: 100%;
         }
     }
@@ -30,6 +30,7 @@
 .title-box {
     display: flex;
     flex-direction: row;
+
     @media screen and (max-width: 550px) {
         margin-top: 20px;
         justify-content: space-between;
@@ -42,6 +43,7 @@
     display: flex;
     flex-direction: column;
     justify-items: center;
+
     @media screen and (max-width: 550px) {
         margin-top: 5px;
     }
@@ -60,16 +62,19 @@
     color: rgb(0, 0, 0);
     padding-left: 1%;
     text-transform: uppercase;
+
     @media screen and (max-width: 550px) {
         display: none;
     }
 }
+
 .row-title-small {
     display: none;
     font-weight: bolder;
     color: rgb(0, 0, 0);
     padding-left: 1%;
     text-transform: uppercase;
+
     @media screen and (max-width: 550px) {
         display: contents;
     }
@@ -82,120 +87,82 @@
     border-radius: .75rem;
     object-fit: cover;
 
-  }
+}
 
-.icons-box{
+.icons-box {
     display: flex;
-    flex-direction: column;
-    width: 80%;
-    max-height: fit-content !important;
-    margin: auto;
-    margin-bottom: 20px;
-    justify-items: center;
+    width: 50%;
+    max-width: 900px;
+    margin: 30px auto;
     align-items: center;
-    @media screen and (max-width: 550px) {
+    justify-content: space-between;
+
+    @media screen and (max-width: 450px) {
         display: none;
-        }
-    @media screen and (max-width: 1000px) {
-    width: 100%;
     }
-    .claim {
-        width: fit-content;
-        align-self: center;
 
-        .category-search-claim {
-            @media screen and (max-width: 800px) {
-                display: none;
-            }
-        }
-    }
-    .smallcards-container {
-        margin: auto;
-        margin-top: 10px;
+    @media screen and (max-width: 960px) {
         width: 80%;
-        display: flex;
-        flex-direction: row;
-        align-self: center;
-        justify-content: space-between;
-        justify-items: center;
-        height: fit-content;
-        @media screen and (max-width: 550px) {
-            display: grid;
-            height: 60px;
-            grid-template-columns: repeat(6,50px);  /* 3 columns */
-            grid-template-rows: repeat(1,100px); /* 3 rows  */
-            grid-gap:1px 1px; /* 50 pixels of space added between rows and 30 pixels added between columns  */
-        }
-        }
-        @media screen and (max-width:700px) {
-            display: none;
+    }
 
-        }
-        .smallcard {
+    .smallcard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .icon-div {
+            border-radius: 50%;
+            padding: 8px;
             display: flex;
-            width: 90px;
-            height: 90px;
-            align-self: center;
-            flex-direction: column;
-            align-items: center;
-            justify-items: center;
-            @media screen and (max-width: 800px) {
-                width: 75px;
-                height: 75px;
-            @media screen and (max-width:600px) {
-                width: 50px;
-                height: 50px;
-            }
-            @media screen and (max-width: 500px) {
-                width: 40px;
-                height: 40px;
-            }
-            @media screen and (max-width: 450px) {
-                width: 30px;
-                height: 30px;
-            }
-            }
+            width: 40px;
+            height: 40px;
+
             .icon {
                 height: 100%;
                 width: 100%;
                 padding: 3px;
                 justify-self: center;
                 align-self: center;
-                background-color: rgba(224, 224, 224, 0.74);
-                border-radius:15px;
+
                 &:hover {
                     transform: scale(1.1);
                     transition: all;
                     transition: 0.3s;
                 }
+
                 @media screen and (max-width: 450px) {
                     padding: 6px;
                 }
             }
-            .icon-name{
-                margin-top: 15px;
-                font-size: smaller;
-                text-align: center;
-                align-self: center;
-                @media screen and (max-width: 800px) {
-                    display: none;
-                }
+        }
+
+        .icon-name {
+            margin-top: 15px;
+            font-size: smaller;
+            text-align: center;
+            align-self: center;
+
+            @media screen and (max-width: 600px) {
+                display: none;
             }
         }
     }
+}
 
 
 .anchor {
     margin-left: 10px;
     font-size: medium;
     text-transform: uppercase;
-    color: #3c7f72;
     align-self: center;
-    &:hover{
+
+    &:hover {
         text-decoration: underline;
         cursor: pointer;
-        }
+    }
+
     align-self: center;
+
     @media screen and (max-width: 550px) {
         align-self: flex-end;
     }
