@@ -6,12 +6,12 @@
         catalog="" schema="${mainschema}" table="chat_log"
         datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
-        <Column>customerId</Column>
+        <Column>toy_id</Column>
     </DeleteKeys>
     <UpdateKeys>
-        <Column>customerId</Column>
+        <Column>toy_id</Column>
     </UpdateKeys>
-    <GeneratedKey>customerId</GeneratedKey>
+    <GeneratedKey>id</GeneratedKey>
 
 
     <Queries>

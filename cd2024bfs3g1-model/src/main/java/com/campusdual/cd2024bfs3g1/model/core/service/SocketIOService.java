@@ -18,6 +18,9 @@ import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
@@ -29,7 +32,7 @@ public class SocketIOService {
     private ToyService toyService;
 
     @Autowired
-    private UserRoleDao userRoleDao;
+    private UserDao userDao;
 
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
@@ -112,6 +115,7 @@ public class SocketIOService {
                 attrMap.put(ChatLogDao.ATTR_OWNER_ID,  recieveMessage.getCustomerId() );
                 attrMap.put(ChatLogDao.ATTR_TOY_ID,  recieveMessage.getToyId() );
                 attrMap.put(ChatLogDao.ATTR_MSG, recieveMessage.getMessage() );
+                attrMap.put( ChatLogDao.ATTR_INSERTED_DATE,  new Date() );
                 chatLogService.chatLogInsert( attrMap );
 
                 acknowledge.sendAckData("Message send to target user successfully");
@@ -158,7 +162,7 @@ public class SocketIOService {
             //Where
             Map<String, Object> keyMap = new HashMap<>();
                 keyMap.put(ChatLogDao.ATTR_CUSTOMER_ID, cId );
-                keyMap.put(ChatLogDao.ATTR_TOY_ID, 374 );
+                keyMap.put(ChatLogDao.ATTR_TOY_ID, toyId );
 
 
             //Columnas a consultar
@@ -242,7 +246,8 @@ public class SocketIOService {
 
     private SendMessage createMessageResponse(RecieveMessage recieveMessage) {
 
-        int tId = Integer.parseInt( recieveMessage.getToyId());
+        int tId = Integer.parseInt( recieveMessage.getToyId() );
+        int cId = Integer.parseInt( recieveMessage.getCustomerId() );
 
         SendMessage sendMessage = new SendMessage();
 
@@ -270,7 +275,7 @@ public class SocketIOService {
 
             //Where
             Map<String, Object> customerDataKeyMap = new HashMap<>();
-            customerDataKeyMap.put(ToyDao.ATTR_ID, tId );
+            customerDataKeyMap.put(UserDao.USR_ID, cId );
 
             //Columnas a consultar
             List<String> customerDataAttrList = Arrays.asList(
@@ -285,7 +290,7 @@ public class SocketIOService {
             //Recibo los datos del lado del seller
             EntityResult sellerData = toyService.getToysSellerDataQuery(sellerDataKeyMap, sellerDataAttrList);
 
-            EntityResult customerData = this.daoHelper.query( this.userRoleDao, customerDataKeyMap, customerDataAttrList );
+            EntityResult customerData = this.daoHelper.query( this.userDao, customerDataKeyMap, customerDataAttrList );
 
             sendMessage.setCustomerId(
                     customerData.get( UserDao.USR_ID ).toString()

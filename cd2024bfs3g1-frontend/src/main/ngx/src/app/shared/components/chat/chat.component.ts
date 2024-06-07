@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, Inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ChatMessageModelInterface, ChatMessageResponseInterface } from '../../interfaces/chat-message.interface';
 import { ChatService } from '../../services/chat.service';
@@ -12,7 +12,7 @@ import { ServiceResponse } from 'ontimize-web-ngx';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
   baseUrl: string;
   toyId: number;
@@ -35,7 +35,6 @@ export class ChatComponent implements OnInit {
     private chatService: ChatService,
     private jkAuthService: JukidsAuthService
   ) {
-
     this.chatService.connect();
   }
 
@@ -56,7 +55,6 @@ export class ChatComponent implements OnInit {
    */
 
   ngOnInit(): void {
-
     // console.log("MODAL DATA:", this.data);
     this.customer_id = this.data.customer_id
     this.toyId = this.data.toyId;
@@ -90,7 +88,7 @@ export class ChatComponent implements OnInit {
     //============================= Ver mensajes y actualizar =============================
     this.chatService.getMessage().subscribe({
       next: (data: ChatMessageResponseInterface) => {
-        console.log("DATA: ", data);
+        // console.log("DATA: ", data);
         this.messages.push(data);
         //Ver control para bajarlo a abajo de todo.
       },
@@ -107,8 +105,6 @@ export class ChatComponent implements OnInit {
 
   }
 
-
-
   scrollToBottom(): void {
     try {
       this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
@@ -117,12 +113,10 @@ export class ChatComponent implements OnInit {
     }
   }
 
-
   closeModal() {
-    this.chatService.disconnectRoom();
     this.dialog.getDialogById('Chat').close();
+    this.msgCount = -1;
   }
-
 
   sendMessage(message: string) {
 
@@ -137,6 +131,13 @@ export class ChatComponent implements OnInit {
 
     this.chatInput.nativeElement.value = '';
 
+  }
+
+  
+
+  
+  ngOnDestroy(): void {
+    this.chatService.disconnectRoom();
   }
 
 
