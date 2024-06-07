@@ -1,14 +1,15 @@
-@use '@angular/material' as mat;
-@use 'node_modules/ontimize-web-ngx/theming/ontimize-style.scss' as ontimize-style;
+@use "@angular/material" as mat;
+@use "node_modules/ontimize-web-ngx/theming/ontimize-style.scss" as
+  ontimize-style;
 
 /* Breakpoints definitions */
 
 // Definición de las media queries como variables
-$breakpoint-small: '(max-width: 599.98px)';
-$breakpoint-medium: '(min-width: 600px) and (max-width: 959.98px)';
-$breakpoint-large: '(min-width: 960px) and (max-width: 1279.98px)';
-$breakpoint-xlarge: '(min-width: 1280px) and (max-width: 1919.98px)';
-$breakpoint-xxlarge: '(min-width: 1920px)';
+$breakpoint-small: "(max-width: 599.98px)";
+$breakpoint-medium: "(min-width: 600px) and (max-width: 959.98px)";
+$breakpoint-large: "(min-width: 960px) and (max-width: 1279.98px)";
+$breakpoint-xlarge: "(min-width: 1280px) and (max-width: 1919.98px)";
+$breakpoint-xxlarge: "(min-width: 1920px)";
 
 // Mixin para aplicar estilos según los breakpoints
 @mixin respond-to($breakpoint) {
@@ -16,27 +17,19 @@ $breakpoint-xxlarge: '(min-width: 1920px)';
     @media #{$breakpoint-small} {
       @content;
     }
-  }
-
-  @else if $breakpoint ==medium {
+  } @else if $breakpoint ==medium {
     @media #{$breakpoint-medium} {
       @content;
     }
-  }
-
-  @else if $breakpoint ==large {
+  } @else if $breakpoint ==large {
     @media #{$breakpoint-large} {
       @content;
     }
-  }
-
-  @else if $breakpoint ==xlarge {
+  } @else if $breakpoint ==xlarge {
     @media #{$breakpoint-xlarge} {
       @content;
     }
-  }
-
-  @else if $breakpoint ==xxlarge {
+  } @else if $breakpoint ==xxlarge {
     @media #{$breakpoint-xxlarge} {
       @content;
     }
@@ -45,40 +38,70 @@ $breakpoint-xxlarge: '(min-width: 1920px)';
 
 /* Color definitions */
 $mat-custom-primary: (
-  50 : #f4e3e3,
-  100 : #b9d1e4,
-  200 : #8ab2d2,
-  300 : #5b93c0,
-  400 : #377bb3,
-  500 : #1464a5,
-  600 : #125c9d,
-  700 : #0e5293,
-  800 : #0b488a,
-  900 : #063679,
-  A100 : #a8c7ff,
-  A200 : #75a7ff,
-  A400 : #4286ff,
-  A700 : #2876ff,
-  contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #ffffff, 500 : #ffffff, 600 : #ffffff, 700 : #ffffff, 800 : #ffffff, 900 : #ffffff, A100 : #000000, A200 : #000000, A400 : #ffffff, A700 : #ffffff)
+  50: #f4e3e3,
+  100: #b9d1e4,
+  200: #8ab2d2,
+  300: #5b93c0,
+  400: #377bb3,
+  500: #1464a5,
+  600: #125c9d,
+  700: #0e5293,
+  800: #0b488a,
+  900: #063679,
+  A100: #a8c7ff,
+  A200: #75a7ff,
+  A400: #4286ff,
+  A700: #2876ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
 );
 
 /* Color definitions */
 $mat-custom-primary-dark: (
-  50 : #f1f6fa,
-  100 : #dce8f2,
-  200 : #c5d9e9,
-  300 : #adc9e0,
-  400 : #9cbed9,
-  500 : #8ab2d2,
-  600 : #82abcd,
-  700 : #77a2c7,
-  800 : #6d99c1,
-  900 : #5a8ab6,
-  A100 : #ffffff,
-  A200 : #ebf5ff,
-  A400 : #b8dcff,
-  A700 : #9ed0ff,
-  contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #000000, 500 : #000000, 600 : #000000, 700 : #000000, 800 : #000000, 900 : #000000, A100 : #000000, A200 : #000000, A400 : #000000, A700 : #000000, )
+  50: #f1f6fa,
+  100: #dce8f2,
+  200: #c5d9e9,
+  300: #adc9e0,
+  400: #9cbed9,
+  500: #8ab2d2,
+  600: #82abcd,
+  700: #77a2c7,
+  800: #6d99c1,
+  900: #5a8ab6,
+  A100: #ffffff,
+  A200: #ebf5ff,
+  A400: #b8dcff,
+  A700: #9ed0ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
 );
 
 // Define a theme.
@@ -94,7 +117,6 @@ $theme: ontimize-style.o-mat-light-theme($primary, $accent);
 /* Dark theme */
 $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 
-
 * {
   font-family: Arial, Helvetica, sans-serif !important;
   /* Establece la tipografía para todo el texto */
@@ -104,7 +126,6 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
   background-color: #ffa366;
 }
 
-
 div .navMenu,
 div .sidenav-toggle-container,
 .o-app-sidenav-menuitem,
@@ -113,30 +134,26 @@ nav {
 }
 
 .mat-icon {
-  font-family: 'Material Icons' !important;
+  font-family: "Material Icons" !important;
 }
-
 
 .sidenav-toggle-container {
   .mat-icon {
-    font-family: 'Material Icons' !important;
+    font-family: "Material Icons" !important;
   }
 }
 
 // Menu hamburguesa
 .mat-sidenav-content {
   background-color: #fff;
-
 }
 
 .navMenu {
   background-color: #ffa366;
-
 }
 
 // Cuadricula de juguetes
 .o-grid {
-
   .div {
     position: relative;
   }
@@ -147,9 +164,9 @@ nav {
   color: #333;
   font-family: Arial, sans-serif;
   // border: 0.125rem solid #ffa366;
-  border-radius: .75rem;
+  border-radius: 0.75rem;
   box-shadow: 0.1rem 0.1rem 0.15rem #ff5439;
-  transition: transform .4s ease;
+  transition: transform 0.4s ease;
 
   &:hover {
     transform: scale(1.1);
@@ -160,13 +177,13 @@ nav {
     height: 11rem;
     object-fit: contain;
 
-    .o-image-content.o-image-auto-fit .o-image-display-container>img {
+    .o-image-content.o-image-auto-fit .o-image-display-container > img {
       border-radius: 10px;
     }
   }
 
   .h4 {
-    margin: 0 0 .5rem 0;
+    margin: 0 0 0.5rem 0;
   }
 }
 
@@ -185,9 +202,9 @@ nav {
   font-family: Arial, sans-serif;
 
   // border: 1px solid #ffa366;
-  border-radius: .75rem;
+  border-radius: 0.75rem;
 
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 
   &:hover {
     // transform: translate(0, -10px);
@@ -202,9 +219,8 @@ nav {
     .image-header {
       width: 100%;
       height: 85%;
-      border-radius: .75rem;
+      border-radius: 0.75rem;
       object-fit: cover;
-
     }
   }
 
@@ -219,7 +235,6 @@ nav {
     box-shadow: 0px 0px 5px 0px #5a5a5a;
   }
 
-
   .card-body {
     flex: 1 1 auto;
     padding: 1rem;
@@ -227,7 +242,6 @@ nav {
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
-
 
     @include respond-to(small) {
       padding: 5px;
@@ -252,7 +266,6 @@ nav {
       flex-direction: column;
       justify-content: start;
     }
-
 
     h4 {
       width: 70%;
@@ -280,7 +293,6 @@ nav {
         width: 100%;
         font-size: 1.05em;
       }
-
     }
 
     .price {
@@ -306,12 +318,8 @@ nav {
         width: 100%;
         font-size: 1.05em;
       }
-
     }
-
-
   }
-
 }
 
 //==================================== NEW BTN DESIGN ====================================
@@ -320,12 +328,12 @@ nav {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition-duration: .2s;
+  transition-duration: 0.2s;
   min-width: 3rem;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   border: 2px solid;
-  margin: .5rem .25rem;
-  padding: .2rem 1rem;
+  margin: 0.5rem 0.25rem;
+  padding: 0.2rem 1rem;
 
   @include respond-to(small) {
     font-size: 0.8em;
@@ -335,10 +343,10 @@ nav {
 
   //Categoria color
   &.btn-solid {
-    border-color: #FFA366;
+    border-color: #ffa366;
     color: #000;
-    background-color: #FFA366;
-    padding: .5rem 1.2rem !important;
+    background-color: #ffa366;
+    padding: 0.5rem 1.2rem !important;
 
     &:hover {
       box-shadow: 0 2px 4px #0000003d;
@@ -358,7 +366,6 @@ nav {
     &.reverse {
       color: #ff5349;
       background-color: #fff;
-
     }
   }
 
@@ -369,13 +376,13 @@ nav {
 
     &:hover {
       color: #fff;
-      background-color: #FFA366;
+      background-color: #ffa366;
       border-color: #ffa366;
     }
 
     &.reverse {
       color: #fff;
-      background-color: #FFA366;
+      background-color: #ffa366;
       border-color: #ffa366;
     }
   }
@@ -384,7 +391,6 @@ nav {
   &.btn-icon {
     padding: 0.2rem 0.3rem;
   }
-
 }
 
 // ==================================== Login Form ====================================
@@ -402,8 +408,6 @@ nav {
     justify-content: space-evenly;
     align-items: center;
     margin: 3rem;
-
-
 
     .login-title-container {
       padding-bottom: 1rem;
@@ -456,7 +460,6 @@ nav {
     .form-register {
       width: 100%;
     }
-
   }
 
   .logo {
@@ -464,7 +467,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #FFFDED;
+    background-color: #fffded;
 
     img {
       width: 75%;
@@ -497,7 +500,6 @@ nav {
       font-size: 2rem;
       color: #ff5349;
     }
-
   }
 
   .link {
@@ -533,8 +535,6 @@ nav {
     padding: 10px 0px;
     gap: 10px;
   }
-
-
 }
 
 // ==================================== CHAT COMPONENT DESIGN ====================================
@@ -543,45 +543,42 @@ nav {
   height: 37.5rem;
   display: flex;
   flex-direction: column;
-  background-color: #FFFDED;
+  background-color: #efe7dd;
   gap: 10px;
-
-  // border: 1px solid black;
-  border-radius: .75rem;  
-  padding: 15px 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 0.75rem;
 
   @include respond-to(small) {
     width: 18rem;
     border-radius: 0;
   }
 
-
   .chat-container-header {
     display: flex;
     align-items: center;
     width: 100%;
-    background-color: #FFFDED;
+    padding: 0.75rem 0.5rem;
+    box-sizing: border-box;
+    background-color: #faf6f1;
 
     .jukids-logo {
       width: 70px;
       height: 70px;
-      border-radius: .75rem;
+      border-radius: 0.75rem;
       margin: 0px 10px;
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: .75rem;
+        border-radius: 0.75rem;
       }
-
     }
 
     .header-title-info {
       display: flex;
       flex-direction: column;
-      // justify-content: center;
-      // align-items: center;
       flex: 1 1 auto;
       gap: 5px;
 
@@ -593,10 +590,8 @@ nav {
         font-size: 1.4em;
         font-weight: 600;
       }
-
     }
   }
-
 
   .chat-container-body {
     display: flex;
@@ -606,27 +601,24 @@ nav {
     overflow-y: auto;
 
     // border-top: 2px solid rgb(0, 0, 0);
-    .chat-message-container-sender {
+    .chat-message-container-receiver {
       width: 100%;
       // border: 1px solid green;
-      border-radius: .75rem;
+      border-radius: 0.75rem;
 
       .chat-message {
         display: flex;
         padding: 5px;
 
         .user-profile {
-          width: 50px;
-          height: 50px;
+          width: 2.5rem;
+          height: 2.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          background-color: blue;
-          color: white;
-          // aspect-ratio: 1 / 1;
-          // width: 18%;
+          background-color: transparent;
           border-radius: 50%;
-          margin: 0px 5px;
+          margin: 0.25rem;
 
           // @include respond-to(small) {
           //   width: 25%;
@@ -637,22 +629,22 @@ nav {
           width: 100%;
           display: flex;
           flex-direction: column;
-          margin: auto 0px;
-          padding: 10px;
-          border-radius: .75rem;
-          background-color: #E9E9E9;
-          border: 1px solid #E9E9E9;
+          box-sizing: border-box;
+          margin:0 0.5rem 0.5rem 0;
+          padding: 0.5rem;
+          border-radius: 0 0.75rem 0.75rem 0.75rem;
+          background-color: #ffffff;
+          border: 2px solid #ffa366;
+          transform: translateY(1.5rem);
         }
-
       }
-
     }
 
-    .chat-message-container-receiver {
+    .chat-message-container-sender {
       width: 100%;
       // border: 1px solid blue;
       // background-color: #49F18C;
-      border-radius: .75rem;
+      border-radius: 0.75rem;
 
       .chat-message {
         display: flex;
@@ -662,91 +654,83 @@ nav {
         // text-align: end;
 
         .user-profile {
-          width: 50px;
-          height: 50px;
+          width: 2.5rem;
+          height: 2.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          background-color: blue;
-          color: white;
-          // aspect-ratio: 1 / 1;
-          // width: 18%;
+          background-color: transparent;
           border-radius: 50%;
-          margin: 0px 5px;
+          margin: 0.25rem;
 
           // @include respond-to(small) {
           //   width: 25%;
           // }
-
         }
 
         .message {
           width: 100%;
           display: flex;
           flex-direction: column;
+          box-sizing: border-box;
           margin: auto 0px;
-          padding: 10px;
-          border-radius: .75rem;
-          background-color: #0E28D3;
-          color: #fff;
-          border: 1px solid #E9E9E9;
+          margin-left: 0.5rem;
+          padding: 0.5rem;
+          border-radius: 0.75rem 0 0.75rem 0.75rem;
+          background-color: #ffa366;
+          transform: translateY(1.5rem);
         }
       }
-
     }
   }
 
   .chat-container-footer {
     display: flex;
     align-items: center;
+    padding: 0.75rem 0.5rem;
+    box-sizing: border-box;
+    background-color: #faf6f1;
     // border: 1px solid yellowgreen;
 
     .chat-input {
       width: 100%;
       margin: 5px;
       padding: 10px;
-      border: 2px solid #0E28D3;
-      border-radius: .75rem;
+      border: 2px solid #067e6a;
+      border-radius: 1.25rem;
 
       &:focus {
         outline: none;
-
       }
-
     }
 
     .chat-btn-send {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #0E28D3;
-      padding: 5px;
-      border: 1px solid #0E28D3;
+      background-color: #067e6a;
+      padding: 0.25rem;
+      border: 1px solid #067e6a;
       border-radius: 50%;
       margin: 5px;
-      transition-duration: .2s;
-
+      transition-duration: 0.2s;
 
       .send-icon {
         width: 28px;
-        color: #FFFFFF;
+        color: #ffffff;
       }
 
       &:hover {
-        background-color: #FFFFFF;
-        border: 1px solid #0E28D3;
+        background-color: #ffffff;
+        border: 1px solid #067e6a;
         box-shadow: 0 2px 4px #0000003d;
 
         .send-icon {
-          color: #0E28D3;
+          color: #067e6a;
         }
       }
     }
-
-
   }
-
-
 }
 
 .close-modal {
@@ -766,17 +750,16 @@ nav {
   .btn-close {
     width: 2rem;
     height: 2rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #ff5349;
   }
-
 }
 
-
-
-
-
-o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
-o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
+o-app-sidenav.o-app-sidenav
+  .o-app-sidenav-container
+  mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
+o-app-sidenav.o-app-sidenav.header-layout
+  .o-app-sidenav-container
+  mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
   background: #ffa366;
 }
