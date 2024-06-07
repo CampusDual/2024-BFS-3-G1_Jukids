@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   private location: any;
   public cols: number = 5;
   public queryrows: number = 5;
+  public rows: number = 1;
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
@@ -56,7 +57,7 @@ export class HomeComponent implements OnInit {
     this.layoutChanges.subscribe((result) => {
       if (result.breakpoints[Breakpoints.XSmall]) {
         this.cols = 2;
-        this.queryrows = 2;
+        this.queryrows = 6;
       } else if (result.breakpoints[Breakpoints.Small]) {
         this.cols = 3;
         this.queryrows = 3;

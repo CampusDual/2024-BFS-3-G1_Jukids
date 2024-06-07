@@ -30,6 +30,10 @@
 .title-box {
     display: flex;
     flex-direction: row;
+    @media screen and (max-width: 550px) {
+        margin-top: 25px;
+        justify-content: space-between;
+    }
 }
 
 .categories-container {
@@ -46,6 +50,8 @@
 
 .grid-container {
     background-color: rgba(239, 239, 239, 0.543);
+    padding-left: 10px;
+    padding-right: 10px;
     border-radius: 10px;
 }
 
@@ -103,11 +109,12 @@
         }
         .smallcard {
             display: flex;
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
+            align-self: center;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-items: center;
             @media screen and (max-width: 800px) {
                 width: 75px;
                 height: 75px;
@@ -124,7 +131,9 @@
             .icon {
                 height: 100%;
                 width: 100%;
+                padding: 3px;
                 justify-self: center;
+                align-self: center;
                 background-color: rgba(224, 224, 224, 0.74);
                 border-radius:15px;
                 &:hover {
@@ -136,6 +145,8 @@
             .icon-name{
                 margin-top: 15px;
                 font-size: smaller;
+                text-align: center;
+                align-self: center;
                 @media screen and (max-width: 800px) {
                     display: none;
                 }
@@ -152,5 +163,13 @@
     &:hover{
         text-decoration: underline;
         cursor: pointer;
+        }
+    align-self: center;
+    @media screen and (max-width: 550px) {
+        align-self: flex-end;
     }
+}
+
+.card {
+    background-color: white;
 }
