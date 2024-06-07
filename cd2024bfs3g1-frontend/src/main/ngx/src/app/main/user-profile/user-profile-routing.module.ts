@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserProfileToylistComponent } from './user-profile-toylist/user-profile-toylist.component';
 import { EditToyComponent } from './edit-toy/edit-toy.component';
@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'ratings', component: UserProfileRatingsComponent},
   { path: 'toylist/:toyid', component: EditToyComponent },
   { path: 'edit-toy/:toyid', component: EditToyComponent }
- 
-] 
+
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
