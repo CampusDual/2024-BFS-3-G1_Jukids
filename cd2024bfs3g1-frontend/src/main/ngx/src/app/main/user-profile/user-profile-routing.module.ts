@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: 'toylist', component: UserProfileToylistComponent },
   { path: 'buylist', component: UserPurchasedToylistComponent },
   { path: 'ratings', component: UserProfileRatingsComponent},
-  // { path: 'toylist/edit-toy/:toyid', component: EditToyComponent },
   { path: 'toylist/toysDetail/:toyid', component: ToysDetailComponent },
   { path: 'buylist/toysDetail/:toyid', component: ToysDetailComponent },
   { path: 'toylist/:toyid', component: EditToyComponent },
