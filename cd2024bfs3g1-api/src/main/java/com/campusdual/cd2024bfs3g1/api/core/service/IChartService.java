@@ -12,4 +12,6 @@ public interface IChartService {
     EntityResult chartQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult orderQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
     EntityResult totalOrdersQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult totalDeliversQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+    EntityResult categoryRevenueQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }

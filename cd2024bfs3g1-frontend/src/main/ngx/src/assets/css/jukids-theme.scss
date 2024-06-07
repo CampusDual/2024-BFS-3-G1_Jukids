@@ -10,6 +10,17 @@ $breakpoint-large: '(min-width: 960px) and (max-width: 1279.98px)';
 $breakpoint-xlarge: '(min-width: 1280px) and (max-width: 1919.98px)';
 $breakpoint-xxlarge: '(min-width: 1920px)';
 
+//Definir colores como variables
+$color-orange: #FD8F35;
+$color-dark-orange: #D34A24;
+$color-red: #F11F43;
+$color-blue: #3C7F72;
+$color-orange-bg: #FD8F3514;
+$color-blue-bg: #3c807380;
+$color-white: #fff;
+$color-black: #000;
+
+
 // Mixin para aplicar estilos según los breakpoints
 @mixin respond-to($breakpoint) {
   @if $breakpoint ==small {
@@ -86,7 +97,7 @@ $primary: mat.define-palette($mat-custom-primary);
 $accent: $primary;
 $primary-dark: mat.define-palette($mat-custom-primary-dark);
 $accent-dark: $primary-dark;
-$secondary-color: #ffffff;
+$secondary-color: $color-white;
 
 /* Light theme */
 $theme: ontimize-style.o-mat-light-theme($primary, $accent);
@@ -101,7 +112,7 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 }
 
 .o-app-header nav {
-  background-color: #ffa366;
+  background-color: $color-orange;
 }
 
 
@@ -109,7 +120,7 @@ div .navMenu,
 div .sidenav-toggle-container,
 .o-app-sidenav-menuitem,
 nav {
-  background-color: #ffa366;
+  background-color: $color-orange
 }
 
 .mat-icon {
@@ -123,14 +134,51 @@ nav {
   }
 }
 
+//==================================== CLASS COLORS ====================================
+.color-orange{
+  color: $color-orange;
+}
+.color-dark-orange{
+  color: $color-dark-orange;
+}
+.color-red{
+  color: $color-red;
+}
+.color-blue{
+  color: $color-blue;
+}
+.color-orange-bg{
+  color: $color-orange-bg;
+}
+
+.bg-color-orange{
+  background-color: $color-orange;
+}
+.bg-color-dark-orange{
+  background-color: $color-dark-orange;
+}
+.bg-color-red{
+  background-color: $color-red;
+}
+.bg-color-blue{
+  background-color: $color-blue;
+}
+.bg-color-orange-bg{
+  background-color: $color-orange-bg;
+}
+.bg-color-blue-bg{
+  background-color: $color-blue-bg;
+}
+
+
 // Menu hamburguesa
 .mat-sidenav-content {
-  background-color: #fff;
+  background-color: $color-white;
 
 }
 
 .navMenu {
-  background-color: #ffa366;
+  background-color: $color-orange;
 
 }
 
@@ -143,12 +191,11 @@ nav {
 }
 
 .o-grid .o-column {
-  background-color: #ffffff;
+  background-color: $color-white;
   color: #333;
   font-family: Arial, sans-serif;
-  // border: 0.125rem solid #ffa366;
   border-radius: .75rem;
-  box-shadow: 0.1rem 0.1rem 0.15rem #ff5439;
+  box-shadow: 0.1rem 0.1rem 0.15rem $color-orange;
   transition: transform .4s ease;
 
   &:hover {
@@ -180,28 +227,26 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   margin-top: 10px;
-  background-color: #ffa36614;
+  background-color: $color-orange-bg;
   color: #333;
   font-family: Arial, sans-serif;
-
-  // border: 1px solid #ffa366;
   border-radius: .75rem;
-
   transition: all .2s ease;
 
   &:hover {
     // transform: translate(0, -10px);
-    box-shadow: 0px 0px 5px 0px #fb6d09;
+    box-shadow: 0px 0px 5px 0px $color-orange;
 
     .price {
-      color: #fb6d09;
+      color: $color-orange;
     }
   }
 
   > {
     .image-header {
       width: 100%;
-      height: 85%;
+      height: 75%;
+      min-height: 75%;
       border-radius: .75rem;
       object-fit: cover;
 
@@ -213,7 +258,7 @@ nav {
     top: 12px;
     left: 12px;
     z-index: 10;
-    background-color: #fff;
+    background-color: $color-white;
     border-radius: 0.75rem;
     padding: 10px;
     box-shadow: 0px 0px 5px 0px #5a5a5a;
@@ -335,10 +380,24 @@ nav {
 
   //Categoria color
   &.btn-solid {
-    border-color: #FFA366;
-    color: #000;
-    background-color: #FFA366;
+    border-color: $color-blue;
+    color: $color-white !important;
+    background-color: $color-blue;
     padding: .5rem 1.2rem !important;
+
+    &:hover {
+      box-shadow: 0 2px 4px #0000003d;
+    }
+    &.reverse {
+      border-color: $color-orange;
+      color: $color-black;
+      background-color: $color-orange;
+    }
+  }
+  &.btn-solid-list {
+    border-color: $color-blue;
+    color: $color-white;
+    background-color: $color-blue;
 
     &:hover {
       box-shadow: 0 2px 4px #0000003d;
@@ -346,37 +405,37 @@ nav {
   }
 
   &.btn-outline-dark {
-    border-color: #fff;
-    color: #fff;
+    border-color: $color-white;
+    color: $color-white;
     background-color: transparent;
 
     &:hover {
-      color: #ff5349;
-      background-color: #fff;
+      color: $color-orange;
+      background-color: $color-white;
     }
 
     &.reverse {
-      color: #ff5349;
-      background-color: #fff;
+      color: $color-orange;
+      background-color: $color-white;
 
     }
   }
 
   &.btn-outline-light {
-    border-color: #ff5349;
-    color: #ff5349;
-    background-color: #fff;
+    border-color: $color-orange;
+    color: $color-orange;
+    background-color: $color-white;
 
     &:hover {
-      color: #fff;
-      background-color: #FFA366;
-      border-color: #ffa366;
+      color: $color-white;
+      background-color: $color-orange;
+      border-color: $color-orange;
     }
 
     &.reverse {
-      color: #fff;
-      background-color: #FFA366;
-      border-color: #ffa366;
+      color: $color-white;
+      background-color: $color-orange;
+      border-color: $color-orange;
     }
   }
 
@@ -396,20 +455,35 @@ nav {
 
   .login {
     width: 50%;
-    background-color: #ffffff;
+    background-color: $color-white;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     margin: 3rem;
+    min-width: 465px;
 
+    @include respond-to(small) {
+      width: 100%;
+      min-width: 0;
+    }
+
+    @include respond-to(medium) {
+      width: 100%;
+      min-width: 0;
+    }
+
+    @include respond-to(large) {
+      width: 100%;
+      min-width: 0;
+    }
 
 
     .login-title-container {
       padding-bottom: 1rem;
 
       .slogan {
-        color: #ff5349;
+        color: #3C7F72;
       }
     }
 
@@ -417,7 +491,7 @@ nav {
       text-align: center;
 
       .slogan {
-        color: #ff5349;
+        color: #3C7F72;
       }
     }
 
@@ -441,75 +515,95 @@ nav {
       }
     }
 
-    @include respond-to(small) {
-      width: 100%;
-    }
-
-    @include respond-to(medium) {
-      width: 100%;
-    }
-
-    @include respond-to(large) {
-      width: 100%;
-    }
-
     .form-register {
       width: 100%;
+      min-width: 0;
     }
 
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: $color-white;
+      color: rgba(0, 0, 0, 0.6);
+      border: 0.5px solid rgba(0, 0, 0, 0.4);
+    }
   }
 
-  .logo {
+}
+
+.logo-header{
+  display:none;
+  img {
+    display: inline-block;
+    width: 100%;
+  }
+  @include respond-to(small) {
+    display: inline-block;
     width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #FFFDED;
-
-    img {
-      width: 75%;
-    }
-
-    @include respond-to(small) {
-      display: none;
-    }
-
-    @include respond-to(medium) {
-      display: none;
-    }
-
-    @include respond-to(large) {
-      display: none;
-    }
   }
 
-  .close-modal {
-    width: 2rem;
-    height: 2rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
-
-    .btn-close{
-      width: 2rem;
-      height: 2rem;
-      font-size: 2rem;
-      color: #ff5349;
-    }
-
+  @include respond-to(medium) {
+    display: inline-block;
+    width: 40%;
   }
 
-  .link {
-    cursor: pointer;
-    font-weight: 600;
-    color: #ff5349;
-
-    &:hover {
-      text-decoration: underline;
-    }
+  @include respond-to(large) {
+    display: inline-block;
+    width: 40%;
   }
 }
+
+.logo {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-orange-bg;
+  height: 500px;
+  min-width: 465px;
+
+  img {
+    width: 50%;
+  }
+
+  @include respond-to(small) {
+    display: none;
+  }
+
+  @include respond-to(medium) {
+    display: none;
+  }
+
+  @include respond-to(large) {
+    display: none;
+  }
+}
+
+.close-modal {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+
+  .btn-close {
+    width: 2rem;
+    height: 2rem;
+    font-size: 2rem;
+    color: $color-dark-orange;
+  }
+
+}
+
+.link {
+  cursor: pointer;
+  font-weight: 600;
+  color: $color-orange;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 
 // ==================================== SEARCH FILTERS ====================================
 
@@ -533,16 +627,22 @@ nav {
     padding: 10px 0px;
     gap: 10px;
   }
-
-
 }
-
 
 o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
 o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
-  background: #ffa366;
+  background: $color-orange;
+}
+// ==================================== BORDER MAP ====================================
+o-map mat-sidenav-container{
+  border-radius: 8px;
 }
 
+// ==================================== SCROLLBAR ====================================
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-orange $color-orange-bg;
+}
 .editProfile{
   color: #ffa366;
   background-color: #fff;
@@ -550,8 +650,14 @@ o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.m
   border: 2px solid;
   padding: 0.2rem 1rem;
 
+::-webkit-scrollbar-thumb {
+  background-color: $color-orange;
+}
 }
 
+::-webkit-scrollbar-track {
+  display: none;
+}
 .header-user-profile h2{
     max-width: 15%;
 }
