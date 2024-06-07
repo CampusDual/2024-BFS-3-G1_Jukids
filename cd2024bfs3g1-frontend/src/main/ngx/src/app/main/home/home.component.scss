@@ -31,7 +31,7 @@
     display: flex;
     flex-direction: row;
     @media screen and (max-width: 550px) {
-        margin-top: 25px;
+        margin-top: 20px;
         justify-content: space-between;
     }
 }
@@ -79,8 +79,13 @@
     display: flex;
     flex-direction: column;
     width: 80%;
+    max-height: fit-content !important;
     margin: auto;
     justify-items: center;
+    align-items: center;
+    @media screen and (max-width: 550px) {
+        display: none;
+    }
     .claim {
         width: fit-content;
         align-self: center;
@@ -100,11 +105,13 @@
         align-self: center;
         gap: 12px;
         justify-content: center;
+        justify-items: center;
         height: fit-content;
         @media screen and (max-width: 550px) {
             display: grid;
-            grid-template-columns: repeat(3,100px);  /* 3 columns */
-            grid-template-rows: repeat(2,100px); /* 3 rows  */
+            height: 60px;
+            grid-template-columns: repeat(6,50px);  /* 3 columns */
+            grid-template-rows: repeat(1,100px); /* 3 rows  */
             grid-gap:1px 1px; /* 50 pixels of space added between rows and 30 pixels added between columns  */
         }
         .smallcard {
@@ -119,13 +126,21 @@
                 width: 75px;
                 height: 75px;
             }
-            @media screen and (max-width: 650px) {
-                width: 65px;
-                height: 65px;
+            @media screen and (max-width:700px) {
+                width: 55px;
+                height: 55px;
             }
-            @media screen and (max-width: 550px) {
-                width: 80px;
-                height: 80px;
+            @media screen and (max-width:600px) {
+                width: 50px;
+                height: 50px;
+            }
+            @media screen and (max-width: 500px) {
+                width: 40px;
+                height: 40px;
+            }
+            @media screen and (max-width: 450px) {
+                width: 30px;
+                height: 30px;
             }
             }
             .icon {
@@ -140,6 +155,9 @@
                     transform: scale(1.1);
                     transition: all;
                     transition: 0.3s;
+                }
+                @media screen and (max-width: 450px) {
+                    padding: 6px;
                 }
             }
             .icon-name{
