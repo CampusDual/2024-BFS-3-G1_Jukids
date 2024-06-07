@@ -10,8 +10,8 @@
 
 <!-- main container -->
 <div class="box">
-  <o-form class="form" style="background-color: transparent" attr="toysDetail" service="toys" entity="toy" keys="toyid"
-    show-header-navigation="no" show-header="no" layout-direction="column" (onDataLoaded)="onFormDataLoaded($event)">
+  <o-form attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no" show-header="no"
+    layout-direction="column" (onDataLoaded)="onFormDataLoaded($event)">
     <!-- hidden inputs for data recovery -->
     <o-text-input #toyId attr="toyid" oHidden sql-type="INTEGER" enabled="yes"></o-text-input>
     <o-text-input #usr_id attr="usr_id" sql-type="INTEGER" enabled="yes" oHidden></o-text-input>
@@ -26,7 +26,7 @@
     <o-text-input #longitude attr="longitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #status attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
 
-    <o-form class="form" attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
+    <o-form attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
       detail-form-route="toysBuy" show-header="no" layout-direction="column" (onDataLoaded)="setStripe()">
       <o-text-input #toyId attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
@@ -37,16 +37,15 @@
           <!-- left column  -->
           <o-column fxFlex="35" class="left-col">
             <!-- image  -->
-            <div class="img-div">
+            <div class="container-border div-img">
               <o-image class="image" auto-fit="yes" attr="photo" read-only="yes"
                 empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
             </div>
             <!-- seller's average -->
             <div *ngIf="ratingData != undefined" class="rating-div">
-              <span class="rating-seller">{{ "SELLER" | oTranslate }}
-                {{ ratingData }}</span>
-              <svg class="star-icon color-orange" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                viewBox="0 0 16 16">
+              <span>{{ "SELLER" | oTranslate }} {{ ratingData }}</span>
+              <svg class=" color-orange" xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem"
+                fill="currentColor" viewBox="0 0 16 16">
                 <path
                   d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
               </svg>
@@ -57,20 +56,20 @@
           <div fxFlex.md="65" fxFlex="100" class="right-col">
             <div fxLayout="column" class="inf-column">
               <!-- title + description + characteristics + price -->
-              <div fxLayout="column">
+              <div class="inf-text" fxLayout="column">
                 <o-row class="title">{{ nameInput.getValue() }}</o-row>
                 <o-row class="description">{{ descInput.getValue() }}</o-row>
 
                 <div class="characteristics">
-                  <p class="status">{{ status.getValue() | oTranslate }}</p>
+                  <p class="shippable status">{{ status.getValue() | oTranslate }}</p>
                   <o-row>
                     <p *ngIf="shipping.getValue(); else noShipping" class="shippable bg-color-blue-bg">
                       {{ "SHIPMENT_AVAILABLE" | oTranslate }}
                     </p>
                     <ng-template #noShipping>
-                      <p class="no-shippable bg-color-dark-orange">{{ "SALE_IN_PERSON_ONLY" | oTranslate }}</p>
+                      <p class="shippable bg-color-dark-orange">{{ "SALE_IN_PERSON_ONLY" | oTranslate }}</p>
                     </ng-template>
-                  </o-row>                  
+                  </o-row>
                 </div>
 
                 <o-row class="price">{{ priceInput.getValue() | number: '1.2-2'}}
@@ -78,12 +77,8 @@
               </div>
 
               <!-- map -->
-              <div class="map-column">
-                <div class="map-container" fxLayout="column" fxLayoutGap="4px">
-                  <div class="map-box">
-                    <location-map [isEditable]="isEditable" attr="detailMap" #detailMap ></location-map>
-                  </div>
-                </div>
+              <div class="container-border" fxLayout="column" fxLayoutGap="4px">
+                <location-map [isEditable]="isEditable" attr="detailMap" #detailMap style="width:100%"></location-map>
               </div>
 
               <!-- email  -->
@@ -91,19 +86,19 @@
                 <a class="link" href="mailto:{{ emailInput.getValue() }}
                 ?Subject=¡Quiero tu juguete {{ nameInput.getValue() }} de JUKIDS!
                 &body=Hola!%20Me%20gustaría%20comprar%20tu%20juguete%20{{ nameInput.getValue() }}">
-                {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}
+                  {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}
                   <!--{{ emailInput.getValue() }}-->
                 </a>
                 <ng-container *ngIf="isLogged && isNotTheSeller">
-                <button class="button btn-outline-light" (click)="openBuy(toyId.getValue())">
-                  CONTACTA POR CHAT
-                </button>
-              </ng-container>
+                  <button class="button btn-outline-light" (click)="openBuy(toyId.getValue())">
+                    CONTACTA POR CHAT
+                  </button>
+                </ng-container>
               </div>
             </div>
             <!-- buy button  -->
-            <div class="buttonBuy">              
-              <button class="button btn-solid" (click)="openBuy(toyId.getValue())">
+            <div>
+              <button class="button btn-solid buttonBuy" (click)="openBuy(toyId.getValue())">
                 {{ "BUY" | oTranslate }}
               </button>
             </div>

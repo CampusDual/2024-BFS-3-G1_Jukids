@@ -1,7 +1,8 @@
 .navigation-tree-container {
     display: flex;
-    justify-content: center;
     flex-direction: row;
+    max-width: 960px;
+    margin: auto;
 
     .back-category {
         width: 60%;
@@ -19,7 +20,6 @@
             margin-bottom: 10px;
         }
 
-
         .category {
             scale: 100%;
             align-content: center;
@@ -27,12 +27,12 @@
             font-weight: 400;
             height: 100%;
             color: #0000009c;
-            font-size: 15px;
+            font-size: 16px;
         }
     }
 }
 
-.box {    
+.box {
     max-width: 960px;
     display: flex;
     justify-content: center;
@@ -42,13 +42,11 @@
     border-radius: 1em;
     height: fit-content;
 
-
     .toys-detail-column {
         margin-top: 10px;
         justify-content: space-between;
         background-color: transparent;
-        grid-column-gap: 25px;
-
+        grid-column-gap: 30px;
         overflow-x: hidden;
 
         @media screen and (max-width: 960px) {
@@ -68,29 +66,22 @@
             align-items: center;
             width: fit-content;
 
-            .img-div {
-                border: 0.5px solid rgba(0, 0, 0, 0.3);
-                border-radius: 5px;
-                padding: 10px;
-                margin-top: 8px;
-                display: flex;
-                justify-content: center;
+            @media screen and (max-width: 960px) {
+                width: 100%;
+            }
+
+            .div-img {
+                max-height: 400px;
 
                 .image {
                     scale: 1;
                     max-width: 95%;
                     overflow: hidden;
-                    transition: 1.5s;
+                    transition: 1s;
                     object-fit: cover;
-                    height: 400px;
-
-
-                    @media screen and (max-width: 600px) {
-                        height: fit-content !important;
-                    }
 
                     @media screen and (max-width: 960px) {
-                        height: fit-content !important;
+                        height: 95%;
                         justify-self: center;
                         display: inline-block;
                         width: 80%;
@@ -99,14 +90,18 @@
 
                     &:hover {
                         transform: scale(1.05);
-                        transition: 4.5s;
+                        transition: 3s;
                     }
                 }
             }
-            @media screen and (max-width: 960px) {
-                width: 100%;
-            }
 
+            .rating-div {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: .35rem;
+                margin: 10px 0;
+            }
         }
 
         .right-col {
@@ -117,8 +112,6 @@
             flex-direction: column;
             border-radius: 5px;
 
-
-
             @media screen and (max-width: 960px) {
                 margin-top: 15px;
                 width: 100%;
@@ -126,179 +119,98 @@
             }
 
             .inf-column {
-                background-color: transparent;
                 height: 100%;
                 display: flex;
                 justify-content: space-between;
-                margin-left: 10px;
-                margin-top: 10px;
+                margin-bottom: 40px;
 
                 @media screen and (max-width: 960px) {
-                    overflow-y: scroll;                    
-                    padding-left: 5%;
-                    padding-right: 5%;
-                    padding-bottom: 15px;
+                    margin-top: 40px;
                 }
 
-                @media screen and (max-width: 1200px) {
-                    padding-bottom: 0px;
-                    justify-content: space-between;
-                    overflow-x: hidden;
-                    margin: 0%;
-                    width: 100%;
-                }
-
-                .title {
-                    font-size: 25px;
-                    font-weight: bold;
-                    color: #000000;
-                    text-transform: capitalize;
-                    background-color: transparent;
+                .inf-text {
                     margin-bottom: 20px;
-                }
 
-                .description {
-                    font-size: 15px;
+                    @media screen and (max-width: 600px) {
+                        margin-top: 10px;
+                    }
 
-                    @media screen and (max-width: 960px) {
-                        height: fit-content !important;
+
+                    .title {
+                        font-size: 32px;
+                        font-weight: bold;
+                        text-transform: capitalize;
+                        margin-bottom: 20px;
+                    }
+
+                    .description {
+                        font-size: 16px;
+                        height: fit-content;
                         margin-bottom: 10px;
                     }
-                }
 
-                .characteristics {
-                    display: flex;
-                    gap: 10px;
-
-                    .shippable {
-                        font-size: 15px;
-                        font-weight: bold;
-                        padding: 5px;
-                        border-radius: 3px;
-                        color: white;
-                    }
-
-                    .no-shippable {
-                        font-size: 15px;
-                        font-weight: bold;
-                        padding: 5px;
-                        border-radius: 3px;
-                        color: white;
-                    }
-
-                    .status {
-                        color: white;
-                        font-size: 15px;
-                        font-weight: bold;
-                        width: fit-content;
-                        padding: 5px;
-                        background-color: #9b9b9b;
-                        border-radius: 3px;
-                        text-transform: uppercase;
-                    }
-
-
-                }
-
-                .price {
-                    display: flex;
-                    align-self: flex-start;
-                    background-color: transparent;
-                    font-size: 35px;
-                    font-weight: bold;
-                    text-align: center;
-                    margin: 12px 0;
-                }
-
-                .map-column {
-                    display: flex;
-                    flex-direction: column;
-                    margin-bottom: 20px;
-
-                    .map-container {
-                        border: 0.5px solid rgba(0, 0, 0, 0.3);
-                        border-radius: 5px;
-                        padding: 5px;
+                    .characteristics {
                         display: flex;
-                        margin-top: 20px;
-                        flex-direction: column;
-                        align-content: center;
-                        justify-content: center;
-                        justify-items: center;
+                        gap: 10px;
 
-
-                        @media screen and (max-width: 600px) {
-                            margin-top: 10px;
+                        .shippable {
+                            font-size: 12px;
+                            font-weight: bold;
+                            padding: 5px 8px;
+                            border-radius: 3px;
+                            color: white;
+                            text-transform: uppercase;
                         }
 
-                        .map-box {
-                            justify-content: center;
-                            justify-items: center;
+                        .status {
+                            background-color: #9b9b9b;
+                        }
+                    }
+
+                    .price {
+                        font-size: 32px;
+                        font-weight: bold;
+                        margin: 12px 0;
+
+                        span {
+                            padding-left: 5px;
+                            font-size: 26px;
+                            align-self: flex-end;
                         }
                     }
                 }
-
 
                 .email-container {
-                    align-content: end;
-                    word-wrap: break-word;
-                    overflow-wrap: break-word;
-                    white-space: inherit;
-                    margin-bottom: 20px;
-                    padding-right: 5px;
-                    font-size: small;
-
-                    .email {
-                        color: black;
-                    }
-
+                    margin-top: 30px;
                 }
             }
 
             .buttonBuy {
-                button {
+                min-width: 40%;
+
+                @media screen and (max-width: 960px) {
                     width: 100%;
-                }
-                @media screen and (max-width: 600px) {
-                    margin-bottom: 20px;
                 }
             }
         }
     }
 }
 
-
-.transparent {
+.container-border {
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 8px;
     display: flex;
     justify-content: center;
-    background-color: transparent;
-    border: none;
-}
-
-
-
-.rating-div {
-    display: flex;
-    justify-content: flex-start;
     align-items: center;
-    gap: .35rem;
-}
-
-.rating-seller {
-    display: block;
-}
-
-.star-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    position: relative;
-    transform: translateY(-.1rem);
 }
 
 button {
     margin: 0.5rem 0;
 }
 
-.link{
-    color: #9b9b9b
+.link {
+    color: #9b9b9b;
+    font-size: small;
 }

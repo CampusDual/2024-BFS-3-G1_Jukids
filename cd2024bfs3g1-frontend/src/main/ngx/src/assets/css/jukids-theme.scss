@@ -619,16 +619,27 @@ nav {
     padding: 10px 0px;
     gap: 10px;
   }
-
-
 }
-
 
 o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
 o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
   background: $color-orange;
 }
-
-mat-sidenav-container{
+// ==================================== BORDER MAP ====================================
+o-map mat-sidenav-container{
   border-radius: 8px;
+}
+
+// ==================================== SCROLLBAR ====================================
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-orange $color-orange-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $color-orange;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
 }
