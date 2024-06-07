@@ -30,7 +30,6 @@ public class PaymentController {
 
         } catch ( StripeException stripeException ) {
 
-            //System.out.println("ERROR: =============> " + stripeException.getStripeError().getMessage() );
 
             EntityResult exception = new EntityResultMapImpl();
             exception.put( "error", stripeException.getStripeError().getMessage() );

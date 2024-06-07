@@ -73,7 +73,6 @@ public class PaymentService implements IPaymentService {
 
             getProdQuery.put( ToyDao.ATTR_ID, toyid);
 
-            System.out.println("================= PRODUCT ID: " + toyid );
 
             //Consulta
             EntityResult result = toyService.toyQuery(
@@ -93,16 +92,11 @@ public class PaymentService implements IPaymentService {
                 return errorResult;
             }
 
-            System.out.println("BASE URL ============> " + baseUrl);
-
 
             //Producto encontrado
 
             HashMap<String, Object> toyData = (HashMap<String, Object>) result.getRecordValues(0);
 
-            System.out.println(toyData.get( ToyDao.ATTR_NAME ) );
-            System.out.println(toyData.get( ToyDao.ATTR_DESCRIPTION ) );
-            System.out.println(toyData.get( ToyDao.ATTR_PRICE ) );
 
             // Recuperar dato de precio
             BigDecimal price = (BigDecimal) toyData.get(ToyDao.ATTR_PRICE);
@@ -116,7 +110,6 @@ public class PaymentService implements IPaymentService {
             if(shipment){
                price = price.add(new BigDecimal(300));
             }
-            System.out.println(price);
 
 
             SessionCreateParams params =

@@ -56,9 +56,6 @@ public class OrderService implements IOrderService {
     @Transactional
     public EntityResult orderInsert(Map<String, Object> orderData) {
 
-        //Recuperamos ORDER - BUYER_ID, BUYER_EMAIL
-        //Generamos ORDER - ORDER_DATE
-
         String email = Utils.getAuthenticatedEmail();
         Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
 
@@ -74,7 +71,6 @@ public class OrderService implements IOrderService {
             return Utils.createError("Error al recuperar el precio del juguete!");
         }
 
-        //Recuperamos TOYS - PRICE
         //Calculamos ORDER - TOTAL_PRICE
 
         double totalPrice = Utils.calculateTotalPrice(toyData);
@@ -100,9 +96,7 @@ public class OrderService implements IOrderService {
             return Utils.createError("Error al actualizar el transaction_status");
         }
 
-        EntityResult result = new EntityResultMapImpl();
-        result.setMessage("Orden creada correctamente");
-        return result;
+        return Utils.createMessageResult("Orden creada correctamente");
     }
 
     @Override
@@ -142,14 +136,12 @@ public class OrderService implements IOrderService {
         //Verificamos disponibilidad del juguete e insertamos en ORDERS
 
         if (!Utils.isToyAvailable(toyData)) {
-
             return Utils.createError("El producto no se encuentra disponible");
         }
 
         EntityResult orderResult = Utils.insertOrder(daoHelper, orderDao, orderData);
 
         if (orderResult.isWrong()) {
-
             return Utils.createError("Error al crear la orden");
         }
 
@@ -174,8 +166,6 @@ public class OrderService implements IOrderService {
             return Utils.createError("Error al actualizar el transaction_status");
         }
 
-        EntityResult result = new EntityResultMapImpl();
-        result.setMessage("Orden y envío creados correctamente");
-        return result;
+        return Utils.createMessageResult("Orden y envío creados correctamente");
     }
 }

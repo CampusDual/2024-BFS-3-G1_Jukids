@@ -7,14 +7,12 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -105,7 +103,6 @@ public class ShipmentService implements IShipmentService {
         EntityResult shipmentUpdateResult = this.daoHelper.update(this.shipmentDao, shipmentUpdateValues, shipmentKeyMap);
 
         if (shipmentUpdateResult.isWrong()) {
-
             return Utils.createError("Error al actualizar el envío");
         }
 
@@ -120,7 +117,6 @@ public class ShipmentService implements IShipmentService {
         EntityResult toyUpdateResult = this.daoHelper.update(this.toyDao, toyUpdateValues, toyKeyMap);
 
         if (toyUpdateResult.isWrong()) {
-
             return Utils.createError(UPDATEERROR);
         }
 

@@ -4,11 +4,11 @@ import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserLocationDao;
+import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.AdvancedEntityResultMapImpl;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -19,8 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -246,78 +244,42 @@ public class ToyService implements IToyService {
 
     @Override
     @Transactional
-    public EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException{
-
-        orderData.put(OrderDao.ATTR_ORDER_DATE, LocalDateTime.now());
+    public EntityResult orderInsert(Map<String, Object> orderData) throws OntimizeJEERuntimeException {
 
         //Recuperamos TOY - PRICE y TOY - TRANSACTION_STATUS
 
         Integer toyId = (Integer) orderData.get(OrderDao.ATTR_TOY_ID);
-
-        HashMap<String, Object> toyKeyValues = new HashMap<>();
-        toyKeyValues.put(ToyDao.ATTR_ID, toyId);
-        List<String> toyAttributes = Arrays.asList(ToyDao.ATTR_PRICE, ToyDao.ATTR_TRANSACTION_STATUS);
-        EntityResult toyData = this.daoHelper.query(toyDao, toyKeyValues, toyAttributes);
-
-        if(toyData.isWrong() || toyData.isEmpty()){
-
-            createError("Error al recuperar el precio del juguete!");
+        EntityResult toyData = Utils.fetchToyData(daoHelper, toyDao, toyId);
+        if (toyData.isWrong() || toyData.isEmpty()) {
+            return Utils.createError("Error al recuperar el precio del juguete!");
         }
 
-        //Recuperamos TOYS - PRICE y SHIPMENTS - PRICE
         //Calculamos ORDER - TOTAL_PRICE
 
-        double JUKIDS_COMMISSION = 1.07;
-
-        BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
-        double toyPrice = toyPriceDecimal.doubleValue();
-
-        double totalPrice = toyPrice * JUKIDS_COMMISSION;
-
+        double totalPrice = Utils.calculateTotalPrice(toyData);
         orderData.put(OrderDao.ATTR_TOTAL_PRICE, totalPrice);
+        orderData.put(OrderDao.ATTR_ORDER_DATE, LocalDateTime.now());
 
         //Verificamos disponibilidad del juguete e insertamos en ORDERS
 
-        Integer available = (Integer)toyData.getRecordValues(0).get(ToyDao.ATTR_TRANSACTION_STATUS);
-
-        if(available != 0){
-
-            return createError("El producto no se encuentra disponible");
+        if (!Utils.isToyAvailable(toyData)) {
+            return Utils.createError("El producto no se encuentra disponible");
         }
 
-        EntityResult orderResult = this.daoHelper.insert(this.orderDao, orderData);
+        EntityResult orderResult = Utils.insertOrder(daoHelper, orderDao, orderData);
 
         if (orderResult.isWrong()) {
-
-            return createError("Error al crear la orden");
+            return Utils.createError("Error al crear la orden");
         }
 
         //Actualizamos TOYS - TRANSACTION_STATUS (0 -> 4)
 
-        Map<String,Object> updateStatus = new HashMap<>();
-        updateStatus.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PURCHASED);
-        Map<String,Object> keyMap = new HashMap<>();
-        keyMap.put(ToyDao.ATTR_ID, toyId);
+        EntityResult toyUpdateResult = Utils.updateToyStatus(daoHelper, toyDao, toyId, ToyDao.STATUS_PURCHASED);
 
-        EntityResult toyUpdateResult = this.daoHelper.update(this.toyDao, updateStatus, keyMap);
-
-        if(toyUpdateResult.isWrong()){
-
-            return createError("Error al actualizar el transaction_status");
+        if (toyUpdateResult.isWrong()) {
+            return Utils.createError("Error al actualizar el transaction_status");
         }
 
-        EntityResult result = new EntityResultMapImpl();
-        result.setMessage("Orden creada correctamente");
-
-        return result;
-    }
-
-    private EntityResult createError(String mensaje){
-
-        EntityResult errorEntityResult = new EntityResultMapImpl();
-        errorEntityResult.setCode(EntityResult.OPERATION_WRONG);
-        errorEntityResult.setMessage(mensaje);
-
-        return errorEntityResult;
+        return Utils.createMessageResult("Orden creada correctamente");
     }
 }
