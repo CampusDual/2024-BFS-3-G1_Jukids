@@ -1,8 +1,10 @@
 <div class="navigation-tree-container">
   <div class="back-category">
-    <a class="category" href="/main/toys">{{ "ALL_TOYS" |
+    <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
+    <div class="category">></div>
+    <a *ngIf="false || transactionStatus.getValue() != 0" class="category" href="/main/user-profile">{{ "MY_PROFILE" |
       oTranslate }}</a>
-    <span>>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <div *ngIf="false || transactionStatus.getValue() != 0" class="category">></div>
     <span class="category">
       {{ category.getValue() | oTranslate }}</span>
   </div>
@@ -99,7 +101,8 @@
             </div>
             <!-- buy button  -->
             <div>
-              <button *ngIf="transactionStatus.getValue() == 0" class="button btn-solid buttonBuy" (click)="openBuy(toyId.getValue())">
+              <button *ngIf="transactionStatus.getValue() == 0" class="button btn-solid buttonBuy"
+                (click)="openBuy(toyId.getValue())">
                 {{ "BUY" | oTranslate }}
               </button>
             </div>
