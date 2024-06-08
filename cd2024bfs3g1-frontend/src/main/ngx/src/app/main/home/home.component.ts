@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
      //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
+    this.language = translate.getStoredLanguage();
   }
 
   ngOnInit() {
