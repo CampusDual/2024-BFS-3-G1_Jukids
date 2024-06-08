@@ -238,7 +238,8 @@ public class OrderService implements IOrderService{
         BigDecimal toyPriceDecimal = (BigDecimal) toyData.getRecordValues(0).get(ToyDao.ATTR_PRICE);
         double toyPrice = toyPriceDecimal.doubleValue();
 
-        Double shipmentPrice = (Double) shipmentData.get(ShipmentDao.ATTR_PRICE);
+        Integer priceInteger = (Integer) shipmentData.get(ShipmentDao.ATTR_PRICE);
+        Double shipmentPrice = priceInteger.doubleValue();
 
         double totalPrice = (toyPrice / (1 - JUKIDS_COMMISSION / 100)) + shipmentPrice;
 

@@ -16,7 +16,6 @@
                     <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes"
                         label="usr_email"></o-email-input>
                 </div>
-
                 <div fxLayoutGap="8px" class="target">
                     <o-combo fxFlex.gt-sm="50" label="category" id="category" null-selection="no" attr="category"
                         service="categories" entity="category" keys="categoryid" value-column="codigo"
@@ -27,22 +26,10 @@
                         columns="statusid;name;code" searchable="true" visible-columns="code" translate="yes"
                         required="yes"></o-combo>
                 </div>
-                <o-checkbox *ngIf="toyService == 'toyowner';else encourageRegister" id="shipping" #shipping fxFlex="50"
-                    attr="shipping" label="{{ 'SHIPPING'  | oTranslate }}">
+                <o-checkbox id="shipping" #shipping fxFlex="50"
+                    attr="shipping" label="{{ 'SHIPPING'  | oTranslate }}" checked>
                 </o-checkbox>
-
-                <ng-template #encourageRegister>
-                    <div class="warning">
-                        <span>{{ 'INICIA SESIÓN' | oTranslate }}</span>
-                        <!--<a href="/login">¡Registrate!</a>-->
-                        <button class="button btn-outline-light" type="button" (click)="modal('login')">
-                            {{ 'LOGIN' | oTranslate}}
-                        </button>
-                    </div>
-                </ng-template>
-
             </div>
-
             <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
                 <div class="pop-up-span">
                     <span>{{ 'SELECT_POINT_ON_MAP' | oTranslate }}</span>
@@ -51,13 +38,12 @@
                 </div>
                 <location-map (click)="handleMapClick($event)"></location-map>
             </div>
-
-            <o-real-input id="longitude" #longitude fxFlex="50" attr="longitude" style="display: none"
-                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
-            </o-real-input>
-            <o-real-input  id="latitude" #latitude fxFlex="50" attr="latitude" style="display: none"
-                decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes">
-            </o-real-input>
+            <o-real-input id="longitude" hidden="yes" #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10" min-decimal-digits="0"
+            required="yes">
+          </o-real-input>
+          <o-real-input id="latitude" hidden="yes"  #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10" min-decimal-digits="0" required="yes"
+          >
+          </o-real-input>
 
             <o-row layout-align="end center" layout-margin-top>
                 <button class="button btn-outline-light" (click)="cancel()">

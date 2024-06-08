@@ -8,6 +8,7 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
   styleUrls: ['./survey.component.scss']
 })
 export class SurveyComponent {
+  baseUrl: string;
   public selectedStar: number = 0;
   @ViewChild('comment') protected comment: ElementRef;
 
@@ -44,7 +45,7 @@ export class SurveyComponent {
       this.ontimizeService = this.injector.get(OntimizeService);
       let conf = this.ontimizeService.getDefaultServiceConfiguration('surveys');
       this.ontimizeService.configureService(conf)
-    }
+  }
 
   // Traducciones
   ngOnInit(): void {
@@ -66,6 +67,12 @@ export class SurveyComponent {
       this.buyerId = data.buyerId;
     } else {
       window.location.href = window.location.origin + '/main/user-profile/buylist';
+    }
+
+    this.baseUrl = window.location.origin;
+
+    if (this.baseUrl.includes('localhost')) {
+      this.baseUrl = 'http://localhost:8080';
     }
   }
 
