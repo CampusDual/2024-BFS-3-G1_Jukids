@@ -37,7 +37,7 @@ public class MainRestController {
 	private IToyService toyService;
 	@Autowired
 	private UserDao userDao;
-
+	@Autowired
 	private DefaultOntimizeDaoHelper daoHelper;
 
 	@GetMapping(value = "/main", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,7 +76,6 @@ public class MainRestController {
 
 				dataResponse = (HashMap<String, Object>) result.getRecordValues(0);
 			} else {
-
 				//Consulta a la DB para obtener la imagen.
 				//Where
 				Map<String, Object> keyMap = new HashMap<>();

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { OFormComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
+import { OFormComponent,  OUserInfoService, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { MainService } from 'src/app/shared/services/main.service';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
