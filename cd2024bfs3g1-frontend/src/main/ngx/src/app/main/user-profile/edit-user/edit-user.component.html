@@ -1,12 +1,13 @@
 <div class="box">
   <o-form #formUserEdit class="form" id="formUserEdit" attr="usersDetail" service="userowner" entity="user" keys="usr_id"
-    show-header-navigation="false" show-header="true" fxLayout="column" 
+    show-header-navigation="false" show-header="true" fxLayout="column"
     show-header-actions-text="false" undo-button="no" (onUpdate)="redirectHome()">
       <o-text-input hidden="true" attr="usr_id" sql-type="INTEGER" enabled="no" editable="no" read-only="yes"></o-text-input>
 
     <o-column>
       <div fxLayoutGap="25px" fxLayout="row" class="toys-detail-column">
         <o-column fxFlex="30" class="total-column">
+          <o-image class="image-container" auto-fit="yes" attr="usr_photo" read-only="no"
           <o-image attr="usr_photo" class="image-container" auto-fit="yes"read-only="no"
             empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER" show-controls="no"></o-image>
         </o-column>
@@ -14,15 +15,15 @@
         <o-column class="inf-column total-column">
           <div>
             <div class="divInput">
-              <o-text-input  #nameInput attr="usr_name" fxFlex="100" read-only="no" 
+              <o-text-input  #nameInput attr="usr_name" fxFlex="100" read-only="no"
                 max-length="150" appearance="outline"></o-text-input>
             </div>
             <div class="divInput">
-              <o-text-input #surnameInput attr="usr_surname" fxFlex="100" read-only="no" 
+              <o-text-input #surnameInput attr="usr_surname" fxFlex="100" read-only="no"
               max-length="150" appearance="outline"></o-text-input>
             </div>
             <div class="divInput">
-              <o-password-input #passwordInput attr="usr_password" fxFlex="100" read-only="no" 
+              <o-password-input #passwordInput attr="usr_password" fxFlex="100" read-only="no"
               max-length="150" appearance="outline"></o-password-input>
             </div>
             <div class="divInput">
