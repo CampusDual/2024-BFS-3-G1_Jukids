@@ -8,6 +8,7 @@ import { EditToyComponent } from './edit-toy/edit-toy.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { UserPurchasedToylistComponent } from './user-profile-buylist/user-profile-buylist.component';
 import { UserProfileRatingsComponent } from './user-profile-ratings/user-profile-ratings.component';
+import { ToysDetailComponent } from '../toys/toys-detail/toys-detail.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     UserPurchasedToylistComponent,
     EditToyComponent,
     UserProfileRatingsComponent,
+    ToysDetailComponent,
     EditUserComponent
 
   ],
