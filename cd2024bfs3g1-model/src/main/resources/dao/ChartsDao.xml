@@ -46,7 +46,7 @@ FROM
 GROUP BY t.total_orders
 UNION
 SELECT
-    'shipment' AS shipmenttype,
+    'shipment' AS shipmentype,
     COUNT(s.order_id) AS total,
     ROUND(COUNT(s.order_id) * 100.0 / t.total_orders) AS percentage
 FROM
