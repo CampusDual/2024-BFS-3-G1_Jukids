@@ -12,14 +12,14 @@ import { LoginModule } from 'src/app/login/login.module';
   declarations: [
     ToysHomeComponent,
     ToysNewComponent,
-    ToysShippingComponent,
+    ToysShippingComponent
   ],
   imports: [
     CommonModule,
     OntimizeWebModule,
     ToysRoutingModule,
     SharedModule,
-    LoginModule,
+    LoginModule
   ]
 })
 export class ToysModule { }

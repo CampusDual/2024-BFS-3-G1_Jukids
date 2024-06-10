@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { OEmailInputComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
@@ -23,7 +23,6 @@ export class ToysDetailComponent implements OnInit {
   isLogged: boolean = this.jkAuthService.isLoggedIn();
   isNotTheSeller: boolean;
 
-
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('usr_id') usr_id: OTextInputComponent;
   @ViewChild('nameInput') toyName: OTextInputComponent;
@@ -35,7 +34,6 @@ export class ToysDetailComponent implements OnInit {
   @ViewChild('statusInput') toyStatus: OTextInputComponent;
   @ViewChild('stripe') stripe: StripeComponent;
   
-
   constructor(
     private toysMapService: ToysMapService, 
     private router: Router,
@@ -45,7 +43,6 @@ export class ToysDetailComponent implements OnInit {
   ) {
     this.service = this.injector.get(OntimizeService);
     this.configureService();
-    
   }
 
   protected configureService() {
