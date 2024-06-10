@@ -28,7 +28,7 @@
           <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="button btn-outline-light" matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
             <mat-icon class="material-icons">clear</mat-icon>
           </button>
-          <button (click)="openMap()" class="button btn-outline-light reverse"><mat-icon>map</mat-icon></button>
+          <button (click)="openMap()" class="button btn-outline-light"><mat-icon>my_location</mat-icon>Buscar en mapa</button>
         </o-row>
       </o-row>
       <div *ngIf="showMap" fxFlex="100" >
