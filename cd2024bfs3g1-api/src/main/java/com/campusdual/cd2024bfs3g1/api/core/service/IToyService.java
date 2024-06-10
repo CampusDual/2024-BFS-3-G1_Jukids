@@ -42,8 +42,6 @@ public interface IToyService {
 
     EntityResult toyCardsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
-    EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
-
     AdvancedEntityResult toyPaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
 
     AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);

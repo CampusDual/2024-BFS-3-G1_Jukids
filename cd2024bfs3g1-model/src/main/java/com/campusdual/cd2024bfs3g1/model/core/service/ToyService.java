@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.SurveyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserLocationDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -39,6 +41,8 @@ public class ToyService implements IToyService {
     private SurveyDao surveyDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
@@ -150,13 +154,6 @@ public class ToyService implements IToyService {
     public EntityResult toyCardsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
         keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_CARDS);
         return toyAvailableQuery(keyMap, attrList);
-    }
-
-
-
-    @Override
-    public EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList) {
-        return this.daoHelper.query(surveyDao, keyMap, attrList, SurveyDao.QUERY_USER_AVG_RATING);
     }
 
     @Override

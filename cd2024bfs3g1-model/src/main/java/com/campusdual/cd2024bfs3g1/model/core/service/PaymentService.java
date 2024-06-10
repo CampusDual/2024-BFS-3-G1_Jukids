@@ -4,7 +4,6 @@ import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
-import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -20,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.awt.datatransfer.Clipboard;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -81,8 +81,10 @@ public class PaymentService implements IPaymentService {
 
 
             //Consulta
-            EntityResult result = toyService.toyQuery(getProdQuery, Arrays.asList(ToyDao.ATTR_NAME,
-                    ToyDao.ATTR_DESCRIPTION, ToyDao.ATTR_PRICE, ToyDao.ATTR_PHOTO));
+            EntityResult result = toyService.toyQuery(
+                    getProdQuery,
+                    Arrays.asList(ToyDao.ATTR_NAME, ToyDao.ATTR_DESCRIPTION, ToyDao.ATTR_PRICE, ToyDao.ATTR_PHOTO)
+            );
 
             if (result.isWrong()) {
                 //Error
@@ -125,22 +127,14 @@ public class PaymentService implements IPaymentService {
                     .setReturnUrl(baseUrl + "checkout?session_id={CHECKOUT_SESSION_ID}").build();
 
             Session session = Session.create(params);
+
+
             checkoutSession.put("session", session.toJson());
-
-            //En caso de pago correcto, añadimos el session_id a la order correspondiente
-
-            Map<String, Object> keyMap = new HashMap<>();
-            keyMap.put(OrderDao.ATTR_TOY_ID, toyid);
-            Map<String, Object> updateMap = new HashMap<>();
-            updateMap.put(OrderDao.ATTR_SESSION_ID, session.getId());
-            EntityResult updateResult = daoHelper.update(orderDao, updateMap, keyMap);
-            if (updateResult.isWrong()) {
-                return Utils.createError("Error al actualizar el session_id de la orden");
-            }
-
         } catch (Exception ex) {
             throw ex;
+
         }
+
 
         return checkoutSession;
     }

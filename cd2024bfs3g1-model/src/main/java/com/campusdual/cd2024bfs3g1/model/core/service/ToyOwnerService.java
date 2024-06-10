@@ -60,7 +60,7 @@ public class ToyOwnerService implements IToyOwnerService {
     @Override
     public EntityResult toySoldQuery(Map<String, Object> keyMap, List<String> attrList) {
         keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
-        return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_PURCHASED, null);
+        return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_PURCHASED, "toyJoin");
     }
 
     @Override
