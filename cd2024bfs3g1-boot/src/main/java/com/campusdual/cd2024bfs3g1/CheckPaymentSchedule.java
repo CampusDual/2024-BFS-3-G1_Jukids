@@ -30,6 +30,8 @@ public class CheckPaymentSchedule {
 
         //Query de todas las Orders con Session_id nulo (no pagadas)
 
+        System.out.println("Hola, soy un borrador periodico. Nos vemos en un minuto!" + LocalDateTime.now());
+
         LocalDateTime now = LocalDateTime.now();
         Map<String, Object> keyMap = new HashMap<>();
         keyMap.put(OrderDao.ATTR_SESSION_ID, null);
@@ -53,8 +55,6 @@ public class CheckPaymentSchedule {
             if (orderDate.plusMinutes(7).isBefore(now)) {
                 int toyId = (int) order.get(ToyDao.ATTR_ID);
                 int orderId = (int) order.get(OrderDao.ATTR_ID);
-
-                System.out.println("Hola, soy un borrador periodico. Nos vemos en un minuto!" + LocalDateTime.now());
 
                 //Devolvemos toy transaction_status a 0
 

@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
+import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -127,14 +128,12 @@ public class PaymentService implements IPaymentService {
                     .setReturnUrl(baseUrl + "checkout?session_id={CHECKOUT_SESSION_ID}").build();
 
             Session session = Session.create(params);
-
-
             checkoutSession.put("session", session.toJson());
+
         } catch (Exception ex) {
             throw ex;
 
         }
-
 
         return checkoutSession;
     }
@@ -173,9 +172,24 @@ public class PaymentService implements IPaymentService {
 
             resultStatus.putAll(sessionData);
 
+            //En caso de pago correcto, añadimos el session_id a la order correspondiente
+
+            Integer toyId = (Integer) itemDetails.get("id");
+            System.out.println(toyId + (" ") + session.getId());
+            Map<String, Object> keyMap = new HashMap<>();
+            keyMap.put(OrderDao.ATTR_TOY_ID, toyId);
+            Map<String, Object> updateMap = new HashMap<>();
+            updateMap.put(OrderDao.ATTR_SESSION_ID, session.getId());
+            EntityResult updateResult = daoHelper.update(orderDao, updateMap, keyMap);
+
+            if (updateResult.isWrong()) {
+                return Utils.createError("Error al actualizar el session_id de la orden");
+            }
+
         } catch (StripeException e) {
             resultStatus.put("error", e.getMessage());
         }
+
         return resultStatus;
     }
 }
