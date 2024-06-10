@@ -1,15 +1,8 @@
 <div class="user-profile-container">
-  <!-- Header -->
-  <div class="header-user-profile">
-    <div class="user-info">
-       <h3>Información del Usuario</h3>
-    </div>
-
-  </div>
-
-  <!-- Form Container -->
   <div class="info-user">
-
+    <div class="user-info">
+      <h3>Información del Usuario</h3>
+    </div>
     <o-form
       #formUserEdit
       class="form"
@@ -27,18 +20,21 @@
     >
       <o-row fxLayout="row" fxLayoutGap="20px">
         <o-column class="left-column">
-          <div class="picture-frame">
-            <div class="image-container">
-              <o-image
-                #usr_photo
-                attr="usr_photo"
-                read-only="yes"
-                hidden="yes"
-                show-controls="no"
-                editable="no"
-                empty-image="assets/images/no-image.png"
-              ></o-image>
-            </div>
+          <div class="image-container">
+            <o-image
+              #usr_photo
+              title="{{ 'MAX_SIZE' | oTranslate }}"
+              max-file-size="4194304"
+              attr="usr_photo"
+              read-only="no"
+              hidden="yes"
+              show-controls="yes"
+              editable="yes"
+              empty-image="assets/images/no-image.png"
+              sql-type="OTHER"
+              required="yes"
+              accept=".jpg,.jpeg,.png"
+            ></o-image>
           </div>
         </o-column>
 
@@ -56,7 +52,7 @@
             <o-text-input
               #nameInput
               attr="usr_name"
-              fxFlex="100"
+              fxFlex="60"
               read-only="no"
               max-length="150"
               appearance="outline"
@@ -67,7 +63,7 @@
             <o-text-input
               #surnameInput
               attr="usr_surname"
-              fxFlex="100"
+              fxFlex="60"
               read-only="no"
               max-length="150"
               appearance="outline"
@@ -78,7 +74,7 @@
             <o-password-input
               #passwordInput
               attr="usr_password"
-              fxFlex="100"
+              fxFlex="60"
               read-only="no"
               max-length="150"
               appearance="outline"
@@ -89,7 +85,7 @@
             <o-email-input
               #emailInput
               attr="usr_login"
-              fxFlex="100"
+              fxFlex="60"
               read-only="no"
               max-length="150"
               appearance="outline"

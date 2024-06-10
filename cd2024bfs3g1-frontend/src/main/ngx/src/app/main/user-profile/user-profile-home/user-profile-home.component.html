@@ -10,10 +10,9 @@
                 <o-column>
                     <div class="user-info">
                         <div class="marco4">
-                            <img class="image-header" src="{{baseUrl}}/restapi/get-image?userId={{mainInfo?.usr_id}}">
+                            <img fxFlex.gt-sm="35%" class="image-header" src="{{baseUrl}}/restapi/get-image?userId={{mainInfo?.usr_id}}">
                         </div>
                     </div>
-                    <button class="button btn-solid buttonBuy" (click)="toMyEdit()">{{ 'EDIT_PROFILE' | oTranslate }}</button>
                 </o-column>
                 <o-column>
                     <o-text-input #usr_id attr="usr_id" sql-type="INTEGER" hidden="yes"></o-text-input>
@@ -47,6 +46,8 @@
                             {{ "noRating" | oTranslate }}
                         </div>
                     </ng-template>
+                    <button class="button btn-solid buttonBuy" (click)="toMyEdit()">{{ 'EDIT_PROFILE' | oTranslate }}</button>
+             
                 </o-column>
 
             </o-row>
