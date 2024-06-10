@@ -5,8 +5,6 @@ import { ToysRoutingModule } from './toys-routing.module';
 import { ToysHomeComponent } from './toys-home/toys-home.component';
 import { ToysNewComponent } from './toys-new/toys-new.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { LocationMapComponent } from 'src/app/shared/components/location-map/location-map.component';
-import { ToysDetailComponent } from './toys-detail/toys-detail.component';
 import { ToysShippingComponent } from './toys-detail/toys-shipping/toys-shipping.component';
 import { LoginModule } from 'src/app/login/login.module';
 
@@ -14,10 +12,7 @@ import { LoginModule } from 'src/app/login/login.module';
   declarations: [
     ToysHomeComponent,
     ToysNewComponent,
-    // LocationMapComponent,
-    ToysDetailComponent,
-    ToysShippingComponent,
-    ToysDetailComponent,
+    ToysShippingComponent
   ],
   imports: [
     CommonModule,
@@ -26,8 +21,5 @@ import { LoginModule } from 'src/app/login/login.module';
     SharedModule,
     LoginModule
   ]
-  // exports: [
-  //   ToysDetailComponent
-  // ]
 })
 export class ToysModule { }

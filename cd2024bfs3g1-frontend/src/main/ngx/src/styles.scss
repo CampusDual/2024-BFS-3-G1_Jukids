@@ -68,14 +68,13 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
 
 //Necesario para ocultar el boton sobrante en el formulario de editar juguete.
 #formToyEdit {
-  button[attr="update"]{
-  display: none!important;
-}
+  button[attr="update"] {
+    display: none !important;
+  }
 
-.noresize textarea{
-  resize:none !important;
-}
-}
+  .noresize textarea {
+    resize: none !important;
+  }
 
 mat-toolbar {
   box-shadow: none !important;
@@ -95,4 +94,9 @@ o-app-header  mat-icon {
   display: none !important;
 }
 
-
+//Cambiar tamaño mapa para toyDetail
+app-toys-detail o-map {
+  @media screen and (min-width: 960px) {
+    height: 200px !important;
+  }
+}

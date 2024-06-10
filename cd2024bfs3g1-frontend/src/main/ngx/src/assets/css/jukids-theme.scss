@@ -23,7 +23,7 @@ $color-black: #000;
 
 
 // Mixin para aplicar estilos según los breakpoints
-@mixin respond-to($breakpoint) {  
+@mixin respond-to($breakpoint) {
   @if $breakpoint ==small {
     @media #{$breakpoint-small} {
       @content;
@@ -226,6 +226,7 @@ nav {
   color: #333;
   font-family: Arial, sans-serif;
   border-radius: .75rem;
+
   transition: all .2s ease;
 
   &:hover {
@@ -359,7 +360,7 @@ nav {
   border: .1rem solid rgba(205, 204, 204, 0.638);
   border-radius: .75rem;
   transition: all .2s ease;
-  
+
   &:hover {
     border: .1rem solid $color-orange;
     // box-shadow: 0px 0px 5px 0px $color-orange;
@@ -520,7 +521,7 @@ nav {
   &.btn-solid-list {
     border-color: $color-blue;
     color: $color-white;
-    background-color: $color-blue;    
+    background-color: $color-blue;
 
     &:hover {
       box-shadow: 0 2px 4px #0000003d;
@@ -637,7 +638,7 @@ nav {
         width: 60%;
       }
     }
-    
+
     .form-register {
       width: 100%;
       min-width: 0;
@@ -670,7 +671,7 @@ nav {
 
   @include respond-to(large) {
     display: inline-block;
-    width: 40%;    
+    width: 40%;
   }
 }
 
@@ -726,7 +727,6 @@ nav {
     text-decoration: underline;
   }
 }
-
 
 // ==================================== SEARCH FILTERS ====================================
 
