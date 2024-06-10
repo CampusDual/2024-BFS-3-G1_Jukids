@@ -1,8 +1,10 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { OEmailInputComponent, OTextInputComponent, OntimizeService } from 'ontimize-web-ngx';
+import { OEmailInputComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
+import { MainService } from 'src/app/shared/services/main.service';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
   templateUrl: './toys-detail.component.html',
   styleUrls: ['./toys-detail.component.scss']
 })
-export class ToysDetailComponent implements OnInit{
+export class ToysDetailComponent implements OnInit {
 
   private location: any;
   protected service: OntimizeService;
@@ -18,6 +20,8 @@ export class ToysDetailComponent implements OnInit{
   isEditable = false;
   ratingData: string;
   varRating: number;
+  isLogged: boolean = this.jkAuthService.isLoggedIn();
+  isNotTheSeller: boolean;
 
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('usr_id') usr_id: OTextInputComponent;
@@ -30,8 +34,12 @@ export class ToysDetailComponent implements OnInit{
   @ViewChild('statusInput') toyStatus: OTextInputComponent;
   @ViewChild('stripe') stripe: StripeComponent;
 
- constructor(
-    private toysMapService: ToysMapService, private router: Router, protected injector: Injector
+  constructor(
+    private toysMapService: ToysMapService, 
+    private router: Router,
+    protected injector: Injector,
+    private jkAuthService: JukidsAuthService,
+    private mainService: MainService,
   ) {
     this.service = this.injector.get(OntimizeService);
     this.configureService();
@@ -56,6 +64,13 @@ export class ToysDetailComponent implements OnInit{
   }
   onFormDataLoaded(data: any) {
     this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue())
+
+    this.mainService.getUserInfo().subscribe((data: ServiceResponse) => {
+      
+      this.isNotTheSeller = (data.data.usr_id != this.usr_id.getValue());
+      
+    });
+    
     this.setStripe();
 
     const filter = {
@@ -84,4 +99,10 @@ export class ToysDetailComponent implements OnInit{
   checkout() {
     this.stripe.ckeckout();
   }
+
+  searchCategory(category):void {
+    this.router.navigate(['/main/toys'], {queryParams:{category: category}});
+  }
+
+  
 }

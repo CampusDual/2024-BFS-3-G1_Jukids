@@ -1,9 +1,9 @@
 <div class="navigation-tree-container">
   <div class="back-category">
     <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
-    <div>></div>
+    <div class="category">></div>
     <a class="category" href="/main/user-profile">{{ "MY_PROFILE" | oTranslate }}</a>
-    <div >></div>
+    <div class="category">></div>
       <span class="category">
       {{ "MY_TOYS" | oTranslate }}</span>
   </div>
@@ -11,7 +11,8 @@
 <div class="total">
   <p class="total-price">{{ "AVAILABLE_MONEY" | oTranslate }}<span class="total-amount">{{infoToysSold}}</span></p>
 </div>
-<mat-tab-group fxFill>
+
+<mat-tab-group #toysTabs [selectedIndex]="currentToysTabIndex">
 
   <mat-tab label="{{ 'SALE_TOY' | oTranslate }}">
     <o-table #tableSale fxFlex attr="tableSale" service="toyowner" entity="saleToy" keys="toyid"
@@ -37,8 +38,7 @@
       visible-columns="photo;name;price" show-title="true" pagination-controls="no" show-filter-option="no"
       quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
       refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table"
-      detail-mode="none">
-
+      detail-form-route="toysDetail">
       <o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"
         oHidden></o-table-column>
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
@@ -60,14 +60,13 @@
                 <p><strong>{{'company' | oTranslate}}</strong>: {{row.shipment_company}}</p>
               </div>
             </div>
-
             <o-form show-header-navigation="no" show-header="no">
               <p>{{'NOTE_SENDER_ADDRESS' | oTranslate}}: </p>
               <o-text-input #senderAddress attr="sender_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
                 read-only="no" required="no" max-length="150"></o-text-input>
               <div>*{{'NOTE_NO_SENDER_ADDRESS' | oTranslate}}</div>
-              <button #buttonSend class="button btn-outline-light reverse"(click)="sendSubmit(row.toyid)">{{'CONFIRM' |
-                  oTranslate}}</button>                
+              <button #buttonSend class="button btn-solid"(click)="sendSubmit(row.toyid)">{{'CONFIRM' |
+                  oTranslate}}</button>
             </o-form>
           </o-column>
         </ng-template>
@@ -82,7 +81,7 @@
       visible-columns="photo;name;price" show-title="true" pagination-controls="no" show-filter-option="no"
       quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
       refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table"
-      detail-mode="none">
+      detail-form-route="toysDetail">
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
@@ -100,15 +99,16 @@
       title="{{ 'SOLD_TOY' | oTranslate }}" columns="toyid;photo;name;price" visible-columns="photo;name;price"
       show-title="true" pagination-controls="no" show-filter-option="no" quick-filter="false" insert-button="false"
       export-button="false" delete-button="false" edit-button="false" refresh-button="false" horizontal-scroll="true"
-      virtual-scroll="no" auto-adjust="true" class="table" detail-mode="none">
+      virtual-scroll="no" auto-adjust="true" class="table" detail-form-route="toysDetail">
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
       </o-table-column>
       <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="no" min-width="100px" max-width="900px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px" max-width="300px"
-        tooltip="yes"></o-table-column>
+      <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px" max-width="300px" type="currency"
+      thousand-separator="." decimal-separator="," currency-symbol="€"
+      currency-symbol-position="right" tooltip="yes"></o-table-column>
     </o-table>
   </mat-tab>
 
