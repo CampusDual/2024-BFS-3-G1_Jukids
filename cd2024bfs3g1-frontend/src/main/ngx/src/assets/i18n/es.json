@@ -116,7 +116,7 @@
   "ERROR_STARS_VALIDATION": "Introduzca la valoración del vendedor",
   "ERROR_COMMENT_VALIDATION": "Introduzca el comentario del vendedor",
   "SELECT_POINT_ON_MAP":"Seleccione un punto",
-  "PUBLICAR": "PUBLICAR",
+  "PUBLISH_TOY": "Publicar juguete",
   "YOUR_PRODUCTS":"Mis productos",
   "MY_PROFILE":"Mi perfil",
   "MY_TOYS":"Mis juguetes",
@@ -175,7 +175,7 @@
   "priceCode_20": "20€ o menos",
   "priceCode_50": "50€ o menos",
   "priceCode_1000000": "  ",
-  "SHIPPING": "Envio disponible",
+  "SHIPPING": "Envío disponible",
   "PURCHASED_TOYS": "Mis compras",
   "transaction_status": "Estado",
   "TITLE_FORM_SHIPMENTS": "Solo necesitamos un par de datos",
@@ -273,5 +273,11 @@
   "ANTIQUES": "RetroJIDS",
   "CARDS": "Juegos de cartas",
   "SEE_ALL": "Ver todo",
-  "SEARCH_CATEGORIES": "Categorías JUKIDS más polpulares"
+  "SEARCH_CATEGORIES": "Categorías JUKIDS más polpulares",
+  "IMAGE": "Imagen",
+  "INFORMATION": "Información",
+  "LOCATION": "Localización",
+  "UPLOAD_PRODUCT_IMAGE": "Sube una imagen de tu producto",
+  "DATA_ABOUT_PRODUCT": "Datos necesarios sobre tu producto",
+  "SELECT_PRODUCT_LOCATION": "Selecciona el punto en el mapa donde se encuentra el juguete"
 }
