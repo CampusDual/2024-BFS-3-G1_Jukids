@@ -16,8 +16,7 @@ export class HomeComponent implements OnInit {
   private longitude: any;
   private location: any;
   public cols: number = 5;
-  public queryrows: number = 5;
-  public rows: number = 1;
+  public queryRows: number = 5;
   public language:string = "es";
 
   //============== Variable de URL BASE =================
@@ -56,23 +55,18 @@ export class HomeComponent implements OnInit {
       this.baseUrl = 'http://localhost:8080';
     }
 
-    //Control de columnas en o-grid
+    // Control de columnas en o-grid
     this.layoutChanges.subscribe((result) => {
       if (result.breakpoints[Breakpoints.XSmall]) {
         this.cols = 2;
-        this.queryrows = 6;
       } else if (result.breakpoints[Breakpoints.Small]) {
         this.cols = 3;
-        this.queryrows = 3;
       } else if (result.breakpoints[Breakpoints.Medium]) {
         this.cols = 4;
-        this.queryrows = 4;
       } else if (result.breakpoints[Breakpoints.Large]) {
         this.cols = 5;
-        this.queryrows = 5;
       } else if (result.breakpoints[Breakpoints.XLarge]) {
         this.cols = 5;
-        this.queryrows = 5;
       }
     });
    
