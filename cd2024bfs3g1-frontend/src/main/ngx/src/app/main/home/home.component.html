@@ -153,7 +153,7 @@
             *ngFor="let data of childrensToysGrid.getDataArray()"
             (onClick)="openDetail(data)"
           >
-            <div class="card">
+            <div class="card-n">
               <img
                 class="image-header"
                 src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
