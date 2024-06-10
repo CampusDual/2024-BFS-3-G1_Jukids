@@ -12,7 +12,7 @@
   <p class="total-price">{{ "AVAILABLE_MONEY" | oTranslate }}<span class="total-amount">{{infoToysSold}}</span></p>
 </div>
 
-<mat-tab-group fxFill #toysTabs [selectedIndex]="currentToysTabIndex">
+<mat-tab-group #toysTabs [selectedIndex]="currentToysTabIndex">
 
   <mat-tab label="{{ 'SALE_TOY' | oTranslate }}">
     <o-table #tableSale fxFlex attr="tableSale" service="toyowner" entity="saleToy" keys="toyid"

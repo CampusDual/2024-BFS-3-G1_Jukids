@@ -1,9 +1,18 @@
+//Definir colores como variables
+$color-orange: #FD8F35;
+$color-dark-orange: #D34A24;
+$color-red: #F11F43;
+$color-blue: #3C7F72;
+$color-orange-bg: #FD8F3514;
+$color-blue-bg: #3c807380;
+$color-white: #fff;
+$color-black: #000;
+
 /* You can add global styles to this file, and also import other style files */
 .o-form-layout-manager {
   .o-form {
     form {
       height: 100%;
-
     }
   }
 }
@@ -76,21 +85,21 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
     resize: none !important;
   }
 
-mat-toolbar {
-  box-shadow: none !important;
+  mat-toolbar {
+    box-shadow: none !important;
+  }
+  
+  .o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
+    color: #FD8F35 !important;
+  }
+  
+  #saveButton .mat-mdc-button-persistent-ripple{
+    width: 30px;
+    left: 9px !important;
+  }
 }
-
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
-  color: #FD8F35 !important;
-}
-
-#saveButton .mat-mdc-button-persistent-ripple{
-  width: 30px;
-  left: 9px !important;
-}
-
 //Necesario para ocultar el icono de menu
-o-app-header  mat-icon {
+o-app-header mat-icon {
   display: none !important;
 }
 
@@ -99,8 +108,6 @@ app-toys-detail o-map {
   @media screen and (min-width: 960px) {
     height: 200px !important;
   }
-}
-
 }
 
 //Ajustar accion click en las acciones de las tablas buylist
@@ -115,3 +122,17 @@ app-user-profile-buylist .button.btn-solid {
     }
   }
 }
+
+app-toys-new .mat-mdc-form-field-flex, .ng-tns-c40-7 {
+
+  &:hover {
+    background: transparent;
+  }
+}
+
+.mat-mdc-form-field-flex, .ng-tns-c40-12 {
+  // Quitar color por defecto en o-image
+  background: transparent !important;
+}
+
+
