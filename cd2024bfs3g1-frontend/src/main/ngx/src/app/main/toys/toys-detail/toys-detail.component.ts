@@ -100,4 +100,10 @@ export class ToysDetailComponent implements OnInit {
   checkout() {
     this.stripe.ckeckout();
   }
+
+  searchCategory(category):void {
+    this.router.navigate(['/main/toys'], {queryParams:{category: category}});
+  }
+
+  
 }
