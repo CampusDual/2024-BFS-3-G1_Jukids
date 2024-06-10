@@ -12,7 +12,7 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    background-color: #FFCC99;
+    background-color: #faf2e6;
     
     &-center {
       width: 50%;
@@ -22,8 +22,9 @@
       align-items: center;
       gap: 1rem;
       padding: 1rem;
+      border: 1px solid #c8c8c8;
       border-radius: 0.5rem;
-      background-color: #Fefdee;
+      background-color: #fff;
   
       @media (max-width: 1328px) {
         width: 90%;
@@ -40,7 +41,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    flex-direction: column;
   
     @media (max-width: 960px) {
       flex-direction: column;
@@ -69,10 +70,7 @@
     }
   
     &-p {
-      background: linear-gradient(45deg,#DE1A40,#EA832C);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #12c12e;
       font-size: 1.75em;
       font-weight: 700;
       text-align: center;
@@ -88,8 +86,9 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    gap: 2rem;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
   
     @media (max-width: 960px) {
       flex-direction: column;
@@ -103,7 +102,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
       border-radius: .5rem;
   
       @media (max-width: 960px) {
@@ -117,11 +115,10 @@
   
     &-img {
       width: 100%;
-      max-height: 12rem;
-      min-height: 8rem;
-      object-fit: cover;
+      max-height: 14rem;
+      min-height: 10rem;
+      object-fit: contain;
       border-radius: .5rem;
-      //box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.3);
   
       @media (max-width: 480px) {
         max-width: 10rem;
@@ -143,7 +140,6 @@
       width: 80%;
       padding: 1rem 0;
       border-radius: .5rem;
-      //box-shadow: 0 0 0.15rem rgba(0, 0, 0, 0.3);
   
       @media (max-width: 960px) {
         width: 100%;
@@ -203,7 +199,7 @@
       width: 100%;
       padding: 1rem;
       border: 1px solid #ccc;
-      border-radius: .25rem;
+      border-radius: 1rem;
       outline: none;
       resize: none;
   
@@ -245,9 +241,9 @@
       }
   
       @media (max-width: 480px) {
-           width: 2.5rem;
-           height: 2.5rem;
-         }
+          width: 2.5rem;
+          height: 2.5rem;
+        }
     }
     
     &-input {
@@ -255,15 +251,15 @@
       margin: 1rem 0 0;
       padding: 1rem 2rem;
       border: none;
-      border-radius: .25rem;
+      border-radius: 2rem;
       outline: none;
       color: #fff; 
-      background-color: #ff5439ea;
+      background-color: #ff943f;
       font-weight: 600;
-  
+
       @media (hover:hover) AND (pointer:fine) {
         &:hover {
-          background-color: #ff5439;
+          background-color: #f8913c;
         }
       }
     }
