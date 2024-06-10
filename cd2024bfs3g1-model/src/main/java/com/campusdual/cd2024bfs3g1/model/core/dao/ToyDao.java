@@ -35,5 +35,22 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_DISTANCE = "distance";
     public static final String QUERY_V_SUM_PRICE_TOYS_SOLD = "sumPriceToysSold";
 
+    //Categorias de juguete
+    public static final String CAT_CHILDRENSTOYS = "cat_ChildrensToys";
+    public static final String CAT_BOARD = "cat_Board";
+    public static final String CAT_PLUSHIES = "cat_Plushies";
+    public static final String CAT_DOLLS = "cat_Dolls";
+    public static final String CAT_ACCIONTOYS = "cat_ActionToys";
+    public static final String CAT_VIDEOGAMES = "cat_Videogames";
+    public static final String CAT_CRAFTS = "cat_Crafts";
+    public static final String CAT_PEDAGOGICAL = "cat_Pedagogical";
+    public static final String CAT_SPORT = "cat_Sport";
+    public static final String CAT_ELECTRONIC = "cat_Electronic";
+    public static final String CAT_FIGURES= "cat_Figures";
+    public static final String CAT_COLLECTIBLES = "cat_Collectibles";
+    public static final String CAT_ANTIQUES = "cat_Antiques";
+    public static final String CAT_CARDS = "cat_Cards";
+    public static final String CAT_OTHERS = "cat_Others";
+
 
 }

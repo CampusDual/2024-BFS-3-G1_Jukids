@@ -10,6 +10,10 @@ const routes: Routes = [{
   component: ToysHomeComponent
 },
 {
+  path: "toys?/:categoryReceived",
+  component: ToysHomeComponent
+},
+{
   path: "new",
   component: ToysNewComponent
 },

@@ -72,7 +72,7 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
                 <div class="characteristics">
                   <p class="shippable status">{{ status.getValue() | oTranslate }}</p>
                   <o-row>
-                    <p *ngIf="shipping.getValue(); else noShipping" class="shippable bg-color-blue-bg">
+                    <p *ngIf="shipping.getValue(); else noShipping" class="shippable bg-color-blue">
                       {{ "SHIPMENT_AVAILABLE" | oTranslate }}
                     </p>
                     <ng-template #noShipping>
