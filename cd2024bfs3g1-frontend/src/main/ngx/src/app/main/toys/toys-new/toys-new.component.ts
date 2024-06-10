@@ -129,7 +129,7 @@ export class ToysNewComponent implements OnInit{
       arrayErrores.push(this.translate.get(errorCategory));
     }
 
-    if(this.radioStatus && this.radioStatus.value === undefined ){
+    if(getFieldValues.status === undefined ){
       arrayErrores.push(this.translate.get(errorStatus));
     }
     
