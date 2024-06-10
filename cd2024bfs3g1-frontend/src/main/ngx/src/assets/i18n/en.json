@@ -238,5 +238,11 @@
   "BACK_BUTTON": "Back",
   "AVAILABLE_MONEY": "You have sold: ",
   "TOY_UNAVAILABLE": "This product is not longer available!",
-  "WE_ARE_SORRY": "We are sorry for the inconvenience"
+  "WE_ARE_SORRY": "We are sorry for the inconvenience",
+  "myInfo": "My info",
+  "userNameProfile": "Name",
+  "lastnameProfile": "Surname",
+  "emailProfile": "Email",
+  "noRating": "No rating yet"
+
 }

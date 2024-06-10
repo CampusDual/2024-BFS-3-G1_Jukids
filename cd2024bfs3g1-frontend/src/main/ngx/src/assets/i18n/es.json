@@ -43,8 +43,7 @@
   "profile": "Perfil",
   "PROFILE": "Perfil",
   "PROFILE.EDIT_PHOTO": "Editar foto",
-  "profiles": "Roles",  
-  "mediaProfile":"Valoraciones",
+  "profiles": "Roles",
   "REMEMBER_ME": "Recuérdame",
   "rol-data-section": "Datos del rol",
   "ROLES": "Roles",
@@ -234,10 +233,16 @@
   "SELLER":"Vendedor",
   "BY_RATED": "Por ",
   "MY_RATINGS": "Mis valoraciones",
-  "BACK_BUTTON": "Volver",
   "shipment": "Con envío (%)",
   "noshipment": "Sin envío (%)",
   "AVAILABLE_MONEY": "Has vendido en total: ",
   "TOY_UNAVAILABLE": "Este producto ya no se encuentra disponible!",
   "WE_ARE_SORRY": "Sentimos las molestias"
+  "BACK_BUTTON": "Volver",
+  "myInfo": "Mis datos",
+  "userNameProfile": "Nombre",
+  "lastnameProfile": "Apellidos",
+  "emailProfile": "Correo electrónico",
+  "mediaProfile": "Mi valoración",
+  "noRating": "No hay valoración todavía"
 }
