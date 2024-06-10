@@ -33,7 +33,7 @@ export class ToysDetailComponent implements OnInit {
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
   @ViewChild('statusInput') toyStatus: OTextInputComponent;
   @ViewChild('stripe') stripe: StripeComponent;
-  
+
   constructor(
     private toysMapService: ToysMapService, 
     private router: Router,
