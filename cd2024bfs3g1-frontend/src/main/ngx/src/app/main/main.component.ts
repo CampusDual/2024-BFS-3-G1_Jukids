@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, ViewChild } from "@angular/core";
+import { Component, Injector, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { OAppLayoutComponent, OUserInfoConfigurationDirective, OUserInfoService, ServiceResponse, OTextInputComponent, } from "ontimize-web-ngx";
 import { MainService } from "../shared/services/main.service";
@@ -14,7 +14,7 @@ import { JukidsAuthService } from "../shared/services/jukids-auth.service";
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  @ViewChild("searcherkey") searcherkey: OTextInputComponent;
+  @ViewChild("searcherkey") searcherkey: ElementRef;
 
   /*Se importa el modulo padre APPLayour con la anoticacion ViewChild para poder acceder al método ShowUserInfo y analizar en cliente si tras logearse, se recibe o no
   en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
@@ -94,8 +94,11 @@ export class MainComponent implements OnInit {
   }
 
   searchNameAndDescription(){
-    if (!this.searcherkey.isEmpty ())
-    this.router.navigate(['/main/toys'], {queryParams:{keyword: this.searcherkey.getValue()}});
+    let searchValue = this.searcherkey.nativeElement.value;
+
+    if(searchValue && searchValue.trim().length > 0){
+      this.router.navigate(['/main/toys'], {queryParams:{keyword: searchValue}});
+    }
   }
 
   newToy(){
