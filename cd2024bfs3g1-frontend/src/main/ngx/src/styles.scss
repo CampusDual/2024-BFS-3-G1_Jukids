@@ -100,4 +100,18 @@ app-toys-detail o-map {
     height: 200px !important;
   }
 }
+
+}
+
+//Ajustar accion click en las acciones de las tablas buylist
+app-user-profile-buylist .button.btn-solid {
+  width: 100%;
+  padding: 0 !important;
+  div {
+    width: 100%;
+    span {
+      width: 100%;
+      padding: .5rem 0;
+    }
+  }
 }
