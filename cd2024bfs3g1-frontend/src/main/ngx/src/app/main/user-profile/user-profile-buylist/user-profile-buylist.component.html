@@ -90,14 +90,14 @@
           detail-form-route="toysDetail" refresh-button="none" delete-button="none" quick-filter="none">
         <mat-card *ngFor="let row of list.dataArray" [o-list-item]="row">
           <div fxLayout="row" fxLayoutGap="2.25rem">
-            <o-column>
+            <o-column (click)="openDetail(row.toyid)">
               <div class="photo-container">
                 <img src="{{baseUrl}}/restapi/get-image?toyId={{row.toyid}}" >
               </div>
             </o-column>
             <div class="info-row">
               <div class="info-container">
-                <div class="info-text">
+                <div class="info-text" (click)="openDetail(row.toyid)">
                   <mat-card-title>{{ row.name }}</mat-card-title>
                   <mat-card-subtitle>{{ row.price }} €</mat-card-subtitle>
                 </div>
