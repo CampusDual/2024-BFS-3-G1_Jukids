@@ -46,7 +46,7 @@ export class ToysDetailComponent implements OnInit {
   }
 
   protected configureService() {
-    const conf = this.service.getDefaultServiceConfiguration("surveys");
+    const conf = this.service.getDefaultServiceConfiguration("toys");
     this.service.configureService(conf);
   }
 

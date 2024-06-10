@@ -81,11 +81,6 @@ public class SurveyService implements ISurveyService {
         return result;
     }
 
-    @Override
-    public EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList) {
-        return this.daoHelper.query(surveyDao,keyMap,attrList,SurveyDao.QUERY_USER_AVG_RATING);
-    }
-
     private EntityResult createError(String mensaje) {
         EntityResult errorEntityResult = new EntityResultMapImpl();
         errorEntityResult.setCode(EntityResult.OPERATION_WRONG);
