@@ -23,8 +23,8 @@ $color-black: #000;
   padding: 0 54px
 }
 
-.o-column>div.o-container .o-container-scroll.o-container-gap,
-.o-row>div.o-container .o-container-scroll.o-container-gap {
+.o-column > div.o-container .o-container-scroll.o-container-gap,
+.o-row > div.o-container .o-container-scroll.o-container-gap {
   padding: 15px;
 }
 
@@ -49,6 +49,32 @@ $color-black: #000;
   }
 }
 
+.o-app-sidenav .o-app-sidenav-menu-group:not([disabled=true]) a:hover,
+.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a:hover{
+  background-color: #FD8F35;
+  border-left: 8px solid #F11F43;
+}
+
+.o-app-sidenav .o-app-sidenav-menu-group:not([disabled=true])
+a.o-app-sidenav-viewer-sidenav-item-selected,
+.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
+  border-left: 8px solid #F11F43;
+  background-color: #FD8F35;
+}
+
+.o-app-sidenav .o-app-sidenav-sidenav .o-app-sidenav-menu-group-level-1
+.o-app-sidenav-menu-item:not([disabled=true]) a:hover{
+  background-color: #FD8F35;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #FD8F35;
+}
+
+::-webkit-scrollbar-track{
+  display: none;
+}
+
 //Necesario para ocultar el boton sobrante en el formulario de editar juguete.
 #formToyEdit {
   button[attr="update"] {
@@ -59,19 +85,17 @@ $color-black: #000;
     resize: none !important;
   }
 
-  .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base {
-    color: $color-orange !important;
-  }
-
-  #saveButton .mat-mdc-button-persistent-ripple {
-    width: 30px;
-    left: 9px !important;
-  }
-}
-
-//Quitar sombra cabecera formularios
 mat-toolbar {
   box-shadow: none !important;
+}
+
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
+  color: #FD8F35 !important;
+}
+
+#saveButton .mat-mdc-button-persistent-ripple{
+  width: 30px;
+  left: 9px !important;
 }
 
 //Necesario para ocultar el icono de menu
@@ -85,6 +109,22 @@ app-toys-detail o-map {
     height: 200px !important;
   }
 }
+
+}
+
+//Ajustar accion click en las acciones de las tablas buylist
+app-user-profile-buylist .button.btn-solid {
+  width: 100%;
+  padding: 0 !important;
+  div {
+    width: 100%;
+    span {
+      width: 100%;
+      padding: .5rem 0;
+    }
+  }
+}
+
 app-toys-new .mat-mdc-form-field-flex, .ng-tns-c40-7 {
 
   &:hover {

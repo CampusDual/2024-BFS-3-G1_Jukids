@@ -6,16 +6,18 @@
       <mat-icon class="btn-close">close</mat-icon>
     </div>
 
+    <div class="logo-header">
+      <img src="assets/images/jukids_logo_no_background.png" alt="">
+    </div>
+
     <ng-container *ngIf="!isRegistering">
       <div class="login-title-container" fxLayout="column">
         <h1 class="slogan">{{ 'SLOGAN' | oTranslate }}</h1>
         <p class="session-expired text" *ngIf="sessionExpired">{{ 'ERROR_SESSION_EXPIRED' | oTranslate }}</p>
         <span class="title_text">{{ 'LOGIN_TITLE' | oTranslate }}</span>
       </div>
-      <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
-
-        <div fxLayout="column" fxLayoutGap="10px">
-
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="login()">        
+        <div fxLayout="column" fxLayoutGap="10px">          
           <mat-form-field fxFill class="search">
             <input matInput class="mat-input" #user placeholder="{{ 'usr_email' | oTranslate }}" id="username"
               [formControl]="userCtrl">
@@ -23,17 +25,14 @@
               {{ 'ERROR_USER_REQUIRED' | oTranslate }}
             </mat-error>
           </mat-form-field>
-
-          <mat-form-field fxFill class="search" style="padding-bottom: 30px;">
+          <mat-form-field fxFill class="search">
             <input matInput class="mat-input" #password placeholder="{{ 'PASSWORD' | oTranslate }}" id="password"
               type="password" [formControl]="pwdCtrl">
             <mat-error *ngIf="pwdCtrl.hasError('required')">
               {{ 'ERROR_PASS_REQUIRED' | oTranslate }}
             </mat-error>
           </mat-form-field>
-
           <button class="button btn-solid" type="submit">{{ 'LOGIN' | oTranslate }}</button>
-
         </div>
 
       </form>
@@ -49,65 +48,9 @@
     </ng-container>
   </div>
 
-
-
   <!-- Logo Side -->
   <div class="logo">
-    <img src="assets/images/jukids_logo.webp" alt="">
+    <img src="assets/images/jukids_logo_no_background.png" alt="">
   </div>
 </div>
-
-
-
-<!--
-<div class="full-page">
-  <div class="login-outer-container">
-
-    <div class="login-bg-container">
-    </div>
-
-    <div class="wrapp-login">
-      <div fxFill fxLayout="column" fxLayoutAlign="center center" class="login-inner-container">
-        <h1 class="slogan">{{ 'SLOGAN' | oTranslate }}</h1>
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-
-          <div class="login-title-container" fxLayout="column">
-            <p class="session-expired text" *ngIf="sessionExpired">{{ 'ERROR_SESSION_EXPIRED' | oTranslate }}</p>
-            <span class="title_text">{{ 'LOGIN_TITLE' | oTranslate }}:</span>
-          </div>
-
-          <div fxLayout="column" fxLayoutGap="10px">
-            <mat-form-field fxFill class="m-top-24">
-              <input matInput class="mat-input" #user placeholder="{{ 'usr_email' | oTranslate }}" id="username" [formControl]="userCtrl">
-              <mat-error *ngIf="userCtrl.hasError('required')">
-                {{ 'ERROR_USER_REQUIRED' | oTranslate }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field fxFill class="m-top-24">
-              <input matInput class="mat-input" #password placeholder="{{ 'PASSWORD' | oTranslate }}" id="password" type="password"
-                [formControl]="pwdCtrl">
-              <mat-error *ngIf="pwdCtrl.hasError('required')">
-                {{ 'ERROR_PASS_REQUIRED' | oTranslate }}
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <button class="button btn-login" mat-raised-button type="submit">{{ 'LOGIN' | oTranslate }}</button>
-
-          <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="m-top-24">
-            <mat-checkbox class="text">{{ 'REMEMBER_ME' | oTranslate }}</mat-checkbox>
-          </div>
-
-          <button class="button btn-login" mat-flat-button [routerLink]="['/']">
-            <mat-icon>arrow_back_ios_new</mat-icon>
-            {{'BACKBTN_TOY' | oTranslate}}
-          </button>
-
-
-        </form>
-      </div>
-    </div>
-
-  </div>
-</div> -->
 

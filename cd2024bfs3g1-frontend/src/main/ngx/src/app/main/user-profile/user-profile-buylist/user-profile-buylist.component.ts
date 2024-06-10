@@ -130,4 +130,9 @@ export class UserPurchasedToylistComponent {
       this.baseUrl = 'http://localhost:8080';
     }
   }
+
+  public openDetail(data: any): void {
+    // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
+    this.router.navigate(["./main/user-profile/buylist/toysDetail", data]);
+  }
 }
