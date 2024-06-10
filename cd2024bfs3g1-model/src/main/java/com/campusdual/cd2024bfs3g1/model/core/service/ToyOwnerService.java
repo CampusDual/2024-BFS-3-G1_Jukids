@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyOwnerService;
+import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ShipmentDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
@@ -38,26 +39,27 @@ public class ToyOwnerService implements IToyOwnerService {
         return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_AVAILABLE, null);
     }
 
-    //Muestra juguetes del estado 1
+    //Muestra juguetes del estado 1 al vendedor
     public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) {
+        keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
         return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_PENDING_SHIPMENT, "toyJoin");
     }
 
-    //Muestra juguetes del estado 2
+    //Muestra juguetes del estado 2 al vendedor
     @Override
     public EntityResult pendingConfirmQuery(Map<String, Object> keyMap, List<String> attrList) {
 
         Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
         keyMap.put(UserDao.USR_ID, idUser);
-        keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS,
-                new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_SENT, ToyDao.STATUS_RECEIVED)));
+        keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_SENT, ToyDao.STATUS_RECEIVED)));
 
         return this.daoHelper.query(this.toyDao, keyMap, attrList);
     }
 
-    //Muestra juguetes del estado 4
+    //Muestra juguetes del estado 4 al vendedor
     @Override
     public EntityResult toySoldQuery(Map<String, Object> keyMap, List<String> attrList) {
+        keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
         return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_PURCHASED, null);
     }
 

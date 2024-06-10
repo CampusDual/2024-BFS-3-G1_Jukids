@@ -7,6 +7,7 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -40,6 +41,7 @@ public class ShipmentService implements IShipmentService {
     //Muestra juguetes del estado 1 al comprador
     @Override
     public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) {
+        keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
         return Utils.queryByStatusBuyer(daoHelper, shipmentDao, userDao, keyMap, attrList, ToyDao.STATUS_PENDING_SHIPMENT, JOINQUERY);
     }
 

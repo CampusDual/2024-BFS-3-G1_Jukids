@@ -7,7 +7,6 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +40,7 @@ public class OrderService implements IOrderService {
         return this.daoHelper.query(this.orderDao, keyMap, attrList);
     }
 
+    //Muestra juguetes estado 4 al comprador
     @Override
     public EntityResult purchasedQuery(Map<String, Object> keyMap, List<String> attrList) {
 
@@ -48,7 +48,7 @@ public class OrderService implements IOrderService {
         keyMap.put(OrderDao.ATTR_BUYER_ID, idUser);
         keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS,
                 new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_PURCHASED, ToyDao.STATUS_RATED)));
-
+        keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
         return this.daoHelper.query(this.orderDao, keyMap, attrList, OrderDao.QUERY_JOIN_ORDERS_TOYS);
     }
 
