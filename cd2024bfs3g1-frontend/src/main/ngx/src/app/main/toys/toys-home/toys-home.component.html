@@ -22,7 +22,7 @@
         <o-text-input #longInput attr="longitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
 
         <o-row class="btn-container">
-          <button attr="filter" [oFilterBuilderQuery]="filterBuilder" type="RAISED" label="Search" class="button btn-outline-light" matTooltip="{{ 'Search' | oTranslate }}">
+          <button attr="filter" [oFilterBuilderQuery]="filterBuilder" query-on-change="true" type="RAISED" label="Search" class="button btn-outline-light" matTooltip="{{ 'Search' | oTranslate }}">
             <mat-icon class="material-icons">search</mat-icon>
           </button>
           <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="button btn-outline-light" matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
@@ -47,33 +47,26 @@
 <div>
   <o-grid #toysGrid attr="toysGrid" service="toys" entity="toyAvailable" keys="toyid" detail-form-route="toysDetail"
     columns="toyid;name;price;latitude;longitude;distance" pageable="yes" query-rows="20" page-size-options="20"
-    refresh-button="no" quick-filter="no" query-on-init="false" pagination-controls="yes" show-page-size="yes" page-size-options="40;60;80"
-
+    refresh-button="no" quick-filter="no" query-on-init="false" pagination-controls="yes" show-page-size="yes" page-size-options="24;32;64"
     [cols]="cols" gutter-size="15" grid-item-height="1:1.5" sortable-columns="distance" orderable="no"
     sort-column="distance">
 
     <o-grid-item *ngFor="let data of toysGrid.getDataArray()" (onClick)="openDetail(data)">
 
       <div class="card">
-
         <ng-container *ngIf="data.distance != null">
-          <div class=" card-distance">
-            <span>{{ data.distance | number : '1.2-2'}} km</span>
+          <div class="card-distance">
+            <span>{{ data.distance | number : "1.2-2" }} km</span>
           </div>
         </ng-container>
         <img class="image-header" src="{{baseUrl}}/restapi/get-image?toyId={{data.toyid}}">
         <div class="card-body">
-          <h4 class="truncate">{{ data.name }}</h4>
-          <p class="price"><span>€</span> {{ data.price | number: '1.2-2' }}</p>
+          <h4>{{ data.name }}</h4>
+          <p class="price">
+            <span>€</span> {{ data.price | number : "1.2-2" }}
+          </p>
         </div>
-
       </div>
-
     </o-grid-item>
-
   </o-grid>
-
-
-
-
 </div>
