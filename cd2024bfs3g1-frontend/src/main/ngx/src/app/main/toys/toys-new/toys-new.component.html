@@ -29,7 +29,7 @@
                     </div>
                     <div class="Form-spec">
                         <!-- Nombre -->
-                        <o-text-input fxFlex="40" attr="name" required="yes" max-length="150"appearance="outline"></o-text-input>
+                        <o-text-input fxFlex="40" attr="name" required="yes" max-length="150" appearance="outline"></o-text-input>
                         <!-- Descripción -->
                         <o-textarea-input attr="description" required="yes" max-length="700" appearance="outline"></o-textarea-input>
                         <!-- Correo electrónico -->
@@ -49,7 +49,7 @@
                             </o-combo>
                         </div>
                         <!-- Estado del producto -->
-                            <o-radio #status service="statuses" entity="status" keys="statusid"
+                            <o-radio #status attr="status" service="statuses" entity="status" keys="statusid" label=""
                                 value-column="code" columns="statusid;name;code" visible-columns="code" read-only="no"
                                 required="yes" hide-required-marker="yes" translate="yes" appearance="outline">
                             </o-radio>
@@ -78,7 +78,7 @@
                 <button class="button btn-outline-light" (click)="cancel()">
                     <span>{{ 'cancel' | oTranslate }}</span>
                 </button>
-                <button class="button btn-solid" attr="submit" (click)="newSubmit()">
+                <button class="button btn-solid reverse" attr="submit" (click)="newSubmit()">
                     <span>{{ 'PUBLISH_TOY' | oTranslate }}</span>
                 </button>
             </div>

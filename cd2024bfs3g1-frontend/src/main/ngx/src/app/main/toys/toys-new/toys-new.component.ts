@@ -30,8 +30,6 @@ export class ToysNewComponent implements OnInit{
   @ViewChild('longitude') protected lon: ORealInputComponent;
   @ViewChild('usr_email') protected usr_email: OEmailInputComponent;
 
-  @ViewChild('status') public radioStatus: ORadioComponent;
-
   constructor(
     private router: Router,
     private ontimizeService: OntimizeService,
@@ -129,7 +127,7 @@ export class ToysNewComponent implements OnInit{
       arrayErrores.push(this.translate.get(errorCategory));
     }
 
-    if(this.radioStatus && this.radioStatus.value === undefined ){
+    if(getFieldValues.status === undefined ){
       arrayErrores.push(this.translate.get(errorStatus));
     }
     
