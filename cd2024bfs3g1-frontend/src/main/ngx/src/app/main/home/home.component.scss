@@ -1,0 +1,172 @@
+.banner-box {
+    display: flex;
+    position: relative;
+    align-items: start;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+
+    .banner-background {
+        position: absolute;
+        width: 100%;
+        height: 90%;
+        z-index: 2;
+    }
+
+    .banner-svg {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 15px;
+        width: 77%;
+        z-index: 4;
+
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.title-box {
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (max-width: 550px) {
+        margin-top: 20px;
+        justify-content: space-between;
+    }
+}
+
+.categories-container {
+    margin-top: 20px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+
+    @media screen and (max-width: 550px) {
+        margin-top: 5px;
+    }
+}
+
+.grid-container {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.row-title {
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+    padding-left: 1%;
+    text-transform: uppercase;
+
+    @media screen and (max-width: 550px) {
+        display: none;
+    }
+}
+
+.row-title-small {
+    display: none;
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+    padding-left: 1%;
+    text-transform: uppercase;
+
+    @media screen and (max-width: 550px) {
+        display: contents;
+    }
+}
+
+.image-header {
+    width: 100%;
+    height: 75%;
+    min-height: 75%;
+    border-radius: .75rem;
+    object-fit: cover;
+
+}
+
+.icons-box {
+    display: flex;
+    width: 50%;
+    max-width: 900px;
+    margin: 30px auto;
+    align-items: center;
+    justify-content: space-between;
+
+    @media screen and (max-width: 450px) {
+        display: none;
+    }
+
+    @media screen and (max-width: 960px) {
+        width: 80%;
+    }
+
+    .smallcard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .icon-div {
+            border-radius: 50%;
+            padding: 8px;
+            display: flex;
+            width: 40px;
+            height: 40px;
+
+            .icon {
+                height: 100%;
+                width: 100%;
+                justify-self: center;
+                align-self: center;
+
+                &:hover {
+                    transform: scale(1.1);
+                    transition: all;
+                    transition: 0.3s;
+                }
+
+                @media screen and (max-width: 450px) {
+                    padding: 6px;
+                }
+            }
+        }
+
+        .icon-name {
+            margin-top: 15px;
+            font-size: smaller;
+            text-align: center;
+            align-self: center;
+
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
+        }
+    }
+}
+
+
+.anchor {
+    margin-left: 10px;
+    font-size: medium;
+    text-transform: uppercase;
+    align-self: center;
+
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    align-self: center;
+
+    @media screen and (max-width: 550px) {
+        align-self: flex-end;
+    }
+}
+
+.card {
+    background-color: white;
+    
+}
