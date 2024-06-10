@@ -1,9 +1,18 @@
+//Definir colores como variables
+$color-orange: #FD8F35;
+$color-dark-orange: #D34A24;
+$color-red: #F11F43;
+$color-blue: #3C7F72;
+$color-orange-bg: #FD8F3514;
+$color-blue-bg: #3c807380;
+$color-white: #fff;
+$color-black: #000;
+
 /* You can add global styles to this file, and also import other style files */
 .o-form-layout-manager {
   .o-form {
     form {
       height: 100%;
-
     }
   }
 }
@@ -14,9 +23,8 @@
   padding: 0 54px
 }
 
-
-.o-column > div.o-container .o-container-scroll.o-container-gap,
-.o-row > div.o-container .o-container-scroll.o-container-gap {
+.o-column>div.o-container .o-container-scroll.o-container-gap,
+.o-row>div.o-container .o-container-scroll.o-container-gap {
   padding: 15px;
 }
 
@@ -41,103 +49,39 @@
   }
 }
 
-.register-container button{
-  background-color: #ffcc99!important;
-  border: 2px solid #ffa366!important;
-  box-shadow: -3px 5px 0px #ff5349!important;
-  color: #ff5349!important;
-  border-radius: 1.5rem!important;
-}
-
-.register-container mat-icon{
-  color: #ff5349!important;
-}
-
-.register-form{
-
-  .mdc-text-field--filled:not(.mdc-text-field--disabled){
-    background-color: transparent;
-  }
-
-  @media(max-width:450px) {
-    button.mat-mdc-button-base.mat-mdc-outlined-button{
-      height: 26px;
-    }
-
-    .o-form .o-form-toolbar button.mat-mdc-outlined-button,
-    .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons
-    .o-table-button button.mat-mdc-outlined-button{
-      padding: 0 10px;
-    }
-
-    button.mat-mdc-button-base.mat-mdc-button, button.mat-mdc-button-base.mat-mdc-unelevated-button,
-     button.mat-mdc-button-base.mat-mdc-raised-button,
-     button.mat-mdc-button-base.mat-mdc-outlined-button{
-      min-width: 52px;
-    }
-
-  }
- .mat-grid-list {
-      padding: 1rem;
-
-      .mat-grid-tile{
-        padding: 1rem;
-      }
-    }
- }
-.o-app-sidenav .o-app-sidenav-menu-group:not([disabled=true]) a:hover,
-.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a:hover{
-  background-color: #ffa366;
-  border-left: 8px solid #e1193d;
-}
-
-.o-app-sidenav .o-app-sidenav-menu-group:not([disabled=true])
-a.o-app-sidenav-viewer-sidenav-item-selected,
-.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
-  border-left: 8px solid #e1193d;
-  background-color: #ffa366;
-}
-
-.o-app-sidenav .o-app-sidenav-sidenav .o-app-sidenav-menu-group-level-1
-.o-app-sidenav-menu-item:not([disabled=true]) a:hover{
-  background-color: #ffa366;
-}
-
-::-webkit-scrollbar-thumb{
-  background-color: #ffa366;
-}
-
-::-webkit-scrollbar-track{
-  display: none;
-}
-
 //Necesario para ocultar el boton sobrante en el formulario de editar juguete.
 #formToyEdit {
-  button[attr="update"]{
-  display: none!important;
+  button[attr="update"] {
+    display: none !important;
+  }
+
+  .noresize textarea {
+    resize: none !important;
+  }
+
+  .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base {
+    color: $color-orange !important;
+  }
+
+  #saveButton .mat-mdc-button-persistent-ripple {
+    width: 30px;
+    left: 9px !important;
+  }
 }
 
-.noresize textarea{
-  resize:none !important;
-}
-}
-
+//Quitar sombra cabecera formularios
 mat-toolbar {
   box-shadow: none !important;
 }
 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
-  color: #ff5349 !important;
-}
-
-#saveButton .mat-mdc-button-persistent-ripple{
-  width: 30px;
-  left: 9px !important;
-}
-
 //Necesario para ocultar el icono de menu
-o-app-header  mat-icon {
+o-app-header mat-icon {
   display: none !important;
 }
 
-
+//Cambiar tamaño mapa para toyDetail
+app-toys-detail o-map {
+  @media screen and (min-width: 960px) {
+    height: 200px !important;
+  }
+}
