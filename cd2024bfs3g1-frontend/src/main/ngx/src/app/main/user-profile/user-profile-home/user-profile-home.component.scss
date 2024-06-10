@@ -1,0 +1,137 @@
+.user-profile-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .header-user-profile,
+  .info-user,
+  .card-container {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .header-user-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-right: 10px;
+
+      .marco4 {
+        padding: 10px;
+        background-color: #fff;
+        border: 2px solid #999;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+
+        .image-header {
+          width: 100%;
+          height: auto;
+          max-width: 100px;
+          max-height: 100px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .edit-profile-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+       // background-color: #0056b3;
+      }
+    }
+  }
+
+  .info-user {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+
+    h3 {
+      margin-top: 0;
+    }
+
+    .user-detail {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .rating-div,
+    .no-rating {
+        display: flex;
+        align-items: center;
+      padding: 10px 0;
+    }
+  }
+
+  .card-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+
+    .card {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+      flex: 1;
+      margin: 0 10px;
+      min-width: 0; // Ensure cards don't overflow
+
+      .icon-image {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto; // Esto centrará los iconos horizontalmente
+        display: block; // Asegura que los márgenes automáticos se apliquen correctamente
+        margin-bottom: 10px;
+      }
+
+      // Media Query para ocultar el texto en resoluciones menores a 750px
+      @media (max-width: 750px) {
+        h2 {
+          display: none;
+        }
+      }
+      // Media Query para reducir el tamaño de las tarjetas y su contenido en resoluciones menores a 450px
+      @media (max-width: 450px) {
+        padding: 10px; // Ajusta el espacio interior de las tarjetas
+        font-size: 0.8rem; // Reduce el tamaño de fuente del texto dentro de las tarjetas
+
+        .icon-image {
+          width: 40px; // Reduce el tamaño de los iconos
+          height: 40px; // Reduce el tamaño de los iconos
+          margin-bottom: 5px; // Ajusta el espacio entre los iconos y el texto
+        }
+      }
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}

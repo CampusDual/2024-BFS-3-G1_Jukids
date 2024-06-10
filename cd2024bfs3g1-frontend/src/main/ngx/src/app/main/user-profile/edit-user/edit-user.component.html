@@ -1,49 +1,102 @@
 <div class="user-profile-container">
-  <!-- Form Container -->
+  <!-- Header -->
   <div class="header-user-profile">
     <div class="user-info">
-      <div class="marco4">
-        <div class="image-container">
-          <o-image attr="usr_photo" class="image-container" auto-fit="yes" read-only="no" 
-            empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER" show-controls="no">
-          </o-image>
-          <div class="image-description">
-            <img src="path/to/image.jpg" alt="User Image" class="image-header">
-            <span>Drag and drop image file here</span>
-            <button mat-button="" color="primary" class="mdc-button mat-mdc-button mat-primary mat-mdc-button-base">Select image</button>
-          </div>
-        </div>
-      </div>
+       <h3>Información del Usuario</h3>
     </div>
-    <button class="button btn-solid edit-profile-button" (click)="redirectHome()">Guardar</button>
+
   </div>
 
+  <!-- Form Container -->
   <div class="info-user">
-    <h3>Información del Usuario</h3>
-    <o-form #formUserEdit class="form" id="formUserEdit" attr="usersDetail" service="userowner" entity="user" keys="usr_id"
-      show-header-navigation="false" show-header="true" fxLayout="column"
-      show-header-actions-text="false" undo-button="no" (onUpdate)="redirectHome()">
-      <o-text-input hidden="true" attr="usr_id" sql-type="INTEGER" enabled="no" editable="no" read-only="yes"></o-text-input>
-      <div class="user-detail">
-        <span>Nombre:</span>
-        <o-text-input #nameInput attr="usr_name" fxFlex="100" read-only="no"
-          max-length="150" appearance="outline"></o-text-input>
-      </div>
-      <div class="user-detail">
-        <span>Apellido:</span>
-        <o-text-input #surnameInput attr="usr_surname" fxFlex="100" read-only="no"
-          max-length="150" appearance="outline"></o-text-input>
-      </div>
-      <div class="user-detail">
-        <span>Contraseña:</span>
-        <o-password-input #passwordInput attr="usr_password" fxFlex="100" read-only="no"
-          max-length="150" appearance="outline"></o-password-input>
-      </div>
-      <div class="user-detail">
-        <span>Email:</span>
-        <o-email-input #emailInput attr="usr_login" fxFlex="100" read-only="no"
-          max-length="150" appearance="outline"></o-email-input>
-      </div>
+
+    <o-form
+      #formUserEdit
+      class="form"
+      id="formUserEdit"
+      attr="usersDetail"
+      service="userowner"
+      entity="user"
+      keys="usr_id"
+      show-header-navigation="false"
+      show-header="true"
+      fxLayout="column"
+      show-header-actions-text="false"
+      undo-button="no"
+      (onUpdate)="redirectHome()"
+    >
+      <o-row fxLayout="row" fxLayoutGap="20px">
+        <o-column class="left-column">
+          <div class="picture-frame">
+            <div class="image-container">
+              <o-image
+                #usr_photo
+                attr="usr_photo"
+                read-only="yes"
+                hidden="yes"
+                show-controls="no"
+                editable="no"
+                empty-image="assets/images/no-image.png"
+              ></o-image>
+            </div>
+          </div>
+        </o-column>
+
+        <o-column class="right-column">
+          <o-text-input
+            hidden="true"
+            attr="usr_id"
+            sql-type="INTEGER"
+            enabled="no"
+            editable="no"
+            read-only="yes"
+          ></o-text-input>
+          <div class="user-detail">
+            <span>Nombre:</span>
+            <o-text-input
+              #nameInput
+              attr="usr_name"
+              fxFlex="100"
+              read-only="no"
+              max-length="150"
+              appearance="outline"
+            ></o-text-input>
+          </div>
+          <div class="user-detail">
+            <span>Apellido:</span>
+            <o-text-input
+              #surnameInput
+              attr="usr_surname"
+              fxFlex="100"
+              read-only="no"
+              max-length="150"
+              appearance="outline"
+            ></o-text-input>
+          </div>
+          <div class="user-detail">
+            <span>Contraseña:</span>
+            <o-password-input
+              #passwordInput
+              attr="usr_password"
+              fxFlex="100"
+              read-only="no"
+              max-length="150"
+              appearance="outline"
+            ></o-password-input>
+          </div>
+          <div class="user-detail">
+            <span>Email:</span>
+            <o-email-input
+              #emailInput
+              attr="usr_login"
+              fxFlex="100"
+              read-only="no"
+              max-length="150"
+              appearance="outline"
+            ></o-email-input>
+          </div>
+        </o-column>
+      </o-row>
     </o-form>
   </div>
 </div>
