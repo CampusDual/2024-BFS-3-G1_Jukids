@@ -10,6 +10,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
 import { SurveyComponent } from './components/survey/survey.component';
+import { ToysDetailComponent } from '../main/toys/toys-detail/toys-detail.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { SurveyComponent } from './components/survey/survey.component';
     HomeToolbarComponent,
     StripeComponent,
     CheckoutComponent,
-    SurveyComponent
+    SurveyComponent,
+    ToysDetailComponent
   ],
   exports: [
     CommonModule,
