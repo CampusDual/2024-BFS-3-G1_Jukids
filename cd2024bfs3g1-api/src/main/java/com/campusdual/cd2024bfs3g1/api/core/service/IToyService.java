@@ -53,4 +53,5 @@ public interface IToyService {
 
     EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException;
     EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList);
+    EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList);
 }
