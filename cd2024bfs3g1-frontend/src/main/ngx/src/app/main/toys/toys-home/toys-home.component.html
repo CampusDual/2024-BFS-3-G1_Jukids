@@ -1,6 +1,6 @@
 <o-form class="form" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()" >
   <div class="collapsible-container">
-  <o-column-collapsible attr="container" title="{{ 'FILTERS_TOYS' | oTranslate }}" icon="filter_list" elevation="3" appearance="none" expanded="no" layout-align="start stretch">
+  <o-column-collapsible attr="container" title="{{ 'FILTERS_TOYS' | oTranslate }}" icon="filter_list"  expanded="no">
     <div class="searchFilters">
       <o-combo #categoryField appearance="outline" label="category" id="category" null-selection="no" attr="category"
         service="categories" entity="category" keys="categoryid" value-column="codigo" columns="categoryid;name;codigo"
