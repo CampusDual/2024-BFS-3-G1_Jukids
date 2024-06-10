@@ -1,4 +1,5 @@
-<button class="backBtn" [routerLink]="['/']" mat-flat-button>
+<button class="backBtn" (click)="redirect()"
+routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat-flat-button>
   <mat-icon>arrow_back_ios_new</mat-icon>
   {{'BACKBTN' | oTranslate}}
 </button>
