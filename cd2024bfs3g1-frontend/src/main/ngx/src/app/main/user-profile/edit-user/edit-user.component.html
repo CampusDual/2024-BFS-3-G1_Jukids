@@ -12,11 +12,11 @@
       entity="user"
       keys="usr_id"
       show-header-navigation="false"
-      show-header="true"
+      show-header="false"
       fxLayout="column"
       show-header-actions-text="false"
       undo-button="no"
-      (onUpdate)="redirectHome()"
+     
     >
       <o-row fxLayout="row" fxLayoutGap="20px">
         <o-column class="left-column">
@@ -39,28 +39,22 @@
         </o-column>
 
         <o-column class="right-column">
-          <o-text-input
-            hidden="true"
-            attr="usr_id"
-            sql-type="INTEGER"
-            enabled="no"
-            editable="no"
-            read-only="yes"
-          ></o-text-input>
-          <div class="user-detail">
-            <span>Nombre:</span>
-            <o-text-input
-              #nameInput
-              attr="usr_name"
-              fxFlex="60"
-              read-only="no"
-              max-length="150"
-              appearance="outline"
-            ></o-text-input>
-          </div>
-          <div class="user-detail">
-            <span>Apellido:</span>
-            <o-text-input
+          
+          <span class="span-detail">Datos de usuario:</span>
+          
+            <div class="user-detail">
+              <o-text-input
+                #nameInput
+                attr="usr_name"
+                fxFlex="60"
+                read-only="no"
+                max-length="150"
+                appearance="outline"
+              ></o-text-input>
+              </div>
+
+              <div class="user-detail">
+              <o-text-input
               #surnameInput
               attr="usr_surname"
               fxFlex="60"
@@ -68,21 +62,22 @@
               max-length="150"
               appearance="outline"
             ></o-text-input>
-          </div>
-          <div class="user-detail">
-            <span>Contraseña:</span>
-            <o-password-input
-              #passwordInput
-              attr="usr_password"
-              fxFlex="60"
-              read-only="no"
-              max-length="150"
-              appearance="outline"
-            ></o-password-input>
-          </div>
-          <div class="user-detail">
-            <span>Email:</span>
-            <o-email-input
+            </div>
+         
+          <span class="span-detail">Datos de la cuenta:</span>
+        
+            <div class="user-detail">
+              <o-password-input
+                #passwordInput
+                attr="usr_password"
+                fxFlex="60"
+                read-only="no"
+                max-length="150"
+                appearance="outline"
+              ></o-password-input>
+              </div>
+              <div class="user-detail">
+              <o-email-input
               #emailInput
               attr="usr_login"
               fxFlex="60"
@@ -90,7 +85,16 @@
               max-length="150"
               appearance="outline"
             ></o-email-input>
-          </div>
+            </div>
+          <o-text-input
+            hidden="true"
+            attr="usr_id"
+            sql-type="INTEGER"
+            enabled="no"
+            editable="no"
+            read-only="yes"
+          ></o-text-input>     
+          <button class="button btn-solid buttonBuy" (click)="saveForm()">{{ 'SAVE' | oTranslate }}</button>
         </o-column>
       </o-row>
     </o-form>

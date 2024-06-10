@@ -53,6 +53,7 @@
   "ROL_NAME": "Rol",
   "rol_notes": "Descripción",
   "ROL_NOTES": "Descripción",
+  "SAVE":"Guardar",
   "server_permission": "Permisos de servidor",
   "srp_active": "Permitido",
   "srp_name": "Permiso",

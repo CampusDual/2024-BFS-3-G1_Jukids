@@ -20,20 +20,14 @@
 
 .user-info {
   display: flex;
- // align-items: center;
 }
 
 .edit-profile-button {
-  background-color: #007bff;
   color: white;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-}
-
-.edit-profile-button:hover {
-  background-color: #0056b3;
 }
 
 .info-user {
@@ -52,43 +46,42 @@
 
 .left-column {
   display: flex;
-  flex-grow: 0;
+  flex-grow: 1;
   justify-content: center;
- 
 }
 
 .right-column {
-  flex-grow: 1;
+  flex-grow: 0;
   max-width: fit-content;
 }
 
 .user-detail {
   display: flex;
-  justify-content: end;
+  justify-content: space-between; /* Updated */
+  align-items: center; /* Optional: align items center vertically */
   padding: 10px 0;
   border-bottom: 1px solid #f0f0f0;
+  width: 100%; /* Ensure user-detail takes full width */
+  box-sizing: border-box;
+}
+.span-detail-user{
+  text-align: start;
 
 }
+.span-detail-account{
+  text-align: start;
 
-.user-detail span {
-  text-align: right;
-  flex-basis: 10%;
-  font-weight: bold;
-  margin-right: 10px;
 }
-
 .user-detail o-text-input,
 .user-detail o-password-input,
 .user-detail o-email-input {
-  flex-basis: 70%;
+  width: 100%; /* Ensure inputs take full width */
 }
 
-/* Add these styles to handle the image container and ensure it maintains its size */
 .image-container {
   width: 150px; /* Set a fixed width for the image container */
   height: 150px; /* Set a fixed height for the image container */
   overflow: hidden; /* Ensure content that overflows is hidden */
- // border-radius: 50%; /* Optional: make the image container circular */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,4 +91,10 @@
   width: 100%; /* Ensure the image fits within the container */
   height: 100%; /* Ensure the image fits within the container */
   object-fit: cover; /* Ensure the image covers the container without stretching */
+}
+
+
+
+.button.btn-solid.buttonBuy:hover {
+  background-color: #0056b3; /* Button background color on hover */
 }
