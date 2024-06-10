@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { CheckoutComponent } from './shared/components/stripe/checkout/checkout.component';
 import { SurveyComponent } from './shared/components/survey/survey.component';
+import { ToysDetailComponent } from './main/toys/toys-detail/toys-detail.component';
 
 export const routes: Routes = [
   { path: 'main', loadChildren: () => import('./main/main.module').then(m => m.MainModule) },

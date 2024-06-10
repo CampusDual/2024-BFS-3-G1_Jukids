@@ -106,14 +106,14 @@ export class ToysHomeComponent implements OnInit {
       this.toyGrid.reloadData();
 
 
-
       // this.toyGrid.dataArray.forEach(element => {
       //   console.log(element.latitude);
       //   console.log(element.longitude);
       // })
 
-
     });
+
+
 
 
 
