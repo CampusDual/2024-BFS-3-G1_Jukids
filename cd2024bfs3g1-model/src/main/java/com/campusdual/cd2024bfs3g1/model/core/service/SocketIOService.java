@@ -70,6 +70,9 @@ public class SocketIOService {
              *  Si existe la sala, recuperar los mensajes relacionados de los dos.
              *
              */
+
+             /** INICIO Parametros de Consulta para el SellerData **/
+
             System.out.println("Client DATA: " + client.getNamespace().getName() );
             System.out.println("Client DATA: " + client.getHandshakeData() );
             System.out.println("Client DATA: " + client.getNamespace().getName() );
@@ -112,7 +115,7 @@ public class SocketIOService {
                 /** Insertamos a ChatLog **/
                 Map<String, Object> attrMap = new HashMap<>();
                 attrMap.put(ChatLogDao.ATTR_CUSTOMER_ID, recieveMessage.getCustomerId() );
-                attrMap.put(ChatLogDao.ATTR_OWNER_ID,  recieveMessage.getCustomerId() );
+                attrMap.put(ChatLogDao.ATTR_OWNER_ID,  sendMessage.getOwnerId() );
                 attrMap.put(ChatLogDao.ATTR_TOY_ID,  recieveMessage.getToyId() );
                 attrMap.put(ChatLogDao.ATTR_MSG, recieveMessage.getMessage() );
                 attrMap.put( ChatLogDao.ATTR_INSERTED_DATE,  new Date() );
@@ -187,7 +190,7 @@ public class SocketIOService {
                 if( messages.isEmpty() ) {
                     System.out.println("---------- Messages Empty en onCreateRoom ----------");
 
-                    socketServer.getRoomOperations( room ).sendEvent("messageCount", messages.calculateRecordNumber() );
+                    client.sendEvent("messageCount", messages.calculateRecordNumber() );
                     return;
                 }
                 if (messages.isWrong()) {
@@ -195,7 +198,7 @@ public class SocketIOService {
                     return;
                 }
 
-                socketServer.getRoomOperations( room ).sendEvent("messageCount", messages.calculateRecordNumber() );
+                client.sendEvent("messageCount", messages.calculateRecordNumber() );
 
                 List<SendMessage> result = new ArrayList<>();
 
@@ -206,7 +209,8 @@ public class SocketIOService {
                 //Bucle de los resultados e ir agregandolos al chat
 
                 result.forEach(( message ) -> {
-                    socketServer.getRoomOperations( room ).sendEvent("receiveMessage", message);
+                    client.sendEvent("receiveMessage", message);
+                    //socketServer.getRoomOperations( room ).sendEvent("receiveMessage", message);
                 });
             } catch (Exception ex) {
                 System.out.println("Excepción: " + ex.getMessage() );
@@ -266,6 +270,7 @@ public class SocketIOService {
                     ToyDao.ATTR_ID,
                     ToyDao.ATTR_NAME,
                     ToyDao.ATTR_PRICE,
+                    ToyDao.ATTR_USR_ID,
                     "u_seller."+UserDao.NAME,
                     "u_seller."+UserDao.PHOTO
             );
@@ -293,11 +298,19 @@ public class SocketIOService {
             //Recibo los datos del lado del customer
             EntityResult customerData = this.daoHelper.query( this.userDao, customerDataKeyMap, customerDataAttrList );
 
+            //Verificar si el mensaje que se recibio es del dueño del producto.
+            String ownerID =  (sellerData.get( ToyDao.ATTR_USR_ID) == recieveMessage.getCustomerId() )
+                    ? sellerData.getRecordValues(0).get( ToyDao.ATTR_USR_ID).toString() : recieveMessage.getCustomerId();
+
+
+
             sendMessage.setCustomerId(
                     customerData.getRecordValues(0).get(UserDao.USR_ID).toString()
             );
             sendMessage.setOwnerId(
-                    recieveMessage.getCustomerId()
+                    (Objects.equals(recieveMessage.getOwner(), "true")) ?
+                            sellerData.getRecordValues(0).get( ToyDao.ATTR_USR_ID).toString()
+                            : recieveMessage.getCustomerId()
             );
             sendMessage.setToyId(
                     recieveMessage.getToyId()
@@ -317,17 +330,17 @@ public class SocketIOService {
                             : ""
             );
             sendMessage.setPrice(
-                    sellerData.get(ToyDao.ATTR_PRICE).toString()
+                    sellerData.getRecordValues(0).get(ToyDao.ATTR_PRICE).toString()
             );
             sendMessage.setToyName(
-                    sellerData.get(ToyDao.ATTR_NAME).toString()
+                    sellerData.getRecordValues(0).get(ToyDao.ATTR_NAME).toString()
             );
             sendMessage.setSellerName(
-                    sellerData.get( UserDao.NAME ).toString()
+                    sellerData.getRecordValues(0).get( UserDao.NAME ).toString()
             );
             sendMessage.setSellerAvatar(
-                    (sellerData.get( UserDao.PHOTO) != null ) ?
-                            sellerData.get( UserDao.PHOTO ).toString()
+                    (sellerData.getRecordValues(0).get( UserDao.PHOTO) != null ) ?
+                            sellerData.getRecordValues(0).get( UserDao.PHOTO ).toString()
                             : ""
             );
 

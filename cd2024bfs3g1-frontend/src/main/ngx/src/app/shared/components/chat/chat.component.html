@@ -1,10 +1,14 @@
 <div class="chat-container">
-    <div class="close-modal" (click)="closeModal()">
+
+
+    <div *ngIf="!isUserProfileChat" class="close-modal" (click)="closeModal()">
         <mat-icon class="btn-close">close</mat-icon>
     </div>
+
+
     <div class="chat-container-header">
         <div class="jukids-logo">
-            <img src="{{baseUrl}}/restapi/get-image?toyId={{data.toyId}}" alt="">
+            <img src="{{baseUrl}}/restapi/get-image?toyId={{toyId}}" alt="">
         </div>
         <div class="header-title-info">
             <h4>{{ toyName }}</h4>
@@ -15,14 +19,20 @@
 
     <div #chatContainer class="chat-container-body">
 
-        <ng-container *ngFor="let message of messages">
 
-            <div [ngClass]=" {
-                'chat-message-container-sender': message.customerId == message.ownerId,
-                'chat-message-container-receiver' :  message.customerId != message.ownerId,
-                } ">
+
+
+        <ng-container *ngFor="let message of messages">
+            
+            <div [ngClass]="{
+                'chat-message-container-sender': message.ownerId == this.currentUserId,
+                'chat-message-container-receiver': message.ownerId != this.currentUserId
+            }">
                 <div class="chat-message">
-                    <img class="user-profile" src="assets/images/user_profile.png" alt="">
+
+                    <!-- TODO: Poner como DEFAULT EN DEFAULT la imagen del usuario IMGDEFAULT-IN-DB.txt -->
+
+                    <img class="user-profile" src="{{baseUrl}}/restapi/get-image?userId={{message.ownerId}}" alt="">
                     <span class="message">
                         <span class="message-user-name">
                             {{ (message.customerId == message.ownerId) ? message.customerName : message.sellerName }}
@@ -39,9 +49,59 @@
 
             </div>
 
+
+            <!-- <ng-container *ngIf="!isUserProfileChat">
+                <div [ngClass]="{
+                    'chat-message-container-sender': message.customerId != message.ownerId,
+                    'chat-message-container-receiver': message.customerId == message.ownerId
+                }">
+                    <div class="chat-message">
+    
+                        TODO: Poner como DEFAULT EN DEFAULT la imagen del usuario IMGDEFAULT-IN-DB.txt
+    
+                        <img class="user-profile" src="{{baseUrl}}/restapi/get-image?userId={{message.ownerId}}" alt="">
+                        <span class="message">
+                            <span class="message-user-name">
+                                {{ (message.customerId == message.ownerId) ? message.customerName : message.sellerName }}
+                            </span>
+                            <div>
+                                {{ message.msg }}
+                            </div>
+                            <span class="message-date">
+                                {{ message.insertedDate | date: 'dd/MM/yyyy HH:mm' }}
+                            </span>
+                        </span>
+    
+                    </div>
+    
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="isUserProfileChat">
+                
+            </ng-container> -->
+
         </ng-container>
 
-        <!-- <div class="chat-message-container-sender">
+    </div>
+
+
+    <!-- ================================== DEV ================================ -->
+
+    <!-- <div class="chat-container-header">
+        <div class="jukids-logo">            
+            <img src="http://localhost:8080/restapi/get-image?toyId=694" alt="">
+        </div>
+        <div class="header-title-info">
+            <h4>Ajedrez Harry Potter</h4>
+            <span class="price">{{ 300 | currency: 'EUR'}}</span>
+        </div>
+
+    </div>
+
+    <div #chatContainer class="chat-container-body">
+        
+        <div class="chat-message-container-sender">
             <div class="chat-message">
                 <img class="user-profile" src="assets/images/user_profile.png" alt="">
                 <span class="message">Hola desde el que escribe</span>
@@ -68,11 +128,14 @@
                 <img class="user-profile" src="assets/images/user_profile.png" alt="">
                 <span class="message">¿Qué dices, colgao?</span>
             </div>
-        </div> -->
+        </div>
+
+    </div> -->
 
 
 
-    </div>
+
+
 
     <div class="progress-bar" *ngIf="msgCount < 0 ">
         <span>Cargando mensajes...</span>

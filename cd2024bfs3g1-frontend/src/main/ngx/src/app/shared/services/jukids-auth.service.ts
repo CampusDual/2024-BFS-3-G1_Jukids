@@ -12,7 +12,7 @@ export class JukidsAuthService extends OntimizeAuthService {
     constructor(
         injector: Injector
     ) {
-        console.log('JukidsAuthService instanciado');
+        // console.log('JukidsAuthService instanciado');
         super(injector);
         this.jukids_router = this.injector.get(Router);
     }

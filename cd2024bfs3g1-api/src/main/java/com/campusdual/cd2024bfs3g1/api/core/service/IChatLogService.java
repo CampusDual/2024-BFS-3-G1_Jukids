@@ -11,6 +11,8 @@ public interface IChatLogService {
     EntityResult chatLogQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
     EntityResult chatLogInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
-    
 
+    EntityResult getChatLastConversationQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+
+    EntityResult getLoggedChatListQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }

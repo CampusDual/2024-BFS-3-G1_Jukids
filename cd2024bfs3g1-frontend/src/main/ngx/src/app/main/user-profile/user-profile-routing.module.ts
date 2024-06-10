@@ -5,6 +5,7 @@ import { EditToyComponent } from './edit-toy/edit-toy.component';
 import { UserProfileHomeComponent } from './user-profile-home/user-profile-home.component';
 import { UserPurchasedToylistComponent } from './user-profile-buylist/user-profile-buylist.component';
 import { UserProfileRatingsComponent } from './user-profile-ratings/user-profile-ratings.component';
+import { UserProfileChatsComponent } from './user-profile-chats/user-profile-chats.component';
 
 const routes: Routes = [
   { path: '', component: UserProfileHomeComponent },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'buylist', component: UserPurchasedToylistComponent },
   { path: 'ratings', component: UserProfileRatingsComponent},
   { path: 'toylist/:toyid', component: EditToyComponent },
-  { path: 'edit-toy/:toyid', component: EditToyComponent }
+  { path: 'edit-toy/:toyid', component: EditToyComponent },
+  { path: 'chats', component: UserProfileChatsComponent }
 
 ]
 

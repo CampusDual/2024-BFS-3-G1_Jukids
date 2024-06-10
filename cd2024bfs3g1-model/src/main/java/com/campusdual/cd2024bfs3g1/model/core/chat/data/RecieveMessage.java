@@ -5,6 +5,7 @@ public class RecieveMessage {
     private  String customerId;
     private  String toyId;
     private  String message;
+    private  String owner;
 
     public RecieveMessage() {
     }
@@ -31,5 +32,13 @@ public class RecieveMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String isOwner) {
+        owner = isOwner;
     }
 }

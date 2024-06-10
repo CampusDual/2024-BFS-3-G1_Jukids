@@ -120,6 +120,8 @@ export class ToysDetailComponent implements OnInit {
         sellerName: this.toyEmail.getValue(),
         customer_id: this.customer_id
       },
+      width: '25rem',
+      height: '37.5rem',
       id: "Chat",
       disableClose: true,
     });

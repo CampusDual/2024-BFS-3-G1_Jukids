@@ -2,7 +2,6 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { OntimizeService, DialogService } from 'ontimize-web-ngx';
 import { ToysMapService } from '../../services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
-import { ReturnStatement } from '@angular/compiler';
 
 @Component({
   selector: 'location-map',

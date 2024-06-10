@@ -39,4 +39,5 @@ export interface ChatMessageModelInterface {
     customerId: string;
     toyId: string;
     message: string;
+    owner: string;
 }

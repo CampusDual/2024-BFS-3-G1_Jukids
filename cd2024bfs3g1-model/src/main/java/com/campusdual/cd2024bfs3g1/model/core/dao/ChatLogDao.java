@@ -19,4 +19,12 @@ public class ChatLogDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_TOY_NAME= "toy_name";
     public static final String ATTR_SELLER_NAME = "seller_name";
     public static final String ATTR_SELLER_AVATAR = "seller_avatar";
+    public static final String ATTR_SELLER_ID= "sellerId";
+
+    /**  getChatLastConversationQuery **/
+    public static final String ATTR_LTQ_CUSTOMER_ID = "sub.customer_id";
+    public static final String ATTR_LTQ_OWNER_ID = "sub.owner_id";
+    public static final String ATTR_LTQ_TOY_ID = "sub.toy_id";
+    public static final String ATTR_LTQ_MSG = "sub.msg";
+    public static final String ATTR_LTQ_INSERTED_DATE = "sub.inserted_date";
 }

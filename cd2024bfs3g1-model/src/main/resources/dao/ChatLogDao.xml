@@ -39,5 +39,55 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="getLoggedChatList">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="usr_id" prefix="t"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                SELECT
+                    cl.toy_id,
+                    t."name" toyName,
+                    t.usr_id,
+                    cl.customer_id,
+                    uu.usr_name customerName,
+	                us.usr_name sellerName,
+                    count(1) msg
+                FROM chat_log cl
+                JOIN toys t on t.toyid = cl.toy_id
+                JOIN usr_user uu on uu.usr_id = cl.customer_id
+                JOIN usr_user us on us.usr_id = t.usr_id
+                #WHERE#
+                GROUP BY cl.toy_id, t.usr_id, cl.customer_id, t."name", uu.usr_name, us.usr_name
+                ]]>
+            </Sentence>
+        </Query>
+
+
+        <Query id="getChatLastConversation">
+            <Sentence>
+                <![CDATA[
+                SELECT
+                    sub.customer_id,
+                    sub.owner_id,
+                    sub.toy_id,
+                    sub.msg,
+                    sub.inserted_date
+                FROM (
+                    SELECT
+                        cl.customer_id,
+                        cl.owner_id,
+                        cl.toy_id,
+                        cl.msg,
+                        cl.inserted_date,
+                        ROW_NUMBER() OVER (PARTITION BY cl.customer_id ORDER BY cl.inserted_date DESC) AS rn
+                    FROM chat_log cl
+                    #WHERE#
+                    ) sub
+                WHERE sub.rn = 1;
+                ]]>
+            </Sentence>
+        </Query>
+
     </Queries>
 </JdbcEntitySetup>
