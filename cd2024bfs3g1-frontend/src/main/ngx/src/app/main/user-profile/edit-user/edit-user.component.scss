@@ -1,10 +1,10 @@
 .user-profile-container {
-  max-width: 150%;
+  max-width: 50%;
   //margin: auto;
   padding-top: 20px;
   padding-left: 25%;
   font-family: Arial, sans-serif;
-  align-items: center;
+  //align-items: center;
   //max-width: fit-content;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .info-user {
-  //max-width: 100%;
+  max-width: 100%;
   background-color: #ffffff;
   padding-top: 15px;
   padding-left: 15px;
@@ -42,7 +42,8 @@
   box-sizing: border-box;
   //padding: 0px !important;
   //align-self: center;
-  max-width: fit-content;
+  //max-width: fit-content;
+  
 }
 
 .info-user h3 {
@@ -58,7 +59,13 @@
 .right-column {
   flex-grow: 0;
   display: flex;
+  width: 100%;
   //max-width: 150%;
+}
+
+.user-line {
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 15px;
 }
 
 .user-detail {
@@ -69,7 +76,7 @@
   padding-top: 5%;
   padding-right: 15px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #f0f0f0;
+  //border-bottom: 1px solid #f0f0f0;
   width: 100%; /* Ensure user-detail takes full width */
   box-sizing: border-box;
   margin-right: 15px;
@@ -80,6 +87,7 @@
   flex-basis: 10%;
   font-weight: bold;
   margin-left: 20px;
+  width: 100%;
 }
 
 .span-detail-account {
@@ -87,10 +95,12 @@
   flex-basis: 10%;
   font-weight: bold;
   margin-left: 20px;
+  width: 100%;
 }
 
 .account-data{
   margin-top: 25px;
+  width: 100%;
 }
 
 .user-detail o-text-input,
