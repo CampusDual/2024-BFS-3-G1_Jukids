@@ -1,22 +1,22 @@
 <div class="navigation-tree-container">
   <div class="back-category">
-    <a class="category" style="padding-left:20px;color: rgb(145, 145, 145);" href="/main">{{ "ALL_TOYS" | oTranslate }}</a>
-    <div>></div>
-    <a class="category" style="margin-left:20px;color:rgb(145, 145, 145);" href="/main/user-profile">{{ "MY_PROFILE" | oTranslate }}</a>
-    <div>></div>
-      <span class="category" style="padding-left: 20px;">
+    <a class="category" href="/main">{{ "ALL_TOYS" | oTranslate }}</a>
+    <div class="category">></div>
+    <a class="category" href="/main/user-profile">{{ "MY_PROFILE" | oTranslate }}</a>
+    <div class="category">></div>
+      <span class="category">
       {{ "PURCHASED_TOYS" | oTranslate }}</span>
   </div>
 </div>
 
-<mat-tab-group fxFill #tabs [selectedIndex]="currentTabIndex">
+<mat-tab-group #tabs [selectedIndex]="currentTabIndex">
   <mat-tab #tabSend attr="tabSend" label="{{ 'PENDING_SEND_TOY' | oTranslate }}">
     <o-table #tableSend fxFlex attr="tableSend" service="shipments" entity="pendingSend" keys="toyid"
       title="{{ 'PENDING_SEND_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
       visible-columns="photo;name;total_price" show-title="true" pagination-controls="no"
       show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
       edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
-      class="table" detail-mode="none">
+      class="table" detail-form-route="toysDetail">
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
@@ -36,7 +36,7 @@
       visible-columns="photo;name;tracking_number;total_price;edit-btn" show-title="true" pagination-controls="no"
       show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
       edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
-      class="table" detail-mode="none">
+      class="table" detail-form-route="toysDetail">
 
       <!--<o-table-column attr="toyid" multiline="no" min-width="400px" max-width="500px" tooltip="yes"></o-table-column>-->
 
@@ -65,7 +65,7 @@
       visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no"
       show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
       edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
-      class="table" detail-mode="none">
+      class="table"  detail-form-route="toysDetail">
 
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
@@ -87,17 +87,17 @@
     <div class="list" fxLayout="column">
       <o-list #list attr="list" service="orders" entity="ordersWithToys" key="order_id"
           columns="t.toyid;photo;name;price;transaction_status;t.usr_id;usr_name;buyer_id"
-          detail-mode="none" refresh-button="none" delete-button="none" quick-filter="none">
+          detail-form-route="toysDetail" refresh-button="none" delete-button="none" quick-filter="none">
         <mat-card *ngFor="let row of list.dataArray" [o-list-item]="row">
           <div fxLayout="row" fxLayoutGap="2.25rem">
-            <o-column>
+            <o-column (click)="openDetail(row.toyid)">
               <div class="photo-container">
                 <img src="{{baseUrl}}/restapi/get-image?toyId={{row.toyid}}" >
               </div>
             </o-column>
             <div class="info-row">
               <div class="info-container">
-                <div class="info-text">
+                <div class="info-text" (click)="openDetail(row.toyid)">
                   <mat-card-title>{{ row.name }}</mat-card-title>
                   <mat-card-subtitle>{{ row.price }} €</mat-card-subtitle>
                 </div>

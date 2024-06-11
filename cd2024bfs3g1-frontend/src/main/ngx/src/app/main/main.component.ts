@@ -59,7 +59,7 @@ export class MainComponent implements OnInit {
   //Con este metodo verificamos que el usuario que se ha logueado, tenga una propiedad rolename y su valor sea el de admin
   validAdmin() {
     return (this.rolename && this.rolename == "admin");
-  }
+   }
 
   ngOnInit() {
     //Si el usuario ya ha iniciado sesion, cargamos sus datos
@@ -96,4 +96,14 @@ export class MainComponent implements OnInit {
       disableClose: false,
     });
   }
+
+  newToy(){
+    if(this.jkAuthService.isLoggedIn()){
+      const redirect = '/main/toys/new';
+      this.router.navigate([redirect]);
+    } else {
+      this.modal('login');
+    }
+  }
+
 }

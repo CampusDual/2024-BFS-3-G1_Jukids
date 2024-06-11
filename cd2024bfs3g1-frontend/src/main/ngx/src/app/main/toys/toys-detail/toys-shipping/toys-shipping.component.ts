@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OComboComponent, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { LoginComponent } from 'src/app/login/login.component';
@@ -14,12 +15,13 @@ import { catchError, throwError } from 'rxjs';
 })
 export class ToysShippingComponent implements OnInit {
 
+
   // En commission ponemos el tanto por ciento de comision
   public commission: number = 7;
   public warrantyPrice: number;
   // Se contemplan 3 euros de gastos de envio
   public priceSend: number = 3.00;
-  public issetSend: boolean = true;
+  public issetSend: boolean = false;
   // Compañias de envio
   public dataCompany = [{
     code: 'Correos',
@@ -84,7 +86,7 @@ export class ToysShippingComponent implements OnInit {
   showFormShipments() {
     if (this.buyOption._checked) {
       this.issetSend = false;
-      this.form.classList.add("hidden")
+  
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
@@ -92,7 +94,7 @@ export class ToysShippingComponent implements OnInit {
 
     if (this.buySendOption._checked) {
       this.issetSend = true;
-      this.form.classList.remove("hidden")
+      
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
       this.buyButton.nativeElement.classList.add("hidden")
@@ -273,10 +275,9 @@ export class ToysShippingComponent implements OnInit {
     }
   }
 
-  insertRedirect() {
-    this.router.navigate(["main/toys/toysDetail", this.toyId]);
-  }
-
+  backDetail(toyId):void{
+     this.router.navigate(["main/toys/toysDetail", toyId]);
+   }
 
   isLogged() {
     //Se cierra el dialogo al iniciar sesion

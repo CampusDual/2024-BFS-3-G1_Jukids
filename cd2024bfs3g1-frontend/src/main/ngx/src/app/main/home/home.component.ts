@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogService, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { EventEmitter } from 'stream';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -13,17 +15,34 @@ export class HomeComponent implements OnInit {
   private latitude: any;
   private longitude: any;
   private location: any;
+  public cols: number = 5;
+  public queryRows: number = 5;
+  public language:string = "es";
+
+  //============== Variable de URL BASE =================
+  public baseUrl: string;
+
+  private layoutChanges = this.breakpointObserver.observe([
+    Breakpoints.XSmall,
+    Breakpoints.Small,
+    Breakpoints.Medium,
+    Breakpoints.Large,
+    Breakpoints.XLarge
+  ]);
 
   constructor(
     private router: Router,
     private actRoute: ActivatedRoute,
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
-    private  toysMapService: ToysMapService
+    private  toysMapService: ToysMapService,
+    private breakpointObserver: BreakpointObserver,
+    private translate: OTranslateService,
   ) {
      //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
+    this.language = translate.getStoredLanguage();
   }
 
   ngOnInit() {
@@ -31,8 +50,33 @@ export class HomeComponent implements OnInit {
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
     });
-  }
 
+    this.baseUrl = window.location.origin;
+    if (this.baseUrl.includes('localhost')) {
+      this.baseUrl = 'http://localhost:8080';
+    }
+
+    // Control de columnas en o-grid
+    this.layoutChanges.subscribe((result) => {
+      if (result.breakpoints[Breakpoints.XSmall]) {
+        this.cols = 2;
+      } else if (result.breakpoints[Breakpoints.Small]) {
+        this.cols = 3;
+      } else if (result.breakpoints[Breakpoints.Medium]) {
+        this.cols = 4;
+      } else if (result.breakpoints[Breakpoints.Large]) {
+        this.cols = 5;
+      } else if (result.breakpoints[Breakpoints.XLarge]) {
+        this.cols = 5;
+      }
+    });
+   
+    this.translate.onLanguageChanged.subscribe(data=>{
+      this.language = data;
+      console.log(data);
+    });
+  }
+ 
    navigate() {
      this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
    }
@@ -79,4 +123,14 @@ export class HomeComponent implements OnInit {
       body: JSON.stringify(toy)
     })
   }
+
+  public openDetail(data: any): void {
+    // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
+    const toyId = data.toyid; // Asegúrate de obtener el ID correcto de tu objeto de datos
+    this.router.navigate(["./toys/toysDetail", toyId]);
+  }
+
+  searchCategory(category):void {
+      this.router.navigate(['/main/toys'], {queryParams:{category: category}});
+    }
 }

@@ -16,13 +16,16 @@ import { SocketIoConfig } from 'ngx-socket-io';
 //Socket io configuration
 const config: SocketIoConfig = { url: environment.apiEndpoint, options: {} };
 
+import { ToysDetailComponent } from '../main/toys/toys-detail/toys-detail.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     OntimizeWebModule,
     OMapModule,
     NgxStripeModule.forRoot(environment.stripe_public_key),
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   declarations: [
     FilterComponent,
@@ -32,7 +35,8 @@ const config: SocketIoConfig = { url: environment.apiEndpoint, options: {} };
     StripeComponent,
     CheckoutComponent,
     SurveyComponent,
-    ChatComponent
+    ChatComponent,
+    ToysDetailComponent
   ],
   exports: [
     CommonModule,

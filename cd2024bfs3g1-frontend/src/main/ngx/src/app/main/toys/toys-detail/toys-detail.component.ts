@@ -22,6 +22,8 @@ export class ToysDetailComponent implements OnInit {
   isEditable = false;
   ratingData: string;
   varRating: number;
+  isLogged: boolean = this.jkAuthService.isLoggedIn();
+  isNotTheSeller: boolean;
 
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('usr_id') usr_id: OTextInputComponent;
@@ -53,7 +55,7 @@ export class ToysDetailComponent implements OnInit {
   }
 
   protected configureService() {
-    const conf = this.service.getDefaultServiceConfiguration("surveys");
+    const conf = this.service.getDefaultServiceConfiguration("toys");
     this.service.configureService(conf);
   }
 
@@ -70,11 +72,9 @@ export class ToysDetailComponent implements OnInit {
     console.log(this.usr_id.getValue());
   }
   onFormDataLoaded(data: any) {
-    this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue());
+    this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue())
 
     this.mainService.getUserInfo().subscribe((data: ServiceResponse) => {
-
-      this.customer_id = data.data.usr_id;
 
       this.isNotTheSeller = (data.data.usr_id != this.usr_id.getValue());
 
@@ -99,6 +99,10 @@ export class ToysDetailComponent implements OnInit {
       });
   }
 
+  redirect(){
+    this.router.navigateByUrl("/main/toys");
+  }
+
   setStripe(): void {
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();
@@ -109,6 +113,9 @@ export class ToysDetailComponent implements OnInit {
     this.stripe.ckeckout();
   }
 
+  searchCategory(category):void {
+    this.router.navigate(['/main/toys'], {queryParams:{category: category}});
+  }
 
   chatSeller() {
 

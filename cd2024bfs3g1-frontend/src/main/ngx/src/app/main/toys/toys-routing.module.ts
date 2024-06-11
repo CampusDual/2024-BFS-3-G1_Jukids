@@ -10,6 +10,10 @@ const routes: Routes = [{
   component: ToysHomeComponent
 },
 {
+  path: "toys?/:categoryReceived",
+  component: ToysHomeComponent
+},
+{
   path: "new",
   component: ToysNewComponent
 },
@@ -20,7 +24,8 @@ const routes: Routes = [{
 {
   path: "toysDetail/toysBuy/:toyid",
   component: ToysShippingComponent
-}];
+}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -1,15 +1,26 @@
-@use "@angular/material" as mat;
-@use "node_modules/ontimize-web-ngx/theming/ontimize-style.scss" as
-  ontimize-style;
+@use '@angular/material' as mat;
+@use 'node_modules/ontimize-web-ngx/theming/ontimize-style.scss' as ontimize-style;
 
 /* Breakpoints definitions */
 
 // Definición de las media queries como variables
-$breakpoint-small: "(max-width: 599.98px)";
-$breakpoint-medium: "(min-width: 600px) and (max-width: 959.98px)";
-$breakpoint-large: "(min-width: 960px) and (max-width: 1279.98px)";
-$breakpoint-xlarge: "(min-width: 1280px) and (max-width: 1919.98px)";
-$breakpoint-xxlarge: "(min-width: 1920px)";
+$breakpoint-small: '(max-width: 599.98px)';
+$breakpoint-medium: '(min-width: 600px) and (max-width: 959.98px)';
+$breakpoint-large: '(min-width: 960px) and (max-width: 1279.98px)';
+$breakpoint-xlarge: '(min-width: 1280px) and (max-width: 1919.98px)';
+$breakpoint-xxlarge: '(min-width: 1920px)';
+
+//Definir colores como variables
+$color-orange: #FD8F35;
+$color-dark-orange: #D34A24;
+$color-red: #F11F43;
+$color-blue: #3C7F72;
+$color-orange-bg: #FD8F3514;
+$color-red-bg: rgba(241, 31, 66, 0.8);
+$color-blue-bg: hsla(169, 36%, 37%, 0.60);
+$color-white: #fff;
+$color-black: #000;
+
 
 // Mixin para aplicar estilos según los breakpoints
 @mixin respond-to($breakpoint) {
@@ -17,19 +28,27 @@ $breakpoint-xxlarge: "(min-width: 1920px)";
     @media #{$breakpoint-small} {
       @content;
     }
-  } @else if $breakpoint ==medium {
+  }
+
+  @else if $breakpoint ==medium {
     @media #{$breakpoint-medium} {
       @content;
     }
-  } @else if $breakpoint ==large {
+  }
+
+  @else if $breakpoint ==large {
     @media #{$breakpoint-large} {
       @content;
     }
-  } @else if $breakpoint ==xlarge {
+  }
+
+  @else if $breakpoint ==xlarge {
     @media #{$breakpoint-xlarge} {
       @content;
     }
-  } @else if $breakpoint ==xxlarge {
+  }
+
+  @else if $breakpoint ==xxlarge {
     @media #{$breakpoint-xxlarge} {
       @content;
     }
@@ -38,70 +57,40 @@ $breakpoint-xxlarge: "(min-width: 1920px)";
 
 /* Color definitions */
 $mat-custom-primary: (
-  50: #f4e3e3,
-  100: #b9d1e4,
-  200: #8ab2d2,
-  300: #5b93c0,
-  400: #377bb3,
-  500: #1464a5,
-  600: #125c9d,
-  700: #0e5293,
-  800: #0b488a,
-  900: #063679,
-  A100: #a8c7ff,
-  A200: #75a7ff,
-  A400: #4286ff,
-  A700: #2876ff,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #ffffff,
-    A700: #ffffff,
-  ),
+  50 : #f4e3e3,
+  100 : #b9d1e4,
+  200 : #8ab2d2,
+  300 : #5b93c0,
+  400 : #377bb3,
+  500 : #1464a5,
+  600 : #125c9d,
+  700 : #0e5293,
+  800 : #0b488a,
+  900 : #063679,
+  A100 : #a8c7ff,
+  A200 : #75a7ff,
+  A400 : #4286ff,
+  A700 : #2876ff,
+  contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #ffffff, 500 : #ffffff, 600 : #ffffff, 700 : #ffffff, 800 : #ffffff, 900 : #ffffff, A100 : #000000, A200 : #000000, A400 : #ffffff, A700 : #ffffff)
 );
 
 /* Color definitions */
 $mat-custom-primary-dark: (
-  50: #f1f6fa,
-  100: #dce8f2,
-  200: #c5d9e9,
-  300: #adc9e0,
-  400: #9cbed9,
-  500: #8ab2d2,
-  600: #82abcd,
-  700: #77a2c7,
-  800: #6d99c1,
-  900: #5a8ab6,
-  A100: #ffffff,
-  A200: #ebf5ff,
-  A400: #b8dcff,
-  A700: #9ed0ff,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #000000,
-    500: #000000,
-    600: #000000,
-    700: #000000,
-    800: #000000,
-    900: #000000,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000,
-  ),
+  50 : #f1f6fa,
+  100 : #dce8f2,
+  200 : #c5d9e9,
+  300 : #adc9e0,
+  400 : #9cbed9,
+  500 : #8ab2d2,
+  600 : #82abcd,
+  700 : #77a2c7,
+  800 : #6d99c1,
+  900 : #5a8ab6,
+  A100 : #ffffff,
+  A200 : #ebf5ff,
+  A400 : #b8dcff,
+  A700 : #9ed0ff,
+  contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #000000, 500 : #000000, 600 : #000000, 700 : #000000, 800 : #000000, 900 : #000000, A100 : #000000, A200 : #000000, A400 : #000000, A700 : #000000, )
 );
 
 // Define a theme.
@@ -109,7 +98,7 @@ $primary: mat.define-palette($mat-custom-primary);
 $accent: $primary;
 $primary-dark: mat.define-palette($mat-custom-primary-dark);
 $accent-dark: $primary-dark;
-$secondary-color: #ffffff;
+$secondary-color: $color-white;
 
 /* Light theme */
 $theme: ontimize-style.o-mat-light-theme($primary, $accent);
@@ -117,56 +106,92 @@ $theme: ontimize-style.o-mat-light-theme($primary, $accent);
 /* Dark theme */
 $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 
+
 * {
   font-family: Arial, Helvetica, sans-serif !important;
   /* Establece la tipografía para todo el texto */
 }
 
 .o-app-header nav {
-  background-color: #ffa366;
+  background-color: $color-orange;
 }
+
 
 div .navMenu,
 div .sidenav-toggle-container,
 .o-app-sidenav-menuitem,
 nav {
-  background-color: #ffa366;
+  background-color: $color-orange
 }
 
 .mat-icon {
-  font-family: "Material Icons" !important;
+  font-family: 'Material Icons' !important;
 }
+
 
 .sidenav-toggle-container {
   .mat-icon {
-    font-family: "Material Icons" !important;
+    font-family: 'Material Icons' !important;
   }
 }
 
+//==================================== CLASS COLORS ====================================
+.color-orange{
+  color: $color-orange;
+}
+.color-dark-orange{
+  color: $color-dark-orange;
+}
+.color-red{
+  color: $color-red;
+}
+.color-blue{
+  color: $color-blue;
+}
+
+.bg-color-orange{
+  background-color: $color-orange;
+}
+.bg-color-dark-orange{
+  background-color: $color-dark-orange;
+}
+.bg-color-orange-transparent{
+  background-color: $color-orange-bg;
+}
+.bg-color-red{
+  background-color: $color-red-bg;
+}
+.bg-color-blue{
+  background-color: $color-blue-bg;
+}
+
+
 // Menu hamburguesa
 .mat-sidenav-content {
-  background-color: #fff;
+  background-color: $color-white;
+
 }
 
 .navMenu {
-  background-color: #ffa366;
+  background-color: $color-orange;
+
 }
 
 // Cuadricula de juguetes
 .o-grid {
+
   .div {
     position: relative;
   }
 }
 
 .o-grid .o-column {
-  background-color: #ffffff;
+  background-color: $color-white;
   color: #333;
   font-family: Arial, sans-serif;
-  // border: 0.125rem solid #ffa366;
-  border-radius: 0.75rem;
-  box-shadow: 0.1rem 0.1rem 0.15rem #ff5439;
-  transition: transform 0.4s ease;
+  border-radius: .75rem;
+  box-shadow: 0.1rem 0.1rem 0.15rem $color-orange;
+  transition: transform .4s ease;
 
   &:hover {
     transform: scale(1.1);
@@ -177,13 +202,13 @@ nav {
     height: 11rem;
     object-fit: contain;
 
-    .o-image-content.o-image-auto-fit .o-image-display-container > img {
+    .o-image-content.o-image-auto-fit .o-image-display-container>img {
       border-radius: 10px;
     }
   }
 
   .h4 {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 .5rem 0;
   }
 }
 
@@ -197,30 +222,30 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   margin-top: 10px;
-  background-color: #ffa36614;
+  background-color: $color-orange-bg;
   color: #333;
   font-family: Arial, sans-serif;
+  border-radius: .75rem;
 
-  // border: 1px solid #ffa366;
-  border-radius: 0.75rem;
-
-  transition: all 0.2s ease;
+  transition: all .2s ease;
 
   &:hover {
     // transform: translate(0, -10px);
-    box-shadow: 0px 0px 5px 0px #fb6d09;
+    box-shadow: 0px 0px 5px 0px $color-orange;
 
     .price {
-      color: #fb6d09;
+      color: $color-orange;
     }
   }
 
   > {
     .image-header {
       width: 100%;
-      height: 85%;
-      border-radius: 0.75rem;
+      height: 75%;
+      min-height: 75%;
+      border-radius: .75rem;
       object-fit: cover;
+
     }
   }
 
@@ -229,7 +254,7 @@ nav {
     top: 12px;
     left: 12px;
     z-index: 10;
-    background-color: #fff;
+    background-color: $color-white;
     border-radius: 0.75rem;
     padding: 10px;
     box-shadow: 0px 0px 5px 0px #5a5a5a;
@@ -321,6 +346,142 @@ nav {
     }
   }
 }
+.card-n{
+  position: relative;
+  width: 95%;
+  height: 95%;
+  display: flex;
+  padding: .2em;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  color: #333;
+  font-family: Arial, sans-serif;
+  border: .1rem solid rgba(205, 204, 204, 0.638);
+  border-radius: .75rem;
+  transition: all .2s ease;
+
+  &:hover {
+    border: .1rem solid $color-orange;
+    // box-shadow: 0px 0px 5px 0px $color-orange;
+  }
+
+  > {
+    .image-header {
+      width: 100%;
+      height: 80%;
+      min-height: 80% !important;
+      border-radius: .75rem;
+      object-fit: contain !important;
+    }
+  }
+
+  .card-distance {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    background-color: $color-white;
+    border-radius: 0.75rem;
+    padding: 10px;
+    box-shadow: 0px 0px 5px 0px #5a5a5a;
+  }
+
+
+  .card-body {
+    flex: 1 1 auto;
+    padding: 1rem;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+
+    @include respond-to(small) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    @include respond-to(medium) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    @include respond-to(large) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    @include respond-to(xlarge) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+
+    h4 {
+      width: 70%;
+      margin: 0;
+      font-size: 1.1em;
+      white-space: nowrap;
+      overflow: hidden;
+
+      @include respond-to(small) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(medium) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(large) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+      @include respond-to(xlarge) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+    }
+
+    .price {
+      margin: 0;
+      font-size: 1.1rem;
+
+      @include respond-to(small) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(medium) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(large) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+      @include respond-to(xlarge) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+    }
+
+
+  }
+
+}
 
 //==================================== NEW BTN DESIGN ====================================
 .button {
@@ -328,12 +489,12 @@ nav {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition-duration: 0.2s;
+  transition-duration: .2s;
   min-width: 3rem;
-  border-radius: 0.4rem;
+  border-radius: .4rem;
   border: 2px solid;
-  margin: 0.5rem 0.25rem;
-  padding: 0.2rem 1rem;
+  margin: .5rem .25rem;
+  padding: .2rem 1rem;
 
   @include respond-to(small) {
     font-size: 0.8em;
@@ -343,10 +504,24 @@ nav {
 
   //Categoria color
   &.btn-solid {
-    border-color: #ffa366;
-    color: #000;
-    background-color: #ffa366;
-    padding: 0.5rem 1.2rem !important;
+    border-color: $color-blue;
+    color: $color-white !important;
+    background-color: $color-blue;
+    padding: .5rem 1.2rem !important;
+
+    &:hover {
+      box-shadow: 0 2px 4px #0000003d;
+    }
+    &.reverse {
+      border-color: $color-orange;
+      color: $color-black;
+      background-color: $color-orange;
+    }
+  }
+  &.btn-solid-list {
+    border-color: $color-blue;
+    color: $color-white;
+    background-color: $color-blue;
 
     &:hover {
       box-shadow: 0 2px 4px #0000003d;
@@ -354,36 +529,38 @@ nav {
   }
 
   &.btn-outline-dark {
-    border-color: #fff;
-    color: #fff;
+    border-color: $color-white;
+    color: $color-white;
     background-color: transparent;
 
     &:hover {
-      color: #ff5349;
-      background-color: #fff;
+      color: $color-orange;
+      background-color: $color-white;
     }
 
     &.reverse {
-      color: #ff5349;
-      background-color: #fff;
+      color: $color-orange;
+      background-color: $color-white;
+
     }
   }
 
   &.btn-outline-light {
-    border-color: #ff5349;
-    color: #ff5349;
-    background-color: #fff;
+    border-color: $color-orange;
+    color: $color-orange;
+    background-color: $color-white;
+    padding: .5rem 1.2rem !important;
 
     &:hover {
-      color: #fff;
-      background-color: #ffa366;
-      border-color: #ffa366;
+      color: $color-white;
+      background-color: $color-orange;
+      border-color: $color-orange;
     }
 
     &.reverse {
-      color: #fff;
-      background-color: #ffa366;
-      border-color: #ffa366;
+      color: $color-white;
+      background-color: $color-orange;
+      border-color: $color-orange;
     }
   }
 
@@ -391,6 +568,7 @@ nav {
   &.btn-icon {
     padding: 0.2rem 0.3rem;
   }
+
 }
 
 // ==================================== Login Form ====================================
@@ -402,18 +580,35 @@ nav {
 
   .login {
     width: 50%;
-    background-color: #ffffff;
+    background-color: $color-white;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     margin: 3rem;
+    min-width: 465px;
+
+    @include respond-to(small) {
+      width: 100%;
+      min-width: 0;
+    }
+
+    @include respond-to(medium) {
+      width: 100%;
+      min-width: 0;
+    }
+
+    @include respond-to(large) {
+      width: 100%;
+      min-width: 0;
+    }
+
 
     .login-title-container {
       padding-bottom: 1rem;
 
       .slogan {
-        color: #ff5349;
+        color: $color-blue;
       }
     }
 
@@ -421,7 +616,7 @@ nav {
       text-align: center;
 
       .slogan {
-        color: #ff5349;
+        color: $color-blue;
       }
     }
 
@@ -445,71 +640,92 @@ nav {
       }
     }
 
-    @include respond-to(small) {
-      width: 100%;
-    }
-
-    @include respond-to(medium) {
-      width: 100%;
-    }
-
-    @include respond-to(large) {
-      width: 100%;
-    }
-
     .form-register {
       width: 100%;
+      min-width: 0;
+    }
+
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+      background-color: $color-white;
+      color: rgba(0, 0, 0, 0.6);
+      border: 0.5px solid rgba(0, 0, 0, 0.4);
     }
   }
 
-  .logo {
+}
+
+.logo-header{
+  display:none;
+  img {
+    display: inline-block;
+    width: 100%;
+  }
+  @include respond-to(small) {
+    display: inline-block;
     width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fffded;
-
-    img {
-      width: 75%;
-    }
-
-    @include respond-to(small) {
-      display: none;
-    }
-
-    @include respond-to(medium) {
-      display: none;
-    }
-
-    @include respond-to(large) {
-      display: none;
-    }
   }
 
-  .close-modal {
+  @include respond-to(medium) {
+    display: inline-block;
+    width: 40%;
+  }
+
+  @include respond-to(large) {
+    display: inline-block;
+    width: 40%;
+  }
+}
+
+.logo {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-orange-bg;
+  height: 500px;
+  min-width: 465px;
+
+  img {
+    width: 50%;
+  }
+
+  @include respond-to(small) {
+    display: none;
+  }
+
+  @include respond-to(medium) {
+    display: none;
+  }
+
+  @include respond-to(large) {
+    display: none;
+  }
+}
+
+.close-modal {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+
+  .btn-close {
     width: 2rem;
     height: 2rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
-
-    .btn-close {
-      width: 2rem;
-      height: 2rem;
-      font-size: 2rem;
-      color: #ff5349;
-    }
+    font-size: 2rem;
+    color: $color-dark-orange;
   }
 
-  .link {
-    cursor: pointer;
-    font-weight: 600;
-    color: #ff5349;
+}
 
-    &:hover {
-      text-decoration: underline;
-    }
+.link {
+  cursor: pointer;
+  font-weight: 600;
+  color: $color-orange;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 
@@ -718,7 +934,7 @@ nav {
     }
   }
 
-  .chat-container-footer {
+.chat-container-footer {
     display: flex;
     align-items: center;
     padding: 0.75rem 0.5rem;
@@ -789,11 +1005,25 @@ nav {
   }
 }
 
-o-app-sidenav.o-app-sidenav
-  .o-app-sidenav-container
-  mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
-o-app-sidenav.o-app-sidenav.header-layout
-  .o-app-sidenav-container
-  mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
-  background: #ffa366;
+o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav,
+o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
+  background: $color-orange;
+}
+// ==================================== BORDER MAP ====================================
+o-map mat-sidenav-container{
+  border-radius: 8px;
+}
+
+// ==================================== SCROLLBAR ====================================
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-orange $color-orange-bg;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $color-orange;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
 }
