@@ -52,13 +52,15 @@
                     cl.customer_id,
                     uu.usr_name customerName,
 	                us.usr_name sellerName,
-                    count(1) msg
+                    count(1) msg,
+                    MAX(cl.inserted_date) AS lastMessageDate
                 FROM chat_log cl
                 JOIN toys t on t.toyid = cl.toy_id
                 JOIN usr_user uu on uu.usr_id = cl.customer_id
                 JOIN usr_user us on us.usr_id = t.usr_id
                 #WHERE#
                 GROUP BY cl.toy_id, t.usr_id, cl.customer_id, t."name", uu.usr_name, us.usr_name
+                ORDER BY lastMessageDate DESC
                 ]]>
             </Sentence>
         </Query>

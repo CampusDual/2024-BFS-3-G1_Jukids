@@ -87,12 +87,12 @@ export class ChatComponent implements OnInit {
     if (this.data == null) {
 
       // this.isUserProfileChat = true;
-      console.log("chatSevice");
-      console.log("UserID", this.currentUserId);
+      // console.log("chatSevice");
+      // console.log("UserID", this.currentUserId);
 
       this.chatService.getUserProfileChatData().subscribe({
         next: (data: ChatUserProfileInterfaceResponse) => {          
-          console.log(data);
+          // console.log(data);
           //Si es la primera vez se asigna la data
           if(this.currentProfileChatData == null){
             this.currentProfileChatData = data;

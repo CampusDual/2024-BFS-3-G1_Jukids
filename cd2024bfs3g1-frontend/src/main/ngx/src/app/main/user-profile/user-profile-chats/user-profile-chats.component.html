@@ -3,7 +3,15 @@
     <div class="chats-container-area">
 
         <div class="chats-title">
-            <h4>Chats</h4>
+            <div class="chats-header"> 
+                <div (click)="goBack()" class="btn-back">
+                    <mat-icon>chevron_left</mat-icon>
+                </div>                
+                <h4>Chats</h4>
+            </div>
+            <div class="btn-refresh" (click)="refreshChatList()">
+                <mat-icon>refresh-button</mat-icon>
+            </div>
         </div>
 
         <hr style="width: 100%; border: 0; border-top: 1px solid #dee2e6;" />
@@ -11,11 +19,11 @@
         <div class="chats-area">
 
             <o-list class="chats" #chatList service="chat" entity="getLoggedChatList"
-                columns="toy_id;toyName;sellerId;customer_id;customername;sellername;msg" quick-filter="false"
-                refresh-button="false" insert-button="false" delete-button="false" selectable="false"
-                detail-button-in-row="false" detail-button-in-row-icon="chevron_right" detail-button-in-row="false"
-                detail-button-in-row-icon="chevron_right" edit-button-in-row="false" edit-button-in-row-icon="edit"
-                detail-mode="none" (onDataLoaded)="removeToolbar()">
+                columns="toy_id;toyName;sellerId;customer_id;customername;sellername;msg;lastmessagedate"
+                quick-filter="false" refresh-button="false" insert-button="false" delete-button="false"
+                selectable="false" detail-button-in-row="false" detail-button-in-row-icon="chevron_right"
+                detail-button-in-row="false" detail-button-in-row-icon="chevron_right" edit-button-in-row="false"
+                edit-button-in-row-icon="edit" detail-mode="none" (onDataLoaded)="removeToolbar()">
 
 
                 <ng-container *ngFor="let chat of chatList.dataArray; let i = index">
@@ -27,17 +35,18 @@
                         <div class="chat-prod-image">
                             <div class="product-image">
                                 <img src="{{baseUrl}}/restapi/get-image?toyId={{chat.toy_id}}" alt="">
-                                <!-- <img src="http://localhost:8080/restapi/get-image?toyId=694" alt=""> -->
                             </div>
                         </div>
                         <div class="chat-info">
                             <div class="chat-info-data">
-                                <span class="customer-name">{{chat.customername}}</span>
+                                <div class="customer-name-and-date">
+                                    <span>{{chat.customername}}</span>
+                                    <span>{{chat.lastmessagedate | date: 'dd/MM/yyyy HH:mm' }}</span>
+                                </div>
                                 <span class="product-title">{{chat.toyName}}</span>
                                 <span class="latest-message"> Mensajes: {{chat.msg}}</span>
                             </div>
                             <div class="chat-info-date">
-                                <!-- <span>23 Apr.</span> -->
                             </div>
                         </div>
                     </div>
@@ -59,65 +68,5 @@
             <app-chat></app-chat>
         </ng-container>
     </div>
-
-
-    <!-- TODO: EN CASO DE NO NECESITARLO SE ELIMINA. -->
-
-    <!-- <ng-container *ngIf="isChatSelected">
-
-        <div class="chat-product-detail">
-
-            <div class="product-detail">
-                <div class="product-title">
-                    <h4>Product Details</h4>
-                </div>
-                <hr style="width: 100%; border: 0; border-top: 1px solid #dee2e6;" />
-                <div class="product-info">
-                    <div class="product-info-area">
-                        <div class="product-date-and-status">
-                            <div class="button btn-outline-light">Status: {{ productDetail.status  }}</div>
-                        </div>
-                        <div class="product-title-and-price">
-                            <p>{{ productDetail.name }}</p>
-                            <span>Price: {{ productDetail.price | currency: 'EUR' }}</span>
-                        </div>
-                    </div>
-
-                    <div class="map-container">
-                        <location-map [isEditable]="false" attr="detailMap" #detailMap></location-map>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="user-info">
-                <div class="user-info-title">
-                    <h4>User Info</h4>
-                </div>
-
-                <hr style="width: 100%; border: 0; border-top: 1px solid #dee2e6;" />
-
-                <div class="user-info-detail">
-                    <div class="user-info-card">
-                        <div class="user-info-image">
-                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
-                        </div>
-                        <div class="user-info-data">
-                            <span class="user-info-name">{{productDetail.sellername}}</span>
-                            <div class="user-info-rating">
-                                <span>Valoracion media de los usuarios:</span>
-                                <div class="rating-container">
-                                    <mat-icon class="rating-icon">star_rate</mat-icon>
-                                    <span class="rating">4.5</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </ng-container> -->
 
 </div>
