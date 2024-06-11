@@ -93,6 +93,9 @@ export class UserProfileHomeComponent implements OnInit {
     });
   }
 
+  toHome(){
+    this.router.navigate(['/main/home']);
+  }
   toToyList() {
     this.router.navigate(['/main/user-profile/toylist']);
   }
