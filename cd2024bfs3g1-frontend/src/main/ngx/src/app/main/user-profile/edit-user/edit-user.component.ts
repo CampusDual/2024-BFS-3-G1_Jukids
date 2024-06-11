@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { OFormComponent,  OUserInfoService, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
+import { OFormComponent,  OTranslateService,  OUserInfoService, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { MainService } from 'src/app/shared/services/main.service';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
@@ -11,6 +12,8 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
   styleUrls: ['./edit-user.component.scss']
 })
 export class EditUserComponent implements OnInit {
+  
+  private redirectToyList = '/main/user-profile/toylist'
   private redirect = '/main/user-profile';
   protected service: OntimizeService;
 
@@ -21,6 +24,9 @@ export class EditUserComponent implements OnInit {
   ontiInfo: any = {};
 
   constructor(
+    
+    private jukidsAuthService: JukidsAuthService,
+    private translate: OTranslateService,
     private router: Router,
     private mainService: MainService,
     private injector: Injector,
@@ -28,6 +34,10 @@ export class EditUserComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private oUserInfoService: OUserInfoService
   ) {
+    if (!this.jukidsAuthService.isLoggedIn()) {
+      const self = this;
+      self.router.navigate(["/toys"]);
+    }
     this.service = this.injector.get(OntimizeService);
     this.configureService();
   }
@@ -53,13 +63,13 @@ export class EditUserComponent implements OnInit {
 
   saveForm() {
     const formData = this.formUserEdit.getDataValues();
+    
+    let errorEmail = "ERROR_EMAIL_EXIST";
     if (this.validateData(formData)) {
       this.service.update(formData, ['usr_id']).subscribe(
         response => {
           if (response.code === 0) {
             this.router.navigate([this.redirect]);
-          } else {
-            console.error('Error updating user profile', response.message);
           }
         },
         error => {
@@ -68,6 +78,7 @@ export class EditUserComponent implements OnInit {
       );
     } else { 
       this.formUserEdit.update(); 
+      this.redirectHome();
     }
   }
   loadUpdatedUserData() {
@@ -90,14 +101,17 @@ export class EditUserComponent implements OnInit {
   validateData(data: any): boolean {
     return data.usr_photo && data.usr_name && data.usr_surname && data.usr_login && data.usr_password;
   }
-
+  redirectList(){
+    const self = this;
+      self.router.navigate([this.redirectToyList]);
+  }
   profileRedirect() {
     this.router.navigate([this.redirect]);
   }
 
   redirectHome(){
     const self = this;
-      //self.router.navigate([this.redirect]);
+      self.router.navigate([this.redirect]);
       this.updateSession();
   }
 
