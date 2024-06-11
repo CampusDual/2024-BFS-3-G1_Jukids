@@ -2,10 +2,12 @@ import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { OEmailInputComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
+import { userInfo } from 'os';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { MainService } from 'src/app/shared/services/main.service';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
+import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
   selector: 'app-toys-detail',
@@ -25,6 +27,8 @@ export class ToysDetailComponent implements OnInit {
   varName: string;
   isLogged: boolean = this.jkAuthService.isLoggedIn();
   isNotTheSeller: boolean;
+  public baseUrl: string;
+  mainInfo: any = {};
 
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('usr_id') usr_id: OTextInputComponent;
@@ -59,6 +63,15 @@ export class ToysDetailComponent implements OnInit {
   ngOnInit() {
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
+
+      this.mainService.getUserInfo().subscribe((result: ServiceResponse) => {
+        this.mainInfo = result.data;
+      })
+
+      this.baseUrl = window.location.origin;
+    if (this.baseUrl.includes('localhost')) {
+      this.baseUrl = 'http://localhost:8080';
+    }
     });
   }
 
@@ -98,11 +111,12 @@ export class ToysDetailComponent implements OnInit {
 
         if (resp.code === 0 && resp.data.length > 0) {
           this.varRating = resp.data[0].rating.toFixed(1);
-          this.varPhoto = resp.data[0].usr_photo;
+          this.varName = resp.data[0].usr_name;
           //this.ratingData = resp.data[0].usr_photo + " " + resp.data[0].usr_name + " : " + this.varRating;
           console.log(this.varRating)
         } else {
-          this.ratingData = resp.data[0].usr_name;
+          this.varName = this.mainInfo.usr_name;
+          this.varRating = 0;
         }
       });
   }

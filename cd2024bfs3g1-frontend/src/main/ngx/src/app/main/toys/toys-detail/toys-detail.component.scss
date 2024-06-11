@@ -213,3 +213,40 @@ button{
     color: #9b9b9b;
     font-size: small;
 }
+.Rating {
+    display: flex;
+    gap: .5rem;
+    margin-top: 1rem;
+
+    &-photo {
+        padding: 0.25rem;
+    }
+    &-img{
+        width: 3.25rem;
+        border-radius: 100%;
+        /* border: 1px solid #e5e5e5; */
+        filter:drop-shadow(0 0 .08rem #8f8e8e);
+        object-fit: contain;
+    }
+    &-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: .25rem;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    &-survey {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    &-seller{
+        text-transform: capitalize;
+    }
+    &-stars{
+    }
+    &-rate{
+        display: block;
+    }
+}
