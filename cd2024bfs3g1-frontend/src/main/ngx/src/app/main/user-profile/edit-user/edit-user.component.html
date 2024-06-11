@@ -16,7 +16,6 @@
       fxLayout="column"
       show-header-actions-text="false"
       undo-button="no"
-     
     >
       <o-row fxLayout="row" fxLayoutGap="20px">
         <o-column class="left-column">
@@ -32,68 +31,69 @@
               editable="yes"
               empty-image="assets/images/no-image.png"
               sql-type="OTHER"
-              required="yes"
               accept=".jpg,.jpeg,.png"
+              fxFlex.gt-sm="100%"
             ></o-image>
           </div>
         </o-column>
 
         <o-column class="right-column">
-          
-          <span class="span-detail">Datos de usuario:</span>
-          
-            <div class="user-detail">
-              <o-text-input
-                #nameInput
-                attr="usr_name"
-                fxFlex="60"
-                read-only="no"
-                max-length="150"
-                appearance="outline"
-              ></o-text-input>
-              </div>
-
-              <div class="user-detail">
-              <o-text-input
-              #surnameInput
-              attr="usr_surname"
-              fxFlex="60"
-              read-only="no"
-              max-length="150"
-              appearance="outline"
-            ></o-text-input>
-            </div>
-         
-          <span class="span-detail">Datos de la cuenta:</span>
-        
-            <div class="user-detail">
-              <o-password-input
-                #passwordInput
-                attr="usr_password"
-                fxFlex="60"
-                read-only="no"
-                max-length="150"
-                appearance="outline"
-              ></o-password-input>
-              </div>
-              <div class="user-detail">
-              <o-email-input
-              #emailInput
-              attr="usr_login"
-              fxFlex="60"
-              read-only="no"
-              max-length="150"
-              appearance="outline"
-            ></o-email-input>
-            </div>
-          <o-text-input
+          <div>
+            <o-text-input
             hidden="true"
             attr="usr_id"
             sql-type="INTEGER"
             enabled="no"
             editable="no"
             read-only="yes"
-          ></o-text-input>     
+          ></o-text-input>
+          
+            <span class="span-detail-user">Datos del usuario</span>
+            <div class="user-detail">
+              <o-text-input
+                #nameInput
+                attr="usr_name"
+                fxFlex="70"
+                read-only="no"
+                max-length="150"
+                appearance="outline"
+              ></o-text-input>
+            </div>
+            <div class="user-detail">
+              <o-text-input
+                #surnameInput
+                attr="usr_surname"
+                fxFlex="70"
+                read-only="no"
+                max-length="150"
+                appearance="outline"
+              ></o-text-input>
+            </div>
+          </div>
+
+          <div class="account-data">
+            <span class="span-detail-account">Datos de la cuenta</span>
+            <div class="user-detail"> 
+              <o-password-input
+                #passwordInput
+                attr="usr_password"
+                fxFlex="70"
+                read-only="no"
+                max-length="150"
+                appearance="outline"
+              ></o-password-input>
+            </div>
+            <div class="user-detail">
+              <o-email-input
+                #emailInput
+                attr="usr_login"
+                fxFlex="70"
+                read-only="no"
+                max-length="150"
+                appearance="outline"
+              ></o-email-input>
+              </div>  
+          </div>
           <button class="button btn-solid buttonBuy" (click)="saveForm()">{{ 'SAVE' | oTranslate }}</button>
         </o-column>
       </o-row>

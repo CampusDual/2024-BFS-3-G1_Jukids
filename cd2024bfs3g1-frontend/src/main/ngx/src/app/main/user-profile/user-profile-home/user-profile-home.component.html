@@ -5,12 +5,13 @@
     <div class="info-user">
         <h3>{{ 'MY_INFO' | oTranslate }}</h3>
 
-        <o-form attr="infoUser" id="formUserDetail" service="userowner" entity="user" keys="usr_id" layout-direction="column" show-header-navigation="no" show-header="no">
+        <o-form attr="infoUser" id="formUserDetail" service="userowner" entity="user" keys="usr_id" 
+            layout-direction="column" show-header-navigation="no" show-header="no">
             <o-row>
                 <o-column>
                     <div class="user-info">
                         <div class="marco4">
-                            <img fxFlex.gt-sm="35%" class="image-header" src="{{baseUrl}}/restapi/get-image?userId={{mainInfo?.usr_id}}">
+                            <img fxFlex.gt-sm="35%" class="image-header" src="{{baseUrl}}/restapi/get-image?userId={{mainInfo?.usr_id}}" fxFlex.gt-sm="35%">
                         </div>
                     </div>
                 </o-column>
@@ -46,12 +47,11 @@
                             {{ "noRating" | oTranslate }}
                         </div>
                     </ng-template>
+
                     <button class="button btn-solid buttonBuy" (click)="toMyEdit()">{{ 'EDIT_PROFILE' | oTranslate }}</button>
              
                 </o-column>
-
             </o-row>
-     
         </o-form>
     </div>
 
