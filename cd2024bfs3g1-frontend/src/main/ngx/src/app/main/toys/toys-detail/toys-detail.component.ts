@@ -23,6 +23,7 @@ export class ToysDetailComponent implements OnInit {
   sellerId: number;
   sellerName: string;
   sellerPhoto: string;
+  percentageRate: number = 0;
   //
 
   isLogged: boolean = this.jkAuthService.isLoggedIn();
@@ -121,6 +122,7 @@ export class ToysDetailComponent implements OnInit {
       .subscribe((resp) => {
         if (resp.code === 0 && resp.data.length > 0) {
           this.sellerRate = resp.data[0].rating.toFixed(1);
+          this.percentageRate = this.sellerRate * 100 / 5
         }
       });
     }
