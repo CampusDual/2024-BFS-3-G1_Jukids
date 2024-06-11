@@ -66,6 +66,8 @@ export class EditUserComponent implements OnInit {
           console.error('Error updating user profile', error);
         }
       );
+    } else { 
+      this.formUserEdit.update(); 
     }
   }
   loadUpdatedUserData() {

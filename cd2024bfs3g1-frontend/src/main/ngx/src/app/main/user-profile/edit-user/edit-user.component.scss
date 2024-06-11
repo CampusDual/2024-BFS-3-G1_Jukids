@@ -1,10 +1,11 @@
 .user-profile-container {
-  max-width: 60%; /* Incrementado para permitir más espacio */
-  min-width: 500px; /* Tamaño mínimo para evitar que sea demasiado pequeño */
-  margin: auto;
-  padding: 20px;
+  max-width: 150%;
+  //margin: auto;
+  padding-top: 20px;
+  padding-left: 25%;
   font-family: Arial, sans-serif;
-  overflow-x: hidden; /* Eliminar el scrollbar horizontal */
+  align-items: center;
+  //max-width: fit-content;
 }
 
 .header-user-profile {
@@ -31,12 +32,17 @@
 }
 
 .info-user {
+  //max-width: 100%;
   background-color: #ffffff;
-  padding: 15px;
+  padding-top: 15px;
+  padding-left: 15px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  padding-bottom: 10px;
   box-sizing: border-box;
+  //padding: 0px !important;
+  //align-self: center;
+  max-width: fit-content;
 }
 
 .info-user h3 {
@@ -44,34 +50,49 @@
   margin-bottom: 10px;
 }
 
-.left-column {
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
+.left-column { 
+  display: flex; 
+  flex-grow: 0;
 }
 
 .right-column {
   flex-grow: 0;
-  max-width: fit-content;
+  display: flex;
+  //max-width: 150%;
 }
 
 .user-detail {
-  display: flex;
-  justify-content: space-between; /* Updated */
-  align-items: center; /* Optional: align items center vertically */
-  padding: 10px 0;
+  display: none;
+  justify-content: end; /* Updated */
+  //align-items: center; /* Optional: align items center vertically */
+  //padding: 10px 0 !important;
+  padding-top: 5%;
+  padding-right: 15px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #f0f0f0;
   width: 100%; /* Ensure user-detail takes full width */
   box-sizing: border-box;
+  margin-right: 15px;
 }
-.span-detail-user{
-  text-align: start;
 
-}
-.span-detail-account{
+.span-detail-user {
   text-align: start;
-
+  flex-basis: 10%;
+  font-weight: bold;
+  margin-left: 20px;
 }
+
+.span-detail-account {
+  text-align: start;
+  flex-basis: 10%;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.account-data{
+  margin-top: 25px;
+}
+
 .user-detail o-text-input,
 .user-detail o-password-input,
 .user-detail o-email-input {
@@ -79,22 +100,21 @@
 }
 
 .image-container {
-  width: 150px; /* Set a fixed width for the image container */
-  height: 150px; /* Set a fixed height for the image container */
+  width: 300px; /* Set a fixed width for the image container */
+  height: 300px; /* Set a fixed height for the image container */
   overflow: hidden; /* Ensure content that overflows is hidden */
   display: flex;
   justify-content: center;
-  align-items: center;
+  //align-items: center;
 }
 
 .image-container o-image {
-  width: 100%; /* Ensure the image fits within the container */
-  height: 100%; /* Ensure the image fits within the container */
+  width: 90%; /* Ensure the image fits within the container */
+  height: 90%; /* Ensure the image fits within the container */
   object-fit: cover; /* Ensure the image covers the container without stretching */
 }
-
-
 
 .button.btn-solid.buttonBuy:hover {
   background-color: #0056b3; /* Button background color on hover */
 }
+
