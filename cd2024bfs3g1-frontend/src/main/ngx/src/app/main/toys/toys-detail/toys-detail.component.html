@@ -10,9 +10,9 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
     <div class="category">></div>
     <a *ngIf="false || transactionStatus.getValue() != 0" class="category" href="/main/user-profile">{{ "MY_PROFILE" |
       oTranslate }}</a>
-    <div *ngIf="false || transactionStatus.getValue() != 0" class="category">></div>
-    <span class="category">
-      {{ category.getValue() | oTranslate }}</span>
+    <div *ngIf="false || transactionStatus.getValue() != 0" class="category"></div>
+    <a class="category" [routerLink]="['/main/toys']" [queryParams]="{category: category.getValue()}">
+      {{ category.getValue() | oTranslate }}</a>
   </div>
 </div>
 
