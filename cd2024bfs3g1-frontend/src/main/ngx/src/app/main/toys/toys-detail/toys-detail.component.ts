@@ -14,6 +14,7 @@ import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 })
 export class ToysDetailComponent implements OnInit {
 
+
   private location: any;
   protected service: OntimizeService;
   showCheckout = false;
