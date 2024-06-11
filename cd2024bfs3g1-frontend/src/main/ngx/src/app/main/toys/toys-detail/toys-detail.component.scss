@@ -224,8 +224,7 @@ button{
     &-img{
         width: 3.25rem;
         border-radius: 100%;
-        /* border: 1px solid #e5e5e5; */
-        filter:drop-shadow(0 0 .08rem #8f8e8e);
+        filter: drop-shadow(0 0 .08rem #8f8e8e);
         object-fit: contain;
     }
     &-wrapper {
@@ -244,8 +243,10 @@ button{
     &-seller{
         text-transform: capitalize;
     }
+
     &-stars{
     }
+
     &-rate{
         display: block;
     }

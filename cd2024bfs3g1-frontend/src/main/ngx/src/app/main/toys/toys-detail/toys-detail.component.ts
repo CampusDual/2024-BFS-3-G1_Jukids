@@ -2,12 +2,10 @@ import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { OEmailInputComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
-import { userInfo } from 'os';
 import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { MainService } from 'src/app/shared/services/main.service';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
   selector: 'app-toys-detail',
@@ -15,16 +13,18 @@ import { UserInfoService } from 'src/app/shared/services/user-info.service';
   styleUrls: ['./toys-detail.component.scss']
 })
 export class ToysDetailComponent implements OnInit {
-
-
   private location: any;
   protected service: OntimizeService;
+  protected serviceSeller: OntimizeService;
   showCheckout = false;
   isEditable = false;
-  ratingData: string;
-  varRating: number;
-  varPhoto: string;
-  varName: string;
+  /* Relativo a la valoración del vendedor */
+  sellerRate: number = 0;
+  sellerId: number;
+  sellerName: string;
+  sellerPhoto: string;
+  //
+
   isLogged: boolean = this.jkAuthService.isLoggedIn();
   isNotTheSeller: boolean;
   public baseUrl: string;
@@ -49,6 +49,7 @@ export class ToysDetailComponent implements OnInit {
     private mainService: MainService,
   ) {
     this.service = this.injector.get(OntimizeService);
+    this.serviceSeller = this.injector.get(OntimizeService);
     this.configureService();
   }
 
@@ -60,6 +61,7 @@ export class ToysDetailComponent implements OnInit {
   openBuy(toyid): void {
     this.router.navigate(["main/toys/toysDetail/toysBuy", toyid]);
   }
+
   ngOnInit() {
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
@@ -69,15 +71,35 @@ export class ToysDetailComponent implements OnInit {
       })
 
       this.baseUrl = window.location.origin;
-    if (this.baseUrl.includes('localhost')) {
-      this.baseUrl = 'http://localhost:8080';
-    }
+
+      if (this.baseUrl.includes('localhost')) {
+        this.baseUrl = 'http://localhost:8080';
+      }
+
+      /* Obtener datos vendedor */
+      const filterSellerUser = {
+        usr_id: this.usr_id.getValue(),
+      }
+
+      const columnsSellerUser = ["usr_id","usr_name", "usr_photo"];
+      this.serviceSeller
+        .query(filterSellerUser, columnsSellerUser, "toy")
+        .subscribe((resp) => {
+
+          if (resp.code === 0 && resp.data.length > 0) {
+            this.sellerId = resp.data[0].usr_id;
+            this.sellerName = resp.data[0].usr_name;
+            this.sellerPhoto = resp.data[0].usr_photo;
+            console.log(this.sellerPhoto)
+          }
+        });
     });
   }
 
   showMeMore() {
     console.log(this.usr_id.getValue());
   }
+
   onFormDataLoaded(data: any) {
     this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue())
 
@@ -91,35 +113,17 @@ export class ToysDetailComponent implements OnInit {
 
     const filter = {
       usr_id: this.usr_id.getValue(),
-    };
+    }
+
     const columns = ["usr_name", "usr_photo", "rating"];
     this.service
       .query(filter, columns, "userAverageRating")
       .subscribe((resp) => {
-        console.log(resp.data[0]);
-
-        /* if(resp.code === 0 && resp.data.length > 0){
-          this.varRating = resp.data[0].rating.toFixed(1);
-          this.varName = resp.data[0].usr_name;
-          this.varPhoto = resp.data[0].usr_photo;
-        }else {
-          this.varName = resp.data[0].usr_name;
-          this.varPhoto = resp.data[0].usr_photo;
-          this.varRating = 0/5;
-        } */
-
-
         if (resp.code === 0 && resp.data.length > 0) {
-          this.varRating = resp.data[0].rating.toFixed(1);
-          this.varName = resp.data[0].usr_name;
-          //this.ratingData = resp.data[0].usr_photo + " " + resp.data[0].usr_name + " : " + this.varRating;
-          console.log(this.varRating)
-        } else {
-          this.varName = this.mainInfo.usr_name;
-          this.varRating = 0;
+          this.sellerRate = resp.data[0].rating.toFixed(1);
         }
       });
-  }
+    }
 
   redirect(){
     this.router.navigateByUrl("/main/toys");
@@ -138,6 +142,4 @@ export class ToysDetailComponent implements OnInit {
   searchCategory(category):void {
     this.router.navigate(['/main/toys'], {queryParams:{category: category}});
   }
-
-  
 }
