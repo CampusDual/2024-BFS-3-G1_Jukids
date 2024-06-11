@@ -55,7 +55,7 @@ public class ToyService implements IToyService {
 
         //Rearmar el XML toyPaginationQuery basado en la vista realizada.
 
-        //Retornar el resultado.
+        //Retornar el resultado
 
         return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
     }
