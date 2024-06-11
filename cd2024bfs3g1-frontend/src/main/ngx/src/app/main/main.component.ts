@@ -93,8 +93,8 @@ export class MainComponent implements OnInit {
     });
   }
 
-  searchNameAndDescription(){
-    let searchValue = this.searcherkey.nativeElement.value;
+  searchNameAndDescription(searcherInput: HTMLInputElement){
+    const searchValue = searcherInput.value;
 
     if(searchValue && searchValue.trim().length > 0){
       this.router.navigate(['/main/toys'], {queryParams:{keyword: searchValue}});
