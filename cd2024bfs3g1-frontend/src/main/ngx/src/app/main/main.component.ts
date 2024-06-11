@@ -101,6 +101,10 @@ export class MainComponent implements OnInit {
     }
   }
 
+  clearInput(searcherInput: HTMLInputElement) {
+    searcherInput.value = '';
+  }
+
   newToy(){
     if(this.jkAuthService.isLoggedIn()){
       const redirect = '/main/toys/new';
