@@ -213,6 +213,21 @@ nav {
 }
 
 //==================================== CARD PRODUCT DESIGN ====================================
+.grid-container {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.grid-toys-search-container {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 85%;
+    margin: auto;
+}
 
 .card {
   position: relative;
@@ -351,9 +366,9 @@ nav {
   width: 95%;
   height: 95%;
   display: flex;
-  padding: .2em;
   flex-direction: column;
   justify-content: space-between;
+  padding: .5em;
   background-color: white;
   color: #333;
   font-family: Arial, sans-serif;
@@ -367,12 +382,18 @@ nav {
   }
 
   > {
-    .image-header {
+    .img-container {
+      margin-top: .8rem;
       width: 100%;
+      max-height: 80%;
       height: 80%;
-      min-height: 80% !important;
-      border-radius: .75rem;
-      object-fit: contain !important;
+      margin: 0;
+      
+      .image-header {
+        width: 100%; border-radius: 8%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 
@@ -390,12 +411,12 @@ nav {
 
   .card-body {
     flex: 1 1 auto;
-    padding: 1rem;
     justify-self: center;
     display: flex;
+    padding: .4rem;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 0.5rem;
+    justify-content: end;
+    gap: 0.1rem;
 
 
     @include respond-to(small) {
@@ -424,11 +445,15 @@ nav {
 
 
     h4 {
-      width: 70%;
+      width: 100%;
+      height: fit-content;
+      // background-color: $color-dark-orange;
       margin: 0;
+      font-weight:normal;
       font-size: 1.1em;
       white-space: nowrap;
       overflow: hidden;
+      text-overflow: ellipsis;
 
       @include respond-to(small) {
         width: 100%;
@@ -454,7 +479,10 @@ nav {
 
     .price {
       margin: 0;
+      height: fit-content;
+      // background-color: $color-dark-orange;
       font-size: 1.1rem;
+      color: #a5a5a5;
 
       @include respond-to(small) {
         width: 100%;

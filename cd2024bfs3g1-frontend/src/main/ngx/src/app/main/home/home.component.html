@@ -12,7 +12,7 @@
   <!-- buttons to category filtered queries -->
   <div class="icons-box">
       <div class="smallcard">
-          <div class="bg-color-orange icon-div"><img id="figures" (click)="searchCategory('cat_Figures')" src="assets/images/svg/figure.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}"></div>
+          <div class="bg-color-orange icon-div"><img id="figures" (click)="searchCategory('cat_Figures')" src="assets/images/svg/warrior.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}"></div>
         <div class="icon-name">{{ 'FIGURES' | oTranslate }}</div>
       </div>
       <div class="smallcard">
@@ -39,10 +39,11 @@
 
   <div class="categories-container">
 
+    <!-- figures -->
     <div class="title-box">
       <p class="row-title-small">{{ 'FIGURES' | oTranslate }}</p>
       <p class="row-title">{{ 'FIGURES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Figures')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Figures')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -57,7 +58,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="1em"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -68,24 +69,27 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
+              <div class="img-container">
+                <img class="image-header"
                 src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
               />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- plushies -->
     <div class="title-box">
       <p class="row-title-small">{{ 'PLUSHIES' | oTranslate }}</p>
       <p class="row-title">{{ 'PUSHIES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Plushies')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Plushies')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -100,7 +104,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="1em"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -111,24 +115,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- children's toys -->
     <div class="title-box">
       <p class="row-title-small">{{ 'CHILDRENSTOYS' | oTranslate }}</p>
       <p class="row-title">{{ 'CHILDRENS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_ChildrensToys')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_ChildrensToys')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -143,7 +151,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -154,24 +162,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- board games -->
     <div class="title-box">
       <p class="row-title-small">{{ 'BOARDGAMES' | oTranslate }}</p>
       <p class="row-title">{{ 'BOARD_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Board')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Board')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -186,7 +198,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -197,14 +209,16 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
@@ -214,7 +228,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'DOLLS' | oTranslate }}</p>
       <p class="row-title">{{ 'DOLLS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Dolls')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Dolls')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -229,7 +243,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -240,24 +254,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- action toys -->
     <div class="title-box">
       <p class="row-title-small">{{ 'ACTION_TOYS' | oTranslate }}</p>
       <p class="row-title">{{ 'ACTION_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_ActionToys')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_ActionToys')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -272,7 +290,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -283,24 +301,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- videogames -->
     <div class="title-box">
       <p class="row-title-small">{{ 'VGAMES' | oTranslate }}</p>
       <p class="row-title">{{ 'VGAMES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Videogames')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Videogames')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -315,7 +337,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -325,24 +347,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+                </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- crafts -->
     <div class="title-box">
       <p class="row-title-small">{{ 'CRAFTS' | oTranslate }}</p>
       <p class="row-title">{{ 'CRAFTS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Crafts')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Crafts')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -357,7 +383,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -368,24 +394,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- pedagogical -->
     <div class="title-box">
       <p class="row-title-small">{{ 'PEDAGOGICAL' | oTranslate }}</p>
       <p class="row-title">{{ 'PEDAGOGICAL_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Pedagogical')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Pedagogical')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <p class="row-title"></p>
     <div class="grid-container">
@@ -401,7 +431,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -412,24 +442,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- sports -->
     <div class="title-box">
       <p class="row-title-small">{{ 'SPORTS' | oTranslate }}</p>
       <p class="row-title">{{ 'SPORTS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Sport')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Sport')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -444,7 +478,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -455,24 +489,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- electronic toys -->
     <div class="title-box">
       <p class="row-title-small">{{ 'ELECTRONIC' | oTranslate }}</p>
       <p class="row-title">{{ 'ELECTRONIC_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Electronic')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Electronic')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -487,7 +525,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -497,24 +535,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- collectibles -->
     <div class="title-box">
       <p class="row-title-small">{{ 'COLLECTIBLES' | oTranslate }}</p>
       <p class="row-title">{{ 'COLLECTIBLES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Collectibles')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Collectibles')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -529,7 +571,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -540,14 +582,16 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
@@ -557,7 +601,7 @@
     <div class="title-box">
       <p class="row-title-small">{{ 'ANTIQUES' | oTranslate }}</p>
       <p class="row-title">{{ 'ANTIQUES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Antiques')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Antiques')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -572,7 +616,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -582,24 +626,28 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
           </o-grid-item>
         </o-grid>
     </div>
+
+    <!-- card games -->
     <div class="title-box">
       <p class="row-title-small">{{ 'CARDS' | oTranslate }}</p>
       <p class="row-title">{{ 'CARDS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
-      <a (click)="searchCategory('cat_Cards')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+      <a (click)="searchCategory('cat_Cards')" class="see-all color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
     </div>
     <div class="grid-container">
         <o-grid
@@ -614,7 +662,7 @@
           refresh-button="no"
           quick-filter="no"
           [cols]="cols"
-          gutter-size="0"
+          gutter-size="2.5em"
           grid-item-height="1:1.3"
           show-footer="no"
           controls="false"
@@ -625,14 +673,16 @@
             (onClick)="openDetail(data)"
           >
             <div class="card-n">
-              <img
-                class="image-header"
-                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
-              />
+              <div class="img-container">
+                <img
+                  class="image-header"
+                  src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+                />
+              </div>
               <div class="card-body">
                 <h4>{{ data.name }}</h4>
                 <p class="price">
-                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                  {{ data.price | number : "1.2-2" }}<span>€</span>
                 </p>
               </div>
             </div>
