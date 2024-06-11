@@ -280,5 +280,6 @@
   "LOCATION": "Localización",
   "UPLOAD_PRODUCT_IMAGE": "Sube una imagen de tu producto",
   "DATA_ABOUT_PRODUCT": "Datos necesarios sobre tu producto",
-  "SELECT_PRODUCT_LOCATION": "Selecciona el punto en el mapa donde se encuentra el juguete"
+  "SELECT_PRODUCT_LOCATION": "Selecciona el punto en el mapa donde se encuentra el juguete",
+  "SEARCH_ON_MAP": "Buscar en mapa"
 }

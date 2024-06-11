@@ -4,15 +4,15 @@
 }
 
 .collapsible-container{
-  background-color: #FDF8F5;
+background-color: #FDF8F5;
 
-  &-items{
+&-items{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-  }
+}
 
 }
 
@@ -27,4 +27,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
+}
+
+.custom-button {
+    width: 35px;
+    height: 35px;
+}
+
+.btn-outline-light {
+    padding: 0 0.4rem !important;
+    .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 }

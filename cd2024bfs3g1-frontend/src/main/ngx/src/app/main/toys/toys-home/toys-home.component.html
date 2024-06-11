@@ -15,14 +15,16 @@
         columns="priceCode;priceText;attr_price" visible-columns="attr_price" null-selection="no" attr="price"
         translate="yes" fxFlex="100" fxFlex.gt-xs="22" fxFlex.gt-sm="12">
       </o-combo>
-        <o-row class="btn-container">
-          <button attr="filter" [oFilterBuilderQuery]="filterBuilder" query-on-change="true" type="RAISED" label="Search" class="button btn-outline-light" matTooltip="{{ 'Search' | oTranslate }}">
-            <mat-icon class="material-icons">search</mat-icon>
-          </button>
-          <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="button btn-outline-light" matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
-            <mat-icon class="material-icons">clear</mat-icon>
-          </button>
-          <button (click)="openMap()" class="button btn-outline-light"><mat-icon>my_location</mat-icon>Buscar en mapa</button>
+      <o-row class="btn-container">
+        <button attr="filter" [oFilterBuilderQuery]="filterBuilder" query-on-change="true" type="RAISED" label="Search" class="button btn-outline-light custom-button" matTooltip="{{ 'Search' | oTranslate }}">
+          <mat-icon class="material-icons">search</mat-icon>
+        </button>
+        <button attr="clear" [oFilterBuilderClear]="filterBuilder" type="RAISED" label="Clear" class="button btn-outline-light custom-button" matTooltip="{{ 'Clear' | oTranslate }}" (click)="clearFilters()">
+          <mat-icon class="material-icons">clear</mat-icon>
+        </button>
+        <button (click)="openMap()" class="button btn-outline-light custom-button" matTooltip="{{ 'SEARCH_ON_MAP' | oTranslate }}">
+          <mat-icon>my_location</mat-icon>
+        </button>
 
       </o-row>
       <o-row>
