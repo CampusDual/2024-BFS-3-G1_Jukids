@@ -20,6 +20,8 @@ export class ToysDetailComponent implements OnInit {
   isEditable = false;
   ratingData: string;
   varRating: number;
+  varPhoto: string;
+  varName: string;
   isLogged: boolean = this.jkAuthService.isLoggedIn();
   isNotTheSeller: boolean;
 
@@ -81,9 +83,23 @@ export class ToysDetailComponent implements OnInit {
       .query(filter, columns, "userAverageRating")
       .subscribe((resp) => {
         console.log(resp.data[0]);
+
+        /* if(resp.code === 0 && resp.data.length > 0){
+          this.varRating = resp.data[0].rating.toFixed(1);
+          this.varName = resp.data[0].usr_name;
+          this.varPhoto = resp.data[0].usr_photo;
+        }else {
+          this.varName = resp.data[0].usr_name;
+          this.varPhoto = resp.data[0].usr_photo;
+          this.varRating = 0/5;
+        } */
+
+
         if (resp.code === 0 && resp.data.length > 0) {
           this.varRating = resp.data[0].rating.toFixed(1);
-          this.ratingData = resp.data[0].usr_name + " : " + this.varRating;
+          this.varPhoto = resp.data[0].usr_photo;
+          //this.ratingData = resp.data[0].usr_photo + " " + resp.data[0].usr_name + " : " + this.varRating;
+          console.log(this.varRating)
         } else {
           this.ratingData = resp.data[0].usr_name;
         }

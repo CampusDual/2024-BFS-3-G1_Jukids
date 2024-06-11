@@ -49,10 +49,10 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
             <div class="container-border div-img">
               <o-image class="image" auto-fit="yes" attr="photo" read-only="yes"
                 empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
-            </div>
+            </div><!--  -->
             <!-- seller's average -->
-            <div *ngIf="ratingData != undefined" class="rating-div">
-              <span>{{ "SELLER" | oTranslate }} {{ ratingData }}</span>
+            <div *ngIf="varRating != undefined" class="rating-div">
+              <span>{{ "SELLER" | oTranslate }} {{varPhoto}} {{ varRating }}</span>
               <svg class=" color-orange" xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem"
                 fill="currentColor" viewBox="0 0 16 16">
                 <path
