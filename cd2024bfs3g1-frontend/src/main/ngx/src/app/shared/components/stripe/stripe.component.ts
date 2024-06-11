@@ -110,8 +110,6 @@ export class StripeComponent implements OnInit, OnDestroy {
 
         });
 
-
-
       },
       error: (err: any) => {
         console.log(err);
@@ -126,7 +124,6 @@ export class StripeComponent implements OnInit, OnDestroy {
     try {
       this.checkout.destroy();
     } catch (e ){
-      // console.log("ERROR: ngOnDestory: ", e)
     }
 
   }

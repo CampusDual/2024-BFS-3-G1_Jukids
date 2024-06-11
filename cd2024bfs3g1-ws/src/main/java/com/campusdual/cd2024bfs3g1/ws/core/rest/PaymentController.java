@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/payments")
@@ -46,4 +47,8 @@ public class PaymentController {
         return new ResponseEntity<>(paymentService.checkSessionStatus(session_id), HttpStatus.OK);
     }
 
+    @PutMapping("/session-status-update")
+    public ResponseEntity<EntityResult> sessionStatusUpdate(@RequestBody HashMap<String, Object> sessionData) {
+        return new ResponseEntity<>(paymentService.sessionStatusUpdate(sessionData), HttpStatus.OK);
+    }
 }

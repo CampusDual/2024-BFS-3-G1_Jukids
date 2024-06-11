@@ -27,7 +27,7 @@
         </Query>
         <Query id="orderJoin">
             <AmbiguousColumns>
-                <AmbiguousColumn name="toyid" prefix="t" />
+                <AmbiguousColumn name="toyid" prefix="t"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
@@ -50,6 +50,19 @@
                     INNER JOIN ${mainschema}.toys t ON o.toyid = t.toyid
                     INNER JOIN ${mainschema}.usr_user s ON t.usr_id = s.usr_id
                 #WHERE#
+            ]]>
+            </Sentence>
+        </Query>
+        <Query id="getUnpaidOrders">
+            <Sentence>
+                <![CDATA[
+                 SELECT
+                     o.order_id, o.order_date, o.toyid, s.shipment_id
+                 FROM ${mainschema}.orders o
+                     INNER JOIN ${mainschema}.toys t ON o.toyid = t.toyid
+                     LEFT JOIN ${mainschema}.shipments s ON o.order_id = s.order_id
+                 WHERE
+                     session_id IS NULL
             ]]>
             </Sentence>
         </Query>

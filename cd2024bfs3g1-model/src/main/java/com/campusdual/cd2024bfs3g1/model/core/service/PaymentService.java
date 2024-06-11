@@ -4,9 +4,11 @@ import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
+import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -16,6 +18,7 @@ import com.stripe.model.LineItemCollection;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.param.checkout.SessionListLineItemsParams;
+import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,6 +43,7 @@ public class PaymentService implements IPaymentService {
     //Método para crear un ID único de Cliente a la hora de realizar el pago, recoge email en el pago y accede al email
     // del vendedor mediante el id del juguete que se compra, genera un ID del comprador que va incluido en el Token de pago
     // para mostrar en el Dashboard de Stripe en la seccion "Cliente".
+    @Override
     public EntityResult createStripeCustomer(String emailBuyer, String emailSeller) throws StripeException {
         Stripe.apiKey = secretKey;
 
@@ -138,7 +142,8 @@ public class PaymentService implements IPaymentService {
         return checkoutSession;
     }
 
-    public EntityResult checkSessionStatus(String session_id) throws StripeException {
+    @Override
+    public EntityResult checkSessionStatus(String session_id) {
         Stripe.apiKey = secretKey;
         EntityResult resultStatus = new EntityResultMapImpl();
 
@@ -172,24 +177,37 @@ public class PaymentService implements IPaymentService {
 
             resultStatus.putAll(sessionData);
 
-            //En caso de pago correcto, añadimos el session_id a la order correspondiente
-
-            Integer toyId = (Integer) itemDetails.get("id");
-            System.out.println(toyId + (" ") + session.getId());
-            Map<String, Object> keyMap = new HashMap<>();
-            keyMap.put(OrderDao.ATTR_TOY_ID, toyId);
-            Map<String, Object> updateMap = new HashMap<>();
-            updateMap.put(OrderDao.ATTR_SESSION_ID, session.getId());
-            EntityResult updateResult = daoHelper.update(orderDao, updateMap, keyMap);
-
-            if (updateResult.isWrong()) {
-                return Utils.createError("Error al actualizar el session_id de la orden");
-            }
-
         } catch (StripeException e) {
             resultStatus.put("error", e.getMessage());
         }
 
         return resultStatus;
+    }
+
+    @Override
+    public EntityResult sessionStatusUpdate(Map<String, Object> attrMap) {
+
+        if (attrMap == null) {
+            throw new IllegalArgumentException("attrMap and keyMap cannot be null");
+        }
+
+        String sessionId = attrMap.get(OrderDao.ATTR_SESSION_ID).toString();
+        System.out.println("session_id = " + sessionId);
+
+        EntityResult resultStatus = checkSessionStatus(sessionId);
+
+        int toyId = (Integer) resultStatus.getRecordValues(0).get(ToyDao.ATTR_ID);
+
+        System.out.println(toyId + ("<-toy id? || session_id?-> ") + sessionId);
+
+        HashMap<String, Object> keyMap = new HashMap<>();
+        keyMap.put(OrderDao.ATTR_TOY_ID, toyId);
+        EntityResult updateResult = daoHelper.update(orderDao, attrMap, keyMap);
+
+        if (updateResult.isWrong()) {
+            return Utils.createError("Error al actualizar el session_id de la orden");
+        }
+
+        return updateResult;
     }
 }
