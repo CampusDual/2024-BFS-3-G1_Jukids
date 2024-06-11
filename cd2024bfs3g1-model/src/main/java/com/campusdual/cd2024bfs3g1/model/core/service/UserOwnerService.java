@@ -83,6 +83,21 @@ public class UserOwnerService implements IUserOwnerService {
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
             keyMap.put(UserDao.USR_ID, idUser);
 
+            // Comprobar si el nuevo email ya existe en otro usuario
+            if (attrMap.containsKey(UserDao.LOGIN)) {
+                String newEmail = (String) attrMap.get(UserDao.LOGIN);
+                HashMap<String, Object> emailCheckMap = new HashMap<>();
+                emailCheckMap.put(UserDao.LOGIN, newEmail);
+                EntityResult emailCheckResult = this.daoHelper.query(userDao, emailCheckMap, attrList);
+
+                if (!emailCheckResult.isEmpty()) {
+                    Integer existingUserId = (Integer) emailCheckResult.getRecordValues(0).get(UserDao.USR_ID);
+                    if (!existingUserId.equals(idUser)) {
+                        return createError("El email introducido ya existe en otro usuario: " + newEmail);
+                    }
+                }
+            }
+
             // Encriptar la contraseña si está presente en los atributos
             if (attrMap.containsKey("usr_password")) {
                 String password = (String) attrMap.get("usr_password");
