@@ -59,9 +59,9 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
                   <img class="Rating-img" src="assets/images/user_profile.png">
                 </ng-template>
               </div>
-              <div class="Rating-wrapper">
+              <div class="Rating-column">
                 <strong class="Rating-seller">{{sellerName}}</strong>
-                <div class="Rating-survey">
+                <div class="Rating-row">
                   <div class="Rating-stars">
                     <div class="Rating-base">
                       <svg class="Rating-svg" *ngFor="let i of [5,4,3,2,1]" xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem"
@@ -76,7 +76,10 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
                       </svg>
                     </div>
                   </div>
-                  <span class="Rating-rate">{{sellerRate}}</span>
+                  <div class="Rating-rates">
+                    <span class="Rating-average">{{sellerRate}} </span>
+                    <span class="Rating-total">({{totalSurveys}})</span>
+                  </div>
                 </div>
               </div>
             </div>

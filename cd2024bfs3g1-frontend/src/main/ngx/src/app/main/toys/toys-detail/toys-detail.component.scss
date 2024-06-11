@@ -205,6 +205,9 @@ button{
     color: #9b9b9b;
     font-size: small;
 }
+
+/* Relativo a valoración del vendedor*/
+
 .Rating {
     display: flex;
     gap: .5rem;
@@ -224,14 +227,14 @@ button{
         border-radius: 2rem;
     }
 
-    &-wrapper {
+    &-column {
         display: flex;
         flex-direction: column;
         justify-content: center;
         gap: .25rem;
     }
 
-    &-survey {
+    &-row {
         display: flex;
         align-items: center;
         gap: .5rem;
@@ -263,7 +266,15 @@ button{
         color:#9B9B9B
     }
 
-    &-rate {
-        display: block;
+    &-rates {
+        display: flex;
+        gap: .25rem;
+    }
+    &-average {
+        font-weight: 500;
+    }
+
+    &-total {
+        color:#9B9B9B;
     }
 }

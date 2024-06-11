@@ -24,6 +24,7 @@ export class ToysDetailComponent implements OnInit {
   sellerName: string;
   sellerPhoto: string;
   percentageRate: number = 0;
+  totalSurveys: number = 0;
   //
 
   isLogged: boolean = this.jkAuthService.isLoggedIn();
@@ -91,14 +92,9 @@ export class ToysDetailComponent implements OnInit {
             this.sellerId = resp.data[0].usr_id;
             this.sellerName = resp.data[0].usr_name;
             this.sellerPhoto = resp.data[0].usr_photo;
-            console.log(this.sellerPhoto)
           }
         });
     });
-  }
-
-  showMeMore() {
-    console.log(this.usr_id.getValue());
   }
 
   onFormDataLoaded(data: any) {
@@ -116,13 +112,14 @@ export class ToysDetailComponent implements OnInit {
       usr_id: this.usr_id.getValue(),
     }
 
-    const columns = ["usr_name", "usr_photo", "rating"];
+    const columns = ["usr_name", "usr_photo", "rating", "total_surveys"];
     this.service
       .query(filter, columns, "userAverageRating")
       .subscribe((resp) => {
         if (resp.code === 0 && resp.data.length > 0) {
           this.sellerRate = resp.data[0].rating.toFixed(1);
-          this.percentageRate = this.sellerRate * 100 / 5
+          this.percentageRate = this.sellerRate * 100 / 5;
+          this.totalSurveys = resp.data[0].total_surveys;
         }
       });
     }
