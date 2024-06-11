@@ -17,7 +17,7 @@
       show-header-actions-text="false"
       undo-button="no"
     >
-      <o-row fxLayout="row" fxLayoutGap="20px">
+      <div class="container-user">
         <o-column class="left-column">
           <div class="image-container">
             <o-image
@@ -53,7 +53,7 @@
               <o-text-input
                 #nameInput
                 attr="usr_name"
-                fxFlex="70"
+                fxFlex="100"
                 read-only="no"
                 max-length="150"
                 appearance="outline"
@@ -63,7 +63,7 @@
               <o-text-input
                 #surnameInput
                 attr="usr_surname"
-                fxFlex="70"
+                fxFlex="100"
                 read-only="no"
                 max-length="150"
                 appearance="outline"
@@ -77,7 +77,7 @@
               <o-password-input
                 #passwordInput
                 attr="usr_password"
-                fxFlex="70"
+                fxFlex="100"
                 read-only="no"
                 max-length="150"
                 appearance="outline"
@@ -87,7 +87,7 @@
               <o-email-input
                 #emailInput
                 attr="usr_login"
-                fxFlex="70"
+                fxFlex="100"
                 read-only="no"
                 max-length="150"
                 appearance="outline"
@@ -96,7 +96,7 @@
           </div>
           <button class="button btn-solid button-save" (click)="saveForm()">{{ 'SAVE' | oTranslate }}</button>
         </o-column>
-      </o-row>
+      </div>
     </o-form>
   </div>
 </div>
