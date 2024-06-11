@@ -24,6 +24,7 @@ export class ToysDetailComponent implements OnInit {
   varRating: number;
   isLogged: boolean = this.jkAuthService.isLoggedIn();
   isNotTheSeller: boolean;
+  customer_id: number;
 
   @ViewChild('toyId') toyId: OTextInputComponent;
   @ViewChild('usr_id') usr_id: OTextInputComponent;
@@ -38,9 +39,7 @@ export class ToysDetailComponent implements OnInit {
   @ViewChild('stripe') stripe: StripeComponent;
 
 
-  isLogged: boolean = this.jkAuthService.isLoggedIn();
-  isNotTheSeller: boolean;
-  customer_id: number;
+
 
  constructor(
       private toysMapService: ToysMapService,
@@ -77,7 +76,7 @@ export class ToysDetailComponent implements OnInit {
     this.mainService.getUserInfo().subscribe((data: ServiceResponse) => {
 
       this.isNotTheSeller = (data.data.usr_id != this.usr_id.getValue());
-
+      this.customer_id = data.data.usr_id;
     });
 
     this.setStripe();

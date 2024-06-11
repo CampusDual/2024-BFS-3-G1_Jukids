@@ -4,12 +4,12 @@
 
         <div class="chats-title">
             <div class="chats-header"> 
-                <div (click)="goBack()" class="btn-back">
+                <div (click)="goBack()" class="btn-back" matTooltip="Regresar">
                     <mat-icon>chevron_left</mat-icon>
                 </div>                
                 <h4>Chats</h4>
             </div>
-            <div class="btn-refresh" (click)="refreshChatList()">
+            <div class="btn-refresh" (click)="refreshChatList()" matTooltip="Actualizar chats">
                 <mat-icon>refresh-button</mat-icon>
             </div>
         </div>

@@ -99,7 +99,7 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
                   <!--{{ emailInput.getValue() }}-->
                 </a>
                 <ng-container *ngIf="isLogged && isNotTheSeller">
-                  <button class="button btn-outline-light" (click)="openBuy(toyId.getValue())">
+                  <button class="button btn-outline-light" (click)="chatSeller()">
                     CONTACTA POR CHAT
                   </button>
                 </ng-container>

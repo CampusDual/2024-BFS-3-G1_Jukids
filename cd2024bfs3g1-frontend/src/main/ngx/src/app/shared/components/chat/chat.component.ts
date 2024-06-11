@@ -7,22 +7,24 @@ import { ChatJoinRoomInterface } from '../../interfaces/chat-join-room.interface
 import { MainService } from '../../services/main.service';
 import { ServiceResponse } from 'ontimize-web-ngx';
 import { ChatUserProfileInterfaceResponse } from '../../interfaces/chat-user-profile.interface';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
+  scrolledToBottom: boolean = false;
   //============================= CHAT SEND VARIABLE =============================
   isUserProfileChat: boolean = false;
-  
+
   //============================= CHAT DATA =============================
   currentProfileChatData: ChatUserProfileInterfaceResponse | null = null;
   currentUserId: any;
-  
- 
+
+
 
 
   baseUrl: string;
@@ -52,12 +54,20 @@ export class ChatComponent implements OnInit {
     // console.log('MATLOGDATA:', data);
 
     this.mainService.getUserInfo().subscribe({
-      next: (data: ServiceResponse) => {        
+      next: (data: ServiceResponse) => {
         this.currentUserId = data.data.usr_id;
       }
     })
     this.chatService.connect();
 
+  }
+  ngAfterViewInit(): void {
+    this.scrollToBottomIfNeeded();
+  }
+
+  ngAfterViewChecked(): void {    
+    // Analizar posible bug
+    this.scrollToBottom();
   }
 
 
@@ -91,15 +101,15 @@ export class ChatComponent implements OnInit {
       // console.log("UserID", this.currentUserId);
 
       this.chatService.getUserProfileChatData().subscribe({
-        next: (data: ChatUserProfileInterfaceResponse) => {          
+        next: (data: ChatUserProfileInterfaceResponse) => {
           // console.log(data);
           //Si es la primera vez se asigna la data
-          if(this.currentProfileChatData == null){
+          if (this.currentProfileChatData == null) {
             this.currentProfileChatData = data;
           }
 
           //Si la data es distinta se actualiza y se genera las acciones.
-          if(this.currentProfileChatData != data){
+          if (this.currentProfileChatData != data) {
             this.currentProfileChatData = data;
 
             this.chatService.disconnectRoom();
@@ -114,7 +124,7 @@ export class ChatComponent implements OnInit {
 
           }
 
-          
+
           this.customer_id = data.customer_id.toString();
           this.toyId = data.toy_id;
           this.toyName = data.toyName;
@@ -139,7 +149,6 @@ export class ChatComponent implements OnInit {
       next: (data: any) => {
         this.msgCount = data;
         console.log("msgCount: ", this.msgCount);
-
       },
       error: (err: any) => {
         console.log(err);
@@ -162,14 +171,23 @@ export class ChatComponent implements OnInit {
         // console.log("DATA: ", data);
         this.messages.push(data);
         //Ver control para bajarlo a abajo de todo.
-        // console.log("messages: ", this.messages);              
+        // console.log("messages: ", this.messages); 
+
       },
       error: (err: any) => {
         console.log(err);
-      },
+      }
     });
 
+  }
 
+  // Método para comprobar y realizar el scroll al final si es necesario
+  scrollToBottomIfNeeded(): void {
+    if (!this.scrolledToBottom) {
+      const chatContainer = this.chatContainer.nativeElement;
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      this.scrolledToBottom = true;
+    }
   }
 
   scrollToBottom(): void {
@@ -189,25 +207,31 @@ export class ChatComponent implements OnInit {
 
   sendMessage(message: string) {
 
-    // console.log("customer_id: ", this.customer_id);
-    // console.log("currrentUserId: ", this.currentUserId);
-    
 
-    let msg: ChatMessageModelInterface = {
-      customerId: this.customer_id,
-      message: message,
-      toyId: this.toyId.toString(),
-      owner: (this.customer_id != this.currentUserId) ? "true" : "false"
+    if (message.length != 0) {
+      let msg: ChatMessageModelInterface = {
+        customerId: this.customer_id,
+        message: message,
+        toyId: this.toyId.toString(),
+        owner: (this.customer_id != this.currentUserId) ? "true" : "false"
+      }
+
+      // console.log("msg: ", msg);
+
+      this.chatService.sendMessage(msg);
+
+
+      this.chatInput.nativeElement.value = '';
+      
+      this.scrolledToBottom = false; // Indicamos que el scroll no se ha realizado al agregar un nuevo mensaje
+      this.scrollToBottomIfNeeded();
+
     }
-
-    // console.log("msg: ", msg);
-    
-    this.chatService.sendMessage(msg);
-
-    this.chatInput.nativeElement.value = '';
-
-
   }
+
+
+   
+
 
   async getUserImage(userId: string): Promise<void> {
     try {
