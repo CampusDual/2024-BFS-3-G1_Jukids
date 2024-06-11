@@ -1,10 +1,7 @@
 package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
-import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.UserLocationDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.*;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.AdvancedEntityResultMapImpl;
@@ -16,8 +13,6 @@ import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +20,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +40,8 @@ public class ToyService implements IToyService {
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private SurveyDao surveyDao;
 
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
@@ -426,6 +422,11 @@ public class ToyService implements IToyService {
             throws OntimizeJEERuntimeException{
 
             return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
+    }
+
+    @Override
+    public EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return this.daoHelper.query(surveyDao,keyMap,attrList, SurveyDao.QUERY_USER_AVG_RATING);
     }
 
     private EntityResult createError(String mensaje){
