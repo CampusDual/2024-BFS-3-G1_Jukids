@@ -1,11 +1,19 @@
 .btn-container {
     margin: 0 0.5rem;
+    background: none;
 }
 
-.searchFilters{
+.collapsible-container{
+  background-color: #FDF8F5;
+
+  &-items{
+    display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+  }
+
 }
 
 .titleMap{
@@ -19,11 +27,4 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-}
-
-.collapsible-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
 }

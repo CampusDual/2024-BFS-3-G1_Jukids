@@ -1,7 +1,7 @@
 <o-form class="form" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()" >
-  <div class="collapsible-container">
-  <o-column-collapsible attr="container" title="{{ 'FILTERS_TOYS' | oTranslate }}" icon="filter_list"  expanded="no">
-    <div class="searchFilters">
+
+  <o-column-collapsible class="collapsible-container" attr="container" title="{{ 'FILTERS_TOYS' | oTranslate }}" icon="filter_list"  expanded="no">
+    <div class="collapsible-container-items">
       <o-combo #categoryField appearance="outline" label="category" id="category" null-selection="no" attr="category"
         service="categories" entity="category" keys="categoryid" value-column="codigo" columns="categoryid;name;codigo"
         searchable="true" visible-columns="codigo" multiple="yes" translate="yes" fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
@@ -15,12 +15,6 @@
         columns="priceCode;priceText;attr_price" visible-columns="attr_price" null-selection="no" attr="price"
         translate="yes" fxFlex="100" fxFlex.gt-xs="22" fxFlex.gt-sm="12">
       </o-combo>
-
-      <o-row layout-align="space-between center" fxFlex="grow" fxFlex="100" fxFlex.gt-sm="50" fxLayoutGap="10px">
-        <o-text-input #searcher attr="name" hidden></o-text-input>
-        <o-text-input #latInput attr="latitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
-        <o-text-input #longInput attr="longitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
-
         <o-row class="btn-container">
           <button attr="filter" [oFilterBuilderQuery]="filterBuilder" query-on-change="true" type="RAISED" label="Search" class="button btn-outline-light" matTooltip="{{ 'Search' | oTranslate }}">
             <mat-icon class="material-icons">search</mat-icon>
@@ -29,7 +23,12 @@
             <mat-icon class="material-icons">clear</mat-icon>
           </button>
           <button (click)="openMap()" class="button btn-outline-light"><mat-icon>my_location</mat-icon>Buscar en mapa</button>
-        </o-row>
+
+      </o-row>
+      <o-row>
+        <o-text-input #searcher attr="name" hidden></o-text-input>
+        <o-text-input #latInput attr="latitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
+        <o-text-input #longInput attr="longitude" [oFilterBuilderQuery]="filterBuilder" hidden></o-text-input>
       </o-row>
       <div *ngIf="showMap" fxFlex="100" >
         <p class="titleMap">{{ 'TITLE_MAP_HOME' | oTranslate }}</p>
@@ -41,7 +40,6 @@
       [expression-builder]="createFilter"></o-filter-builder>
     </div>
     </o-column-collapsible>
-  </div>
 </o-form>
 
 <div>
