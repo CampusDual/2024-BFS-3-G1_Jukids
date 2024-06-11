@@ -276,7 +276,10 @@ public class ToyService implements IToyService {
             keysValues.put("EXPRESSION_KEY_UNIQUE_IDENTIFIER", totalExpressionDistance);
         }
 
-
+        //purgamos latitud y longitud
+        SQLStatementBuilder.BasicExpression latAndLonExpresion = (SQLStatementBuilder.BasicExpression) keysValues.get("EXPRESSION_KEY_UNIQUE_IDENTIFIER");
+        Utils.pruneTree(latAndLonExpresion,ToyDao.ATTR_LATITUDE);
+        Utils.pruneTree(latAndLonExpresion,ToyDao.ATTR_LONGITUDE);
         // Buscar por ID y DISTANCIA
         //return this.daoHelper.query( this.toyDao, queryMap, attrList, ToyDao.QUERY_V_TOYS_DISTANCES );
 
