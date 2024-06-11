@@ -14,7 +14,7 @@ export class CheckoutComponent implements OnInit {
   protected THANK_YOU_PURCHASE: string;
   protected TOY_BUTTON: string;
 
-
+  
   constructor(
     private actRoute: ActivatedRoute,
     private translateService: OTranslateService,
@@ -25,10 +25,10 @@ export class CheckoutComponent implements OnInit {
     this.actRoute.queryParams.subscribe({
       next: (params) => {
         console.log("params id : ", params.session_id);
-        const kv = { "toyid": 0 };
-        const av = { "session_id": params.session_id };
+        const kv = { "session_id": params.session_id };
+        const av = { "toyid": 0 };
         this.configureUpdateService();
-        this.oService.update(kv, av, "session-status-update").subscribe({
+        this.oService.update(av, kv, "sessionStatus").subscribe({
           next: (response) => {
             console.log('Response from sessionStatusUpdate:', response);
           },

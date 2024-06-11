@@ -185,22 +185,20 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public EntityResult sessionStatusUpdate(Map<String, Object> attrMap) {
+    public EntityResult sessionStatusUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) {
 
-        if (attrMap == null) {
+        if (attrMap == null || keyMap == null) {
             throw new IllegalArgumentException("attrMap and keyMap cannot be null");
         }
 
         String sessionId = attrMap.get(OrderDao.ATTR_SESSION_ID).toString();
-        System.out.println("session_id = " + sessionId);
+        System.out.println("Contenido de sessionId: " + sessionId);
 
         EntityResult resultStatus = checkSessionStatus(sessionId);
+        System.out.println("Contenido de resultStatus: " + resultStatus.toString());
 
         int toyId = (Integer) resultStatus.getRecordValues(0).get(ToyDao.ATTR_ID);
 
-        System.out.println(toyId + ("<-toy id? || session_id?-> ") + sessionId);
-
-        HashMap<String, Object> keyMap = new HashMap<>();
         keyMap.put(OrderDao.ATTR_TOY_ID, toyId);
         EntityResult updateResult = daoHelper.update(orderDao, attrMap, keyMap);
 

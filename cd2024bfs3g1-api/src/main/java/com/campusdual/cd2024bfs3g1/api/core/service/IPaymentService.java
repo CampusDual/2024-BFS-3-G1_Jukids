@@ -16,6 +16,6 @@ public interface IPaymentService {
 
     EntityResult checkSessionStatus(String session_id);
 
-    EntityResult sessionStatusUpdate(Map<String, Object> attrMap);
+    EntityResult sessionStatusUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap);
 
 }
