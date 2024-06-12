@@ -1,84 +1,106 @@
-<div class="title-container">
-  <h2>{{ 'EDIT_OR_DELETE_YOUR_TOY' | oTranslate }}</h2>
-</div>
+<button (click)="redirectList()" routerLinkActive="router-link-active" routerLinkActive="router-link-active"
+  mat-flat-button>
+  <mat-icon>arrow_back_ios_new</mat-icon>
+  {{'BACKBTN' | oTranslate}}
+</button>
+<div class="Toy">
+  <div class="Toy-title color-blue">
+    <svg class="Toy-svg" width="32" height="32" viewBox="0 0 32 32" fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M29.8523 2.39125C29.8409 2.33597 29.8139 2.28509 29.7746 2.24458C29.7353 2.20406 29.6853 2.17559 29.6304 2.1625C25.9698 1.2675 17.5117 4.45687 12.9292 9.0375C12.1118 9.84822 11.3667 10.7286 10.7023 11.6687C9.28916 11.5437 7.87604 11.6481 6.67166 12.1731C3.27354 13.6687 2.28416 17.5712 2.00854 19.25C1.9929 19.3419 1.9988 19.4361 2.02576 19.5254C2.05273 19.6146 2.10002 19.6963 2.16393 19.7642C2.22784 19.832 2.30662 19.8841 2.39407 19.9164C2.48152 19.9486 2.57526 19.9601 2.66791 19.95L8.12479 19.3481C8.12868 19.7595 8.15351 20.1705 8.19916 20.5794C8.22662 20.8633 8.35267 21.1287 8.55541 21.3294L10.6685 23.4375C10.8694 23.64 11.1347 23.766 11.4185 23.7937C11.8251 23.8392 12.2338 23.8641 12.6429 23.8681L12.0442 29.3181C12.0342 29.4107 12.0458 29.5044 12.0781 29.5918C12.1104 29.6792 12.1625 29.7579 12.2303 29.8218C12.2981 29.8857 12.3798 29.933 12.4689 29.96C12.5581 29.987 12.6523 29.993 12.7442 29.9775C14.4198 29.7087 18.3292 28.7194 19.816 25.3212C20.341 24.1169 20.4485 22.7106 20.3273 21.3044C21.2697 20.6399 22.1524 19.8946 22.9654 19.0769C27.5623 14.5031 30.7335 6.23375 29.8523 2.39125ZM18.3792 13.6206C17.9594 13.2011 17.6735 12.6666 17.5576 12.0846C17.4417 11.5026 17.501 10.8993 17.728 10.351C17.955 9.80272 18.3395 9.33406 18.8329 9.00433C19.3263 8.6746 19.9064 8.49861 20.4998 8.49861C21.0932 8.49861 21.6733 8.6746 22.1667 9.00433C22.6601 9.33406 23.0446 9.80272 23.2716 10.351C23.4986 10.8993 23.5579 11.5026 23.442 12.0846C23.3261 12.6666 23.0402 13.2011 22.6204 13.6206C22.3421 13.8994 22.0115 14.1205 21.6476 14.2714C21.2838 14.4222 20.8937 14.4999 20.4998 14.4999C20.1059 14.4999 19.7158 14.4222 19.3519 14.2714C18.9881 14.1205 18.6575 13.8994 18.3792 13.6206Z"
+        fill="currentColor" />
+      <path
+        d="M10.525 24.9644C10.1825 25.3075 9.63313 25.4413 8.97188 25.5556C7.48625 25.8088 6.17437 24.525 6.44125 23.0231C6.54312 22.4538 6.84438 21.6556 7.03188 21.4681C7.07286 21.4279 7.10014 21.3759 7.10984 21.3193C7.11954 21.2627 7.11116 21.2045 7.08591 21.153C7.06065 21.1014 7.0198 21.0591 6.96915 21.0321C6.9185 21.0051 6.86063 20.9948 6.80375 21.0025C5.97298 21.1042 5.20008 21.4808 4.60813 22.0725C3.13875 23.5431 3 29 3 29C3 29 8.46 28.8613 9.92937 27.3906C10.5229 26.7992 10.9 26.0251 11 25.1931C11.0231 24.9319 10.705 24.7763 10.525 24.9644Z"
+        fill="#FF943F" />
+    </svg>
+    <h2 class="Toy-h2">{{ 'EDIT_OR_DELETE_YOUR_TOY' | oTranslate }}</h2>
+  </div>
 
-<div class="box">
   <o-form class="form" id="formToyEdit" #formToyEdit attr="toysDetail" service="toyowner" entity="toy" keys="toyid"
-    show-header-navigation="false" show-header="true" fxLayout="column" header-actions="D"
-    show-header-actions-text="false" undo-button="no" (onDataLoaded)="onFormDataLoaded($event)"
-    (onDelete)="redirectList()" (onUpdate)="redirectList()">
+    show-header="no" show-header-navigation="no" undo-button="no" header-actions="U,D"
+    (onDataLoaded)="onFormDataLoaded($event)" (onDelete)="redirectList()" (onUpdate)="redirectList()">
     <o-text-input attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
-
-    <o-column>
-      <div fxLayoutGap="25px" fxLayout="row" class="toys-detail-column">
-        <o-column fxFlex="30" class="total-column">
-          <o-image class="image-container" auto-fit="yes" attr="photo" read-only="no"
-            empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER" show-controls="no"
-            required="yes"></o-image>
-        </o-column>
-
-        <o-column class="inf-column total-column">
-
-          <div>
-            <div>
-              <o-text-input #nameInput attr="name" fxFlex="100" read-only="no" required="yes"
-                max-length="150"></o-text-input>
-            </div>
-            <div class="divInput">
-              <o-currency-input #priceInput attr="price" fxFlex="100" read-only="no" min-decimal-digits="2"
-                max-decimal-digits="2" min="0.00" max="9999999" required="yes"></o-currency-input>
-            </div>
-          </div>
-
-          <div fxLayout="row" fxLayoutGap="20px" class="toys-detail-column">
-            <div fxFlex="60" class="total-column descInput">
-              <div fxLayout="column" class="descInput">
-                <o-textarea-input #descInput attr="description" fxFlex="100" read-only="no" class="no-resize"
-                  required="yes" max-length="700"></o-textarea-input>
-
-                <div fxLayoutGap="8px" class="target">
-                  <o-combo fxFlex="49" null-selection="no" label="category" id="category" attr="category"
-                    service="categories" entity="category" keys="categoryid" translate="yes" value-column="codigo"
-                    columns="categoryid;name;codigo" searchable="true" visible-columns="codigo"
-                    required="yes"></o-combo>
-                  <o-combo fxFlex="49" label="status" id="status" null-selection="no" attr="status" service="statuses"
-                    entity="status" keys="statusid" value-column="code" columns="statusid;name;code" searchable="true"
-                    visible-columns="code" translate="yes" required="yes"></o-combo>
-                </div>
-                <o-checkbox id="shipping" #shipping fxFlex="50"
-                    attr="shipping" label="{{ 'SHIPPING'  | oTranslate }}">
-                </o-checkbox>
-              </div>
-
-              <div class="divInput">
-                <o-email-input id="usr_email" #usr_email attr="email" fxFlex="100" read-only="no" required="yes"
-                  label="usr_email"></o-email-input>
-              </div>
-            </div>
-            <div style="width: 100%;">
-              <div class="map-container" [ngClass]="{'not-selected': !isMapLatLongSelected }">
-                <location-map (click)="handleMapClick($event)"></location-map>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <o-real-input #longitude fxFlex="50" attr="longitude" decimal-separator="," max-decimal-digits="10"
-              min-decimal-digits="0" required="yes" oHidden></o-real-input>
-            <o-real-input #latitude fxFlex="50" attr="latitude" decimal-separator="," max-decimal-digits="10"
-              min-decimal-digits="0" required="yes" oHidden></o-real-input>
-          </div>
-
-        </o-column>
+    <div class="Form-row Form-row--fields">
+      <div class="Form-column Form-column--image">
+        <div class="Form-subtitle">
+          <h3 class="Form-h3">1. {{ 'IMAGE' | oTranslate }}</h3>
+          <p class="Form-p">{{ 'UPLOAD_PRODUCT_IMAGE' | oTranslate }}</p>
+        </div>
+        <div class="Form-spec">
+          <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo"
+            empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER" required="yes"
+            accept=".jpg,.jpeg,.png" appearance="outline">
+          </o-image>
+        </div>
       </div>
-    </o-column>
+      <div class="Form-column Form-column--information">
+        <div class="Form-subtitle">
+          <h3 class="Form-h3">2. {{ 'INFORMATION' | oTranslate }}</h3>
+          <p class="Form-p">{{ 'DATA_ABOUT_PRODUCT' | oTranslate }}</p>
+        </div>
+        <div class="Form-spec">
+          <!-- Nombre -->
+          <o-text-input fxFlex="40" attr="name" required="yes" max-length="150" appearance="outline"></o-text-input>
+          <!-- Descripción -->
+          <o-textarea-input attr="description" required="yes" max-length="700" appearance="outline"></o-textarea-input>
+          <!-- Correo electrónico -->
+          <o-email-input id="usr_email" #usr_email fxFlex.gt-sm="50" attr="email" required="yes" label="usr_email"
+            appearance="outline">
+          </o-email-input>
+          <div class="Form-group Form-group--priceAndCategory">
+            <!-- Precio -->
+            <o-currency-input class="Form-price" attr="price" label="price" enabled="yes" min-decimal-digits="2"
+              max-decimal-digits="2" min="0.00" max="9999999" required="yes" appearance="outline">
+            </o-currency-input>
+            <!-- Categoría -->
+            <o-combo id="category" class="Form-category" label="category" null-selection="no" attr="category"
+              service="categories" entity="category" keys="categoryid" value-column="codigo"
+              columns="categoryid;name;codigo" searchable="true" visible-columns="codigo" translate="yes" required="yes"
+              appearance="outline">
+            </o-combo>
+          </div>
+          <!-- Estado del producto -->
+          <o-radio #status attr="status" service="statuses" entity="status" keys="statusid" value-column="code"
+            columns="statusid;name;code" visible-columns="code" read-only="no" required="yes" hide-required-marker="yes"
+            translate="yes" appearance="outline">
+          </o-radio>
+          <!-- Establecer con envío -->
+          <o-slide-toggle #shipping attr="shipping" id="shipping" class="Form-shipping"
+            label="{{ 'SHIPPING'  | oTranslate }}"></o-slide-toggle>
+        </div>
+      </div>
+      <div class="Form-column Form-column--location">
+        <div class="Form-subtitle">
+          <h3 class="Form-h3">3. {{ 'LOCATION' | oTranslate }}</h3>
+          <p class="Form-p">{{ 'SELECT_PRODUCT_LOCATION' | oTranslate }}</p>
+        </div>
 
-    <div o-form-toolbar-buttons>
-      <button id="saveButton" type="button" class="o-form-toolbar-button button btn-outline-light" mat-icon-button
-        (click)="newSubmit()" attr="updateButton">
-        <mat-icon>save</mat-icon>
-      </button>
+        <div class="Form-spec">
+          <location-map (click)="handleMapClick($event)"></location-map>
+
+          <o-real-input id="longitude" hidden="yes" #longitude fxFlex="50" attr="longitude" decimal-separator=","
+            max-decimal-digits="10" min-decimal-digits="0" required="yes">
+          </o-real-input>
+
+          <o-real-input id="latitude" hidden="yes" #latitude fxFlex="50" attr="latitude" decimal-separator=","
+            max-decimal-digits="10" min-decimal-digits="0" required="yes">
+          </o-real-input>
+        </div>
+      </div>
     </div>
-
+    <div class="Form-row Form-row--buttons">
+      <button class="button btn-delete" type="submit" (click)="delete()">
+        <span>{{ 'delete' | oTranslate }}</span>
+      </button>
+      <div class="Form-row--buttons-save">
+        <button class="button btn-solid" attr="submit" (click)="newSubmit()">
+          <span>{{ 'SAVE_TOY' | oTranslate }}</span>
+        </button>
+        <button class="button btn-outline-light" (click)="redirectList()">
+          <span>{{ 'cancel' | oTranslate }}</span>
+        </button>
+      </div>
+    </div>
   </o-form>
 </div>
