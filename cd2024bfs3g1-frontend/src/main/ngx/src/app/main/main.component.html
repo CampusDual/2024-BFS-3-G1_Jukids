@@ -5,13 +5,16 @@
         <a class="title" href="/"><img src="assets/images/jukids_logo.png" width="100%"/></a>
       </div>
       <div class="nav-center-side">
-        <div class="input-wrapper">
-          <input class="input-search" #searcherkey type="search" placeholder="  {{ 'SEARCH_BAR' | oTranslate }}">
-          <button class="clear-button" *ngIf="searcherkey.value" (click)="clearInput(searcherkey)">&#x2716;</button>
+        <input class="input-search" #searcherkey type="search" placeholder="  {{ 'SEARCH_BAR' | oTranslate }}">
+          <button class="clear-button" 
+          [ngStyle]="{'visibility': searcherkey.value ? 'visible' : 'hidden'}"
+          (click)="clearInput(searcherkey)">&#x2716;</button>
           <button class="search-button" (click)="searchNameAndDescription(searcherkey)">
             <svg width="15px" height="15px" viewBox="0 0 1024.00 1024.00" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)" stroke-width="10.24"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="2.048"></g><g id="SVGRepo_iconCarrier"><path d="M448 768A320 320 0 1 0 448 128a320 320 0 0 0 0 640z m297.344-76.992l214.592 214.592-54.336 54.336-214.592-214.592a384 384 0 1 1 54.336-54.336z" fill="#000000"></path></g></svg>
           </button>
-        </div>
+        <!-- <div class="input-wrapper">
+          
+        </div> -->
       </div>
       <div class="nav-right-side">
         <button *ngIf="validAdmin()" class="button btn-outline-dark" type="button" (click)="adminRedirect()">
