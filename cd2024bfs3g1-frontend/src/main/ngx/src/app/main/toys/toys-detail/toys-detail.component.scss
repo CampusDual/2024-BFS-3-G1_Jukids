@@ -23,7 +23,7 @@
             scale: 100%;
             align-content: center;
             padding-right: 30px;
-            font-weight: 400;
+            font-weight: bold;
             height: 100%;
             color: #0000009c;
             font-size: 16px;
@@ -200,6 +200,12 @@
 button{
     margin: 0.5rem 0;
 }
+
+.buttonBuy {
+  &:hover {
+    box-shadow: 0 0 10px #3C7F72;
+    }
+  }
 
 .link {
     color: #9b9b9b;
