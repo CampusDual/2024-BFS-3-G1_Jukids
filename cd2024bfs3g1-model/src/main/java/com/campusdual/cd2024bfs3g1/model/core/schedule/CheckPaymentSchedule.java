@@ -30,6 +30,7 @@ public class CheckPaymentSchedule {
     public void checkPayments() {
 
         //Query de todas las Orders con Session_id nulo (no pagadas)
+
         System.out.println("Hola, soy un borrador periodico. Nos vemos en un minuto!" + LocalDateTime.now());
 
         LocalDateTime now = LocalDateTime.now();
@@ -49,6 +50,7 @@ public class CheckPaymentSchedule {
             System.out.println("Order ID: " + order.get(OrderDao.ATTR_ID) + ", Order Date: " + orderDate);
 
             //De las orders sin pagar comprobamos las que lleven creadas mas de 7 minutos
+
             if (orderDate.plusMinutes(7).isBefore(now)) {
                 int toyId = (int) order.get(ToyDao.ATTR_ID);
                 int orderId = (int) order.get(OrderDao.ATTR_ID);
@@ -59,20 +61,23 @@ public class CheckPaymentSchedule {
                     System.out.println(", shipment ID: " + shipmentId);
                 }
 
-//                Devolvemos toy transaction_status a 0
-//                Utils.updateToyStatus(daoHelper, toyDao, toyId, ToyDao.STATUS_AVAILABLE);
-//
-//                //Borramos el shipment asociado a order_id si existe
-//                Map<String, Object> shipmentKeyMap = new HashMap<>();
-//                shipmentKeyMap.put(ShipmentDao.ATTR_ID, shipmentId);
-//                EntityResult deleteShipmentResult = daoHelper.delete(shipmentDao, shipmentKeyMap);
-//                System.out.println("Shipment deleted: " + shipmentId);
-//
-//                //Borramos el order asociado al toyId
-//                Map<String, Object> orderKeyMap = new HashMap<>();
-//                orderKeyMap.put(OrderDao.ATTR_ID, orderId);
-//                EntityResult deleteOrderResult = daoHelper.delete(orderDao, orderKeyMap);
-//                System.out.println("Order delete: " + orderId);
+                //Devolvemos toy transaction_status a 0
+
+                Utils.updateToyStatus(daoHelper, toyDao, toyId, ToyDao.STATUS_AVAILABLE);
+
+                //Borramos el shipment asociado a order_id si existe
+
+                Map<String, Object> shipmentKeyMap = new HashMap<>();
+                shipmentKeyMap.put(ShipmentDao.ATTR_ID, shipmentId);
+                EntityResult deleteShipmentResult = daoHelper.delete(shipmentDao, shipmentKeyMap);
+                System.out.println("Shipment deleted: " + shipmentId);
+
+                //Borramos el order asociado al toyId
+
+                Map<String, Object> orderKeyMap = new HashMap<>();
+                orderKeyMap.put(OrderDao.ATTR_ID, orderId);
+                EntityResult deleteOrderResult = daoHelper.delete(orderDao, orderKeyMap);
+                System.out.println("Order delete: " + orderId);
             }
         }
     }

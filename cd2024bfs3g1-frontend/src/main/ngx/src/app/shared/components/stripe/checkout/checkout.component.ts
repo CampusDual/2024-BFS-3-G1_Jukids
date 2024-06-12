@@ -24,9 +24,8 @@ export class CheckoutComponent implements OnInit {
 
     this.actRoute.queryParams.subscribe({
       next: (params) => {
-        console.log("params id : ", params.session_id);
-        const kv = { "toyid": this.toyId };
-        const av = { "session_id": params.session_id };
+        const kv = { "session_id": params.session_id };
+        const av = { "toyid": params.toyId };
         this.configureUpdateService();
         this.oService.update(kv, av, "sessionStatus").subscribe({
           next: (response) => {

@@ -16,6 +16,7 @@ import com.stripe.model.LineItemCollection;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.param.checkout.SessionListLineItemsParams;
+import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,8 @@ public class PaymentService implements IPaymentService {
     String baseUrl;
     @Autowired
     IToyService toyService;
+    @Autowired
+    private ToyDao toyDao;
     @Autowired
     private OrderDao orderDao;
     @Autowired
@@ -191,16 +194,47 @@ public class PaymentService implements IPaymentService {
         // Se recupera ORDER_ID usando TOY_ID
 
         int toyId = Integer.parseInt(keyMap.get(OrderDao.ATTR_TOY_ID).toString());
+
         HashMap<String, Object> orderIdKeyMap = new HashMap<>();
         orderIdKeyMap.put(OrderDao.ATTR_TOY_ID, toyId);
-        List<String> orderIdCollAttrMap = Arrays.asList(OrderDao.ATTR_ID);
-        EntityResult orderIdResult = this.daoHelper.query(this.orderDao, orderIdKeyMap, orderIdCollAttrMap);
+        List<String> orderAttrMap = Arrays.asList(OrderDao.ATTR_ID, OrderDao.ATTR_TOTAL_PRICE);
 
-        if (orderIdResult.isWrong() || orderIdResult.isEmpty()) {
+        EntityResult orderResult = this.daoHelper.query(this.orderDao, orderIdKeyMap, orderAttrMap);
+
+        if (orderResult.isWrong() || orderResult.isEmpty()) {
             return Utils.createError("Error al obtener el orderID relacionado.");
         }
 
-        keyMap.put(OrderDao.ATTR_ID, orderIdResult.getRecordValues(0).get(OrderDao.ATTR_ID));
+        keyMap.put(OrderDao.ATTR_ID, orderResult.getRecordValues(0).get(OrderDao.ATTR_ID));
+
+        //Se verifica que los datos del juguete correspondan con los datos de la sesion.
+
+        EntityResult sessionResult = checkSessionStatus(attrMap.get(OrderDao.ATTR_SESSION_ID).toString());
+
+        if (sessionResult.containsKey("error")) {
+            return Utils.createError(sessionResult.get("error").toString());
+        }
+
+        Map<String, Object> productDetails = (Map<String, Object>) sessionResult.get("product_details");
+
+        String itemName = (String) productDetails.get("name");
+        Long itemPriceInCents = (Long) productDetails.get("price");
+        BigDecimal itemPrice = BigDecimal.valueOf(itemPriceInCents).movePointLeft(2);
+
+        HashMap<String, Object> toyKeyMap = new HashMap<>();
+        toyKeyMap.put(ToyDao.ATTR_ID, toyId);
+        List<String> toyAttrMap = Arrays.asList(ToyDao.ATTR_NAME, ToyDao.ATTR_PRICE);
+
+        EntityResult toyResult = this.daoHelper.query(this.toyDao, toyKeyMap, toyAttrMap);
+
+        String toyName = (String) toyResult.getRecordValues(0).get(ToyDao.ATTR_NAME);
+        BigDecimal toyPrice = new BigDecimal(orderResult.getRecordValues(0).get(OrderDao.ATTR_TOTAL_PRICE).toString());
+
+        if (!itemName.equals(toyName) || toyPrice.compareTo(itemPrice) < 1) {
+            return Utils.createError("Los detalles del producto no coinciden con los datos de la sesión.");
+        }
+
+        //Se actualiza el ORDER con la session_id
 
         EntityResult updateResult = this.daoHelper.update(this.orderDao, attrMap, keyMap);
 
