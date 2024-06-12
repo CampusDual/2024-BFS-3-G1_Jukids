@@ -1,9 +1,9 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { OntimizeService, DialogService } from 'ontimize-web-ngx';
+import { OntimizeService, DialogService, OTranslateService } from 'ontimize-web-ngx';
 import { ToysMapService } from '../../services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
-
-import { ReturnStatement } from '@angular/compiler';
+//import { ReturnStatement } from '@angular/compiler';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'location-map',
@@ -11,6 +11,11 @@ import { ReturnStatement } from '@angular/compiler';
   styleUrls: ['./location-map.component.css']
 })
 export class LocationMapComponent {
+
+  //Variables para el método del marker 
+  map: L.Map; 
+  markers: L.Marker[] = [];
+
   private location: any;
   latitude: number = 42.240599;
   longitude: number = -8.720727;
@@ -24,7 +29,8 @@ export class LocationMapComponent {
   constructor(
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
-    private toysMapService: ToysMapService
+    private toysMapService: ToysMapService,
+    private translate: OTranslateService,
   ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
@@ -44,7 +50,7 @@ export class LocationMapComponent {
   handleClick(e) {
     this.isEditable && this.getPosition(e);
   }
-  
+
   getPosition(e) {
     this.toysMapService.setLocation(e.latlng.lat, e.latlng.lng);
     this.createMarker(e.latlng.lat, e.latlng.lng);
@@ -60,9 +66,9 @@ export class LocationMapComponent {
     }
     return this.center;
   }
-  
 
-  createMarker(lat, lng){
+  //Version inicial (funciona) - marker azul por defecto 
+/*   createMarker(lat, lng){
     this.oMapBasic.addMarker(
       1,
       lat,
@@ -75,30 +81,36 @@ export class LocationMapComponent {
     );
 
     this.isMapLatLongSelected = true;
-  }
+  } */
 
+    //Método para crear un marker con un icono custom
+    createMarker(lat: number, lng: number): void {    
+      this.clearMarkers(); //se limpian los anteriores
+      const iconUrl = '../assets/icons/pin-mapa.png';
+      const locationIcon = L.icon({
+          iconUrl: iconUrl,
+          //shadowUrl: '', //opcional: para sombra 
+          iconSize: [44, 57],
+          //shadowSize:   [44, 57], //opcional: tamaño sombra
+          iconAnchor:   [lat, lng],
+          //shadowAnchor: [lat, lng], //pos. sombra
+          popupAnchor:  [lat, lng],         
+      });
+      const marker = L.marker([this.latitude, this.longitude], { 
+        icon: locationIcon         
+      })
+      .addTo(this.oMapBasic.getLMap()).bindPopup(this.translate.get('LOCATION_PIN'));
 
-  	// Se crea un icono personalizado
-/* 	locationIcon = L.icon({
-		iconUrl: 'location_searching.svg',
-		iconSize: [38, 95], // tamaño del icono
-		}); */
-	 
-	// Se crea un objeto marcador, se establece la opción de icono personalizado y se añade al mapa en las coordenadas indicadas
-	/* marker = L.marker([36.7204,-4.4150], {icon: locationIcon}).addTo(map); */
+      this.isMapLatLongSelected = true;
+      this.markers.push(marker);
+    }
 
-
-/*   var myIcon = L.icon({
-    iconUrl: 'my-icon.png',
-    iconSize: [38, 95],
-    iconAnchor: [22, 94],
-    popupAnchor: [-3, -76],
-    shadowUrl: 'my-icon-shadow.png',
-    shadowSize: [68, 95],
-    shadowAnchor: [22, 94]
-}); */
-
-/* L.marker([50.505, 30.57], {icon: myIcon}).addTo(map);
-   */
-
+    //Método para limpiar marcadores del mapa
+    clearMarkers() {
+      for (const marker of this.markers) {
+        marker.remove();
+      }
+      this.markers = [];
+    }
+ 
 }

@@ -3,10 +3,6 @@
         <o-map #LocationMap attr="pop-up-map" [center]="getPoint()" zoom="14.5" min-zoom="3" max-zoom="20"
             zoom-control="yes" search-control="no" fxFlex style="height: 300px" (onClick)="handleClick($event)"
             search-control-button-visible="no">
-            <img src="./assets/location_searching.png" 
-            class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" 
-            style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(944px, 8px, 0px); z-index: 8;" 
-            alt="" tabindex="0">
 
             <!--<o-map-layer *ngIf="hasLocation()" layer-type="marker" layer-id="location_marker" [layer-center]="getPoint()"></o-map-layer>-->
 

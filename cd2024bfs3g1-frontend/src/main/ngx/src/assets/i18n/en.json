@@ -222,6 +222,7 @@
   "UNREGISTERED_SELLER_WARNING": "WARNING* This toy has been published by an unregistered user. It can't be bought directly from JUKIDS. You can contact the seller by email.",
   "TITLE_MAP_HOME": "Find toys near you",
   "SEARCH_MAP_HOME": "Mark your location to get the distance they are from you",
+  "LOCATION_PIN": "Your selected location",
   "shipment": "With delivery (%)",
   "noshipment": "Without delivery (%)",
   "CON_ENVIO": "to buy with shipping.",
