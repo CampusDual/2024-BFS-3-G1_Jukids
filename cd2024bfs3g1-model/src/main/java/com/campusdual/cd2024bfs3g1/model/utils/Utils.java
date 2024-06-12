@@ -1,5 +1,6 @@
 package com.campusdual.cd2024bfs3g1.model.utils;
 
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -61,5 +62,48 @@ public class Utils {
             return null;
         }
         return auth.getAuthorities().toArray()[0].toString();
+    }
+
+    public static void pruneTree(Object tree, String branchToRemove){
+        if(tree instanceof SQLStatementBuilder.BasicExpression){
+            SQLStatementBuilder.BasicExpression be = (SQLStatementBuilder.BasicExpression) tree;
+            if(be.getLeftOperand() instanceof SQLStatementBuilder.BasicExpression){
+                pruneTreeBranch(be, (SQLStatementBuilder.BasicExpression) be.getLeftOperand(),branchToRemove);
+            }
+            if(be.getRightOperand() instanceof SQLStatementBuilder.BasicExpression){
+                pruneTreeBranch(be, (SQLStatementBuilder.BasicExpression) be.getRightOperand(),branchToRemove);
+            }
+        }
+    }
+    private static void pruneTreeBranch(SQLStatementBuilder.BasicExpression tree,SQLStatementBuilder.BasicExpression branch, String branchToRemove){
+        if(mustLeafBeDeleted(branch.getLeftOperand(),branchToRemove)){
+            //sobrescrimimos la rama con la rama hija que permanece que es la contraria
+            reWriteBranch(tree, branch,branch.getRightOperand());
+        }else if(branch.getLeftOperand() instanceof SQLStatementBuilder.BasicExpression){
+            pruneTreeBranch(branch, (SQLStatementBuilder.BasicExpression) branch.getLeftOperand(),branchToRemove);
+        }
+        if(mustLeafBeDeleted(branch.getRightOperand(),branchToRemove)){
+            //sobrescrimimos la rama con la rama hija que permanece que es la contraria
+            reWriteBranch(tree,branch,branch.getLeftOperand());
+        }else if(branch.getRightOperand() instanceof SQLStatementBuilder.BasicExpression){
+            pruneTreeBranch(branch, (SQLStatementBuilder.BasicExpression) branch.getRightOperand(),branchToRemove);
+        }
+    }
+
+    private static void reWriteBranch(SQLStatementBuilder.BasicExpression parentTree,Object branchDeleted,Object remainBranch){
+        if(parentTree.getRightOperand().equals(branchDeleted)){
+            parentTree.setRightOperand(remainBranch);
+        }else{
+            parentTree.setLeftOperand(remainBranch);
+        }
+    }
+
+    private static boolean mustLeafBeDeleted(Object branch, String branchToRemove){
+        if(branch instanceof SQLStatementBuilder.BasicExpression){
+            SQLStatementBuilder.BasicExpression be = (SQLStatementBuilder.BasicExpression) branch;
+            return be.getLeftOperand() instanceof SQLStatementBuilder.BasicField && branchToRemove.equalsIgnoreCase(be.getLeftOperand().toString());
+        }else{
+            return false;
+        }
     }
 }
