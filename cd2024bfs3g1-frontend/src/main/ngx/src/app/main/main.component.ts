@@ -118,9 +118,4 @@ export class MainComponent implements OnInit {
       this.modal('login');
     }
   }
-
-  goBack(){
-    this.location.back();
-  }
-
 }
