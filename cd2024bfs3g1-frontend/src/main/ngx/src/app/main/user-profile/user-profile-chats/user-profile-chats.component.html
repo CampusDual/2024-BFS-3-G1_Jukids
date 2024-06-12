@@ -3,10 +3,10 @@
     <div class="chats-container-area">
 
         <div class="chats-title">
-            <div class="chats-header"> 
+            <div class="chats-header">
                 <div (click)="goBack()" class="btn-back" matTooltip="Regresar">
                     <mat-icon>chevron_left</mat-icon>
-                </div>                
+                </div>
                 <h4>Chats</h4>
             </div>
             <div class="btn-refresh" (click)="refreshChatList()" matTooltip="Actualizar chats">
@@ -28,10 +28,10 @@
 
                 <ng-container *ngFor="let chat of chatList.dataArray; let i = index">
 
-                    <div class="chat-room" (click)="selectChat(chat)" [ngStyle]="{ 
+                    <div class="chat-room" (click)="selectChat(chat)" [ngStyle]="{
                             'pointer-events': isChatRoomSelected(chat) ? 'none' : 'auto',
                             'opacity': isChatRoomSelected(chat) ? 0.5 : 1,
-                         }">
+                        }">
                         <div class="chat-prod-image">
                             <div class="product-image">
                                 <img src="{{baseUrl}}/restapi/get-image?toyId={{chat.toy_id}}" alt="">
@@ -44,7 +44,7 @@
                                     <span>{{chat.lastmessagedate | date: 'dd/MM/yyyy HH:mm' }}</span>
                                 </div>
                                 <span class="product-title">{{chat.toyName}}</span>
-                                <span class="latest-message"> Mensajes: {{chat.msg}}</span>
+                                <span class="latest-message"> {{ 'MESSAGES' | oTranslate}} {{chat.msg}}</span>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
 
     <div class="chat-component-area">
         <div class="select-chat" *ngIf="!isChatSelected">
-            <h2>Seleccione un chat...</h2>
+            <h2>{{ 'SELECT_CHAT' | oTranslate}}</h2>
         </div>
         <ng-container *ngIf="isChatSelected">
             <app-chat></app-chat>

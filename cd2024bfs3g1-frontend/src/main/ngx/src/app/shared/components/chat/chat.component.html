@@ -20,7 +20,7 @@
     <div #chatContainer class="chat-container-body">
 
         <ng-container *ngFor="let message of messages">
-            
+
             <div [ngClass]="{
                 'chat-message-container-sender': message.ownerId == this.currentUserId,
                 'chat-message-container-receiver': message.ownerId != this.currentUserId
@@ -49,7 +49,7 @@
     </div>
 
     <div class="progress-bar" *ngIf="msgCount < 0 ">
-        <span>Cargando mensajes...</span>
+        <span>{{ 'LOADING_MESSAGES' | oTranslate}}</span>
         <div class="progress-spinner">
             <mat-spinner></mat-spinner>
         </div>

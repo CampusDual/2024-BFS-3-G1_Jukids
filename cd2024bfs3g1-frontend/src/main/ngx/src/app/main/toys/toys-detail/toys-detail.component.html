@@ -100,7 +100,7 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
                 </a>
                 <ng-container *ngIf="isLogged && isNotTheSeller">
                   <button class="button btn-outline-light" (click)="chatSeller()">
-                    CONTACTA POR CHAT
+                    {{ 'CONTACT_CHAT' | oTranslate}}
                   </button>
                 </ng-container>
               </div>

@@ -278,6 +278,12 @@
   "LOCATION": "Location",
   "UPLOAD_PRODUCT_IMAGE": "Upload an image of your product",
   "DATA_ABOUT_PRODUCT": "Necessary data about your product",
-  "SELECT_PRODUCT_LOCATION": "Select the point on the map where the toy is located"
+  "SELECT_PRODUCT_LOCATION": "Select the point on the map where the toy is located",
+  "MESSAGES": "Messages",
+  "SELECT_CHAT": "Select a chat",
+  "LOADING_MESSAGES": "Loading messages...",
+  "MY_CHATS": "My chats",
+  "WRITE_MESSAGE": "Your message here",
+  "CONTACT_CHAT": "Contact by chat"
 
 }
