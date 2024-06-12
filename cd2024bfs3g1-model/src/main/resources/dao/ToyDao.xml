@@ -15,12 +15,17 @@
 
     <Queries>
         <Query id="default">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="usr_id" prefix="t" />
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                     SELECT
                         #COLUMNS#
                     FROM
-                        ${mainschema}.toys
+                        ${mainschema}.toys t
+                        LEFT JOIN
+                        ${mainschema}.usr_user u ON t.usr_id = u.usr_id
                     #WHERE#
                     #ORDER#
                 ]]>

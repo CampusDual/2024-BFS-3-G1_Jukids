@@ -8,6 +8,7 @@ import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
+import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.apache.tika.Tika;
@@ -35,16 +36,23 @@ public class Utils {
         return matcher.matches();
     }
 
-    public static HashMap<String, Object> imageService( HashMap<String, Object> toyData) throws IOException {
+    public static HashMap<String, Object> imageService( HashMap<String, Object> queryData) throws IOException {
         //String para verificar tipo correcto antes de modificar.
         String prefix = "image/";
 
         HashMap<String, Object> response = new HashMap<>();
+        byte[] decodedBytes;
+        if( queryData.containsKey("usr_name") ) {
+            //Decoded Image
+            decodedBytes = Base64.getDecoder().decode(
+                    (String) queryData.get(UserDao.PHOTO)
+            );
+        } else {
+            decodedBytes = Base64.getDecoder().decode(
+                    (String) queryData.get(ToyDao.ATTR_PHOTO)
+            );
+        }
 
-        //Decoded Image
-        byte[] decodedBytes = Base64.getDecoder().decode(
-                (String) toyData.get(ToyDao.ATTR_PHOTO)
-        );
 
         //Agregar al response
         response.put("decodedBytes", decodedBytes);
@@ -64,7 +72,6 @@ public class Utils {
 
         return response;
     }
-
     public static String getRole(){
         if(SecurityContextHolder.getContext() == null) {
             return null;
