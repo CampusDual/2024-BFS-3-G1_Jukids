@@ -7,12 +7,17 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,21 +45,21 @@ public class SurveyService implements ISurveyService {
     }
 
     @Override
-    public EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList) {
-        return this.daoHelper.query(surveyDao, keyMap, attrList, SurveyDao.QUERY_USER_AVG_RATING);
-    }
-
-    @Override
     public EntityResult surveyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
-
         this.daoHelper.insert(this.surveyDao, attrMap);
 
-        Integer toyId = (Integer) attrMap.get(ToyDao.ATTR_ID);
-        EntityResult toyUpdateResult = Utils.updateToyStatus(daoHelper, toyDao, toyId, ToyDao.STATUS_RATED);
-        if (toyUpdateResult.isWrong()) {
-            return Utils.createError("Error al actualizar el transaction_status");
-        }
+        Map<String, Object> updateStatus = new HashMap<>();
+        updateStatus.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_RATED);
 
-        return Utils.createMessageResult("Gracias por valorar");
+        Map<String, Object> keyMap = new HashMap<>();
+        keyMap.put(ToyDao.ATTR_ID, attrMap.get("toy_id"));
+
+        this.daoHelper.update(this.toyDao, updateStatus, keyMap);
+
+        EntityResult result = new EntityResultMapImpl();
+
+        result.setMessage("Gracias por valorar");
+
+        return result;
     }
 }

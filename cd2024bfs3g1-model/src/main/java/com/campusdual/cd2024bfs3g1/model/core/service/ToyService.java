@@ -1,16 +1,13 @@
 package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
-import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.SurveyDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.UserLocationDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.*;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.AdvancedEntityResultMapImpl;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -22,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,11 +37,11 @@ public class ToyService implements IToyService {
     @Autowired
     private OrderDao orderDao;
     @Autowired
-    private SurveyDao surveyDao;
-    @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private SurveyDao surveyDao;
 
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
@@ -56,7 +55,7 @@ public class ToyService implements IToyService {
 
         //Rearmar el XML toyPaginationQuery basado en la vista realizada.
 
-        //Retornar el resultado.
+        //Retornar el resultado
 
         return this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
     }
@@ -155,6 +154,8 @@ public class ToyService implements IToyService {
         keyMap.put(ToyDao.ATTR_CATEGORY, ToyDao.CAT_CARDS);
         return toyAvailableQuery(keyMap, attrList);
     }
+
+
 
     @Override
     public AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
@@ -256,7 +257,10 @@ public class ToyService implements IToyService {
             keysValues.put("EXPRESSION_KEY_UNIQUE_IDENTIFIER", totalExpressionDistance);
         }
 
-
+        //purgamos latitud y longitud
+        SQLStatementBuilder.BasicExpression latAndLonExpresion = (SQLStatementBuilder.BasicExpression) keysValues.get("EXPRESSION_KEY_UNIQUE_IDENTIFIER");
+        Utils.pruneTree(latAndLonExpresion,ToyDao.ATTR_LATITUDE);
+        Utils.pruneTree(latAndLonExpresion,ToyDao.ATTR_LONGITUDE);
         // Buscar por ID y DISTANCIA
         //return this.daoHelper.query( this.toyDao, queryMap, attrList, ToyDao.QUERY_V_TOYS_DISTANCES );
 
@@ -328,13 +332,6 @@ public class ToyService implements IToyService {
     }
 
     @Override
-    public EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList)
-            throws OntimizeJEERuntimeException{
-
-        return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
-    }
-
-    @Override
     @Transactional
     public EntityResult orderInsert(Map<String, Object> orderData) throws OntimizeJEERuntimeException {
 
@@ -373,5 +370,17 @@ public class ToyService implements IToyService {
         }
 
         return Utils.createMessageResult("Orden creada correctamente");
+    }
+
+    @Override
+    public EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList)
+            throws OntimizeJEERuntimeException{
+
+        return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
+    }
+
+    @Override
+    public EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return this.daoHelper.query(surveyDao,keyMap,attrList, SurveyDao.QUERY_USER_AVG_RATING);
     }
 }

@@ -8,9 +8,5 @@ import java.util.Map;
 
 public interface ISurveyService {
     EntityResult surveyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
-
-    EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList);
-
     EntityResult surveyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
-
 }

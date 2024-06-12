@@ -24,7 +24,8 @@ const routes: Routes = [{
 {
   path: "toysDetail/toysBuy/:toyid",
   component: ToysShippingComponent
-}];
+}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -46,7 +46,7 @@ export class ToysDetailComponent implements OnInit {
   }
 
   protected configureService() {
-    const conf = this.service.getDefaultServiceConfiguration("surveys");
+    const conf = this.service.getDefaultServiceConfiguration("toys");
     this.service.configureService(conf);
   }
 
@@ -88,6 +88,10 @@ export class ToysDetailComponent implements OnInit {
           this.ratingData = resp.data[0].usr_name;
         }
       });
+  }
+
+  redirect(){
+    this.router.navigateByUrl("/main/toys");
   }
 
   setStripe(): void {

@@ -7,6 +7,7 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.apache.tika.Tika;
@@ -34,7 +35,7 @@ public class Utils {
         return matcher.matches();
     }
 
-    public static HashMap<String, Object> imageService(HashMap<String, Object> toyData) throws IOException {
+    public static HashMap<String, Object> imageService( HashMap<String, Object> toyData) throws IOException {
         //String para verificar tipo correcto antes de modificar.
         String prefix = "image/";
 
@@ -53,7 +54,7 @@ public class Utils {
         String mimeType = tika.detect(new ByteArrayInputStream(decodedBytes));
 
 
-        if (mimeType.startsWith(prefix)) {
+        if( mimeType.startsWith( prefix ) ) {
             mimeType = mimeType.substring(prefix.length());
         }
 
@@ -64,15 +65,58 @@ public class Utils {
         return response;
     }
 
-    public static String getRole() {
-        if (SecurityContextHolder.getContext() == null) {
+    public static String getRole(){
+        if(SecurityContextHolder.getContext() == null) {
             return null;
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || auth.getAuthorities() == null || auth.getAuthorities().toArray().length == 0) {
+        if(auth == null || auth.getAuthorities() == null || auth.getAuthorities().toArray().length == 0) {
             return null;
         }
         return auth.getAuthorities().toArray()[0].toString();
+    }
+
+    public static void pruneTree(Object tree, String branchToRemove){
+        if(tree instanceof SQLStatementBuilder.BasicExpression){
+            SQLStatementBuilder.BasicExpression be = (SQLStatementBuilder.BasicExpression) tree;
+            if(be.getLeftOperand() instanceof SQLStatementBuilder.BasicExpression){
+                pruneTreeBranch(be, (SQLStatementBuilder.BasicExpression) be.getLeftOperand(),branchToRemove);
+            }
+            if(be.getRightOperand() instanceof SQLStatementBuilder.BasicExpression){
+                pruneTreeBranch(be, (SQLStatementBuilder.BasicExpression) be.getRightOperand(),branchToRemove);
+            }
+        }
+    }
+    private static void pruneTreeBranch(SQLStatementBuilder.BasicExpression tree,SQLStatementBuilder.BasicExpression branch, String branchToRemove){
+        if(mustLeafBeDeleted(branch.getLeftOperand(),branchToRemove)){
+            //sobrescrimimos la rama con la rama hija que permanece que es la contraria
+            reWriteBranch(tree, branch,branch.getRightOperand());
+        }else if(branch.getLeftOperand() instanceof SQLStatementBuilder.BasicExpression){
+            pruneTreeBranch(branch, (SQLStatementBuilder.BasicExpression) branch.getLeftOperand(),branchToRemove);
+        }
+        if(mustLeafBeDeleted(branch.getRightOperand(),branchToRemove)){
+            //sobrescrimimos la rama con la rama hija que permanece que es la contraria
+            reWriteBranch(tree,branch,branch.getLeftOperand());
+        }else if(branch.getRightOperand() instanceof SQLStatementBuilder.BasicExpression){
+            pruneTreeBranch(branch, (SQLStatementBuilder.BasicExpression) branch.getRightOperand(),branchToRemove);
+        }
+    }
+
+    private static void reWriteBranch(SQLStatementBuilder.BasicExpression parentTree,Object branchDeleted,Object remainBranch){
+        if(parentTree.getRightOperand().equals(branchDeleted)){
+            parentTree.setRightOperand(remainBranch);
+        }else{
+            parentTree.setLeftOperand(remainBranch);
+        }
+    }
+
+    private static boolean mustLeafBeDeleted(Object branch, String branchToRemove){
+        if(branch instanceof SQLStatementBuilder.BasicExpression){
+            SQLStatementBuilder.BasicExpression be = (SQLStatementBuilder.BasicExpression) branch;
+            return be.getLeftOperand() instanceof SQLStatementBuilder.BasicField && branchToRemove.equalsIgnoreCase(be.getLeftOperand().toString());
+        }else{
+            return false;
+        }
     }
 
     public static String getAuthenticatedEmail() {
