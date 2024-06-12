@@ -8,7 +8,7 @@
         width: 100%;
         display: flex;
         justify-content: flex-start;
-        align-content: center;        
+        align-content: center;
         margin-bottom: 10px;
 
         @media screen and (max-width: 1200px) {
@@ -92,7 +92,7 @@
         justify-content: center;
         gap: 2rem;
         margin-top: 1.75rem;
-    
+
 
         @media screen and (max-width: 900px) {
             flex-direction: column;
@@ -217,7 +217,8 @@
         justify-content: center;
         align-items: center;
         padding: 0.75rem;
-        background-color: white;
+        background-color: #3C7F72;
+        color: white;
         border: none;
         margin: 1.25rem 0;
         border-radius: 0.5rem;
