@@ -7,7 +7,6 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -79,7 +78,7 @@ public class ToyOwnerService implements IToyOwnerService {
     @Override
     public EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
         if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
-            return createError("No tienes permisos para actualizar este juguete: ");
+            return Utils.createError("No tienes permisos para actualizar este juguete: ");
         }
         return this.daoHelper.update(this.toyDao, attrMap, keyMap);
      }
@@ -87,7 +86,7 @@ public class ToyOwnerService implements IToyOwnerService {
     @Override
     public EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
         if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
-            return createError("No tienes permisos para borrar este juguete: ");
+            return Utils.createError("No tienes permisos para borrar este juguete: ");
         }
         return this.daoHelper.delete(this.toyDao, keyMap);
     }

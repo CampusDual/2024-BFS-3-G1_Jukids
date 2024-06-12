@@ -134,7 +134,7 @@ public class Utils {
     public static Object idGetter(DefaultOntimizeDaoHelper daoHelper, UserDao userDao) {
         String email = getAuthenticatedEmail();
 
-        if (Objects.isNull(email)) {
+        if (email == null) {
             return createError("No estas logueado");
         }
 
