@@ -1,19 +1,19 @@
-<div>
-    <h2>{{ 'HELLO' | oTranslate }} {{this.userInfo.usr_name}}!</h2>
-</div>
+<div class="user-profile-container">
 
-<div class="card-container">
-    <div class="card user-profile-home-listcard" (click)="toToyList()">
-        <img class="icon-image" src="assets/images/horsetoy.png">
-        <h2 style="margin-bottom:0; align-self: center;">{{ 'MY_TOYS' | oTranslate }}</h2>
-    </div>
-    <div class="card  user-profile-home-listcard" (click)="toBuyList()">
-        <img class="icon-image" src="assets/images/shoppingbag.png">
-        <h2 style="margin-bottom:0; align-self: center;">{{ 'PURCHASED_TOYS' | oTranslate }}</h2>
-    </div>
-    <div class="card  user-profile-home-listcard" (click)="toMyRatings()">
-        <img class="icon-image" src="assets/icons/star-fill.svg">
-        <h2 style="margin-bottom: 0; align-self: center;">{{ 'MY_RATINGS' | oTranslate }}</h2>
+    <!-- Cards -->
+    <div class="card-container">
+        <div class="card user-profile-home-listcard" (click)="toToyList()">
+            <img class="icon-image" src="assets/images/horsetoy.png">
+            <h2>{{ 'MY_TOYS' | oTranslate }}</h2>
+        </div>
+        <div class="card user-profile-home-listcard" (click)="toBuyList()">
+            <img class="icon-image" src="assets/images/shoppingbag.png">
+            <h2>{{ 'PURCHASED_TOYS' | oTranslate }}</h2>
+        </div>
+        <div class="card user-profile-home-listcard" (click)="toMyRatings()">
+            <img class="icon-image" src="assets/icons/star-fill.svg">
+            <h2>{{ 'MY_RATINGS' | oTranslate }}</h2>
+        </div>
     </div>
     <div class="card  user-profile-home-listcard" style="cursor: pointer;" routerLink="/main/user-profile/chats">
         <svg class="icon-image" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
