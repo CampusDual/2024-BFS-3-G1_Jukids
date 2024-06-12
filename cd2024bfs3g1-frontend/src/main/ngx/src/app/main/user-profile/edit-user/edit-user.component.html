@@ -1,0 +1,102 @@
+<div class="user-profile-container">
+  <div class="info-user">
+    <div class="user-info">
+      <h3>Información del Usuario</h3>
+    </div>
+    <o-form
+      #formUserEdit
+      class="form"
+      id="formUserEdit"
+      attr="usersDetail"
+      service="userowner"
+      entity="user"
+      keys="usr_id"
+      show-header-navigation="false"
+      show-header="false"
+      fxLayout="column"
+      show-header-actions-text="false"
+      undo-button="no"
+     
+    >
+      <o-row fxLayout="row" fxLayoutGap="20px">
+        <o-column class="left-column">
+          <div class="image-container">
+            <o-image
+              #usr_photo
+              title="{{ 'MAX_SIZE' | oTranslate }}"
+              max-file-size="4194304"
+              attr="usr_photo"
+              read-only="no"
+              hidden="yes"
+              show-controls="yes"
+              editable="yes"
+              empty-image="assets/images/no-image.png"
+              sql-type="OTHER"
+              required="yes"
+              accept=".jpg,.jpeg,.png"
+            ></o-image>
+          </div>
+        </o-column>
+
+        <o-column class="right-column">
+          
+          <span class="span-detail">Datos de usuario:</span>
+          
+            <div class="user-detail">
+              <o-text-input
+                #nameInput
+                attr="usr_name"
+                fxFlex="60"
+                read-only="no"
+                max-length="150"
+                appearance="outline"
+              ></o-text-input>
+              </div>
+
+              <div class="user-detail">
+              <o-text-input
+              #surnameInput
+              attr="usr_surname"
+              fxFlex="60"
+              read-only="no"
+              max-length="150"
+              appearance="outline"
+            ></o-text-input>
+            </div>
+         
+          <span class="span-detail">Datos de la cuenta:</span>
+        
+            <div class="user-detail">
+              <o-password-input
+                #passwordInput
+                attr="usr_password"
+                fxFlex="60"
+                read-only="no"
+                max-length="150"
+                appearance="outline"
+              ></o-password-input>
+              </div>
+              <div class="user-detail">
+              <o-email-input
+              #emailInput
+              attr="usr_login"
+              fxFlex="60"
+              read-only="no"
+              max-length="150"
+              appearance="outline"
+            ></o-email-input>
+            </div>
+          <o-text-input
+            hidden="true"
+            attr="usr_id"
+            sql-type="INTEGER"
+            enabled="no"
+            editable="no"
+            read-only="yes"
+          ></o-text-input>     
+          <button class="button btn-solid buttonBuy" (click)="saveForm()">{{ 'SAVE' | oTranslate }}</button>
+        </o-column>
+      </o-row>
+    </o-form>
+  </div>
+</div>

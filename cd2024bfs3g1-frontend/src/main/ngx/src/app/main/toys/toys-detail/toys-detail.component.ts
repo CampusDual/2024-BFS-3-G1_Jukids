@@ -44,7 +44,7 @@ export class ToysDetailComponent implements OnInit {
   @ViewChild('stripe') stripe: StripeComponent;
 
   constructor(
-    private toysMapService: ToysMapService, 
+    private toysMapService: ToysMapService,
     private router: Router,
     protected injector: Injector,
     private jkAuthService: JukidsAuthService,
@@ -101,11 +101,11 @@ export class ToysDetailComponent implements OnInit {
     this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue())
 
     this.mainService.getUserInfo().subscribe((data: ServiceResponse) => {
-      
+
       this.isNotTheSeller = (data.data.usr_id != this.usr_id.getValue());
-      
+
     });
-    
+
     this.setStripe();
 
     const filter = {
