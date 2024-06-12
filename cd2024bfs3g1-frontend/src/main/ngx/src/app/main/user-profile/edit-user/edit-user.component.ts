@@ -1,7 +1,8 @@
+import { Dialog } from '@angular/cdk/dialog';
 import { Component, OnInit, ViewChild, Injector } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { OFormComponent,  OTranslateService,  OUserInfoService, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
+import { DialogService, ODialogConfig, OFormComponent,  OTranslateService,  OUserInfoService, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { MainService } from 'src/app/shared/services/main.service';
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
@@ -22,6 +23,7 @@ export class EditUserComponent implements OnInit {
   usrId: number = null;
   mainInfo: any = {};
   ontiInfo: any = {};
+  formData: any = {};
 
   constructor(
     
@@ -32,7 +34,8 @@ export class EditUserComponent implements OnInit {
     private injector: Injector,
     private userInfoService: UserInfoService,
     private domSanitizer: DomSanitizer,
-    private oUserInfoService: OUserInfoService
+    private oUserInfoService: OUserInfoService,
+    protected dialogService: DialogService
   ) {
     if (!this.jukidsAuthService.isLoggedIn()) {
       const self = this;
@@ -62,22 +65,22 @@ export class EditUserComponent implements OnInit {
   }
 
   saveForm() {
-    const formData = this.formUserEdit.getFieldValues(['usr_id', 'usr_login','usr_name', 'usr_surname', 'usr_password', 'usr_photo']);
-    console.log(formData);
-    if (this.validateData(formData)) {
-      const kv = { "usr_id": formData.usr_id };
-      const av = { 
-        "usr_name": formData.usr_name,
-        "usr_surname": formData.usr_surname,
-        "usr_login" :formData.usr_login,
-        "usr_password": formData.usr_password, 
-        "usr_photo": formData.usr_photo 
-      };
-  
+    this.formData = this.formUserEdit.getFieldValues(['usr_id', 'usr_login','usr_name', 'usr_surname', 'usr_password', 'usr_photo']);    const formDataPassword = this.formUserEdit.getFieldValue("usr_password");
+    const kv = {"usr_id": this.formData};
+    const av = {
+      "usr_photo": this.formData.usr_photo, 
+      "usr_name": this.formData.usr_name, 
+      "usr_surname": this.formData.usr_surname, 
+      "usr_password": this.formData.usr_password,
+      "usr_login": this.formData.usr_login
+    }
+    
+    let errorEmail = "ERROR_EMAIL_EXIST";
+    if (this.validateData(this.formData)) {
       this.service.update(kv, av, "user").subscribe(
         response => {
           if (response.code === 0) {
-            this.formUserEdit.setData(response);
+            this.formUserEdit.update();
             
           }else{
             console.error(this.translate.get("ERROR_EMAIL_VALIDATION"))
@@ -85,11 +88,13 @@ export class EditUserComponent implements OnInit {
         },
         error => {
           console.error('Error updating user profile', error);
+          this.showCustom(errorEmail);
         }
       );
-      
-      this.router.navigate([this.redirect]);
+      console.log(this.formUserEdit.getFieldValues(['usr_id', 'usr_login','usr_name', 'usr_surname', 'usr_password', 'usr_photo']));
+      //this.router.navigate([this.redirect]);
     } else { 
+
       this.redirectHome();
     }
   }
@@ -111,8 +116,14 @@ export class EditUserComponent implements OnInit {
       );
     }
   }
+
   validateData(data: any): boolean {
-    return data.usr_photo || data.usr_name || data.usr_surname || data.usr_login || data.usr_password;
+    if (data.usr_photo || data.usr_name || data.usr_surname || data.usr_login || data.usr_password) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
 
@@ -120,6 +131,7 @@ export class EditUserComponent implements OnInit {
     const self = this;
       self.router.navigate([this.redirectToyList]);
   }
+
   profileRedirect() {
     this.router.navigate([this.redirect]);
   }
@@ -145,5 +157,11 @@ export class EditUserComponent implements OnInit {
           });
         }
       );
+  }
+  showCustom(errorEmail: string) { 
+    if (this.dialogService) {
+      this.dialogService.info('ERROR',
+          errorEmail);
+      }
   }
 }
