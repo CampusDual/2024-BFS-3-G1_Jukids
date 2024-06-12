@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogService, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, OGridComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -10,6 +10,37 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+
+  @ViewChild('oMapBasic') oMapBasic: OMapComponent;
+  @ViewChild('figuresGrid') figuresGrid: OGridComponent;
+  @ViewChild('plushiesGrid') plushiesGrid: OGridComponent;
+  @ViewChild('childrensToysGrid') childrensToysGrid: OGridComponent;
+  @ViewChild('boardGrid') boardGrid: OGridComponent;
+  @ViewChild('dollsGrid') dollsGrid: OGridComponent;
+  @ViewChild('actionToysGrid') actionToysGrid: OGridComponent;
+  @ViewChild('videogamesGrid') videogamesGrid: OGridComponent;
+  @ViewChild('craftsGrid') craftsGrid: OGridComponent;
+  @ViewChild('pedagogicalGrid') pedagogicalGrid: OGridComponent;
+  @ViewChild('sportGrid') sportGrid: OGridComponent;
+  @ViewChild('electronicGrid') electronicGrid: OGridComponent;
+  @ViewChild('collectiblesGrid') collectiblesGrid: OGridComponent;
+  @ViewChild('antiquesGrid') antiquesGrid: OGridComponent;
+  @ViewChild('cardsGrid') cardsGrid: OGridComponent;
+
+  public hasFigures: boolean;
+  public hasPlushies: boolean;
+  public hasChildGames: boolean;
+  public hasBoardGames: boolean;
+  public hasDolls: boolean;
+  public hasActionToys: boolean;
+  public hasVGames: boolean;
+  public hasCraftsToys: boolean;
+  public hasPedagogical: boolean;
+  public hasSportsToys: boolean;
+  public hasElectronicalToys: boolean;
+  public hasCollectives: boolean;
+  public hasAntiques: boolean;
+  public hasCardGames: boolean;
 
   private latitude: any;
   private longitude: any;
@@ -57,6 +88,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.baseUrl = 'http://localhost:8080';
     }
 
+    this.hasFigures = true;
+    this.hasPlushies = true;
+    this.hasChildGames = true;
+    this.hasBoardGames = true;
+    this.hasDolls = true;
+    this.hasActionToys = true;
+    this.hasVGames = true;
+    this.hasCraftsToys = true;
+    this.hasPedagogical = true;
+    this.hasSportsToys = true;
+    this.hasElectronicalToys = true;
+    this.hasCollectives = true;
+    this.hasAntiques = true;
+    this.hasCardGames = true;
+
     // Control de columnas en o-grid
     this.layoutChanges.subscribe((result) => {
       if (result.breakpoints[Breakpoints.XSmall]) {
@@ -87,8 +133,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
   }
 
-  @ViewChild('oMapBasic') oMapBasic: OMapComponent;
-
   //Insercion de la longuitud y la latitud del punto marcado en el mapa
   onMapClick(e) {
     this.latitude = e.latlng.lat;
@@ -115,7 +159,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         "photo": "sdad",
         "latitude": this.latitude,
         "longitude": this.longitude
-
       }
     };
 
@@ -136,12 +179,28 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(["./toys/toysDetail", toyId]);
   }
 
-  searchCategory(category): void {
-    this.router.navigate(['/main/toys'], { queryParams: { category: category } });
+  searchCategory(category):void {
+      this.router.navigate(['/main/toys'], {queryParams:{category: category}});
+    }
+
+  checkHasToys(category: string):void {
+    ((category === 'cat_Figures') && (this.figuresGrid.dataArray.length == 0)) && (this.hasFigures = false);
+    ((category === 'cat_Plushies') && (this.plushiesGrid.dataArray.length == 0)) && (this.hasPlushies = false);
+    ((category === 'cat_ChildrensToys') && (this.childrensToysGrid.dataArray.length == 0)) && (this.hasChildGames = false);
+    ((category === 'cat_Board') && (this.boardGrid.dataArray.length == 0)) && (this.hasBoardGames = false);
+    ((category === 'cat_Dolls') && (this.dollsGrid.dataArray.length == 0)) && (this.hasDolls = false);
+    ((category === 'cat_ActionToys') && (this.actionToysGrid.dataArray.length == 0)) && (this.hasActionToys = false);
+    ((category === 'cat_Videogames') && (this.videogamesGrid.dataArray.length == 0)) && (this.hasVGames = false);
+    ((category === 'cat_Crafts') && (this.craftsGrid.dataArray.length == 0)) && (this.hasCraftsToys = false);
+    ((category === 'cat_Pedagogical') && (this.pedagogicalGrid.dataArray.length == 0)) && (this.hasPedagogical = false);
+    ((category === 'cat_Sport') && (this.sportGrid.dataArray.length == 0)) && (this.hasSportsToys = false);
+    ((category === 'cat_Electronic') && (this.electronicGrid.dataArray.length == 0)) && (this.hasElectronicalToys = false);
+    ((category === 'cat_Collectibles') && (this.collectiblesGrid.dataArray.length == 0)) && (this.hasCollectives = false);
+    ((category === 'cat_Antiques') && (this.antiquesGrid.dataArray.length == 0)) && (this.hasAntiques = false);
+    ((category === 'cat_Cards') && (this.cardsGrid.dataArray.length == 0)) && (this.hasCardGames = false);
   }
 
-  //----------------- Carrusel -----------------   
-
+  //----------------- Carrusel -----------------
   public startAutoplay(interval) {
     clearInterval(this.autoplayInterval);  // Detiene cualquier autoplay anterior para evitar múltiples intervalos.
     let index = 0
