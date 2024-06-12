@@ -59,12 +59,11 @@
         justify-content: center;
         gap: 2rem;
         margin-top: 1.75rem;
-    
+
 
         @media screen and (max-width: 900px) {
             flex-direction: column;
         }
-
 
         .cardInfo {
             display: flex;
