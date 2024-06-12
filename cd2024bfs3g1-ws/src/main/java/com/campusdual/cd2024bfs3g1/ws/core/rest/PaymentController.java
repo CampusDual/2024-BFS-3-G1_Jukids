@@ -1,8 +1,7 @@
 package com.campusdual.cd2024bfs3g1.ws.core.rest;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
-import com.campusdual.cd2024bfs3g1.api.core.service.IShipmentService;
-import com.campusdual.cd2024bfs3g1.api.core.service.IToyOwnerService;
+
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.server.rest.ORestController;
@@ -11,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/payments")
@@ -49,14 +48,6 @@ public class PaymentController extends ORestController<IPaymentService> {
     ) throws StripeException {
         return new ResponseEntity<>(paymentService.checkSessionStatus(session_id), HttpStatus.OK);
     }
-
-//    @RequestMapping(value = "/session-status", method = RequestMethod.PUT)
-//    public ResponseEntity<EntityResult> sessionStatusUpdate(@RequestBody HashMap<String, Object> requestBody) {
-//        System.out.println("Request Body: " + requestBody); // Log para verificar la estructura del requestBody
-//        Map<String, Object> attrMap = (Map<String, Object>) requestBody.get("attrMap");
-//        Map<String, Object> keyMap = (Map<String, Object>) requestBody.get("keyMap");
-//        return new ResponseEntity<>(paymentService.sessionStatusUpdate(attrMap, keyMap), HttpStatus.OK);
-//    }
 
     @Override
     public IPaymentService getService() {

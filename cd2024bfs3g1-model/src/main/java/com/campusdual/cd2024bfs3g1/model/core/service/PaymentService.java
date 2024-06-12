@@ -16,7 +16,6 @@ import com.stripe.model.LineItemCollection;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.param.checkout.SessionListLineItemsParams;
-import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -189,33 +188,20 @@ public class PaymentService implements IPaymentService {
             throw new IllegalArgumentException("attrMap and keyMap cannot be null");
         }
 
-        int toyId  = Integer.parseInt(  keyMap.get(OrderDao.ATTR_TOY_ID).toString() );
-        System.out.println("Contenido de toyId: " + toyId);
+        // Se recupera ORDER_ID usando TOY_ID
 
-        String sessionId =  attrMap.get(OrderDao.ATTR_SESSION_ID).toString();
-        System.out.println("Contenido de sessionId: " + sessionId);
-
-        /**  Obtener el Order ID necesario para actualizar **/
-        // OrderID Where
+        int toyId = Integer.parseInt(keyMap.get(OrderDao.ATTR_TOY_ID).toString());
         HashMap<String, Object> orderIdKeyMap = new HashMap<>();
-        orderIdKeyMap.put( OrderDao.ATTR_TOY_ID, toyId );
+        orderIdKeyMap.put(OrderDao.ATTR_TOY_ID, toyId);
+        List<String> orderIdCollAttrMap = Arrays.asList(OrderDao.ATTR_ID);
+        EntityResult orderIdResult = this.daoHelper.query(this.orderDao, orderIdKeyMap, orderIdCollAttrMap);
 
-        //OrderID Column
-        List<String> orderIdCollAttrMap =  Arrays.asList(
-                OrderDao.ATTR_ID
-        );
-
-        //Get OrderId
-        EntityResult orderIdResult = this.daoHelper.query(this.orderDao, orderIdKeyMap , orderIdCollAttrMap);
-
-        if( orderIdResult.isWrong() || orderIdResult.isEmpty() ) {
+        if (orderIdResult.isWrong() || orderIdResult.isEmpty()) {
             return Utils.createError("Error al obtener el orderID relacionado.");
         }
 
-        // Se agrega el ORDER ID al Map de UPDATE
-        keyMap.put( OrderDao.ATTR_ID, orderIdResult.getRecordValues(0).get(OrderDao.ATTR_ID) );
+        keyMap.put(OrderDao.ATTR_ID, orderIdResult.getRecordValues(0).get(OrderDao.ATTR_ID));
 
-        /**  SE actualiza el ORDER con la session_id **/
         EntityResult updateResult = this.daoHelper.update(this.orderDao, attrMap, keyMap);
 
         if (updateResult.isWrong()) {
