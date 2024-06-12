@@ -793,11 +793,26 @@ o-map mat-sidenav-container{
   scrollbar-width: thin;
   scrollbar-color: $color-orange $color-orange-bg;
 }
+.editProfile{
+  color: #ffa366;
+  background-color: #fff;
+  border-radius: 0.4rem;
+  border: 2px solid;
+  padding: 0.2rem 1rem;
 
 ::-webkit-scrollbar-thumb {
   background-color: $color-orange;
 }
+}
 
 ::-webkit-scrollbar-track {
   display: none;
+}
+.header-user-profile h2{
+    max-width: 15%;
+}
+.header-user-profile div{
+  margin-left: 15rem;
+  margin-top: -3rem;
+  margin-bottom: 2rem;
 }

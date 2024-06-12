@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfs3g1.api.core.service.IToyOwnerService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ShipmentDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -20,6 +21,7 @@ import java.util.*;
 @Lazy
 public class ToyOwnerService implements IToyOwnerService {
 
+    public static final String ADMIN = "admin";
     @Autowired
     private ToyDao toyDao;
     @Autowired
@@ -233,89 +235,18 @@ public class ToyOwnerService implements IToyOwnerService {
 
     @Override
     public EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userLogin = auth.getName();
-
-        if (userLogin != null) {
-
-            HashMap<String, Object> keyUserValues = new HashMap<>();
-            keyUserValues.put(UserDao.LOGIN, userLogin);
-            List<String> attrList = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keyUserValues, attrList);
-
-            if (userData.isWrong()) {
-                return userData;
-            }
-
-            if (userData.isEmpty()) {
-
-                return createError("No se encuentra el usuario: " + userLogin);
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-
-            HashMap<String, Object> keyToyValues = new HashMap<>();
-            keyToyValues.put(ToyDao.ATTR_USR_ID, idUser);
-            List<String> toyList = Arrays.asList(ToyDao.ATTR_USR_ID);
-            EntityResult toyData = this.daoHelper.query(toyDao, keyToyValues, toyList);
-
-            Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
-            attrMap.put(UserDao.USR_ID, idUser);
-
-            if (!idUser.equals(toyIdUser)){
-
-                return createError("No tienes permisos para actualizar este juguete: ");
-            }
-
-           return this.daoHelper.update(this.toyDao, attrMap, keyMap);
-
-        } else {
-
-            return createError("No estas logueado");
+        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
+            return createError("No tienes permisos para actualizar este juguete: ");
         }
+        return this.daoHelper.update(this.toyDao, attrMap, keyMap);
      }
 
     @Override
     public EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userLogin = auth.getName();
-
-        if (userLogin != null) {
-
-            HashMap<String, Object> keyUserValues = new HashMap<>();
-            keyUserValues.put(UserDao.LOGIN, userLogin);
-            List<String> attrList = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keyUserValues, attrList);
-
-            if (userData.isWrong()) {
-                return userData;
-             }
-
-            if (userData.isEmpty()) {
-
-                return createError("No se encuentra el usuario: " + userLogin);
-             }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-
-            HashMap<String, Object> keyToyValues = new HashMap<>();
-            keyToyValues.put(ToyDao.ATTR_USR_ID, idUser);
-            List<String> toyList = Arrays.asList(ToyDao.ATTR_USR_ID);
-            EntityResult toyData = this.daoHelper.query(toyDao, keyToyValues, toyList);
-            Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
-
-            if (!idUser.equals(toyIdUser)){
-
-                return createError("No tienes permisos para borrar este juguete: ");
-            }
-
-            return this.daoHelper.delete(this.toyDao, keyMap);
-
-        } else {
-
-            return createError("No estas logueado");
+        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
+            return createError("No tienes permisos para borrar este juguete: ");
         }
+        return this.daoHelper.delete(this.toyDao, keyMap);
     }
 
     private EntityResult createError(String mensaje){
@@ -325,5 +256,36 @@ public class ToyOwnerService implements IToyOwnerService {
         errorEntityResult.setMessage(mensaje);
 
         return errorEntityResult;
+    }
+
+    private boolean isOwnerOrAdmin(Integer toyId){
+        if(ADMIN.equalsIgnoreCase(Utils.getRole())){
+            return true;
+        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userLogin = auth.getName();
+        if (userLogin == null) {
+            return false;
+        }
+        //Obtenemos el id del usuario que hace la petición
+        HashMap<String, Object> keyUserValues = new HashMap<>();
+        keyUserValues.put(UserDao.LOGIN, userLogin);
+        List<String> attrList = Arrays.asList(UserDao.USR_ID);
+        EntityResult userData = this.daoHelper.query(userDao, keyUserValues, attrList);
+        if (userData.isWrong()||userData.isEmpty()) {
+            return false;
+        }
+        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+
+        //Obtenemos el id del dueño del juguete
+        HashMap<String, Object> keyToyValues = new HashMap<>();
+        keyToyValues.put(ToyDao.ATTR_ID, toyId);
+        List<String> toyList = Arrays.asList(ToyDao.ATTR_USR_ID);
+        EntityResult toyData = this.daoHelper.query(toyDao, keyToyValues, toyList);
+        if (toyData.isWrong()||toyData.isEmpty()) {
+            return false;
+        }
+        Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
+        return idUser.equals(toyIdUser);
     }
 }
