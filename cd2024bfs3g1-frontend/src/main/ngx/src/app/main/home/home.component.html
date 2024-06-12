@@ -1,10 +1,20 @@
 <div fxLayout="column" layout-padding fxLayoutAlign="center center">
   <div class="banner-box">
-    <div *ngIf='language == "es"' class="banner-svg">
-      <img src="assets/images/svg/banner-es.svg" />
+    <div  *ngIf='language == "es"' class="banner-container">
+      <div class="banner-svg">
+        <div class="img-container"><img src="assets/images/svg/banner-es.svg" /></div>
+      </div>
+      <div class="banner-svg hidden">
+        <div class="img-container"><img src="assets/images/svg/banner2-es.svg" /></div>
+      </div>
     </div>
-    <div *ngIf='language == "en"'class="banner-svg">
-      <img  src="assets/images/svg/banner-en.svg" />
+    <div *ngIf='language == "en"'class="banner-container">
+      <div class="banner-svg">
+        <div class="img-container"><img  src="assets/images/svg/banner-en.svg"/></div>
+      </div>
+      <div class="banner-svg hidden">
+        <div class="img-container"><img src="assets/images/svg/banner2-en.svg"/></div>
+      </div>
     </div>
     <div class="banner-background bg-color-orange-transparent"></div>
   </div>

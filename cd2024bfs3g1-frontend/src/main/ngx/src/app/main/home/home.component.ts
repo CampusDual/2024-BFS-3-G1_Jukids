@@ -48,7 +48,8 @@ export class HomeComponent implements OnInit {
   private location: any;
   public cols: number = 5;
   public queryRows: number = 5;
-  public language:string = "es";
+  public language: string = "es";
+  private autoplayInterval = null; //Variable para el carrusel
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
@@ -66,11 +67,11 @@ export class HomeComponent implements OnInit {
     private actRoute: ActivatedRoute,
     private ontimizeService: OntimizeService,
     protected dialogService: DialogService,
-    private  toysMapService: ToysMapService,
+    private toysMapService: ToysMapService,
     private breakpointObserver: BreakpointObserver,
     private translate: OTranslateService,
   ) {
-     //Configuración del servicio para poder ser usado
+    //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
     this.language = translate.getStoredLanguage();
@@ -116,16 +117,21 @@ export class HomeComponent implements OnInit {
         this.cols = 5;
       }
     });
-   
-    this.translate.onLanguageChanged.subscribe(data=>{
+
+    this.translate.onLanguageChanged.subscribe(data => {
       this.language = data;
       console.log(data);
     });
+
+    setTimeout(() => {
+      // Iniciar autoplay con un intervalo de 5 segundos.
+      this.startAutoplay(5000)
+    }, 5);
   }
- 
-   navigate() {
-     this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
-   }
+
+  navigate() {
+    this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
+  }
 
   //Insercion de la longuitud y la latitud del punto marcado en el mapa
   onMapClick(e) {
@@ -192,5 +198,37 @@ export class HomeComponent implements OnInit {
     ((category === 'cat_Collectibles') && (this.collectiblesGrid.dataArray.length == 0)) && (this.hasCollectives = false);
     ((category === 'cat_Antiques') && (this.antiquesGrid.dataArray.length == 0)) && (this.hasAntiques = false);
     ((category === 'cat_Cards') && (this.cardsGrid.dataArray.length == 0)) && (this.hasCardGames = false);
+  }
+  searchCategory(category): void {
+    this.router.navigate(['/main/toys'], { queryParams: { category: category } });
+  }
+
+  //----------------- Carrusel -----------------
+
+  public startAutoplay(interval) {
+    clearInterval(this.autoplayInterval);  // Detiene cualquier autoplay anterior para evitar múltiples intervalos.
+    let index = 0
+    const bannerContainer = document.querySelector('.banner-container');
+    const total = document.querySelectorAll('.banner-svg');
+    const totalImages = document.querySelectorAll('.banner-svg').length;
+    this.autoplayInterval = setInterval(() => {
+      console.log(index, "-----------------------------------")
+      console.log(index == totalImages - 1);
+      this.carrusel(index);  // Navega a la siguiente imagen cada intervalo de tiempo.
+      (index == totalImages - 1) ? index = 0 : index++;
+    }, interval);
+  }
+
+  public carrusel(index) {
+    const bannerContainer = document.querySelector('.banner-container');
+    const totalImages = document.querySelectorAll('.banner-svg');
+    console.log(bannerContainer.children[totalImages.length - 1])
+    totalImages.forEach((element, key) => {
+      if (key == index) {
+        element.classList.remove("hidden")
+      } else {
+        element.classList.add("hidden")
+      }
+    });
   }
 }
