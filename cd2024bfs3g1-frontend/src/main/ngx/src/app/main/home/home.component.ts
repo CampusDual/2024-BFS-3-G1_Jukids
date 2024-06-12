@@ -199,12 +199,8 @@ export class HomeComponent implements OnInit {
     ((category === 'cat_Antiques') && (this.antiquesGrid.dataArray.length == 0)) && (this.hasAntiques = false);
     ((category === 'cat_Cards') && (this.cardsGrid.dataArray.length == 0)) && (this.hasCardGames = false);
   }
-  searchCategory(category): void {
-    this.router.navigate(['/main/toys'], { queryParams: { category: category } });
-  }
 
   //----------------- Carrusel -----------------
-
   public startAutoplay(interval) {
     clearInterval(this.autoplayInterval);  // Detiene cualquier autoplay anterior para evitar múltiples intervalos.
     let index = 0

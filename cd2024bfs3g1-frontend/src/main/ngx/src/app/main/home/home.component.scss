@@ -53,6 +53,9 @@
     flex-direction: column;
     justify-items: center;
 
+    @media screen and (max-width: 1500px) {
+        width: 95%;
+    }
     @media screen and (max-width: 550px) {
         margin-top: 5px;
     }
@@ -61,7 +64,7 @@
 .row-title {
     font-weight: bolder;
     color: rgb(0, 0, 0);
-    padding-left: 1%;
+    padding-left: .3em;
     text-transform: uppercase;
 
     @media screen and (max-width: 550px) {
@@ -73,7 +76,7 @@
     display: none;
     font-weight: bolder;
     color: rgb(0, 0, 0);
-    padding-left: 1%;
+    padding-left: .3em;
     text-transform: uppercase;
 
     @media screen and (max-width: 550px) {
@@ -84,12 +87,12 @@
 .icons-box {
     display: flex;
     width: 50%;
-    max-width: 900px;
+    max-width: 100%;
     margin: 30px auto;
     align-items: center;
     justify-content: space-between;
 
-    @media screen and (max-width: 450px) {
+    @media screen and (max-width: 500px) {
         display: none;
     }
 

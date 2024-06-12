@@ -214,19 +214,13 @@ nav {
 
 //==================================== CARD PRODUCT DESIGN ====================================
 .grid-container {
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 10px;
     margin-bottom: 10px;
 }
 
 .grid-toys-search-container {
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    width: 85%;
     margin: auto;
+    width: 90%;
+    min-width: 350px;
 }
 
 .card {
@@ -369,7 +363,7 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   // padding: .5em;
-  padding: 10px 30px 0px 10px;
+  padding: .5em .5em 0 .5em;
   background-color: white;
   color: #333;
   font-family: Arial, sans-serif;
