@@ -8,7 +8,7 @@
         width: 60%;
         display: flex;
         justify-content: flex-start;
-        align-content: center;        
+        align-content: center;
         margin-bottom: 10px;
 
         @media screen and (max-width: 1200px) {
@@ -208,6 +208,12 @@
 button{
     margin: 0.5rem 0;
 }
+
+.buttonBuy {
+  &:hover {
+    box-shadow: 0 0 10px #3C7F72;
+    }
+  }
 
 .link {
     color: #9b9b9b;
