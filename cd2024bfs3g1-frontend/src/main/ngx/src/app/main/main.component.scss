@@ -1,4 +1,4 @@
-.o-app-header{
+.o-app-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +26,7 @@
   }
 }
 
-.nav-center-side{
+.nav-center-side {
   display: flex;
   flex: 1 1 auto;
   margin: 0px 1rem;
@@ -34,11 +34,9 @@
   border: 3px solid white;
   background-color: #fff;
   border-radius: 0.7rem;
-  @media screen and (max-width: 550px) {
-    // max-width: 50%;
-  }
 
-  .input-search{
+
+  .input-search {
     flex: 1 1 auto;
     padding-right: 60px;
     border: 3px solid white;
@@ -49,31 +47,32 @@
     @media screen and (max-width: 550px) {
       width: 6rem;
       padding: 0px 1px;
-      // max-width: 83%;
 
-      &::-webkit-input-placeholder { /* WebKit browsers */
+      &::-webkit-input-placeholder {
+        /* WebKit browsers */
         font-size: .7rem;
       }
 
-      &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      &:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
         font-size: .7rem;
       }
 
-      &::-moz-placeholder { /* Mozilla Firefox 19+ */
+      &::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
         font-size: .7rem;
       }
 
-      &:-ms-input-placeholder { /* Internet Explorer 10+ */
+      &:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
         font-size: .7rem;
       }
     }
 
   }
 
-  .clear-button, .search-button {
-    // position: absolute;
-    // top: 50%;
-    // transform: translateY(-50%);
+  .clear-button,
+  .search-button {
     background: none;
     border: none;
     cursor: pointer;
@@ -82,20 +81,23 @@
   }
 
   .clear-button {
-    right: 25px; /* Posiciona el botón de limpiar */
+    right: 25px;
+    /* Posiciona el botón de limpiar */
   }
 
   .search-button {
     margin-top: 0.2rem;
-    right: 5px; /* Posiciona el botón de búsqueda */
+    right: 5px;
+    /* Posiciona el botón de búsqueda */
   }
 
-    .clear-button:hover, .search-button:hover {
-      color: #000;
-    }
+  .clear-button:hover,
+  .search-button:hover {
+    color: #000;
   }
-
 }
+
+
 
 .nav-right-side {
   display: flex;
