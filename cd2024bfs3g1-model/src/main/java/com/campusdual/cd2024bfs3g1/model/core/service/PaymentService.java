@@ -4,11 +4,9 @@ import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
-import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
@@ -18,12 +16,10 @@ import com.stripe.model.LineItemCollection;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.param.checkout.SessionListLineItemsParams;
-import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.awt.datatransfer.Clipboard;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -185,7 +181,7 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public EntityResult sessionStatusUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) {
+    public EntityResult sessionStatusUpdate(Map<String, Object> keyMap, Map<String, Object> attrMap) {
 
         if (attrMap == null || keyMap == null) {
             throw new IllegalArgumentException("attrMap and keyMap cannot be null");
@@ -194,12 +190,9 @@ public class PaymentService implements IPaymentService {
         String sessionId = attrMap.get(OrderDao.ATTR_SESSION_ID).toString();
         System.out.println("Contenido de sessionId: " + sessionId);
 
-        EntityResult resultStatus = checkSessionStatus(sessionId);
-        System.out.println("Contenido de resultStatus: " + resultStatus.toString());
+        int toyId = (Integer) keyMap.get(OrderDao.ATTR_TOY_ID);
+        System.out.println("Contenido de toyId: " + toyId);
 
-        int toyId = (Integer) resultStatus.getRecordValues(0).get(ToyDao.ATTR_ID);
-
-        keyMap.put(OrderDao.ATTR_TOY_ID, toyId);
         EntityResult updateResult = daoHelper.update(orderDao, attrMap, keyMap);
 
         if (updateResult.isWrong()) {

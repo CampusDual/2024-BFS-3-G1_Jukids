@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { StripeCardComponent } from 'ngx-stripe';
+import { OButtonComponent, OFormComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-checkout',
@@ -13,7 +14,11 @@ export class CheckoutComponent implements OnInit {
   protected DONT_HESITATE: string;
   protected THANK_YOU_PURCHASE: string;
   protected TOY_BUTTON: string;
+  @Input('toyId') toyId: string;
 
+  @ViewChild(StripeCardComponent) cardElement!: StripeCardComponent;
+  @ViewChild('stripeForm') protected stripeForm: OFormComponent;
+  @ViewChild('payButton') protected payButton: OButtonComponent;
   
   constructor(
     private actRoute: ActivatedRoute,
@@ -25,10 +30,10 @@ export class CheckoutComponent implements OnInit {
     this.actRoute.queryParams.subscribe({
       next: (params) => {
         console.log("params id : ", params.session_id);
-        const kv = { "session_id": params.session_id };
-        const av = { "toyid": 0 };
+        const kv = { "toyid": this.toyId };
+        const av = { "session_id": params.session_id };
         this.configureUpdateService();
-        this.oService.update(av, kv, "sessionStatus").subscribe({
+        this.oService.update(kv, av, "sessionStatus").subscribe({
           next: (response) => {
             console.log('Response from sessionStatusUpdate:', response);
           },
