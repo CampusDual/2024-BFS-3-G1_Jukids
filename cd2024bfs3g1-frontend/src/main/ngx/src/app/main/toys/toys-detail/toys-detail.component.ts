@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { OCurrencyInputComponent, OEmailInputComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { ChatComponent } from 'src/app/shared/components/chat/chat.component';
-import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
+// import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { MainService } from 'src/app/shared/services/main.service';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
@@ -36,7 +36,7 @@ export class ToysDetailComponent implements OnInit {
   @ViewChild('longitude') lon: OTextInputComponent;
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
   @ViewChild('statusInput') toyStatus: OTextInputComponent;
-  @ViewChild('stripe') stripe: StripeComponent;
+  // @ViewChild('stripe') stripe: StripeComponent;
 
 
 
@@ -79,8 +79,6 @@ export class ToysDetailComponent implements OnInit {
       this.customer_id = data.data.usr_id;
     });
 
-    this.setStripe();
-
     const filter = {
       usr_id: this.usr_id.getValue(),
     };
@@ -88,7 +86,7 @@ export class ToysDetailComponent implements OnInit {
     this.service
       .query(filter, columns, "userAverageRating")
       .subscribe((resp) => {
-        console.log(resp.data[0]);
+        // console.log(resp.data[0]);
         if (resp.code === 0 && resp.data.length > 0) {
           this.varRating = resp.data[0].rating.toFixed(1);
           this.ratingData = resp.data[0].usr_name + " : " + this.varRating;
@@ -102,15 +100,9 @@ export class ToysDetailComponent implements OnInit {
     this.router.navigateByUrl("/main/toys");
   }
 
-  setStripe(): void {
-    this.stripe.toyId = this.toyId.getValue();
-    this.stripe.product = this.toyName.getValue();
-    this.stripe.email = this.toyEmail.getValue();
-  }
-
-  checkout() {
-    this.stripe.ckeckout();
-  }
+  // checkout() {
+  //   this.stripe.ckeckout();
+  // }
 
   searchCategory(category):void {
     this.router.navigate(['/main/toys'], {queryParams:{category: category}});

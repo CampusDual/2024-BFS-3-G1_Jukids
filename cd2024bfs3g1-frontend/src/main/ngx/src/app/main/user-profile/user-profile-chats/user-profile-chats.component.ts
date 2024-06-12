@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OListComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
+import { OListComponent, OTranslateService, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { ChatComponent } from 'src/app/shared/components/chat/chat.component';
 import { ChatUserProfileInterfaceResponse } from 'src/app/shared/interfaces/chat-user-profile.interface';
@@ -36,7 +36,8 @@ export class UserProfileChatsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private location: Location,
     private chatService: ChatService,
-    private toyService: OntimizeService
+    private toyService: OntimizeService,
+    private translate: OTranslateService
   ) {
 
     this.subscription = this.chatService.getUserProfileChatData().subscribe({
@@ -96,4 +97,10 @@ export class UserProfileChatsComponent implements OnInit, OnDestroy {
   goBack() {
     this.location.back();
   }
+
+
+  getTranslate(key: string): string {
+    return this.translate.get(key);
+  }
+
 }

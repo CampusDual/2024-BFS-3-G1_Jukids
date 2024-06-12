@@ -285,5 +285,7 @@
   "LOADING_MESSAGES": "Cargando mensajes...",
   "MY_CHATS": "Mis chats",
   "WRITE_MESSAGE": "Escribe tu mensaje",
-  "CONTACT_CHAT": "Contactar por chat"
+  "CONTACT_CHAT": "Contactar por chat",
+  "SEND_CHAT": "Enviar mensaje",
+  "UPDATE_CHATS": "Actualizar chats"
 }

@@ -10,7 +10,7 @@
     }
 
     @media screen and (max-width: 900px) {
-        padding: 10px;
+        padding: 0px;
         gap: 10px;
     }
 
@@ -50,6 +50,7 @@
                 }
                 h4 {
                     @media screen and (max-width: 550px) {
+                        display: none;
                         margin: 0;
                         font-size: 0.7em;
 
@@ -156,10 +157,20 @@
 
                     @media screen and (max-width: 550px) {
                         flex-direction: column;
+                        margin: 10px 0px;
+                        padding: 0px;
+                        padding-bottom: 5px;
+                        border-left: 3px solid #FFA366;
                     }
 
                     .chat-prod-image {
                         min-width: 20%;
+
+                        @media screen and (max-width: 550px) {
+                            width: 100%;
+                            display: flex;
+
+                        }
 
                         .product-image {
                             width: 70px;
@@ -194,6 +205,8 @@
 
                         @media screen and (max-width: 550px) {
                             padding: 0 10px;
+                            width: auto;
+                            width: 100%;
                         }
 
                         @media screen and (max-width: 900px) {
@@ -438,8 +451,6 @@
     //         }
     //     }
     // }
-
-
 
 
 

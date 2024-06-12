@@ -5,7 +5,7 @@ import { ChatService } from '../../services/chat.service';
 import { JukidsAuthService } from '../../services/jukids-auth.service';
 import { ChatJoinRoomInterface } from '../../interfaces/chat-join-room.interface';
 import { MainService } from '../../services/main.service';
-import { ServiceResponse } from 'ontimize-web-ngx';
+import { OTranslateService, ServiceResponse } from 'ontimize-web-ngx';
 import { ChatUserProfileInterfaceResponse } from '../../interfaces/chat-user-profile.interface';
 import { FormControl } from '@angular/forms';
 
@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
 
   scrolledToBottom: boolean = false;
   //============================= CHAT SEND VARIABLE =============================
@@ -49,7 +49,8 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
     private dialog: MatDialog,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     private chatService: ChatService,
-    private mainService: MainService
+    private mainService: MainService,
+    private translate: OTranslateService
   ) {
     // console.log('MATLOGDATA:', data);
 
@@ -61,15 +62,6 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
     this.chatService.connect();
 
   }
-  ngAfterViewInit(): void {
-    this.scrollToBottomIfNeeded();
-  }
-
-  ngAfterViewChecked(): void {    
-    // Analizar posible bug
-    this.scrollToBottom();
-  }
-
 
   ngOnInit(): void {
 
@@ -102,7 +94,7 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
       this.chatService.getUserProfileChatData().subscribe({
         next: (data: ChatUserProfileInterfaceResponse) => {
-          // console.log(data);
+          console.log(data);
           //Si es la primera vez se asigna la data
           if (this.currentProfileChatData == null) {
             this.currentProfileChatData = data;
@@ -148,7 +140,7 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
     this.chatService.getCurrentMessagesCount().subscribe({
       next: (data: any) => {
         this.msgCount = data;
-        console.log("msgCount: ", this.msgCount);
+        // console.log("msgCount: ", this.msgCount);
       },
       error: (err: any) => {
         console.log(err);
@@ -158,7 +150,7 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
     //============================= Ver mensajes y actualizar =============================
     this.chatService.getMessage().subscribe({
       next: (data: ChatMessageResponseInterface) => {
-        console.log("data: ", data);
+        // console.log("data: ", data);
         let nowInsertedDateChat;
         if (typeof data.insertedDate == "string"
           && data.insertedDate.indexOf('CEST') > -1) {
@@ -171,7 +163,7 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
         // console.log("DATA: ", data);
         this.messages.push(data);
         //Ver control para bajarlo a abajo de todo.
-        // console.log("messages: ", this.messages); 
+        // console.log("messages: ", this.messages);
 
       },
       error: (err: any) => {
@@ -180,6 +172,21 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
     });
 
   }
+  ngAfterViewInit(): void {
+    this.scrollToBottomIfNeeded();
+  }
+
+  ngAfterViewChecked(): void {
+    // Analizar posible bug
+    this.scrollToBottom();
+  }
+
+  ngOnDestroy(): void {
+    this.msgCount = -1;
+    this.messages = [];
+  }
+
+
 
   // Método para comprobar y realizar el scroll al final si es necesario
   scrollToBottomIfNeeded(): void {
@@ -222,7 +229,7 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
 
       this.chatInput.nativeElement.value = '';
-      
+
       this.scrolledToBottom = false; // Indicamos que el scroll no se ha realizado al agregar un nuevo mensaje
       this.scrollToBottomIfNeeded();
 
@@ -230,7 +237,7 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
 
-   
+
 
 
   async getUserImage(userId: string): Promise<void> {
@@ -247,9 +254,10 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked {
     }
   }
 
+  // ============================== TRANSLATES ==============================
 
-
-
-
+  getTranslate(key: string): string {
+    return this.translate.get(key);
+  }
 
 }

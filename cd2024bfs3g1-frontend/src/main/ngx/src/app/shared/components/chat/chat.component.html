@@ -49,7 +49,7 @@
     </div>
 
     <div class="progress-bar" *ngIf="msgCount < 0 ">
-        <span>{{ 'LOADING_MESSAGES' | oTranslate}}</span>
+        <span>{{ 'LOADING_MESSAGES' | oTranslate }}</span>
         <div class="progress-spinner">
             <mat-spinner></mat-spinner>
         </div>
@@ -57,11 +57,11 @@
 
     <div class="chat-container-footer">
         <input #chatInput class="chat-input" type="text"
-            [placeholder]="msgCount < 0 ? 'Cargando mensajes...' : 'Escribe tu mensaje'"
+            [placeholder]=" msgCount < 0 ? getTranslate('LOADING_MESSAGES') : getTranslate('WRITE_MESSAGE')"
             (keyup.enter)="sendMessage(chatInput.value)" autocomplete="off" [disabled]="msgCount < 0" maxlength="255">
 
 
-        <button class="chat-btn-send" (click)="sendMessage(chatInput.value)">
+        <button class="chat-btn-send" (click)="sendMessage(chatInput.value)" [matTooltip]="getTranslate('SEND_CHAT')">
 
             <svg class="send-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
