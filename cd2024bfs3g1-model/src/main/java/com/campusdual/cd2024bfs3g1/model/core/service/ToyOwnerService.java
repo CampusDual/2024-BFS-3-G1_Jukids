@@ -7,10 +7,14 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
+import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,6 +23,7 @@ import java.util.*;
 @Lazy
 public class ToyOwnerService implements IToyOwnerService {
 
+    public static final String ADMIN = "admin";
     @Autowired
     private ToyDao toyDao;
     @Autowired
@@ -72,41 +77,49 @@ public class ToyOwnerService implements IToyOwnerService {
     }
 
     @Override
-    public EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) {
-
-        Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
-
-        HashMap<String, Object> keyToyValues = new HashMap<>();
-        keyToyValues.put(ToyDao.ATTR_USR_ID, idUser);
-        List<String> toyList = List.of(ToyDao.ATTR_USR_ID);
-        EntityResult toyData = this.daoHelper.query(toyDao, keyToyValues, toyList);
-
-        Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
-        attrMap.put(UserDao.USR_ID, idUser);
-
-        if (!idUser.equals(toyIdUser)) {
-            return Utils.createError("No tienes permisos para actualizar este juguete: ");
+    public EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
+        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
+            return createError("No tienes permisos para actualizar este juguete: ");
         }
-
         return this.daoHelper.update(this.toyDao, attrMap, keyMap);
-    }
+     }
 
     @Override
-    public EntityResult toyDelete(Map<String, Object> keyMap) {
-
-        Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
-
-        HashMap<String, Object> keyToyValues = new HashMap<>();
-        keyToyValues.put(ToyDao.ATTR_USR_ID, idUser);
-        List<String> toyList = List.of(ToyDao.ATTR_USR_ID);
-        EntityResult toyData = this.daoHelper.query(toyDao, keyToyValues, toyList);
-
-        Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
-
-        if (!idUser.equals(toyIdUser)) {
-            return Utils.createError("No tienes permisos para borrar este juguete: ");
+    public EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
+        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
+            return createError("No tienes permisos para borrar este juguete: ");
         }
-
         return this.daoHelper.delete(this.toyDao, keyMap);
+    }
+
+    private boolean isOwnerOrAdmin(Integer toyId){
+        if(ADMIN.equalsIgnoreCase(Utils.getRole())){
+            return true;
+        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userLogin = auth.getName();
+        if (userLogin == null) {
+            return false;
+        }
+        //Obtenemos el id del usuario que hace la petición
+        HashMap<String, Object> keyUserValues = new HashMap<>();
+        keyUserValues.put(UserDao.LOGIN, userLogin);
+        List<String> attrList = Arrays.asList(UserDao.USR_ID);
+        EntityResult userData = this.daoHelper.query(userDao, keyUserValues, attrList);
+        if (userData.isWrong()||userData.isEmpty()) {
+            return false;
+        }
+        Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
+
+        //Obtenemos el id del dueño del juguete
+        HashMap<String, Object> keyToyValues = new HashMap<>();
+        keyToyValues.put(ToyDao.ATTR_ID, toyId);
+        List<String> toyList = Arrays.asList(ToyDao.ATTR_USR_ID);
+        EntityResult toyData = this.daoHelper.query(toyDao, keyToyValues, toyList);
+        if (toyData.isWrong()||toyData.isEmpty()) {
+            return false;
+        }
+        Integer toyIdUser = (Integer) toyData.getRecordValues(0).get(ToyDao.ATTR_USR_ID);
+        return idUser.equals(toyIdUser);
     }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OComboComponent, OCurrencyInputComponent, ODialogConfig, OEmailInputComponent, OFormComponent, OTextInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { LoginComponent } from 'src/app/login/login.component';
@@ -71,7 +70,7 @@ export class ToysShippingComponent implements OnInit {
     private jukidsAuthService: JukidsAuthService,
     private oServiceToy: OntimizeService,
     private oServiceOrder: OntimizeService,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
   }
 
@@ -275,10 +274,6 @@ export class ToysShippingComponent implements OnInit {
       this.dialogService.info(dialogTitle, dialogText, config);
     }
   }
-
-  backDetail(toyId):void{
-     this.router.navigate(["main/toys/toysDetail", toyId]);
-   }
 
   isLogged() {
     //Se cierra el dialogo al iniciar sesion
