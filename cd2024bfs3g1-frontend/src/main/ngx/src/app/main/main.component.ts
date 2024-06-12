@@ -7,6 +7,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { MatDialog } from "@angular/material/dialog";
 import { LoginComponent } from "../login/login.component";
 import { JukidsAuthService } from "../shared/services/jukids-auth.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-main',
@@ -40,7 +41,8 @@ export class MainComponent implements OnInit {
     private userInfoService: UserInfoService,
     private domSanitizer: DomSanitizer,
     private oUserInfoService: OUserInfoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private location: Location
   ) { }
 
   isLogged() {
@@ -112,6 +114,10 @@ export class MainComponent implements OnInit {
     } else {
       this.modal('login');
     }
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

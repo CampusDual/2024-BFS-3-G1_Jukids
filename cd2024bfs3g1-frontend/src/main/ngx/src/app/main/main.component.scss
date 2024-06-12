@@ -61,8 +61,11 @@
     .clear-button:hover, .search-button:hover {
       color: #000;
     }
+
   }
 }
+
+
 
 .nav-right-side {
   display: flex;
@@ -78,3 +81,68 @@
   cursor: pointer;
   max-width: 100px;
 }
+
+
+
+@media (max-width: 753px) {
+
+  .nav-center-side {
+    display: block;
+    align-items: flex-start;
+  }
+
+  .nav-center-side .input-wrapper {
+    width: auto;
+  }
+
+  .nav-center-side .input-wrapper .input-search {
+    width: 75%;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-center-side .input-wrapper .clear-button,
+  .nav-center-side .input-wrapper .search-button {
+    font-size: 0.9rem;
+  }
+
+  .nav-center-side .input-wrapper .clear-button {
+    right: 1.5rem;
+  }
+
+  .nav-center-side .input-wrapper .search-button {
+    right: 0.5rem;
+  }
+
+  #button-header{
+    font-size: small;
+    margin: 0.25rem 0.12rem;
+    padding: 0.1rem 0.5rem;
+  }
+
+
+}
+
+
+@media (max-width: 680px){
+  .nav-left-side{
+    display: none;
+  }
+
+  .nav-center-side .input-wrapper .input-search{
+    width: 70%;
+    margin-left: 0.5rem;
+  }
+
+  .nav-login{
+    justify-content: space-around;
+  }
+
+  .o-app-header-default-actions{
+    font-size: small;
+    max-width: 1rem;
+
+  }
+}
+
