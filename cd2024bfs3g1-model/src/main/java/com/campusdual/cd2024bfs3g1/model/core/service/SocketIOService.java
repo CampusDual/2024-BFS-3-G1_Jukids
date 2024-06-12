@@ -6,7 +6,6 @@ import com.campusdual.cd2024bfs3g1.model.core.chat.data.UserInfoDataConnect;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ChatLogDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
-import com.campusdual.cd2024bfs3g1.model.core.dao.UserRoleDao;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
@@ -18,9 +17,6 @@ import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component

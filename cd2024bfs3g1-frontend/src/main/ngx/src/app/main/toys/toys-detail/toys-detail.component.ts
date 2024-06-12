@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { OCurrencyInputComponent, OEmailInputComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { ChatComponent } from 'src/app/shared/components/chat/chat.component';
-// import { StripeComponent } from 'src/app/shared/components/stripe/stripe.component';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { MainService } from 'src/app/shared/services/main.service';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
@@ -29,7 +28,7 @@ export class ToysDetailComponent implements OnInit {
   sellerPhoto: string;
   percentageRate: number = 0;
   totalSurveys: number = 0;
-  //
+  
 
   isLogged: boolean = this.jkAuthService.isLoggedIn();
   isNotTheSeller: boolean;
@@ -47,18 +46,17 @@ export class ToysDetailComponent implements OnInit {
   @ViewChild('longitude') lon: OTextInputComponent;
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
   @ViewChild('statusInput') toyStatus: OTextInputComponent;
-  // @ViewChild('stripe') stripe: StripeComponent;
 
 
 
 
- constructor(
-      private toysMapService: ToysMapService,
-      protected injector: Injector,
-      private router: Router,
-      private dialog: MatDialog,
-      private jkAuthService: JukidsAuthService,
-      private mainService: MainService,
+  constructor(
+    private toysMapService: ToysMapService,
+    protected injector: Injector,
+    private router: Router,
+    private dialog: MatDialog,
+    private jkAuthService: JukidsAuthService,
+    private mainService: MainService,
   ) {
     this.service = this.injector.get(OntimizeService);
     this.serviceSeller = this.injector.get(OntimizeService);
@@ -93,7 +91,7 @@ export class ToysDetailComponent implements OnInit {
         usr_id: this.usr_id.getValue(),
       }
 
-      const columnsSellerUser = ["usr_id","usr_name", "usr_photo"];
+      const columnsSellerUser = ["usr_id", "usr_name", "usr_photo"];
       this.serviceSeller
         .query(filterSellerUser, columnsSellerUser, "toy")
         .subscribe((resp) => {
@@ -123,26 +121,22 @@ export class ToysDetailComponent implements OnInit {
     const columns = ["usr_name", "usr_photo", "rating", "total_surveys"];
     this.service
       .query(filter, columns, "userAverageRating")
-      .subscribe((resp) => {
-        // console.log(resp.data[0]);
+      .subscribe((resp) => {        
         if (resp.code === 0 && resp.data.length > 0) {
           this.sellerRate = resp.data[0].rating.toFixed(1);
           this.percentageRate = this.sellerRate * 100 / 5;
           this.totalSurveys = resp.data[0].total_surveys;
         }
       });
+  }
 
-
-  redirect(){
+  redirect() {
     this.router.navigateByUrl("/main/toys");
   }
 
-  // checkout() {
-  //   this.stripe.ckeckout();
-  // }
-
-  searchCategory(category):void {
-    this.router.navigate(['/main/toys'], {queryParams:{category: category}});
+ 
+  searchCategory(category): void {
+    this.router.navigate(['/main/toys'], { queryParams: { category: category } });
   }
 
   chatSeller() {

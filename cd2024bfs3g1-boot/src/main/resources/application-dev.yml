@@ -14,3 +14,6 @@ spring:
     enabled: false
 environment:
   url: https://cd2024bfs3g1-dev.dev.campusdual.com/
+socketio:
+  host: "cd2024bfs3g1-dev.dev.campusdual.com"
+  port: 1337
