@@ -1,3 +1,36 @@
+.navigation-tree-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 960px;
+    margin: auto;
+
+    .back-category {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-content: center;        
+        margin-bottom: 10px;
+
+        @media screen and (max-width: 1200px) {
+            width: 80%;
+        }
+
+        @media screen and (max-width: 600px) {
+            width: 100%;
+        }
+
+        .category {
+            scale: 100%;
+            align-content: center;
+            padding-right: 30px;
+            font-weight: bold;
+            height: 100%;
+            color: #0000009c;
+            font-size: 16px;
+        }
+    }
+}
+
 .hidden {
     visibility: hidden;
     display: none;
