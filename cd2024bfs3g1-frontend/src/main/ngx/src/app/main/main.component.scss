@@ -20,7 +20,7 @@
   display: flex;
   gap: 1rem;
   align-items: center;
-  
+
   @media screen and (max-width: 760px) {
     display: none;
   }
@@ -54,15 +54,15 @@
       &::-webkit-input-placeholder { /* WebKit browsers */
         font-size: .7rem;
       }
-      
+
       &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
         font-size: .7rem;
       }
-      
+
       &::-moz-placeholder { /* Mozilla Firefox 19+ */
         font-size: .7rem;
       }
-      
+
       &:-ms-input-placeholder { /* Internet Explorer 10+ */
         font-size: .7rem;
       }
@@ -90,10 +90,11 @@
     right: 5px; /* Posiciona el botón de búsqueda */
   }
 
-  .clear-button:hover, .search-button:hover {
-    color: #000;
+    .clear-button:hover, .search-button:hover {
+      color: #000;
+    }
   }
- 
+
 }
 
 .nav-right-side {

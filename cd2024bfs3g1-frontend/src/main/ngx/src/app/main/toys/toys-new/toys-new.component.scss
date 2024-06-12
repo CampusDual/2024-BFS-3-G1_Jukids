@@ -37,15 +37,15 @@
             display: grid;
             grid-template-areas: 'image information location';
             gap: .75rem;
-        
+
             @media (max-width:1280px) {
-                grid-template-areas: 'image information' 
+                grid-template-areas: 'image information'
                                      'location location'
                                      ;
             }
 
             @media (max-width:768px) {
-                grid-template-areas: 'image' 
+                grid-template-areas: 'image'
                                      'information'
                                      'location';
             }
@@ -55,13 +55,13 @@
             display: flex;
             justify-content: flex-end;
             gap: 1rem;
-            margin-top: 4rem; 
+            margin-top: 4rem;
         }
     }
 
     &-column {
         width: 100%;
-        
+
         &--image {
             grid-area: image;
         }
@@ -72,7 +72,7 @@
 
         &--location {
             grid-area: location;
-       
+
         }
     }
 
@@ -103,7 +103,7 @@
     }
 
     &-group {
-       
+
         &--priceAndCategory {
             display: flex;
             gap: .75rem;
@@ -132,4 +132,8 @@
     &-shipping {
        margin-top: 1rem;
     }
+}
+
+.btn-outline-light{
+  padding: .5rem 1.2rem !important;
 }
