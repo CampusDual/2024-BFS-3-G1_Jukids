@@ -94,6 +94,10 @@ export class ToysDetailComponent implements OnInit {
     this.router.navigateByUrl("/main/toys");
   }
 
+  redirectProfile(){
+    this.router.navigateByUrl("/main/user-profile");
+  }
+
   setStripe(): void {
     this.stripe.toyId = this.toyId.getValue();
     this.stripe.product = this.toyName.getValue();

@@ -1,20 +1,19 @@
-<button class="backBtn" (click)="redirect()"
+<button *ngIf="false || transactionStatus.getValue() != 0; else navigation" class="backBtn" (click)="redirectProfile()"
 routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat-flat-button>
   <mat-icon>arrow_back_ios_new</mat-icon>
   {{'BACKBTN' | oTranslate}}
 </button>
 
-<div class="navigation-tree-container">
+<ng-template #navigation>
+  <div class="navigation-tree-container">
   <div class="back-category">
     <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
-    <div class="category">></div>
-    <a *ngIf="false || transactionStatus.getValue() != 0" class="category" href="/main/user-profile">{{ "MY_PROFILE" |
-      oTranslate }}</a>
-    <div *ngIf="false || transactionStatus.getValue() != 0" class="category"></div>
+    <div class="category">></div>    
     <a class="category" [routerLink]="['/main/toys']" [queryParams]="{category: category.getValue()}">
       {{ category.getValue() | oTranslate }}</a>
   </div>
 </div>
+</ng-template>
 
 <!-- main container -->
 <div class="box">
