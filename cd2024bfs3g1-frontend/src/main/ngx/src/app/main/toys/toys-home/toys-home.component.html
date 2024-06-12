@@ -1,6 +1,6 @@
 <!-- <o-form class="form" editable-detail="yes" show-header="no" parent-keys="category-route"> -->
   <!-- <o-form class="form" editable-detail="yes" show-header="no"> -->
-  <o-form class="form" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()">
+  <o-form class="form" attr="toysHomeForm" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()">
 
   <div class="searchFilters">
     <o-combo
@@ -100,13 +100,12 @@
     pageable="yes"
     query-rows="20"
     query-on-init="false"
-    page-size-options="20"
     refresh-button="no"
     quick-filter="no"
     pagination-controls="yes"
     show-page-size="yes"
-    show-footer="no"
-    page-size-options="24;32;64"
+    show-footer="yes"
+    page-size-options="20;30;40"
     [cols]="cols"
     gutter-size="2.5em"
     grid-item-height="1:1.3"
@@ -130,7 +129,7 @@
         <div class="card-body">
           <h4>{{ data.name }}</h4>
           <p class="price">
-            <span>€</span> {{ data.price | number : "1.2-2" }}
+            {{ data.price | number : "1.2-2" }}<span>€</span>
           </p>
         </div>
       </div>
