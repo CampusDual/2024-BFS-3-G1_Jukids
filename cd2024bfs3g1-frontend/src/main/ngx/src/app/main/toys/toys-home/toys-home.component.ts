@@ -1,5 +1,11 @@
-import {  Component, Input, OnInit, ViewChild } from "@angular/core";
-import { Expression, FilterExpressionUtils, OComboComponent, OFilterBuilderComponent, OTextInputComponent } from "ontimize-web-ngx";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  Expression,
+  FilterExpressionUtils,
+  OComboComponent,
+  OFilterBuilderComponent,
+  OTextInputComponent,
+} from "ontimize-web-ngx";
 import { OntimizeService, OGridComponent } from "ontimize-web-ngx";
 import { ToysMapService } from "src/app/shared/services/toys-map.service";
 import { DialogService } from "ontimize-web-ngx";
@@ -24,10 +30,10 @@ export class ToysHomeComponent implements OnInit {
   @ViewChild("price") protected priceCombo: OComboComponent;
   @ViewChild("range") protected rangeCombo: OComboComponent;
   @ViewChild("categoryField") protected categoryField: OComboComponent;
-  @ViewChild('latInput') public latInput: OTextInputComponent;
-  @ViewChild('longInput') public longInput: OTextInputComponent;
-  @ViewChild('searcher') public searcher: OTextInputComponent;
-  @ViewChild('filterBuilder') public filterBuilder: OFilterBuilderComponent;
+  @ViewChild("latInput") public latInput: OTextInputComponent;
+  @ViewChild("longInput") public longInput: OTextInputComponent;
+  @ViewChild("searcher") public searcher: OTextInputComponent;
+  @ViewChild("filterBuilder") public filterBuilder: OFilterBuilderComponent;
 
   //============== Variable de URL BASE =================
   public baseUrl: string;
@@ -43,7 +49,7 @@ export class ToysHomeComponent implements OnInit {
     Breakpoints.Small,
     Breakpoints.Medium,
     Breakpoints.Large,
-    Breakpoints.XLarge
+    Breakpoints.XLarge,
   ]);
 
   constructor(
@@ -54,10 +60,10 @@ export class ToysHomeComponent implements OnInit {
     private toysMapService: ToysMapService,
     protected dialog: MatDialog,
     protected sanitizer: DomSanitizer,
-    private breakpointObserver: BreakpointObserver,
+    private breakpointObserver: BreakpointObserver
   ) {
     //Configuración del servicio para poder ser usado
-    const conf = this.ontimizeService.getDefaultServiceConfiguration('byuser');
+    const conf = this.ontimizeService.getDefaultServiceConfiguration("byuser");
     this.ontimizeService.configureService(conf);
 
     // Inicializar el precio predeterminado
@@ -66,8 +72,7 @@ export class ToysHomeComponent implements OnInit {
 
   ngOnInit() {
     //Se escuchan los cambios del servicio
-    this.toysMapService.getLocation().subscribe(data => {
-
+    this.toysMapService.getLocation().subscribe((data) => {
       this.latInput.setValue(data.latitude);
       this.longInput.setValue(data.longitude);
 
@@ -90,24 +95,25 @@ export class ToysHomeComponent implements OnInit {
     });
 
     this.baseUrl = window.location.origin;
-    if (this.baseUrl.includes('localhost')) {
-      this.baseUrl = 'http://localhost:8080';
+    if (this.baseUrl.includes("localhost")) {
+      this.baseUrl = "http://localhost:8080";
     }
   }
   searchReceivedParams() {
-    this.actRoute.queryParams.subscribe(params => {
-      const category: any = params['category'] || null;
-      const keyword: any = params['keyword'] || null;
-      if(category != undefined) {
+    this.actRoute.queryParams.subscribe((params) => {
+      const category: any = params["category"] || null;
+      const keyword: any = params["keyword"] || null;
+      if (category != undefined) {
         let arrayNuevo = [];
         arrayNuevo.push(category);
         this.categoryField.setValue(arrayNuevo);
       }
-      if(keyword != undefined) {
+      if (keyword != undefined) {
         this.searcher.setValue(keyword);
       }
       this.toyGrid.reloadData();
-  })}
+    });
+  }
 
   public openDetail(data: any): void {
     // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
@@ -116,44 +122,59 @@ export class ToysHomeComponent implements OnInit {
   }
 
   navigate() {
-    this.router.navigate(['../', 'login'], { relativeTo: this.actRoute });
+    this.router.navigate(["../", "login"], { relativeTo: this.actRoute });
   }
 
-
-  createFilter(values: Array<{ attr: string, value: any }>): Expression {
+  createFilter(values: Array<{ attr: string; value: any }>): Expression {
     let filtersOR: Array<Expression> = [];
     let categoryExpressions: Array<Expression> = [];
     let priceExpressions: Array<Expression> = [];
     let statusExpressions: Array<Expression> = [];
     let latLongExpressions: Array<Expression> = [];
 
-    values.forEach(fil => {
+    values.forEach((fil) => {
       if (!fil.value) return; // Salir temprano si no hay valor
 
       if (fil.attr === "DESCRIPTION" || fil.attr === "NAME") {
-        filtersOR.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+        filtersOR.push(
+          FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
+        );
       } else if (fil.attr === "CATEGORY") {
         if (Array.isArray(fil.value)) {
-          fil.value.forEach(val => {
-            categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
+          fil.value.forEach((val) => {
+            categoryExpressions.push(
+              FilterExpressionUtils.buildExpressionLike(fil.attr, val)
+            );
           });
         } else {
-          categoryExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+          categoryExpressions.push(
+            FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
+          );
         }
       } else if (fil.attr === "STATUS") {
         if (Array.isArray(fil.value)) {
-          fil.value.forEach(val => {
-            statusExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, val));
+          fil.value.forEach((val) => {
+            statusExpressions.push(
+              FilterExpressionUtils.buildExpressionLike(fil.attr, val)
+            );
           });
         } else {
-          statusExpressions.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+          statusExpressions.push(
+            FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
+          );
         }
       } else if (fil.attr === "PRICE") {
-        priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("PRICE", fil.value));
+        priceExpressions.push(
+          FilterExpressionUtils.buildExpressionLessEqual("PRICE", fil.value)
+        );
       } else if (fil.attr === "LATITUDE") {
-        latLongExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("LATITUDE", fil.value));
+        latLongExpressions.push(
+          FilterExpressionUtils.buildExpressionLessEqual("LATITUDE", fil.value)
+        );
       } else if (fil.attr === "LONGITUDE") {
-        latLongExpressions.push(FilterExpressionUtils.buildExpressionLessEqual("LONGITUDE", fil.value));
+        latLongExpressions.push(
+          FilterExpressionUtils.buildExpressionLessEqual("LONGITUDE", fil.value)
+        );
       }
     });
 
@@ -161,7 +182,11 @@ export class ToysHomeComponent implements OnInit {
     let categoryExpression: Expression = null;
     if (categoryExpressions.length > 0) {
       categoryExpression = categoryExpressions.reduce((exp1, exp2) =>
-        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_OR
+        )
       );
     }
 
@@ -169,7 +194,11 @@ export class ToysHomeComponent implements OnInit {
     let priceExpression: Expression = null;
     if (priceExpressions.length > 0) {
       priceExpression = priceExpressions.reduce((exp1, exp2) =>
-        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_OR
+        )
       );
     }
 
@@ -177,7 +206,11 @@ export class ToysHomeComponent implements OnInit {
     let statusExpression: Expression = null;
     if (statusExpressions.length > 0) {
       statusExpression = statusExpressions.reduce((exp1, exp2) =>
-        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_OR
+        )
       );
     }
 
@@ -185,23 +218,40 @@ export class ToysHomeComponent implements OnInit {
     let combinedExpression: Expression = null;
     if (filtersOR.length > 0) {
       combinedExpression = filtersOR.reduce((exp1, exp2) =>
-        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_OR
+        )
+      );
+    }
+    // Contruir la expresión OR para Latitud y Longitud
+    let latLongExpresion: Expression = null;
+    if (latLongExpressions.length > 0) {
+      latLongExpresion = latLongExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_OR
+        )
       );
     }
 
-     // Construir la expresión OR para el precio
-     let latLongExpresion: Expression = null;
-     if (latLongExpressions.length > 0) {
-        latLongExpresion = latLongExpressions.reduce((exp1, exp2) =>
-         FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
-       );
-     }
-
     // Combinar todas las expresiones con AND
-    const expressionsToCombine = [combinedExpression, categoryExpression, priceExpression, statusExpression, latLongExpresion].filter(exp => exp !== null);
+    const expressionsToCombine = [
+      combinedExpression,
+      latLongExpresion,
+      categoryExpression,
+      priceExpression,
+      statusExpression,
+    ].filter((exp) => exp !== null);
     if (expressionsToCombine.length > 0) {
       combinedExpression = expressionsToCombine.reduce((exp1, exp2) =>
-        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND)
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_AND
+        )
       );
     }
     return combinedExpression;
@@ -214,26 +264,28 @@ export class ToysHomeComponent implements OnInit {
 
   public pricesArray = [
     {
-    attr_price: 'priceCode_10',
-    priceCode: 10,
-    priceText: 'Menos de 10€'
-  }, {
-    attr_price: 'priceCode_20',
-    priceCode: 20,
-    priceText: 'Menos de 20€'
-  }, {
-    attr_price: 'priceCode_50',
-    priceCode: 50,
-    priceText: 'Menos de 50€'
-  }];
+      attr_price: "priceCode_10",
+      priceCode: 10,
+      priceText: "Menos de 10€",
+    },
+    {
+      attr_price: "priceCode_20",
+      priceCode: 20,
+      priceText: "Menos de 20€",
+    },
+    {
+      attr_price: "priceCode_50",
+      priceCode: 50,
+      priceText: "Menos de 50€",
+    },
+  ];
 
   public precioPredeterminado = 1000000;
 
   // ------- FILTER MAP---------------
-  showMap:boolean = false;
-  openMap(){
-    this.showMap = !this.showMap
+  showMap: boolean = false;
+  openMap() {
+    this.showMap = !this.showMap;
     this.toysMapService.getUserGeolocation();
   }
-
 }

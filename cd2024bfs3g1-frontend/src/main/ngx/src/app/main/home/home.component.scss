@@ -1,3 +1,6 @@
+.hidden {
+    display: none;  
+}
 .banner-box {
     display: flex;
     position: relative;
@@ -13,16 +16,22 @@
         z-index: 2;
     }
 
-    .banner-svg {
+    .banner-container {
         display: flex;
-        align-items: start;
-        justify-content: space-between;
-        gap: 15px;
-        width: 77%;
-        z-index: 4;
 
-        img {
+        .banner-svg {
             width: 100%;
+
+            .img-container {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                z-index: 4;
+
+                img {
+                    width: 77%;
+                }
+            }
         }
     }
 }
@@ -126,6 +135,7 @@
                     transform: scale(1.1);
                     transition: all;
                     transition: 0.3s;
+                    cursor: pointer;
                 }
 
                 @media screen and (max-width: 450px) {
