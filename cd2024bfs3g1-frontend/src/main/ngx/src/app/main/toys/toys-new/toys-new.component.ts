@@ -1,11 +1,14 @@
 import { Component, ViewChild, Inject, OnInit} from '@angular/core';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { DialogService,  ODialogConfig, OFormComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
-import { OUserInfoService, AuthService, OEmailInputComponent } from 'ontimize-web-ngx';
+import { DialogService,  ODialogConfig, OFormComponent, ORadioComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { OEmailInputComponent } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MainService } from 'src/app/shared/services/main.service';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from 'src/app/login/login.component';
+
 
 @Component({
   selector: 'app-toys-new',
@@ -15,7 +18,8 @@ import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 export class ToysNewComponent implements OnInit{
   private location: any;
   subscription:Subscription;
-  private redirect = '/toys';
+  private redirectToToylist = '/main/user-profile/toylist';
+  private redirectToToys = '/toys';
   public toyService: string;
 
   isMapLatLongSelected: boolean = true;
@@ -33,6 +37,7 @@ export class ToysNewComponent implements OnInit{
     protected dialogService: DialogService,
     private translate: OTranslateService,
     private jukidsAuthService: JukidsAuthService,
+    private dialog: MatDialog,
     @Inject(MainService) private mainService: MainService
   ) {
 
@@ -46,10 +51,16 @@ export class ToysNewComponent implements OnInit{
     const serviceConfig = this.ontimizeService.getDefaultServiceConfiguration(this.toyService);
     this.ontimizeService.configureService(serviceConfig);
     //Se escuchan los cambios del servicio
-    this.toysMapService.getLocation().subscribe(data => {
-      this.location = data;
-
+    this.toysMapService.getLocation().subscribe(location => {
+      if (location) {
+        this.lat.setValue(location.latitude);
+        this.lon.setValue(location.longitude);
+        this.isMapLatLongSelected = true; // Set flag to indicate location selection
+      }
     });
+
+    this.toysMapService.getUserGeolocation(); // Call to get user's location
+
 
     setTimeout(() => {
       this.mainService.getUserInfo().subscribe((data)=>{
@@ -75,7 +86,6 @@ export class ToysNewComponent implements OnInit{
     let arrayErrores: any [] = [];
     const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','category','status']);
 
-    console.log(getFieldValues);
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
     let errorDescription = "ERROR_DESCRIPTION_VALIDATION";
@@ -100,7 +110,7 @@ export class ToysNewComponent implements OnInit{
     if(getFieldValues.price === undefined){
       arrayErrores.push(this.translate.get(errorPrice));
     }
-    if(getFieldValues.price < 0){
+    if(getFieldValues.price < 1){
       arrayErrores.push(this.translate.get(errorNegativePrice));
     }
     if(getFieldValues.price > 9999999){
@@ -116,9 +126,11 @@ export class ToysNewComponent implements OnInit{
     if(getFieldValues.category === ""){
       arrayErrores.push(this.translate.get(errorCategory));
     }
-    if(getFieldValues.status === ""){
+
+    if(getFieldValues.status === undefined ){
       arrayErrores.push(this.translate.get(errorStatus));
     }
+    
     if(arrayErrores.length > 0 ) {
       let stringErrores = "";
       for(let i = 0; i < arrayErrores.length; i++){
@@ -128,8 +140,6 @@ export class ToysNewComponent implements OnInit{
     }else{
       this.formToy.insert();
     }
-
-    console.log(this.formToy);
   }
 
   showCustom(
@@ -149,12 +159,28 @@ export class ToysNewComponent implements OnInit{
 
   insertRedirect(){
     const self = this;
-      self.router.navigate([this.redirect]);
+      self.router.navigate([this.redirectToToylist]);
   }
 
   cancel(){
     const self = this;
-      self.router.navigate([this.redirect]);
+      self.router.navigate([this.redirectToToys]);
+  }
+
+
+  isLogged() {
+    //Se cierra el dialogo al iniciar sesion
+    if (this.jukidsAuthService.isLoggedIn() && this.dialog.getDialogById('login')) {
+      this.dialog.closeAll();
+    }
+    return this.jukidsAuthService.isLoggedIn();
+  }
+
+  modal(idModal: string) {
+    this.dialog.open(LoginComponent, {
+      id: idModal,
+      disableClose: false,
+    });
   }
 }
 

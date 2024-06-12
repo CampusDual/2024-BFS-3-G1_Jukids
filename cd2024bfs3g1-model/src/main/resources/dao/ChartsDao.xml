@@ -28,5 +28,46 @@
             ]]>
             </Sentence>
         </Query>
+        <Query id = "total_delivers">
+            <Sentence>
+                <![CDATA[
+WITH TotalOrders AS (
+    SELECT COUNT(order_id) AS total_orders
+    FROM orders
+)
+SELECT
+    'noshipment' AS shipmentype,
+    (COUNT(o.order_id) - COUNT(s.order_id)) AS total,
+    ROUND((COUNT(o.order_id) - COUNT(s.order_id)) * 100.0 / t.total_orders) AS percentage
+FROM
+    orders o
+    LEFT JOIN shipments s ON o.order_id = s.order_id
+    CROSS JOIN TotalOrders t
+GROUP BY t.total_orders
+UNION
+SELECT
+    'shipment' AS shipmentype,
+    COUNT(s.order_id) AS total,
+    ROUND(COUNT(s.order_id) * 100.0 / t.total_orders) AS percentage
+FROM
+    orders o
+    LEFT JOIN shipments s ON o.order_id = s.order_id
+    CROSS JOIN TotalOrders t
+GROUP BY t.total_orders;
+            ]]>
+            </Sentence>
+        </Query>
+        <Query id = "category_revenue">
+            <Sentence>
+                <![CDATA[
+                SELECT
+	            t.category as "Categoria",
+	            ROUND(SUM(t.price) * 5.5 / 107, 2) AS "Comision"
+                FROM toys t
+                GROUP BY t.category
+                ORDER BY t.category;
+            ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

@@ -9,12 +9,17 @@ import { StripeComponent } from './components/stripe/stripe.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { environment } from 'src/environments/environment';
 import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
+import { SurveyComponent } from './components/survey/survey.component';
+import { ToysDetailComponent } from '../main/toys/toys-detail/toys-detail.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     OntimizeWebModule,
     OMapModule,
     NgxStripeModule.forRoot(environment.stripe_public_key),
+    CommonModule,
+    RouterModule
   ],
   declarations: [
     FilterComponent,
@@ -22,7 +27,9 @@ import { CheckoutComponent } from './components/stripe/checkout/checkout.compone
     LocationMapComponent,
     HomeToolbarComponent,
     StripeComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    SurveyComponent,
+    ToysDetailComponent
   ],
   exports: [
     CommonModule,

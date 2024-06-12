@@ -10,6 +10,7 @@ import { MainService } from './shared/services/main.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JukidsAuthService } from './shared/services/jukids-auth.service';
+import { SharedModule } from './shared/shared.module';
 
 
 // Standard providers...
@@ -27,7 +28,8 @@ export const customProviders: any = [
     OntimizeWebModule.forRoot(CONFIG),
     OntimizeWebModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    SharedModule
   ],
   declarations: [
     AppComponent

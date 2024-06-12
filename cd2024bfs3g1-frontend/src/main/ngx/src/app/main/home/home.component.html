@@ -1,5 +1,654 @@
-<div fxLayout="row" layout-padding fxLayoutAlign="center center">
-  <p>
-    Pantalla Inicial de nuestra Aplicación
-  </p>
+<div fxLayout="column" layout-padding fxLayoutAlign="center center">
+  <div class="banner-box">
+    <div  *ngIf='language == "es"' class="banner-container">
+      <div class="banner-svg">
+        <div class="img-container"><img src="assets/images/svg/banner-es.svg" /></div>
+      </div>
+      <div class="banner-svg hidden">
+        <div class="img-container"><img src="assets/images/svg/banner2-es.svg" /></div>
+      </div>
+    </div>
+    <div *ngIf='language == "en"'class="banner-container">
+      <div class="banner-svg">
+        <div class="img-container"><img  src="assets/images/svg/banner-en.svg"/></div>
+      </div>
+      <div class="banner-svg hidden">
+        <div class="img-container"><img src="assets/images/svg/banner2-en.svg"/></div>
+      </div>
+    </div>
+    <div class="banner-background bg-color-orange-transparent"></div>
+  </div>
+
+  <!-- buttons to category filtered queries -->
+  <div class="icons-box">
+      <div class="smallcard">
+          <div class="bg-color-orange icon-div"><img id="figures" (click)="searchCategory('cat_Figures')" src="assets/images/svg/figure.svg" class="icon" title="{{ 'FIGURE_DESC_ICON' | oTranslate }}"></div>
+        <div class="icon-name">{{ 'FIGURES' | oTranslate }}</div>
+      </div>
+      <div class="smallcard">
+        <div class="bg-color-red icon-div"><img id="videogames" (click)="searchCategory('cat_Videogames')" src="assets/images/svg/videogame.svg" class="icon" title="{{ 'VGAMES_DESC_ICON' | oTranslate }}"></div>
+        <div class="icon-name">{{ 'VGAMES' | oTranslate }}</div>
+        </div>
+        <div class="smallcard">
+          <div class="bg-color-blue icon-div"><img id="childrenToys" (click)="searchCategory('cat_ChildrensToys')" src="assets/images/svg/cube.svg" class="icon" title="{{ 'BABY_DESC_ICON' | oTranslate }}"></div>
+        <div class="icon-name">{{ 'CHILDRENSTOYS' | oTranslate }}</div>
+      </div>
+      <div class="smallcard">
+        <div class="bg-color-orange icon-div"><img id="collectibles" (click)="searchCategory('cat_Collectibles')" src="assets/images/svg/collectibles.svg" class="icon" title="{{ 'COLLECTIBLES_DESC_ICON' | oTranslate }}"></div>
+        <div class="icon-name">{{ 'COLLECTIBLES' | oTranslate }}</div>
+      </div>
+      <div class="smallcard">
+        <div class="bg-color-red icon-div"><img id="plushies" (click)="searchCategory('cat_Plushies')" src="assets/images/svg/peluche.svg" class="icon" title="{{ 'PLUSHIES_DESC_ICON' | oTranslate }}"></div>
+        <div class="icon-name">{{ 'PLUSHIES' | oTranslate }}</div>
+      </div>
+      <div class="smallcard">
+          <div class="bg-color-blue icon-div"><img id="dolls" (click)="searchCategory('cat_Dolls')" src="assets/images/svg/doll.svg" class="icon" title="{{ 'DOLLS_DESC_ICON' | oTranslate }}"></div>
+        <div class="icon-name">{{ 'DOLLS' | oTranslate }}</div>
+      </div>
+  </div>
+
+  <div class="categories-container">
+
+    <div class="title-box">
+      <p class="row-title-small">{{ 'FIGURES' | oTranslate }}</p>
+      <p class="row-title">{{ 'FIGURES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Figures')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #figuresGrid
+          attr="figuresGrid"
+          service="toys"
+          entity="toyFigures"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          [query-rows]="queryRows"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="1em"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of figuresGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'PLUSHIES' | oTranslate }}</p>
+      <p class="row-title">{{ 'PUSHIES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Plushies')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #plushiesGrid
+          attr="plushiesGrid"
+          service="toys"
+          entity="toyPlushies"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="1em"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of plushiesGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'CHILDRENSTOYS' | oTranslate }}</p>
+      <p class="row-title">{{ 'CHILDRENS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_ChildrensToys')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #childrensToysGrid
+          attr="childrensToysGrid"
+          service="toys"
+          entity="toyChildrensToys"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of childrensToysGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'BOARDGAMES' | oTranslate }}</p>
+      <p class="row-title">{{ 'BOARD_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Board')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #boardGrid
+          attr="boardGrid"
+          service="toys"
+          entity="toyBoard"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of boardGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'DOLLS' | oTranslate }}</p>
+      <p class="row-title">{{ 'DOLLS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Dolls')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #dollsGrid
+          attr="dollsGrid"
+          service="toys"
+          entity="toyDolls"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of dollsGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'ACTION_TOYS' | oTranslate }}</p>
+      <p class="row-title">{{ 'ACTION_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_ActionToys')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #actionToysGrid
+          attr="actionToysGrid"
+          service="toys"
+          entity="toyActionToys"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of actionToysGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'VGAMES' | oTranslate }}</p>
+      <p class="row-title">{{ 'VGAMES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Videogames')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #videogamesGrid
+          attr="videogamesGrid"
+          service="toys"
+          entity="toyVideogames"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+        >
+          <o-grid-item
+            *ngFor="let data of videogamesGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'CRAFTS' | oTranslate }}</p>
+      <p class="row-title">{{ 'CRAFTS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Crafts')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #craftsGrid
+          attr="craftsGrid"
+          service="toys"
+          entity="toyCrafts"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of craftsGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'PEDAGOGICAL' | oTranslate }}</p>
+      <p class="row-title">{{ 'PEDAGOGICAL_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Pedagogical')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <p class="row-title"></p>
+    <div class="grid-container">
+        <o-grid
+          #pedagogicalGrid
+          attr="pedagogicalGrid"
+          service="toys"
+          entity="toyPedagogical"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of pedagogicalGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'SPORTS' | oTranslate }}</p>
+      <p class="row-title">{{ 'SPORTS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Sport')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #sportGrid
+          attr="sportGrid"
+          service="toys"
+          entity="toySport"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of sportGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'ELECTRONIC' | oTranslate }}</p>
+      <p class="row-title">{{ 'ELECTRONIC_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Electronic')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #electronicGrid
+          attr="electronicGrid"
+          service="toys"
+          entity="toyElectronic"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+        >
+          <o-grid-item
+            *ngFor="let data of electronicGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'COLLECTIBLES' | oTranslate }}</p>
+      <p class="row-title">{{ 'COLLECTIBLES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Collectibles')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #collectiblesGrid
+          attr="collectiblesGrid"
+          service="toys"
+          entity="toyCollectibles"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of collectiblesGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'ANTIQUES' | oTranslate }}</p>
+      <p class="row-title">{{ 'ANTIQUES_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Antiques')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #antiquesGrid
+          attr="antiquesGrid"
+          service="toys"
+          entity="toyAntiques"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+        >
+          <o-grid-item
+            *ngFor="let data of antiquesGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+    <div class="title-box">
+      <p class="row-title-small">{{ 'CARDS' | oTranslate }}</p>
+      <p class="row-title">{{ 'CARDS_LANDING_CATCHY_PHRASE' | oTranslate }}</p>
+      <a (click)="searchCategory('cat_Cards')" class="anchor color-blue">{{ 'SEE_ALL' | oTranslate }}</a>
+    </div>
+    <div class="grid-container">
+        <o-grid
+          #cardsGrid
+          attr="cardsGrid"
+          service="toys"
+          entity="toyCards"
+          keys="toyid"
+          detail-form-route="toysDetail"
+          columns="toyid;name;price"
+          query-rows="5"
+          refresh-button="no"
+          quick-filter="no"
+          [cols]="cols"
+          gutter-size="0"
+          grid-item-height="1:1.3"
+          show-footer="no"
+          controls="false"
+
+        >
+          <o-grid-item
+            *ngFor="let data of cardsGrid.getDataArray()"
+            (onClick)="openDetail(data)"
+          >
+            <div class="card-n">
+              <img
+                class="image-header"
+                src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+              />
+              <div class="card-body">
+                <h4>{{ data.name }}</h4>
+                <p class="price">
+                  <span>€</span> {{ data.price | number : "1.2-2" }}
+                </p>
+              </div>
+            </div>
+          </o-grid-item>
+        </o-grid>
+    </div>
+
+  </div>
 </div>

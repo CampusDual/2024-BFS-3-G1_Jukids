@@ -11,28 +11,122 @@ mat-card-header mat-card-title{
 }
 
 .navigation-tree-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    height: 40px;
-    margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  max-width: 960px;
+  margin: auto;
+  margin-bottom: 20px;
 }
 
 .back-category {
-    width: 100%;
-    background-color: rgba(227, 227, 227, 0.407);
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: center;
-    border-radius: 8px;
+  width: 60%;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+  .back-category {
+      width: 80%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .back-category {
+      width: 100%;
+  }
 }
 
 .category {
-    scale: 100%;
-    align-content: center;
-    padding-right: 30px;
-    font-weight: 400;
-    height: 100%;
-    color: #0000009c;
+  scale: 100%;
+  align-content: center;
+  padding-right: 30px;
+  font-weight: 400;
+  height: 100%;
+  color: #0000009c;
+  font-size: 16px;
 }
+
+mat-card {
+    margin: .5rem 1rem !important;
+    padding: .75rem .75rem .5rem !important;
+    border-radius: .5rem;
+    border: 1px solid #ccc;
+    box-shadow: none !important;
+  }
+   
+  .avatar {
+    width: 100%;
+  }
+  .avatar img {
+    width: 100%;
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+   
+  mat-card-title {
+      font-weight: 700;
+  }
+
+  /* Relativo a la lista */
+  .list {
+    margin-left: -100%;
+  }
+
+  .photo-container img {
+    width: 100%;
+    max-width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  .info-row {
+    width: calc(100% - 6rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .info-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    overflow: hidden;
+  }
+
+  .info-text {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+  }
+
+  mat-card-subtitle {
+    font-size: 1.1em;
+    font-weight: 500;
+  }
+
+  .container-survey{
+    width: fit-content;
+    display: flex;
+    place-content: center flex-end;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  @media (max-width:640px) {
+    .info-container {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .info-text {
+      width: 100%;
+    }
+  }
