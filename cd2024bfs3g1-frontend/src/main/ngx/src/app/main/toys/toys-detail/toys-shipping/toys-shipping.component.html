@@ -1,7 +1,19 @@
-<button class="backBtn" mat-flat-button [routerLink]="['/']">
-  <mat-icon>arrow_back_ios_new</mat-icon>
-  {{'BACKBTN' | oTranslate}}
-</button>
+<div class="navigation-tree-container">
+  <div class="back-category">
+    <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
+    <div class="category">></div>
+    <div class="category">
+      <a class="category" [routerLink]="['/main/toys']" [queryParams]="{category: category.getValue()}">
+        {{ category.getValue() | oTranslate }}
+      </a>
+    ></div>
+    <div class="category">
+      <a class="category" [routerLink]="['/main/toys/toysDetail/', toyId.getValue()]">
+        {{ nameInput.getValue() | oTranslate }}
+      </a>
+    </div>
+  </div>
+</div>
 
 <div class="box">
   <o-form class="formToy " attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
@@ -16,37 +28,49 @@
     <o-email-input id="usr_email" #emailInput attr="email" fxFlex="100" read-only="yes" required="yes" label="usr_email"
       oHidden></o-email-input>
 
-
-    <mat-radio-group *ngIf="shippingInput.getValue()" #buyOption class="radioGroup" aria-label=""
-      (change)="showFormShipments()">
-      <mat-radio-button #BuySend value="1" checked>{{'BUY_AND_SEND' | oTranslate}}</mat-radio-button>
-      <mat-radio-button #onlyBuy value="2">{{'BUY' | oTranslate}}</mat-radio-button>
-    </mat-radio-group>
-
-
+    <!-- hidden inputs for data recovery -->
+    <o-text-input #toyId attr="toyid" oHidden sql-type="INTEGER" enabled="yes"></o-text-input>
+    <o-text-input #usr_id attr="usr_id" sql-type="INTEGER" enabled="yes" oHidden></o-text-input>
+    <o-text-input #category attr="category" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #nameInput attr="name" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-currency-input #priceInput attr="price" fxFlex="100" read-only="yes" min-decimal-digits="2"
+      max-decimal-digits="2" oHidden></o-currency-input>
+    <o-text-input #shipping attr="shipping" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-textarea-input #descInput attr="description" fxFlex="100" read-only="yes" oHidden></o-textarea-input>
+    <o-email-input #emailInput attr="email" fxFlex="100" read-only="yes" oHidden></o-email-input>
+    <o-text-input #latitude attr="latitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #longitude attr="longitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #status attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #transactionStatus attr="transaction_status" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    
+    <mat-button-toggle-group *ngIf="shippingInput.getValue()" #buyOption class="radioGroup" layout-padding (change)="showFormShipments()">
+      <mat-button-toggle #BuySend value="1" class="custom-button"><mat-icon>local_shipping</mat-icon>{{'BUY_AND_SEND' | oTranslate}}</mat-button-toggle>
+      <mat-button-toggle #onlyBuy value="2" class="custom-button"><mat-icon>diversity_3</mat-icon>{{'BUY' | oTranslate}}</mat-button-toggle>
+    </mat-button-toggle-group>
+    
     <div class="cardShipments">
 
-      <o-form id="formShipments" class="formShipments" #formShipments service="orders" entity="orderAndShipment"
+      <o-form id="formShipments" *ngIf="issetSend" class="formShipments" #formShipments service="orders" entity="orderAndShipment"
         keys="shipment_id" show-header-navigation="no" show-header="no" layout-direction="column" header-actions="I"
-        (onDataLoaded)="setData()">
+        (onDataLoaded)="setData()" >
         <h2>{{'TITLE_FORM_SHIPMENTS' | oTranslate}}</h2>
-        <o-column>
+        <o-column class="shipmentFormulary">
           <div class="divLabel">
             <o-text-input #orderId attr="order_id" sql-type="INTEGER" read-only="no" oHidden></o-text-input>
             <o-text-input id="price" #price attr="price" read-only="no" sql-type="DOUBLE" oHidden></o-text-input>
           </div>
           <div class="divLabel">
             <o-text-input #shippingAddress attr="shipping_address" label="{{'usr_address' | oTranslate}}" fxFlex="100"
-              read-only="no" required="yes" max-length="150"></o-text-input>
+              read-only="no" required="yes" max-length="150" appearance="outline"></o-text-input>
           </div>
           <div class="divLabel">
             <o-text-input #buyerPhone attr="buyer_phone" label="{{'usr_phone' | oTranslate}}" fxFlex="100"
-              read-only="no" required="yes" max-length="9" min-length="9"></o-text-input>
+              read-only="no" required="yes" max-length="9" min-length="9" appearance="outline"></o-text-input>
           </div>
           <div class="divLabel">
-            <o-combo #shipmentCompany attr="shipment_company" label="{{'company' | oTranslate}}"
+            <o-combo class="company" #shipmentCompany attr="shipment_company" label="{{'company' | oTranslate}}"
               [static-data]="dataCompany" [data]="defaultCompany" value-column="code" columns="code;company"
-              visible-columns="company" required="yes" read-only="false" null-selection="no"></o-combo>
+              visible-columns="company" required="yes" read-only="false" null-selection="no" appearance="outline"></o-combo>
           </div>
           <span class="note">*{{'NOTE_SEND' | oTranslate}}</span>
 
@@ -117,7 +141,7 @@
             </div>
           </div>
         </div>
-        <button #buyButton class="button btn-checkout hidden" (click)="newBuy()">
+        <button #buyButton *ngIf="!issetSend" class="button btn-checkout" (click)="newBuy()">
           <span>{{'PAY' | oTranslate}}</span>
         </button>
 
@@ -129,14 +153,8 @@
             <button #payButton class="button btn-checkout" (click)="paySubmit()">{{'CONFIRM' | oTranslate }}</button>
           </o-form>
         </div>
-
-
-
       </div>
-
     </div>
-
-
   </o-form>
 
 

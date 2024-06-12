@@ -12,6 +12,7 @@
   "DARK_MODE": "Dark Mode",
   "DONT_HAVE_ACCOUNT": "You do not have an account?",
   "delete": "Delete",
+  "EDIT_PROFILE":"Edit profile",
   "ERROR_MIN_LENGTH_REQUIRED": "The value length entered must be at least 8 characters.",
   "ERROR_PASS_REQUIRED": "Incorrect password.",
   "ERROR_REQUIRED_FIELD": "Field is required",
@@ -33,7 +34,9 @@
   "LOGIN": "Sign in",
   "LOGIN_TITLE": "Log in to your account",
   "LOGOUT": "Logout",
+  "MY_INFO":"Profile",
   "new": "New",
+  "SAVE":"Save",
   "new_password": "New password",
   "old_password": "Old password",
   "password": "Password",
@@ -71,6 +74,7 @@
   "usr_password": "Password",
   "usr_phone": "Phone",
   "usr_surname": "Surname",
+  "mediaProfile":"Ratings",
   "usr_address": "Address",
   "company": "Company",
   "VALIDATION_MATCHPASSWORD": "Old password and new password doesn't match",
@@ -280,6 +284,12 @@
   "LOCATION": "Location",
   "UPLOAD_PRODUCT_IMAGE": "Upload an image of your product",
   "DATA_ABOUT_PRODUCT": "Necessary data about your product",
-  "SELECT_PRODUCT_LOCATION": "Select the point on the map where the toy is located"
+  "SELECT_PRODUCT_LOCATION": "Select the point on the map where the toy is located",
+  "WE_ARE_SORRY": "We are sorry for the inconvenience",
+  "myInfo": "My info",
+  "userNameProfile": "Name",
+  "lastnameProfile": "Surname",
+  "emailProfile": "Email",
+  "noRating": "No rating yet"
 
 }

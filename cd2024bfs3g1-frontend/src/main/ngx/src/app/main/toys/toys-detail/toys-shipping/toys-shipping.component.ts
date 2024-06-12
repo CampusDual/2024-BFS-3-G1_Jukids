@@ -14,12 +14,13 @@ import { catchError, throwError } from 'rxjs';
 })
 export class ToysShippingComponent implements OnInit {
 
+
   // En commission ponemos el tanto por ciento de comision
   public commission: number = 7;
   public warrantyPrice: number;
   // Se contemplan 3 euros de gastos de envio
   public priceSend: number = 3.00;
-  public issetSend: boolean = true;
+  public issetSend: boolean = false;
   // Compañias de envio
   public dataCompany = [{
     code: 'Correos',
@@ -69,7 +70,7 @@ export class ToysShippingComponent implements OnInit {
     private jukidsAuthService: JukidsAuthService,
     private oServiceToy: OntimizeService,
     private oServiceOrder: OntimizeService,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
   }
 
@@ -84,7 +85,7 @@ export class ToysShippingComponent implements OnInit {
   showFormShipments() {
     if (this.buyOption._checked) {
       this.issetSend = false;
-      this.form.classList.add("hidden")
+  
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
@@ -92,7 +93,7 @@ export class ToysShippingComponent implements OnInit {
 
     if (this.buySendOption._checked) {
       this.issetSend = true;
-      this.form.classList.remove("hidden")
+      
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
       this.buyButton.nativeElement.classList.add("hidden")
@@ -272,11 +273,6 @@ export class ToysShippingComponent implements OnInit {
       this.dialogService.info(dialogTitle, dialogText, config);
     }
   }
-
-  insertRedirect() {
-    this.router.navigate(["main/toys/toysDetail", this.toyId]);
-  }
-
 
   isLogged() {
     //Se cierra el dialogo al iniciar sesion
