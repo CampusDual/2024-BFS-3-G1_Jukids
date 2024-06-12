@@ -67,50 +67,36 @@ export class LocationMapComponent {
     return this.center;
   }
 
-  //Version inicial (funciona) - marker azul por defecto 
-/*   createMarker(lat, lng){
-    this.oMapBasic.addMarker(
-      1,
-      lat,
-      lng,
-      false,
-      true,
-      false,
-      false,
-      false
-    );
+  //Método para crear un marker con un icono custom - según nuevo diseño
+  createMarker(lat: number, lng: number): void {    
+    this.clearMarkers(); //se limpian los anteriores
+    const iconUrl = '../assets/icons/pin-mapa.png';
+    //se crea instancia del icono custom
+    const locationIcon = L.icon({
+      iconUrl: iconUrl,
+      //shadowUrl: '', //opcional: para sombra 
+      iconSize: [34, 44],
+      //shadowSize:   [44, 57], //opcional: tamaño sombra
+      iconAnchor:   [lat, lng],
+      //shadowAnchor: [lat, lng], //pos. sombra
+      popupAnchor:  [lat, lng],         
+    });
+    //se crea marcador
+    const marker = L.marker([this.latitude, this.longitude], { 
+    icon: locationIcon         
+    })
+    .addTo(this.oMapBasic.getLMap()).bindPopup(this.translate.get('LOCATION_PIN'));
 
     this.isMapLatLongSelected = true;
-  } */
-
-    //Método para crear un marker con un icono custom
-    createMarker(lat: number, lng: number): void {    
-      this.clearMarkers(); //se limpian los anteriores
-      const iconUrl = '../assets/icons/pin-mapa.png';
-      const locationIcon = L.icon({
-          iconUrl: iconUrl,
-          //shadowUrl: '', //opcional: para sombra 
-          iconSize: [44, 57],
-          //shadowSize:   [44, 57], //opcional: tamaño sombra
-          iconAnchor:   [lat, lng],
-          //shadowAnchor: [lat, lng], //pos. sombra
-          popupAnchor:  [lat, lng],         
-      });
-      const marker = L.marker([this.latitude, this.longitude], { 
-        icon: locationIcon         
-      })
-      .addTo(this.oMapBasic.getLMap()).bindPopup(this.translate.get('LOCATION_PIN'));
-
-      this.isMapLatLongSelected = true;
-      this.markers.push(marker);
+    this.markers.push(marker);
     }
 
-    //Método para limpiar marcadores del mapa
-    clearMarkers() {
-      for (const marker of this.markers) {
-        marker.remove();
-      }
+  //Método para limpiar puntos marcados antes en el mapa
+  clearMarkers() {
+    for (const marker of this.markers) {
+      marker.remove();
+    }
       this.markers = [];
-    }
+  }
  
 }
