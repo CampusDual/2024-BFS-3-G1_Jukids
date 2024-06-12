@@ -21,7 +21,7 @@ export class ToysShippingComponent implements OnInit {
   public warrantyPrice: number;
   // Se contemplan 3 euros de gastos de envio
   public priceSend: number = 3.00;
-  public issetSend: boolean = false;
+  public issetSend: boolean = true;
   // Compañias de envio
   public dataCompany = [{
     code: 'Correos',
@@ -86,6 +86,7 @@ export class ToysShippingComponent implements OnInit {
   showFormShipments() {
     if (this.buyOption._checked) {
       this.issetSend = false;
+      
   
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")

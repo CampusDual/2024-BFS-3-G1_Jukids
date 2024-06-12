@@ -230,7 +230,7 @@ public class PaymentService implements IPaymentService {
         String toyName = (String) toyResult.getRecordValues(0).get(ToyDao.ATTR_NAME);
         BigDecimal toyPrice = new BigDecimal(orderResult.getRecordValues(0).get(OrderDao.ATTR_TOTAL_PRICE).toString());
 
-        if (!itemName.equals(toyName) || toyPrice.compareTo(itemPrice) < 1) {
+        if (!itemName.equals(toyName) || toyPrice.compareTo(itemPrice) > 1) {
             return Utils.createError("Los detalles del producto no coinciden con los datos de la sesión.");
         }
 
