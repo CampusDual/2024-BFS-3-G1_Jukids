@@ -62,25 +62,38 @@ export class EditUserComponent implements OnInit {
   }
 
   saveForm() {
-    const formData = this.formUserEdit.getDataValues();
-    
-    let errorEmail = "ERROR_EMAIL_EXIST";
+    const formData = this.formUserEdit.getFieldValues(['usr_id', 'usr_login','usr_name', 'usr_surname', 'usr_password', 'usr_photo']);
+    console.log(formData);
     if (this.validateData(formData)) {
-      this.service.update(formData, ['usr_id']).subscribe(
+      const kv = { "usr_id": formData.usr_id };
+      const av = { 
+        "usr_name": formData.usr_name,
+        "usr_surname": formData.usr_surname,
+        "usr_login" :formData.usr_login,
+        "usr_password": formData.usr_password, 
+        "usr_photo": formData.usr_photo 
+      };
+  
+      this.service.update(kv, av, "user").subscribe(
         response => {
           if (response.code === 0) {
-            this.router.navigate([this.redirect]);
+            this.formUserEdit.setData(response);
+            
+          }else{
+            console.error(this.translate.get("ERROR_EMAIL_VALIDATION"))
           }
         },
         error => {
           console.error('Error updating user profile', error);
         }
       );
+      
+      this.router.navigate([this.redirect]);
     } else { 
-      this.formUserEdit.update(); 
       this.redirectHome();
     }
   }
+  
   loadUpdatedUserData() {
     if (this.usrId !== null) {
       this.service.query({ usr_id: this.usrId }, ['usr_id', 'usr_name', 'usr_surname', 'usr_login', 'usr_password', 'usr_photo']).subscribe(
@@ -99,8 +112,10 @@ export class EditUserComponent implements OnInit {
     }
   }
   validateData(data: any): boolean {
-    return data.usr_photo && data.usr_name && data.usr_surname && data.usr_login && data.usr_password;
+    return data.usr_photo || data.usr_name || data.usr_surname || data.usr_login || data.usr_password;
   }
+
+
   redirectList(){
     const self = this;
       self.router.navigate([this.redirectToyList]);
@@ -116,7 +131,6 @@ export class EditUserComponent implements OnInit {
   }
 
   updateSession(){
-    console.log("actualizo sesion")
     this.mainService.getUserInfo()
       .subscribe(
         (result: ServiceResponse) => {
