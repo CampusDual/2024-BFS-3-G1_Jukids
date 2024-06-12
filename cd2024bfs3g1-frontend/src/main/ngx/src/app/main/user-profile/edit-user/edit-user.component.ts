@@ -80,7 +80,8 @@ export class EditUserComponent implements OnInit {
       this.service.update(kv, av, "user").subscribe(
         response => {
           if (response.code === 0) {
-            this.formUserEdit.update();
+            this.formUserEdit.setData(response);
+            this.redirectHome();
             
           }else{
             console.error(this.translate.get("ERROR_EMAIL_VALIDATION"))
@@ -95,7 +96,7 @@ export class EditUserComponent implements OnInit {
       //this.router.navigate([this.redirect]);
     } else { 
 
-      this.redirectHome();
+      this.showErrorValidate();
     }
   }
   
@@ -163,5 +164,13 @@ export class EditUserComponent implements OnInit {
       this.dialogService.info('ERROR',
           errorEmail);
       }
+  }
+
+  showErrorValidate(){
+    if(this.dialogService ){
+      this.dialogService.info('ERROR', 
+        'VALIDATE_ERROR'
+      )
+    }
   }
 }

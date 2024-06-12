@@ -77,7 +77,7 @@ export class UserProfileHomeComponent implements OnInit {
     this.service.configureService(confUser);
 
     // consulta para rating
-    const confSurveys = this.service.getDefaultServiceConfiguration('surveys');
+    const confSurveys = this.service.getDefaultServiceConfiguration('toys');
     this.service.configureService(confSurveys);
     
     const columns = ['usr_name', 'usr_photo', 'rating'];

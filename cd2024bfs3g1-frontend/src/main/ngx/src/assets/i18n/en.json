@@ -291,6 +291,6 @@
   "userNameProfile": "Name",
   "lastnameProfile": "Surname",
   "emailProfile": "Email",
-  "noRating": "No rating yet"
-
+  "noRating": "No rating yet",
+  "VALIDATE_ERROR": "Something went wrong"
 }
