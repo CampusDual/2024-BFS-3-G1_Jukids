@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'buylist', component: UserPurchasedToylistComponent },
   { path: 'ratings', component: UserProfileRatingsComponent},
   { path: 'toylist/toysDetail/:toyid', component: ToysDetailComponent },
+  { path: 'buylist/toysDetail/:toyid', component: ToysDetailComponent },
   { path: 'toylist/:toyid', component: EditToyComponent },
   { path: 'edit-toy/:toyid', component: EditToyComponent }
 ]
