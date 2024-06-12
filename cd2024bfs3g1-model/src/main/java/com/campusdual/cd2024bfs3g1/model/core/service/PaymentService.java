@@ -16,6 +16,7 @@ import com.stripe.model.LineItemCollection;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.param.checkout.SessionListLineItemsParams;
+import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -116,6 +117,7 @@ public class PaymentService implements IPaymentService {
                 price = price.add(new BigDecimal(300));
             }
 
+            assert toyid != null;
             SessionCreateParams params = SessionCreateParams.builder().addLineItem(SessionCreateParams.
                             LineItem.builder().setPriceData(SessionCreateParams.LineItem.PriceData.builder().
                                     setCurrency("EUR").setProductData(SessionCreateParams.LineItem.PriceData.ProductData
@@ -125,7 +127,7 @@ public class PaymentService implements IPaymentService {
                                     .setUnitAmount(price.longValue()) //Precio
                                     .build()).setQuantity(1L) //Cantidad del producto
                             .build()).setMode(SessionCreateParams.Mode.PAYMENT).setUiMode(SessionCreateParams.UiMode.EMBEDDED)
-                    .setReturnUrl(baseUrl + "checkout?session_id={CHECKOUT_SESSION_ID}").build();
+                    .setReturnUrl(baseUrl + "checkout?session_id={CHECKOUT_SESSION_ID}&toyId=" + toyid.toString() ).build();
 
             Session session = Session.create(params);
             checkoutSession.put("session", session.toJson());
@@ -187,13 +189,34 @@ public class PaymentService implements IPaymentService {
             throw new IllegalArgumentException("attrMap and keyMap cannot be null");
         }
 
-        String sessionId = attrMap.get(OrderDao.ATTR_SESSION_ID).toString();
-        System.out.println("Contenido de sessionId: " + sessionId);
-
-        int toyId = (Integer) keyMap.get(OrderDao.ATTR_TOY_ID);
+        int toyId  = Integer.parseInt(  keyMap.get(OrderDao.ATTR_TOY_ID).toString() );
         System.out.println("Contenido de toyId: " + toyId);
 
-        EntityResult updateResult = daoHelper.update(orderDao, attrMap, keyMap);
+        String sessionId =  attrMap.get(OrderDao.ATTR_SESSION_ID).toString();
+        System.out.println("Contenido de sessionId: " + sessionId);
+
+        /**  Obtener el Order ID necesario para actualizar **/
+        // OrderID Where
+        HashMap<String, Object> orderIdKeyMap = new HashMap<>();
+        orderIdKeyMap.put( OrderDao.ATTR_TOY_ID, toyId );
+
+        //OrderID Column
+        List<String> orderIdCollAttrMap =  Arrays.asList(
+                OrderDao.ATTR_ID
+        );
+
+        //Get OrderId
+        EntityResult orderIdResult = this.daoHelper.query(this.orderDao, orderIdKeyMap , orderIdCollAttrMap);
+
+        if( orderIdResult.isWrong() || orderIdResult.isEmpty() ) {
+            return Utils.createError("Error al obtener el orderID relacionado.");
+        }
+
+        // Se agrega el ORDER ID al Map de UPDATE
+        keyMap.put( OrderDao.ATTR_ID, orderIdResult.getRecordValues(0).get(OrderDao.ATTR_ID) );
+
+        /**  SE actualiza el ORDER con la session_id **/
+        EntityResult updateResult = this.daoHelper.update(this.orderDao, attrMap, keyMap);
 
         if (updateResult.isWrong()) {
             return Utils.createError("Error al actualizar el session_id de la orden");
