@@ -1,3 +1,36 @@
+.navigation-tree-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 960px;
+    margin: auto;
+
+    .back-category {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-content: center;
+        margin-bottom: 10px;
+
+        @media screen and (max-width: 1200px) {
+            width: 80%;
+        }
+
+        @media screen and (max-width: 600px) {
+            width: 100%;
+        }
+
+        .category {
+            scale: 100%;
+            align-content: center;
+            padding-right: 30px;
+            font-weight: bold;
+            height: 100%;
+            color: #0000009c;
+            font-size: 16px;
+        }
+    }
+}
+
 .hidden {
     visibility: hidden;
     display: none;
@@ -38,14 +71,30 @@
         width: 50%;
         padding: 0.75rem;
     }
+
     .custom-button{
         background-color: gainsboro;
         border-radius: 10px;
         width: 12rem;
+
         mat-icon{
             margin-right: 0.3rem;
         }
+
+        &:hover {
+          background-color: #3C7F72;
+          }
+
+        &:active {
+          background-color: #60cbb6;
+        }
     }
+
+    .button {
+      &:hover {
+        box-shadow: 0 0 10px #3C7F72;
+        }
+      }
 
     .radioGroup {
         display: flex;
@@ -183,7 +232,8 @@
         justify-content: center;
         align-items: center;
         padding: 0.75rem;
-        background-color: white;
+        background-color: #3C7F72;
+        color: white;
         border: none;
         margin: 1.25rem 0;
         border-radius: 0.5rem;
@@ -194,10 +244,6 @@
 
         &.colorOrange {
             background-color: #FFCC99;
-        }
-
-        &:hover {
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.24);
         }
     }
 
