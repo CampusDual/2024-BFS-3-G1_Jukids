@@ -105,6 +105,9 @@ export class MainComponent implements OnInit {
 
   clearInput(searcherInput: HTMLInputElement) {
     searcherInput.value = '';
+    this.router.navigate(['/main/toys']).then(() =>{
+      window.location.reload();
+    });
   }
 
   newToy(){
