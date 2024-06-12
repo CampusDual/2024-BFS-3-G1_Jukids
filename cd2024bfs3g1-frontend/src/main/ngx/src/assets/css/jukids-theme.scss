@@ -755,8 +755,7 @@ nav {
 
 // ==================================== CHAT COMPONENT DESIGN ====================================
 .chat-container {
-  // width: 25rem;
-  // height: 37.5rem;
+
   width: 100%;
   height: 100%;
   display: flex;
@@ -767,10 +766,6 @@ nav {
   overflow: hidden;
   border-radius: 0.75rem;
 
-  // @include respond-to(small) {
-  //   width: 18rem;
-  //   border-radius: 0;
-  // }
 
   .chat-container-header {
     display: flex;
@@ -885,7 +880,6 @@ nav {
         flex-direction: row-reverse;
         justify-content: end;
         padding: 5px;
-        // text-align: end;
 
         .user-profile {
           width: 2.5rem;
@@ -897,9 +891,6 @@ nav {
           border-radius: 50%;
           margin: 0.25rem;
 
-          // @include respond-to(small) {
-          //   width: 25%;
-          // }
         }
 
         .message {

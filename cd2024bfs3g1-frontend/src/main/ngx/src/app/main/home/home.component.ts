@@ -4,7 +4,6 @@ import { DialogService, OTranslateService, OntimizeService } from 'ontimize-web-
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { EventEmitter } from 'stream';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -75,7 +74,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.translate.onLanguageChanged.subscribe(data => {
       this.language = data;
-      console.log(data);
+      
     });
 
     setTimeout(() => {
@@ -150,8 +149,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     const total = document.querySelectorAll('.banner-svg');
     const totalImages = document.querySelectorAll('.banner-svg').length;
     this.autoplayInterval = setInterval(() => {
-      // console.log(index, "-----------------------------------")
-      // console.log(index == totalImages - 1);
       this.carrusel(index);  // Navega a la siguiente imagen cada intervalo de tiempo.
       (index == totalImages - 1) ? index = 0 : index++;
     }, interval);
@@ -160,7 +157,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   public carrusel(index) {
     const bannerContainer = document.querySelector('.banner-container');
     const totalImages = document.querySelectorAll('.banner-svg');
-    // console.log(bannerContainer.children[totalImages.length - 1])
     totalImages.forEach((element, key) => {
       if (key == index) {
         element.classList.remove("hidden")
@@ -172,8 +168,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
 
-  ngOnDestroy(): void {
-    console.log( "ngOnDestroy de HOME" );
+  ngOnDestroy(): void {    
     clearInterval(this.autoplayInterval);
   }
 }

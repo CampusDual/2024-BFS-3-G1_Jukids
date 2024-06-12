@@ -84,7 +84,6 @@ export class UserProfileHomeComponent implements OnInit {
     this.service
       .query(filter, columns, 'userAverageRating')
       .subscribe((resp) => {
-        console.log(resp.data);
         if (resp.code === 0 && resp.data.length > 0) {
           this.varRating = resp.data[0].rating.toFixed(1);;
         } else {

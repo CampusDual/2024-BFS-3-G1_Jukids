@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ChatJoinRoomInterface } from '../interfaces/chat-join-room.interface';
 import { ChatMessageModelInterface } from '../interfaces/chat-message.interface';
 import { ChatUserProfileInterfaceResponse } from '../interfaces/chat-user-profile.interface';
@@ -20,7 +20,6 @@ export class ChatService {
   }
 
   getUserProfileChatData(): Observable<any> {
-    // console.log("getUserProfileChatData:", this.userProfileChatData$);
             
     return this.userProfileChatData;
   }

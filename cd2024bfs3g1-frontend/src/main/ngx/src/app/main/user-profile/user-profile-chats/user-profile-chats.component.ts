@@ -1,12 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OListComponent, OTranslateService, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
+import { OListComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { ChatComponent } from 'src/app/shared/components/chat/chat.component';
 import { ChatUserProfileInterfaceResponse } from 'src/app/shared/interfaces/chat-user-profile.interface';
 import { ChatService } from 'src/app/shared/services/chat.service';
-import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 
 @Component({
   selector: 'app-user-profile-chats',
@@ -33,7 +31,6 @@ export class UserProfileChatsComponent implements OnInit, OnDestroy {
   @ViewChild('chatList') chatList: OListComponent;
 
   constructor(
-    private route: ActivatedRoute,
     private location: Location,
     private chatService: ChatService,
     private toyService: OntimizeService,
@@ -48,7 +45,6 @@ export class UserProfileChatsComponent implements OnInit, OnDestroy {
         }
       },
       error: (error) => {
-        console.log("error", error);
         this.loadingDataSubscription = false;
       }
     });
