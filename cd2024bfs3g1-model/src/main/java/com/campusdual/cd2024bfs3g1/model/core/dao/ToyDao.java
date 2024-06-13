@@ -36,6 +36,7 @@ public class ToyDao extends OntimizeJdbcDaoSupport {
     public static final String QUERY_V_SUM_PRICE_TOYS_SOLD = "sumPriceToysSold";
     public static final String QUERY_USER_AVG_RATING = "userAverageRating";
     public static final String QUERY_TOY_JOIN = "toyJoin";
+    public static final String QUERY_TOY_ORDER_USER = "toyUserOrder";
     public static final String QUERY_TOY_ORDER = "toyOrder";
 
     //Categorias de juguete
