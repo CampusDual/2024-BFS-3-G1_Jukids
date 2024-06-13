@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -32,6 +33,9 @@ public class ShipmentService implements IShipmentService {
 
     private static final String JOINQUERY = "shipmentJoin";
     private static final String UPDATEERROR = "Error al actualizar el estado del juguete";
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    private static final int TRACK_MAX_LENGTH = 10;
+    private static final Random RANDOM = new SecureRandom();
 
     @Override
     public EntityResult shipmentQuery(Map<String, Object> shipmentData, List<String> attrList) {
@@ -90,7 +94,7 @@ public class ShipmentService implements IShipmentService {
 
         //Generamos SHIPMENTS - TRACKING NUMBER y SHIPMENT_DATE
 
-        String trackingNumber = Utils.generateRandomTrack();
+        String trackingNumber = generateRandomTrack();
 
         Map<String, Object> shipmentUpdateValues = new HashMap<>();
         shipmentUpdateValues.put(ShipmentDao.ATTR_SENDER_ADDRESS, attrMap.get(ShipmentDao.ATTR_SENDER_ADDRESS));
@@ -123,6 +127,14 @@ public class ShipmentService implements IShipmentService {
         }
 
         return Utils.createMessageResult("Envío realizado con éxito");
+    }
+
+    public static String generateRandomTrack() {
+        StringBuilder trackingNumber = new StringBuilder(TRACK_MAX_LENGTH);
+        for (int i = 0; i < TRACK_MAX_LENGTH; i++) {
+            trackingNumber.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
+        }
+        return trackingNumber.toString();
     }
 
     //Actualizar estado del 2 al 3

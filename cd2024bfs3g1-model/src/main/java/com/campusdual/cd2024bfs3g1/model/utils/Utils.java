@@ -8,7 +8,6 @@ import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
-import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.apache.tika.Tika;
@@ -17,8 +16,6 @@ import org.springframework.http.MediaType;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,9 +23,6 @@ import java.util.regex.Pattern;
 public class Utils {
 
     private static final int JUKIDS_COMMISSION = 7;
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-    private static final int TRACK_MAX_LENGTH = 10;
-    private static final Random RANDOM = new SecureRandom();
 
     public static Boolean validaEmail(String email) {
         Pattern pattern = Pattern.compile("^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$");
@@ -169,19 +163,6 @@ public class Utils {
         return daoHelper.query((ToyDao) dao, keyMap, attrList, queryName);
     }
 
-    public static void populateOrderData(Map<String, Object> orderData, Integer idUser, String email) {
-        orderData.put(OrderDao.ATTR_BUYER_ID, idUser);
-        orderData.put(OrderDao.ATTR_BUYER_EMAIL, email);
-        orderData.put(OrderDao.ATTR_ORDER_DATE, LocalDateTime.now());
-    }
-
-    public static void populateOrderShipData(Map<String, Object> orderData, Integer idUser, String email, Integer toyId) {
-        orderData.put(OrderDao.ATTR_BUYER_ID, idUser);
-        orderData.put(OrderDao.ATTR_BUYER_EMAIL, email);
-        orderData.put(OrderDao.ATTR_ORDER_DATE, LocalDateTime.now());
-        orderData.put(OrderDao.ATTR_TOY_ID, toyId);
-    }
-
     public static EntityResult fetchToyData(DefaultOntimizeDaoHelper daoHelper, ToyDao toyDao, Integer toyId) {
         HashMap<String, Object> toyKeyValues = new HashMap<>();
         toyKeyValues.put(ToyDao.ATTR_ID, toyId);
@@ -212,19 +193,6 @@ public class Utils {
 
     public static EntityResult insertOrder(DefaultOntimizeDaoHelper daoHelper, OrderDao orderDao, Map<String, Object> orderData) {
         return daoHelper.insert(orderDao, orderData);
-    }
-
-    public static EntityResult insertShipment(DefaultOntimizeDaoHelper daoHelper, ShipmentDao shipmentDao, Map<String, Object> shipmentData) {
-        shipmentData.put(ShipmentDao.ATTR_TRACKING_NUMBER, "0000000000");
-        return daoHelper.insert(shipmentDao, shipmentData);
-    }
-
-    public static String generateRandomTrack() {
-        StringBuilder trackingNumber = new StringBuilder(TRACK_MAX_LENGTH);
-        for (int i = 0; i < TRACK_MAX_LENGTH; i++) {
-            trackingNumber.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
-        }
-        return trackingNumber.toString();
     }
 
     public static EntityResult updateToyStatus(DefaultOntimizeDaoHelper daoHelper, ToyDao toyDao, Integer toyId, Integer status) {

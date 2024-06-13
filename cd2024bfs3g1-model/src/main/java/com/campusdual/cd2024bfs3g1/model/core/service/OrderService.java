@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -61,7 +62,7 @@ public class OrderService implements IOrderService {
 
         //Poblamos orderData, el HashMap que usaremos para el insert en ORDERS
 
-        Utils.populateOrderData(orderData, idUser, email);
+        populateOrderData(orderData, idUser, email);
 
         //Recuperamos TOY - PRICE y TOY - TRANSACTION_STATUS
 
@@ -99,6 +100,12 @@ public class OrderService implements IOrderService {
         return Utils.createMessageResult("Orden creada correctamente");
     }
 
+    public static void populateOrderData(Map<String, Object> orderData, Integer idUser, String email) {
+        orderData.put(OrderDao.ATTR_BUYER_ID, idUser);
+        orderData.put(OrderDao.ATTR_BUYER_EMAIL, email);
+        orderData.put(OrderDao.ATTR_ORDER_DATE, LocalDateTime.now());
+    }
+
     @Override
     @Transactional
     public EntityResult orderAndShipmentInsert(Map<String, Object> shipmentData) {
@@ -116,7 +123,7 @@ public class OrderService implements IOrderService {
         //Creamos y poblamos orderData, el HashMap que usaremos para el insert en ORDERS
 
         Map<String, Object> orderData = new HashMap<>();
-        Utils.populateOrderShipData(orderData, idUser, email, toyId);
+        populateOrderShipData(orderData, idUser, email, toyId);
 
         //Recuperamos TOY - PRICE y TOY - TRANSACTION_STATUS
 
@@ -152,7 +159,7 @@ public class OrderService implements IOrderService {
 
         //Insertamos en SHIPMENTS
 
-        EntityResult shipmentResult = Utils.insertShipment(daoHelper, shipmentDao, shipmentData);
+        EntityResult shipmentResult = insertShipment(shipmentData);
 
         if (shipmentResult.isWrong()) {
             return Utils.createError("Error al crear el envío");
@@ -167,5 +174,17 @@ public class OrderService implements IOrderService {
         }
 
         return Utils.createMessageResult("Orden y envío creados correctamente");
+    }
+
+    public static void populateOrderShipData(Map<String, Object> orderData, Integer idUser, String email, Integer toyId) {
+        orderData.put(OrderDao.ATTR_BUYER_ID, idUser);
+        orderData.put(OrderDao.ATTR_BUYER_EMAIL, email);
+        orderData.put(OrderDao.ATTR_ORDER_DATE, LocalDateTime.now());
+        orderData.put(OrderDao.ATTR_TOY_ID, toyId);
+    }
+
+    public EntityResult insertShipment(Map<String, Object> shipmentData) {
+        shipmentData.put(ShipmentDao.ATTR_TRACKING_NUMBER, "0000000000");
+        return this.daoHelper.insert(this.shipmentDao, shipmentData);
     }
 }
