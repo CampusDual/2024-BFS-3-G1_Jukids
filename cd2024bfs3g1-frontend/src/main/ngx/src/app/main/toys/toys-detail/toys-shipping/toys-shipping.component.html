@@ -1,21 +1,6 @@
 <div class="navigation-tree-container">
   <div class="back-category">
-    <div class="category">
-      {{ "ALL_TOYS" | oTranslate }}
-    <span>></span>
-    </div>
-    <div class="category">
-      {{ category.getValue() | oTranslate }}
-    <span>></span>
-    </div>
-    <div class="category">
-      {{ nameInput.getValue() | oTranslate }}
-    </div>
-
-
-
-
-    <!-- <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
+    <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
     <div class="category">></div>
     <div class="category">
       <a class="category" [routerLink]="['/main/toys']" [queryParams]="{category: category.getValue()}">
@@ -26,7 +11,7 @@
       <a class="category" [routerLink]="['/main/toys/toysDetail/', toyId.getValue()]">
         {{ nameInput.getValue() | oTranslate }}
       </a>
-    </div> -->
+    </div>
   </div>
 </div>
 
