@@ -3,6 +3,7 @@ package com.campusdual.cd2024bfs3g1.model.core.service;
 import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.ShipmentDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -16,12 +17,13 @@ import com.stripe.model.LineItemCollection;
 import com.stripe.model.checkout.Session;
 import com.stripe.param.checkout.SessionCreateParams;
 import com.stripe.param.checkout.SessionListLineItemsParams;
-import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service("PaymentService")
@@ -36,6 +38,8 @@ public class PaymentService implements IPaymentService {
     private ToyDao toyDao;
     @Autowired
     private OrderDao orderDao;
+    @Autowired
+    private ShipmentDao shipmentDao;
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
@@ -129,6 +133,7 @@ public class PaymentService implements IPaymentService {
                                     .setUnitAmount(price.longValue()) //Precio
                                     .build()).setQuantity(1L) //Cantidad del producto
                             .build()).setMode(SessionCreateParams.Mode.PAYMENT).setUiMode(SessionCreateParams.UiMode.EMBEDDED)
+                    .setExpiresAt(Instant.now().plus(30, ChronoUnit.MINUTES).getEpochSecond())
                     .setReturnUrl(baseUrl + "checkout?session_id={CHECKOUT_SESSION_ID}&toyId=" + toyid.toString() ).build();
 
             Session session = Session.create(params);
@@ -243,5 +248,53 @@ public class PaymentService implements IPaymentService {
         }
 
         return updateResult;
+    }
+
+    public void windowClosedUpdate(Map<String, Object> keyMap) {
+
+        int toyId = Integer.parseInt(keyMap.get(OrderDao.ATTR_TOY_ID).toString());
+
+        //Comprobamos el t_status de toy
+
+        HashMap<String, Object> toyKeyMap = new HashMap<>();
+        toyKeyMap.put(OrderDao.ATTR_TOY_ID, toyId);
+        List<String> toyAttrMap = List.of(ToyDao.ATTR_TRANSACTION_STATUS);
+
+        EntityResult toyStatus = this.daoHelper.query(this.toyDao, toyKeyMap, toyAttrMap);
+
+        Integer actualStatus = (Integer) toyStatus.getRecordValues(0).get(ToyDao.ATTR_TRANSACTION_STATUS);
+
+        if (actualStatus != 0) {
+
+            //Recuperamos order_id y shipment_id mediante toyId
+
+            HashMap<String, Object> idKeyMap = new HashMap<>();
+            idKeyMap.put(OrderDao.ATTR_TOY_ID, toyId);
+            List<String> idAttrMap = Arrays.asList(OrderDao.ATTR_ID, ShipmentDao.ATTR_ID, "shipmentJoin");
+
+            EntityResult idResult = this.daoHelper.query(this.orderDao, idKeyMap, idAttrMap);
+
+            Map<String, Object> order = idResult.getRecordValues(0);
+
+            int orderId = (int) order.get(OrderDao.ATTR_ID);
+            Integer shipmentId = (Integer) order.get(ShipmentDao.ATTR_ID);
+
+            //Devolvemos toy transaction_status a 0
+
+            Utils.updateToyStatus(daoHelper, toyDao, toyId, ToyDao.STATUS_AVAILABLE);
+
+            //Borramos el shipment asociado a order_id si existe
+
+            Map<String, Object> shipmentKeyMap = new HashMap<>();
+            shipmentKeyMap.put(ShipmentDao.ATTR_ID, shipmentId);
+            daoHelper.delete(shipmentDao, shipmentKeyMap);
+
+            //Borramos el order asociado al toyId
+
+            Map<String, Object> orderKeyMap = new HashMap<>();
+            orderKeyMap.put(OrderDao.ATTR_ID, orderId);
+
+            daoHelper.delete(orderDao, orderKeyMap);
+        }
     }
 }

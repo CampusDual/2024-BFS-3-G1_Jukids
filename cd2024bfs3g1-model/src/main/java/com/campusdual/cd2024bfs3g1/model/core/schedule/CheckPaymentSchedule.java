@@ -49,9 +49,10 @@ public class CheckPaymentSchedule {
             LocalDateTime orderDate = orderTimestamp.toLocalDateTime();
             System.out.println("Order ID: " + order.get(OrderDao.ATTR_ID) + ", Order Date: " + orderDate);
 
-            //De las orders sin pagar comprobamos las que lleven creadas mas de 7 minutos
+            //De las orders sin pagar comprobamos las que lleven creadas mas de 31 minutos sin pagarse
 
-            if (orderDate.plusMinutes(7).isBefore(now)) {
+            if (orderDate.plusMinutes(31).isBefore(now)) {
+
                 int toyId = (int) order.get(ToyDao.ATTR_ID);
                 int orderId = (int) order.get(OrderDao.ATTR_ID);
                 Integer shipmentId = (Integer) order.get(ShipmentDao.ATTR_ID);
