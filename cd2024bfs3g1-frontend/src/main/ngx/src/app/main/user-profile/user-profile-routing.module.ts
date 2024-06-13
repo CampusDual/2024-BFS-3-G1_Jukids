@@ -7,7 +7,8 @@ import { UserProfileHomeComponent } from './user-profile-home/user-profile-home.
 import { UserPurchasedToylistComponent } from './user-profile-buylist/user-profile-buylist.component';
 import { UserProfileRatingsComponent } from './user-profile-ratings/user-profile-ratings.component';
 import { ToysDetailComponent } from '../toys/toys-detail/toys-detail.component';
- 
+import { UserProfileChatsComponent } from './user-profile-chats/user-profile-chats.component';
+
 const routes: Routes = [
   { path: '', component: UserProfileHomeComponent },
   { path: 'toylist', component: UserProfileToylistComponent },
@@ -16,13 +17,14 @@ const routes: Routes = [
   { path: 'toylist/toysDetail/:toyid', component: ToysDetailComponent },
   { path: 'toylist/:toyid', component: EditToyComponent },
   { path: 'edit-toy/:toyid', component: EditToyComponent },
+  { path: 'chats', component: UserProfileChatsComponent },
+  { path: 'edit-toy/:toyid', component: EditToyComponent },
   { path: 'edit-user', component: EditUserComponent },
- 
+
 ]
- 
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class UserProfileRoutingModule { }
- 

@@ -9,7 +9,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { UserPurchasedToylistComponent } from './user-profile-buylist/user-profile-buylist.component';
 import { UserProfileRatingsComponent } from './user-profile-ratings/user-profile-ratings.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
- 
+import { UserProfileChatsComponent } from './user-profile-chats/user-profile-chats.component';
+
 @NgModule({
   declarations: [
     UserProfileHomeComponent,
@@ -17,8 +18,10 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     UserPurchasedToylistComponent,
     EditToyComponent,
     UserProfileRatingsComponent,
+    UserProfileChatsComponent
+    UserProfileRatingsComponent,
     EditUserComponent
- 
+
   ],
   imports: [
     CommonModule,
@@ -28,4 +31,3 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     ]
 })
 export class UserProfileModule { }
- 

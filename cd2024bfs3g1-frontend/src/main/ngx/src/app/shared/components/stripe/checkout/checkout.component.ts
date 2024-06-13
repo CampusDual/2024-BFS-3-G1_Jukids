@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OTranslatePipe, OTranslateService } from 'ontimize-web-ngx';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { OTranslateService } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-checkout',
@@ -18,17 +17,10 @@ export class CheckoutComponent implements OnInit {
 
 
   constructor(
-    private actRoute: ActivatedRoute,
     private translateService: OTranslateService,
     private router: Router
   ) {
 
-
-  //   this.actRoute.queryParams.subscribe({
-  //     next: (params) => {
-  //       console.log( "params: ", params );
-  //     }
-  //   });
 
   }
 

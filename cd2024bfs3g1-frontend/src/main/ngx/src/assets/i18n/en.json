@@ -294,5 +294,13 @@
   "lastnameProfile": "Surname",
   "emailProfile": "Email",
   "noRating": "No rating yet",
+  "MESSAGES": "Messages",
+  "SELECT_CHAT": "Select a chat",
+  "LOADING_MESSAGES": "Loading messages...",
+  "MY_CHATS": "My chats",
+  "WRITE_MESSAGE": "Your message here",
+  "CONTACT_CHAT": "Contact by chat",
+  "SEND_CHAT": "Send message",
+  "UPDATE_CHATS": "Update chats",
   "VALIDATE_ERROR": "Something went wrong"
 }

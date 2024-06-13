@@ -1,6 +1,6 @@
-import { Component, ViewChild, Inject, OnInit} from '@angular/core';
+import { Component, ViewChild, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
-import { DialogService,  ODialogConfig, OFormComponent, ORadioComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
+import { DialogService, ODialogConfig, OFormComponent, ORadioComponent, ORealInputComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { OEmailInputComponent } from 'ontimize-web-ngx';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -15,9 +15,9 @@ import { LoginComponent } from 'src/app/login/login.component';
   templateUrl: './toys-new.component.html',
   styleUrls: ['./toys-new.component.scss']
 })
-export class ToysNewComponent implements OnInit{
+export class ToysNewComponent implements OnInit, AfterViewInit {
   private location: any;
-  subscription:Subscription;
+  subscription: Subscription;
   private redirectToToylist = '/main/user-profile/toylist';
   private redirectToToys = '/toys';
   public toyService: string;
@@ -42,12 +42,14 @@ export class ToysNewComponent implements OnInit{
   ) {
 
     this.toyService = this.jukidsAuthService.isLoggedIn() ? 'toyowner' : 'toys';
-   //Configuración del servicio para poder ser usado
-  const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
-  this.ontimizeService.configureService(conf);
+    //Configuración del servicio para poder ser usado
+    const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
+    this.ontimizeService.configureService(conf);
   }
 
+
   ngOnInit() {
+
     const serviceConfig = this.ontimizeService.getDefaultServiceConfiguration(this.toyService);
     this.ontimizeService.configureService(serviceConfig);
     //Se escuchan los cambios del servicio
@@ -61,13 +63,14 @@ export class ToysNewComponent implements OnInit{
 
     this.toysMapService.getUserGeolocation(); // Call to get user's location
 
+  }
 
-    setTimeout(() => {
-      this.mainService.getUserInfo().subscribe((data)=>{
-          const usr = data.data.usr_login;
-          this.usr_email.setValue(usr);
-      });
-    }, 100);
+  ngAfterViewInit(): void {
+    this.mainService.getUserInfo().subscribe((data) => {
+      if (this.usr_email && data && data.data) {
+        this.usr_email.setValue(data.data.usr_login);
+      }
+    });
   }
 
   handleMapClick(e) {
@@ -83,8 +86,8 @@ export class ToysNewComponent implements OnInit{
 
   newSubmit() {
 
-    let arrayErrores: any [] = [];
-    const getFieldValues = this.formToy.getFieldValues(['photo','name', 'description', 'price', 'email', 'longitude', 'latitude','category','status']);
+    let arrayErrores: any[] = [];
+    const getFieldValues = this.formToy.getFieldValues(['photo', 'name', 'description', 'price', 'email', 'longitude', 'latitude', 'category', 'status']);
 
     let errorPhoto = "ERROR_PHOTO_VALIDATION";
     let errorName = "ERROR_NAME_VALIDATION";
@@ -98,46 +101,46 @@ export class ToysNewComponent implements OnInit{
     let errorStatus = "ERROR_STATUS_VALIDATION";
     var regExpEmail = new RegExp('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$');
 
-    if(getFieldValues.photo === undefined  ){
+    if (getFieldValues.photo === undefined) {
       arrayErrores.push(this.translate.get(errorPhoto));
     }
-    if(getFieldValues.name === undefined || getFieldValues.name.trim() === ""){
+    if (getFieldValues.name === undefined || getFieldValues.name.trim() === "") {
       arrayErrores.push(this.translate.get(errorName));
     }
-    if(getFieldValues.description === undefined || getFieldValues.description.trim() === ""){
+    if (getFieldValues.description === undefined || getFieldValues.description.trim() === "") {
       arrayErrores.push(this.translate.get(errorDescription));
     }
-    if(getFieldValues.price === undefined){
+    if (getFieldValues.price === undefined) {
       arrayErrores.push(this.translate.get(errorPrice));
     }
-    if(getFieldValues.price < 1){
+    if (getFieldValues.price < 1) {
       arrayErrores.push(this.translate.get(errorNegativePrice));
     }
-    if(getFieldValues.price > 9999999){
+    if (getFieldValues.price > 9999999) {
       arrayErrores.push(this.translate.get(errorHigherThanTenMillionPrice));
     }
-    if(getFieldValues.email === undefined || getFieldValues.email.trim() === "" || !regExpEmail.test(getFieldValues.email.trim())){
+    if (getFieldValues.email === undefined || getFieldValues.email.trim() === "" || !regExpEmail.test(getFieldValues.email.trim())) {
       arrayErrores.push(this.translate.get(errorEmail));
     }
-    if(getFieldValues.longitude === undefined || getFieldValues.latitude === undefined){
+    if (getFieldValues.longitude === undefined || getFieldValues.latitude === undefined) {
       this.isMapLatLongSelected = false;
       arrayErrores.push(this.translate.get(errorLocation));
     }
-    if(getFieldValues.category === ""){
+    if (getFieldValues.category === "") {
       arrayErrores.push(this.translate.get(errorCategory));
     }
 
-    if(getFieldValues.status === undefined ){
+    if (getFieldValues.status === undefined) {
       arrayErrores.push(this.translate.get(errorStatus));
     }
-    
-    if(arrayErrores.length > 0 ) {
+
+    if (arrayErrores.length > 0) {
       let stringErrores = "";
-      for(let i = 0; i < arrayErrores.length; i++){
+      for (let i = 0; i < arrayErrores.length; i++) {
         stringErrores += "</br>" + (arrayErrores[i] + "</br>");
       }
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
-    }else{
+    } else {
       this.formToy.insert();
     }
   }
@@ -157,14 +160,14 @@ export class ToysNewComponent implements OnInit{
     }
   }
 
-  insertRedirect(){
+  insertRedirect() {
     const self = this;
-      self.router.navigate([this.redirectToToylist]);
+    self.router.navigate([this.redirectToToylist]);
   }
 
-  cancel(){
+  cancel() {
     const self = this;
-      self.router.navigate([this.redirectToToys]);
+    self.router.navigate([this.redirectToToys]);
   }
 
 
