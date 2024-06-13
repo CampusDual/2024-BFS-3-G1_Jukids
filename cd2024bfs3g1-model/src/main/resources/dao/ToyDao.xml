@@ -31,6 +31,23 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="toyOrder">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="order_id" prefix="o"/>
+                <AmbiguousColumn name="toyid" prefix="t"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                 SELECT
+                     #COLUMNS#
+                 FROM
+                     ${mainschema}.toys t
+                 INNER JOIN
+                     ${mainschema}.orders o ON t.toyid = o.toyid
+                 #WHERE#
+            ]]>
+            </Sentence>
+        </Query>
         <Query id="toyJoin">
             <AmbiguousColumns>
                 <AmbiguousColumn name="price" prefix="t" />

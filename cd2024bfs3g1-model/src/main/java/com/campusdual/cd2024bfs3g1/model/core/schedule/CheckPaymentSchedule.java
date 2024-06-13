@@ -38,7 +38,7 @@ public class CheckPaymentSchedule {
         Map<String, Object> keyMap = new HashMap<>();
         List<String> attrList = Arrays.asList(OrderDao.ATTR_ID, OrderDao.ATTR_ORDER_DATE, ToyDao.ATTR_ID, ShipmentDao.ATTR_ID);
 
-        EntityResult queryResult = daoHelper.query(orderDao, keyMap, attrList, "getUnpaidOrders");
+        EntityResult queryResult = daoHelper.query(orderDao, keyMap, attrList, OrderDao.QUERY_UNPAID_ORDERS);
 
         int numeroDeObjetos = queryResult.calculateRecordNumber();
         System.out.println("Numero de ordenes encontradas: " + numeroDeObjetos);

@@ -31,7 +31,6 @@ public class ShipmentService implements IShipmentService {
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
-    private static final String JOINQUERY = "shipmentJoin";
     private static final String UPDATEERROR = "Error al actualizar el estado del juguete";
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     private static final int TRACK_MAX_LENGTH = 10;
@@ -46,19 +45,19 @@ public class ShipmentService implements IShipmentService {
     @Override
     public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) {
         keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
-        return Utils.queryByStatusBuyer(daoHelper, shipmentDao, userDao, keyMap, attrList, ToyDao.STATUS_PENDING_SHIPMENT, JOINQUERY);
+        return Utils.queryByStatusBuyer(daoHelper, shipmentDao, userDao, keyMap, attrList, ToyDao.STATUS_PENDING_SHIPMENT, ShipmentDao.QUERY_SHIP_ORDER_TOY);
     }
 
     //Muestra juguetes del estado 2 al comprador
     @Override
     public EntityResult pendingReceiveQuery(Map<String, Object> shipmentData, List<String> attrList) {
-        return Utils.queryByStatusBuyer(daoHelper, shipmentDao, userDao, shipmentData, attrList, ToyDao.STATUS_SENT, JOINQUERY);
+        return Utils.queryByStatusBuyer(daoHelper, shipmentDao, userDao, shipmentData, attrList, ToyDao.STATUS_SENT, ShipmentDao.QUERY_SHIP_ORDER_TOY);
     }
 
     //Muestra juguetes del estado 3 al comprador
     @Override
     public EntityResult pendingConfirmQuery(Map<String, Object> shipmentData, List<String> attrList) {
-        return Utils.queryByStatusBuyer(daoHelper, shipmentDao, userDao, shipmentData, attrList, ToyDao.STATUS_RECEIVED, JOINQUERY);
+        return Utils.queryByStatusBuyer(daoHelper, shipmentDao, userDao, shipmentData, attrList, ToyDao.STATUS_RECEIVED, ShipmentDao.QUERY_SHIP_ORDER_TOY);
     }
 
     //Actualizar estado del 1 al 2
@@ -83,7 +82,7 @@ public class ShipmentService implements IShipmentService {
                 ToyDao.ATTR_USR_ID
         );
 
-        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, JOINQUERY);
+        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, ShipmentDao.QUERY_SHIP_ORDER_TOY);
 
         if (shipmentData.isWrong() || shipmentData.isEmpty()) {
             return Utils.createError("Error al recuperar el envío");
@@ -154,7 +153,7 @@ public class ShipmentService implements IShipmentService {
         //Verificamos el TOYS - TRANSACTION_STATUS y ORDER - BUYER_ID
 
         List<String> resultAttributes = Arrays.asList(OrderDao.ATTR_TOY_ID, ToyDao.ATTR_TRANSACTION_STATUS, OrderDao.ATTR_BUYER_ID);
-        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, JOINQUERY);
+        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, ShipmentDao.QUERY_SHIP_ORDER_TOY);
 
         if (shipmentData.isEmpty() || shipmentData.isWrong()) {
             return Utils.createError("El envío no existe o no tienes los permisos necesarios");
@@ -195,7 +194,7 @@ public class ShipmentService implements IShipmentService {
         //Verificamos el TOYS - TRANSACTION_STATUS y ORDER - BUYER_ID
 
         List<String> resultAttributes = Arrays.asList(OrderDao.ATTR_TOY_ID, ToyDao.ATTR_TRANSACTION_STATUS, OrderDao.ATTR_BUYER_ID);
-        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, JOINQUERY);
+        EntityResult shipmentData = this.daoHelper.query(this.shipmentDao, searchValues, resultAttributes, ShipmentDao.QUERY_SHIP_ORDER_TOY);
 
         if (shipmentData.isEmpty() || shipmentData.isWrong()) {
             return Utils.createError("El envío no existe o no tienes los permisos necesarios");

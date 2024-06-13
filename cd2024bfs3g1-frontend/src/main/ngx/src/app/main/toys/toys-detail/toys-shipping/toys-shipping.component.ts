@@ -46,7 +46,6 @@ export class ToysShippingComponent implements OnInit {
   @ViewChild('emailInput') toyEmail: OEmailInputComponent;
   @ViewChild('priceInput') priceToy: OCurrencyInputComponent;
   @ViewChild('formShipments') formShipments: OFormComponent;
-  @ViewChild('orderId') order_id: OTextInputComponent;
   @ViewChild('price') price: OTextInputComponent;
   @ViewChild('onlyBuy') buyOption;
   @ViewChild('BuySend') buySendOption;
@@ -105,7 +104,7 @@ export class ToysShippingComponent implements OnInit {
     this.stripe.product = this.toyName.getValue();
     this.stripe.email = this.toyEmail.getValue();
     this.warrantyPrice = (Number)(((this.priceToy.getValue() / (1 - this.commission / 100)) - this.priceToy.getValue()).toFixed(2));
-    this.order_id.setValue(this.toyId.getValue());
+    this.toyId.setValue(this.toyId.getValue());
     this.price.setValue(this.priceSend);
 
     //Formulario de envio deshabilitado
@@ -232,7 +231,7 @@ export class ToysShippingComponent implements OnInit {
 
       const avOrder =  {
 
-        "order_id": this.orderId.getValue(),
+        "toyid": this.toyId.getValue(),
         "shipping_address": this.shippingAddress.getValue(),
         "buyer_phone": this.buyerPhone.getValue(),
         "shipment_company": this.shipmentCompany.getValue(),

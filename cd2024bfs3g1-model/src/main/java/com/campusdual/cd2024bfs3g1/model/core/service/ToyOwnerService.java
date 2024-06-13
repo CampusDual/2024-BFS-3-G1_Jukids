@@ -32,21 +32,16 @@ public class ToyOwnerService implements IToyOwnerService {
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
+    //Muestra juguetes del estado 0 al vendedor
     @Override
     public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) {
-        return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_AVAILABLE, null);
-    }
-
-    //Muestra juguetes del estado 0
-    @Override
-    public EntityResult saleToyQuery(Map<String, Object> keyMap, List<String> attrList) {
         return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_AVAILABLE, null);
     }
 
     //Muestra juguetes del estado 1 al vendedor
     public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) {
         keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
-        return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_PENDING_SHIPMENT, "toyJoin");
+        return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_PENDING_SHIPMENT, ToyDao.QUERY_TOY_JOIN);
     }
 
     //Muestra juguetes del estado 2 al vendedor
@@ -54,17 +49,33 @@ public class ToyOwnerService implements IToyOwnerService {
     public EntityResult pendingConfirmQuery(Map<String, Object> keyMap, List<String> attrList) {
 
         Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
-        keyMap.put(UserDao.USR_ID, idUser);
+        keyMap.put(ToyDao.ATTR_USR_ID, idUser);
         keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_SENT, ToyDao.STATUS_RECEIVED)));
 
-        return this.daoHelper.query(this.toyDao, keyMap, attrList);
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, ToyDao.QUERY_TOY_JOIN);
     }
 
-    //Muestra juguetes del estado 4 al vendedor
+    //Muestra juguetes del estado 4 y 5 al vendedor
     @Override
     public EntityResult toySoldQuery(Map<String, Object> keyMap, List<String> attrList) {
+        Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
+        keyMap.put(ToyDao.ATTR_USR_ID, idUser);
         keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
-        return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_PURCHASED, "toyJoin");
+        keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_PURCHASED, ToyDao.STATUS_RATED)));
+
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, ToyDao.QUERY_TOY_ORDER);
+    }
+
+    //Muestra juguetes reservados (pendientes de pago) al vendedor
+    @Override
+    public EntityResult reservedQuery(Map<String, Object> keyMap, List<String> attrList) {
+
+        Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
+        keyMap.put(ToyDao.ATTR_USR_ID, idUser);
+        keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NULL, null));
+        keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS,
+                new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_PENDING_SHIPMENT, ToyDao.STATUS_PURCHASED)));
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, ToyDao.QUERY_TOY_ORDER);
     }
 
     @Override
@@ -76,16 +87,16 @@ public class ToyOwnerService implements IToyOwnerService {
     }
 
     @Override
-    public EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
-        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
+    public EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
+        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))) {
             return Utils.createError("No tienes permisos para actualizar este juguete: ");
         }
         return this.daoHelper.update(this.toyDao, attrMap, keyMap);
-     }
+    }
 
     @Override
-    public EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
-        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
+    public EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
+        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))) {
             return Utils.createError("No tienes permisos para borrar este juguete: ");
         }
         return this.daoHelper.delete(this.toyDao, keyMap);

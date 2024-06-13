@@ -25,22 +25,6 @@
                 ]]>
             </Sentence>
         </Query>
-        <Query id="orderJoin">
-            <AmbiguousColumns>
-                <AmbiguousColumn name="toyid" prefix="t"/>
-            </AmbiguousColumns>
-            <Sentence>
-                <![CDATA[
-                 SELECT
-                     #COLUMNS#
-                 FROM
-                     ${mainschema}.orders o
-                 INNER JOIN
-                     ${mainschema}.toys t ON o.toyid = t.toyid
-                 #WHERE#
-            ]]>
-            </Sentence>
-        </Query>
         <Query id="getOrdersWithToys">
             <Sentence>
                 <![CDATA[
