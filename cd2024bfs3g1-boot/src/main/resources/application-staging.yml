@@ -11,6 +11,3 @@ management:
       base-path: /ontimize
 environment:
   url: https://cd2024bfs3g1.dev.campusdual.com/
-socketio:
-  host: "cd2024bfs3g1.dev.campusdual.com"
-  port: 1337
