@@ -170,6 +170,7 @@ $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
   background-color: $color-orange;
 }
 
+
 div .navMenu,
 div .sidenav-toggle-container,
 .o-app-sidenav-menuitem,
@@ -180,6 +181,7 @@ nav {
 .mat-icon {
   font-family: 'Material Icons' !important;
 }
+
 
 .sidenav-toggle-container {
   .mat-icon {
@@ -217,17 +219,21 @@ nav {
   background-color: $color-blue-bg;
 }
 
+
 // Menu hamburguesa
 .mat-sidenav-content {
   background-color: $color-white;
+
 }
 
 .navMenu {
   background-color: $color-orange;
+
 }
 
 // Cuadricula de juguetes
 .o-grid {
+
   .div {
     position: relative;
   }
@@ -236,7 +242,6 @@ nav {
 .o-grid .o-column {
   background-color: $color-white;
   color: #333;
-  //font-family: Arial, sans-serif;
   border-radius: .75rem;
   box-shadow: 0.1rem 0.1rem 0.15rem $color-orange;
   transition: transform .4s ease;
@@ -272,13 +277,11 @@ nav {
   margin-top: 10px;
   background-color: $color-orange-bg;
   color: #333;
-  //font-family: Arial, sans-serif;
   border-radius: .75rem;
 
   transition: all .2s ease;
 
   &:hover {
-    //transform: translate(0, -10px);
     box-shadow: 0px 0px 5px 0px $color-orange;
 
     .price {
@@ -404,7 +407,6 @@ nav {
   justify-content: space-between;
   background-color: white;
   color: #333;
-  //font-family: Arial, sans-serif;
   border: .1rem solid rgba(205, 204, 204, 0.638);
   border-radius: .75rem;
   transition: all .2s ease;
@@ -434,6 +436,7 @@ nav {
     padding: 10px;
     box-shadow: 0px 0px 5px 0px #5a5a5a;
   }
+
 
   .card-body {
     flex: 1 1 auto;
@@ -468,6 +471,7 @@ nav {
       flex-direction: column;
       justify-content: start;
     }
+
 
     h4 {
       width: 70%;
@@ -523,6 +527,7 @@ nav {
       }
 
     }
+
 
   }
 
@@ -648,6 +653,7 @@ nav {
       min-width: 0;
     }
 
+
     .login-title-container {
       padding-bottom: 1rem;
 
@@ -695,6 +701,7 @@ nav {
       border: 0.5px solid rgba(0, 0, 0, 0.4);
     }
   }
+
 }
 
 .logo-header{
@@ -810,11 +817,26 @@ o-map mat-sidenav-container{
   scrollbar-width: thin;
   scrollbar-color: $color-orange $color-orange-bg;
 }
+.editProfile{
+  color: #ffa366;
+  background-color: #fff;
+  border-radius: 0.4rem;
+  border: 2px solid;
+  padding: 0.2rem 1rem;
 
 ::-webkit-scrollbar-thumb {
   background-color: $color-orange;
 }
+}
 
 ::-webkit-scrollbar-track {
   display: none;
+}
+.header-user-profile h2{
+    max-width: 15%;
+}
+.header-user-profile div{
+  margin-left: 15rem;
+  margin-top: -3rem;
+  margin-bottom: 2rem;
 }

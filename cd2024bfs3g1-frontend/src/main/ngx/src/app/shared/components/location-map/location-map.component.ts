@@ -11,8 +11,8 @@ import * as L from 'leaflet';
 })
 export class LocationMapComponent {
 
-  //Variables para el método del marker 
-  map: L.Map; 
+  //Variables para el método del marker
+  map: L.Map;
   markers: L.Marker[] = [];
 
   private location: any;
@@ -65,20 +65,20 @@ export class LocationMapComponent {
     }
     return this.center;
   }
-  
+
   //Método para crear un marker con un icono custom - según nuevo diseño
-  createMarker(lat: number, lng: number): void {    
+  createMarker(lat: number, lng: number): void {
     this.clearMarkers(); //se limpian los anteriores
     const iconUrl = '../assets/icons/pin-mapa.png';
     //se crea instancia del icono custom
     const locationIcon = L.icon({
       iconUrl: iconUrl,
       iconSize: [28, 36],
-      iconAnchor: [14, 36],        
+      iconAnchor: [14, 36],
     });
     //se crea marcador
-    const marker = L.marker([lat, lng], { 
-    icon: locationIcon         
+    const marker = L.marker([lat, lng], {
+    icon: locationIcon
     })
     .addTo(this.oMapBasic.getLMap());
 
@@ -93,5 +93,5 @@ export class LocationMapComponent {
     }
       this.markers = [];
   }
- 
+
 }
