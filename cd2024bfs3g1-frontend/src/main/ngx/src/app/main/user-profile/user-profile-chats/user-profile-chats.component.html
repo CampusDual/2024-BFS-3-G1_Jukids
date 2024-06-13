@@ -4,12 +4,12 @@
 
         <div class="chats-title">
             <div class="chats-header">
-                <div (click)="goBack()" class="btn-back" [matTooltip]="getTranslate('BACK_BUTTON')">
+                <div (click)="goBack()" class="btn-back" >
                     <mat-icon>chevron_left</mat-icon>
                 </div>
                 <h4>Chats</h4>
             </div>
-            <div class="btn-refresh" (click)="refreshChatList()" [matTooltip]="getTranslate('UPDATE_CHATS')">
+            <div class="btn-refresh" (click)="refreshChatList()">
                 <mat-icon>refresh-button</mat-icon>
             </div>
         </div>
