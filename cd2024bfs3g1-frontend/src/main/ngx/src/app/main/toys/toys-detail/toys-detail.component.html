@@ -84,35 +84,42 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
           </o-column>
 
           <!-- right column -->
-          <div fxFlex.md="65" fxFlex="100" class="right-col">
-            <div fxLayout="column" class="inf-column">
-              <!-- title + description + characteristics + price -->
-              <div class="inf-text" fxLayout="column">
-                <o-row class="title">{{ nameInput.getValue() }}</o-row>
-                <o-row class="description">{{ descInput.getValue() }}</o-row>
+        <!-- right column -->
+        <div fxFlex.md="65" fxFlex="100" class="right-col">
+          <div fxLayout="column" class="inf-column">
+            <!-- title + description + characteristics + price -->
+            <div class="inf-text" fxLayout="column">
+              <o-row class="title">{{ nameInput.getValue() }}</o-row>
+              <o-row class="description">{{ descInput.getValue() }}</o-row>
+
+              <ng-container *ngIf="status.getValue()">
 
                 <div class="characteristics">
                   <p class="shippable status">{{ status.getValue() | oTranslate }}</p>
                   <o-row>
-                    <p *ngIf="shipping.getValue(); else noShipping" class="shippable bg-color-blue">
-                      {{ "SHIPMENT_AVAILABLE" | oTranslate }}
+
+                    <p class="shippable" [ngClass]="{
+                      'bg-color-blue': shipping.getValue(),
+                      'bg-color-dark-orange': !shipping.getValue() }">
+                      {{ (( shipping.getValue() ) ? "SHIPMENT_AVAILABLE" : "SALE_IN_PERSON_ONLY" )| oTranslate }}
                     </p>
-                    <ng-template #noShipping>
-                      <p class="shippable bg-color-dark-orange">{{ "SALE_IN_PERSON_ONLY" | oTranslate }}</p>
-                    </ng-template>
+
                   </o-row>
                 </div>
 
-                <o-row class="price">{{ priceInput.getValue() | number: '1.2-2'}}
-                  <span>€</span></o-row>
-              </div>
+              </ng-container>
 
+              <o-row class="price">{{ priceInput.getValue() | number: '1.2-2'}}
+                <span>€</span></o-row>
+            </div>
               <!-- map -->
               <div class="container-border" fxLayout="column" fxLayoutGap="4px">
                 <location-map [isEditable]="isEditable" attr="detailMap" #detailMap style="width:100%"></location-map>
               </div>
 
               <!-- email  -->
+               
+              <ng-container *ngIf="isLogged && isNotTheSeller">
               <div class="email-container" *ngIf="transactionStatus.getValue() == 0">
                 <a class="link" href="mailto:{{ emailInput.getValue() }}
                 ?Subject=¡Quiero tu juguete {{ nameInput.getValue() }} de JUKIDS!
@@ -120,20 +127,23 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
                   {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}
                   <!--{{ emailInput.getValue() }}-->
                 </a>
-                <ng-container *ngIf="isLogged && isNotTheSeller">
                   <button class="button btn-outline-light" (click)="openBuy(toyId.getValue())">
                     CONTACTA POR CHAT
                   </button>
-                </ng-container>
+               
               </div>
+            </ng-container>
             </div>
             <!-- buy button  -->
+            <ng-container *ngIf="isLogged && isNotTheSeller">
+            
             <div>
               <button *ngIf="transactionStatus.getValue() == 0" class="button btn-solid buttonBuy"
                 (click)="openBuy(toyId.getValue())">
                 {{ "BUY" | oTranslate }}
               </button>
             </div>
+          </ng-container>
           </div>
         </div>
       </o-column>
