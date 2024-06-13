@@ -11,5 +11,9 @@ spec:
     targetPort: {{ .Values.service.internalPort }}
     protocol: TCP
     name: http
+  - port: 1337
+    targetPort: 1337
+    protocol: TCP
+    name: ws
   selector:
     {{- include "selectorLabels" . | nindent 4 }}

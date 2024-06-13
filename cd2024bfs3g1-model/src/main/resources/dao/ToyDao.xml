@@ -96,15 +96,20 @@
     ]]>
             </Sentence>
         </Query>
-        <Query id="userAverageRating">
+        <Query id="getToysSellerData">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="usr_id" prefix="t"/>
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
-                   SELECT
+                    SELECT
                         #COLUMNS#
-                   from
-                        v_average_surveys
-                   #WHERE#
-            ]]>
+                    FROM
+                        toys t
+                    JOIN
+                        usr_user u_seller on t.usr_id = u_seller.usr_id
+                    #WHERE#
+                ]]>
             </Sentence>
         </Query>
     </Queries>

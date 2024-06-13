@@ -28,6 +28,7 @@ public class MainRestController {
 			"  window.__env = window.__env || {};\n" +
 			"  // API url\n" +
 			"  window.__env.apiUrl = '%API_URL%';\n" +
+			"  window.__env.chatUrl = '%CHAT_URL%';\n" +
 			"}(this));";
 
 	@Autowired
@@ -35,8 +36,10 @@ public class MainRestController {
 
 	@Autowired
 	private IToyService toyService;
+
 	@Autowired
 	private UserDao userDao;
+
 	@Autowired
 	private DefaultOntimizeDaoHelper daoHelper;
 
@@ -47,7 +50,9 @@ public class MainRestController {
 
 	@GetMapping(value = "/app/env/env.js", produces = "application/javascript")
 	public @ResponseBody String env() {
-		return ENV_JS.replace("%API_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() : "");
+		String env =  ENV_JS.replace("%API_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() : "");
+		env = env.replace("%CHAT_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() + ":4443" : "");
+		return env;
 	}
 
 	@GetMapping("/restapi/get-image")
@@ -76,19 +81,20 @@ public class MainRestController {
 
 				dataResponse = (HashMap<String, Object>) result.getRecordValues(0);
 			} else {
+
 				//Consulta a la DB para obtener la imagen.
-				//Where
-				Map<String, Object> keyMap = new HashMap<>();
-				keyMap.put(UserDao.USR_ID, userId );
+					//Where
+					Map<String, Object> keyMap = new HashMap<>();
+					keyMap.put(UserDao.USR_ID, userId );
 
-				//Columns
-				List<String> attrList = Arrays.asList(
-						UserDao.NAME,
-						UserDao.PHOTO
-				);
+					//Columns
+					List<String> attrList = Arrays.asList(
+							UserDao.NAME,
+							UserDao.PHOTO
+					);
 
-				//Consulta
-				EntityResult result = this.daoHelper.query( this.userDao,keyMap, attrList );
+					//Consulta
+					EntityResult result = this.daoHelper.query( this.userDao,keyMap, attrList );
 
 				dataResponse = (HashMap<String, Object>) result.getRecordValues(0);
 			}
@@ -118,4 +124,8 @@ public class MainRestController {
 
 
 	}
+
+
+
+
 }

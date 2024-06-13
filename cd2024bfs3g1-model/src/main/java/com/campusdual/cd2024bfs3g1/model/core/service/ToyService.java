@@ -7,7 +7,6 @@ import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.AdvancedEntityResultMapImpl;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -19,8 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -186,6 +183,12 @@ public class ToyService implements IToyService {
         return  this.daoHelper.paginationQuery(this.toyDao, keysValues, attributes, recordNumber, startIndex, orderBy, "default");
     }
 
+    // Chat entity  -> getToysSellerData
+    @Override
+    public EntityResult getToysSellerDataQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, "getToysSellerData");
+    }
+
     private AdvancedEntityResult advanceEntitySearchByDistance(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy, Hashtable<String, Object> fields) {
 
         // Borrar todas las localizaciones de mas de 10 minutos.
@@ -331,9 +334,10 @@ public class ToyService implements IToyService {
         return result;
     }
 
+
     @Override
     @Transactional
-    public EntityResult orderInsert(Map<String, Object> orderData) throws OntimizeJEERuntimeException {
+    public EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException{
 
         //Recuperamos TOY - PRICE y TOY - TRANSACTION_STATUS
 
@@ -376,7 +380,7 @@ public class ToyService implements IToyService {
     public EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList)
             throws OntimizeJEERuntimeException{
 
-        return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
+            return this.daoHelper.query(toyDao,keyMap,attrList,ToyDao.QUERY_V_SUM_PRICE_TOYS_SOLD);
     }
 
     @Override

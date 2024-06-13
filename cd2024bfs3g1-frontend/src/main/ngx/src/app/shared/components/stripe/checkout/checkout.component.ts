@@ -14,9 +14,8 @@ export class CheckoutComponent implements OnInit {
   protected THANK_YOU_PURCHASE: string;
   protected TOY_BUTTON: string;
   @Input('toyId') toyId: string;
-  
+
   constructor(
-    private actRoute: ActivatedRoute,
     private translateService: OTranslateService,
     private oService: OntimizeService,
     private router: Router

@@ -290,5 +290,13 @@
   "lastnameProfile": "Apellidos",
   "emailProfile": "Correo electrónico",
   "mediaProfile": "Mi valoración",
-  "noRating": "No hay valoración todavía"
+  "noRating": "No hay valoración todavía",
+  "MESSAGES": "Mesajes",
+  "SELECT_CHAT": "Selecciona un chat",
+  "LOADING_MESSAGES": "Cargando mensajes...",
+  "MY_CHATS": "Mis chats",
+  "WRITE_MESSAGE": "Escribe tu mensaje",
+  "CONTACT_CHAT": "Contactar por chat",
+  "SEND_CHAT": "Enviar mensaje",
+  "UPDATE_CHATS": "Actualizar chats"
 }

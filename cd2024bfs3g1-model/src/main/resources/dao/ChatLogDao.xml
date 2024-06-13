@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup
+        xmlns="http://www.ontimize.com/schema/jdbc"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+        catalog="" schema="${mainschema}" table="chat_log"
+        datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>toy_id</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>toy_id</Column>
+    </UpdateKeys>
+    <GeneratedKey>id</GeneratedKey>
+
+
+    <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                     SELECT
+                        cl.customer_id,
+                        cl.owner_id,
+                        cl.toy_id,
+                        cl.msg,
+                        cl.inserted_date,
+                        u.usr_name customer_name,
+                        u.usr_photo customer_avatar,
+                        t.price,
+                        t.name toy_name,
+                        uu.usr_name  seller_name,
+                        uu.usr_photo seller_avatar
+                     FROM chat_log cl
+                        JOIN usr_user u on u.usr_id = cl.customer_id
+                        JOIN toys t on t.toyid = cl.toy_id
+                        JOIN usr_user uu on t.usr_id = uu.usr_id
+                     #WHERE#
+                        ORDER BY cl.inserted_date asc
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="getLoggedChatList">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="usr_id" prefix="t"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                SELECT
+                    cl.toy_id,
+                    t."name" toyName,
+                    t.usr_id,
+                    cl.customer_id,
+                    uu.usr_name customerName,
+	                us.usr_name sellerName,
+                    count(1) msg,
+                    MAX(cl.inserted_date) AS lastMessageDate
+                FROM chat_log cl
+                JOIN toys t on t.toyid = cl.toy_id
+                JOIN usr_user uu on uu.usr_id = cl.customer_id
+                JOIN usr_user us on us.usr_id = t.usr_id
+                #WHERE#
+                GROUP BY cl.toy_id, t.usr_id, cl.customer_id, t."name", uu.usr_name, us.usr_name
+                ORDER BY lastMessageDate DESC
+                ]]>
+            </Sentence>
+        </Query>
+
+
+        <Query id="getChatLastConversation">
+            <Sentence>
+                <![CDATA[
+                SELECT
+                    sub.customer_id,
+                    sub.owner_id,
+                    sub.toy_id,
+                    sub.msg,
+                    sub.inserted_date
+                FROM (
+                    SELECT
+                        cl.customer_id,
+                        cl.owner_id,
+                        cl.toy_id,
+                        cl.msg,
+                        cl.inserted_date,
+                        ROW_NUMBER() OVER (PARTITION BY cl.customer_id ORDER BY cl.inserted_date DESC) AS rn
+                    FROM chat_log cl
+                    #WHERE#
+                    ) sub
+                WHERE sub.rn = 1;
+                ]]>
+            </Sentence>
+        </Query>
+
+    </Queries>
+</JdbcEntitySetup>
