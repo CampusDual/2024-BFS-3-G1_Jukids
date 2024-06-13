@@ -282,6 +282,8 @@
   "UPLOAD_PRODUCT_IMAGE": "Sube una imagen de tu producto",
   "DATA_ABOUT_PRODUCT": "Datos necesarios sobre tu producto",
   "SELECT_PRODUCT_LOCATION": "Selecciona el punto en el mapa donde se encuentra el juguete",
+  "TEXT_CONFIRM_DELETE": "¿Está seguro de que quiere borrar los items seleccionados?",
+  "SAVE_TOY": "Guardar Cambios",
   "BACK_BUTTON": "Volver",
   "myInfo": "Mis datos",
   "userNameProfile": "Nombre",
