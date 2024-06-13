@@ -98,6 +98,7 @@ export class ToysHomeComponent implements OnInit {
     if (this.baseUrl.includes("localhost")) {
       this.baseUrl = "http://localhost:8080";
     }
+    this.searchReceivedParams();
   }
   searchReceivedParams() {
     this.actRoute.queryParams.subscribe((params) => {
@@ -110,6 +111,8 @@ export class ToysHomeComponent implements OnInit {
       }
       if (keyword != undefined) {
         this.searcher.setValue(keyword);
+      }else{
+        this.searcher.setValue('');
       }
       this.toyGrid.reloadData();
     });
@@ -259,6 +262,7 @@ export class ToysHomeComponent implements OnInit {
 
   clearFilters(): void {
     this.priceCombo.setValue(this.precioPredeterminado);
+    this.router.navigate(['/main/toys']);
     this.toyGrid.reloadData();
   }
 
