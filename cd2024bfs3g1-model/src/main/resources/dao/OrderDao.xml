@@ -26,6 +26,9 @@
             </Sentence>
         </Query>
         <Query id="getOrdersWithToys">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="toyid" prefix="t" />
+            </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
                 SELECT
