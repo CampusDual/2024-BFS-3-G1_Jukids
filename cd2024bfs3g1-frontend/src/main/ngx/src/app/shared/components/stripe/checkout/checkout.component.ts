@@ -16,6 +16,7 @@ export class CheckoutComponent implements OnInit {
   @Input('toyId') toyId: string;
 
   constructor(
+    private actRoute: ActivatedRoute,
     private translateService: OTranslateService,
     private oService: OntimizeService,
     private router: Router
