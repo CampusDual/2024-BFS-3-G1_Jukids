@@ -2,7 +2,6 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { OntimizeService, DialogService, OTranslateService } from 'ontimize-web-ngx';
 import { ToysMapService } from '../../services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
-//import { ReturnStatement } from '@angular/compiler';
 import * as L from 'leaflet';
 
 @Component({
@@ -66,7 +65,7 @@ export class LocationMapComponent {
     }
     return this.center;
   }
-
+  
   //Método para crear un marker con un icono custom - según nuevo diseño
   createMarker(lat: number, lng: number): void {    
     this.clearMarkers(); //se limpian los anteriores
@@ -74,18 +73,14 @@ export class LocationMapComponent {
     //se crea instancia del icono custom
     const locationIcon = L.icon({
       iconUrl: iconUrl,
-      //shadowUrl: '', //opcional: para sombra 
-      iconSize: [34, 44],
-      //shadowSize:   [44, 57], //opcional: tamaño sombra
-      iconAnchor:   [lat, lng],
-      //shadowAnchor: [lat, lng], //pos. sombra
-      popupAnchor:  [lat, lng],         
+      iconSize: [28, 36],
+      iconAnchor: [14, 36],        
     });
     //se crea marcador
-    const marker = L.marker([this.latitude, this.longitude], { 
+    const marker = L.marker([lat, lng], { 
     icon: locationIcon         
     })
-    .addTo(this.oMapBasic.getLMap()).bindPopup(this.translate.get('LOCATION_PIN'));
+    .addTo(this.oMapBasic.getLMap());
 
     this.isMapLatLongSelected = true;
     this.markers.push(marker);
