@@ -42,9 +42,6 @@ public interface IToyService {
 
     EntityResult toyCardsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
-
-
-
     EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
 
     AdvancedEntityResult toyPaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
@@ -52,6 +49,10 @@ public interface IToyService {
     AdvancedEntityResult toyAvailablePaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
 
     EntityResult orderInsert(Map<String, Object> orderData)throws OntimizeJEERuntimeException;
+
     EntityResult sumPriceToysSoldQuery(Map<String, Object> keyMap, List<String> attrList);
+
+    EntityResult getToysSellerDataQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+
     EntityResult userAverageRatingQuery(Map<String, Object> keyMap, List<String> attrList);
 }

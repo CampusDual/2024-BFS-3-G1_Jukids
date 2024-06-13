@@ -89,10 +89,6 @@
                         padding: 0%;
                     }
 
-                    &:hover {
-                        transform: scale(1.05);
-                        transition: 3s;
-                    }
                 }
             }
         }
@@ -222,6 +218,7 @@ button{
     color: #9b9b9b;
     font-size: small;
 }
+
 // Relativo a la valoración del vendedor
 .Rating {
     display: flex;

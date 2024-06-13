@@ -1,16 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OGridComponent, OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { EventEmitter } from 'stream';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   @ViewChild('oMapBasic') oMapBasic: OMapComponent;
   @ViewChild('figuresGrid') figuresGrid: OGridComponent;
@@ -76,6 +75,7 @@ export class HomeComponent implements OnInit {
     this.ontimizeService.configureService(conf);
     this.language = translate.getStoredLanguage();
   }
+  
 
   ngOnInit() {
     //Se escuchan los cambios del servicio
@@ -120,7 +120,7 @@ export class HomeComponent implements OnInit {
 
     this.translate.onLanguageChanged.subscribe(data => {
       this.language = data;
-      console.log(data);
+      
     });
 
     setTimeout(() => {
@@ -208,8 +208,6 @@ export class HomeComponent implements OnInit {
     const total = document.querySelectorAll('.banner-svg');
     const totalImages = document.querySelectorAll('.banner-svg').length;
     this.autoplayInterval = setInterval(() => {
-      console.log(index, "-----------------------------------")
-      console.log(index == totalImages - 1);
       this.carrusel(index);  // Navega a la siguiente imagen cada intervalo de tiempo.
       (index == totalImages - 1) ? index = 0 : index++;
     }, interval);
@@ -218,7 +216,6 @@ export class HomeComponent implements OnInit {
   public carrusel(index) {
     const bannerContainer = document.querySelector('.banner-container');
     const totalImages = document.querySelectorAll('.banner-svg');
-    console.log(bannerContainer.children[totalImages.length - 1])
     totalImages.forEach((element, key) => {
       if (key == index) {
         element.classList.remove("hidden")
@@ -226,5 +223,11 @@ export class HomeComponent implements OnInit {
         element.classList.add("hidden")
       }
     });
+  }
+
+
+
+  ngOnDestroy(): void {    
+    clearInterval(this.autoplayInterval);
   }
 }

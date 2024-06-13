@@ -205,6 +205,12 @@ public class ToyService implements IToyService {
         return this.daoHelper.insert(this.toyDao, attrMap);
     }
 
+    // Chat entity  -> getToysSellerData
+    @Override
+    public EntityResult getToysSellerDataQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, "getToysSellerData");
+    }
+
     private AdvancedEntityResult advanceEntitySearchByDistance(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy, Hashtable<String, Object> fields) {
 
         // Borrar todas las localizaciones de mas de 10 minutos.
