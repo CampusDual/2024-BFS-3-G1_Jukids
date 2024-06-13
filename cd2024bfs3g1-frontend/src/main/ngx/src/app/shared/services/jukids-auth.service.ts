@@ -20,8 +20,8 @@ export class JukidsAuthService extends OntimizeAuthService {
         arg[Codes.SESSION_EXPIRED_KEY] = sessionExpired;
         const extras = {};
         extras[Codes.QUERY_PARAMS] = arg;
-        // this.jukids_router.navigate(["/main/toys"], extras);
-        this.jukids_router.navigate(["/main/toys"], extras)
+        // this.jukids_router.navigate(["/"], extras);
+        this.jukids_router.navigate(["/"], extras)
             .then(() => {
                 window.location.reload();
             });
