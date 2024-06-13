@@ -85,8 +85,6 @@ export class ToysShippingComponent implements OnInit {
   showFormShipments() {
     if (this.buyOption._checked) {
       this.issetSend = false;
-      
-  
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
@@ -94,7 +92,6 @@ export class ToysShippingComponent implements OnInit {
 
     if (this.buySendOption._checked) {
       this.issetSend = true;
-      
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
       this.buyButton.nativeElement.classList.add("hidden")
