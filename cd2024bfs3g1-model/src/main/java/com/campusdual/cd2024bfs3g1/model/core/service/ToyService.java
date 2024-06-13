@@ -46,6 +46,13 @@ public class ToyService implements IToyService {
     }
 
     @Override
+    public EntityResult toyDetailQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        attrList.add(OrderDao.ATTR_BUYER_ID);
+        attrList.add(OrderDao.ATTR_SESSION_ID);
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, ToyDao.QUERY_TOY_ORDER_USER);
+    }
+
+    @Override
     public AdvancedEntityResult toyPaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) {
 
         //Logica de posision de distancia.

@@ -17,7 +17,7 @@
 
 <!-- main container -->
 <div class="box">
-  <o-form attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no" show-header="no"
+  <o-form attr="toysDetail" service="toys" entity="toyDetail" keys="toyid" show-header-navigation="no" show-header="no"
     layout-direction="column" (onDataLoaded)="onFormDataLoaded($event)">
     <!-- hidden inputs for data recovery -->
     <o-text-input #toyId attr="toyid" oHidden sql-type="INTEGER" enabled="yes"></o-text-input>
@@ -33,6 +33,8 @@
     <o-text-input #longitude attr="longitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #status attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #transactionStatus attr="transaction_status" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #buyer_id attr="buyer_id" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #session_id attr="session_id" fxFlex="100" read-only="yes" oHidden></o-text-input>
 
     <o-form attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
       detail-form-route="toysBuy" show-header="no" layout-direction="column">
@@ -141,7 +143,7 @@
 
               <ng-container *ngIf="!isLogged || (isLogged && isNotTheSeller)">
                 <div>
-                  <button *ngIf="transactionStatus.getValue() == 0" class="button btn-solid buttonBuy"
+                  <button *ngIf="transactionStatus.getValue() == 0  || (isLogged && isReserved) " class="button btn-solid buttonBuy"
                     (click)="openBuy(toyId.getValue())">
                     {{ "BUY" | oTranslate }}
                   </button>
