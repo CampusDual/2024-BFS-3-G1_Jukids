@@ -873,7 +873,7 @@ nav {
           margin:0 0.5rem 0.5rem 0;
           padding: 0.5rem;
           border-radius: 0 0.75rem 0.75rem 0.75rem;
-          background-color: #ffffff;
+          background-color: $color-white;
           border: 2px solid #ffa366;
           transform: translateY(1rem);
 
@@ -881,7 +881,7 @@ nav {
             font-size: 0.9em;
             padding-bottom: 5px;
             font-weight: bold;
-            color: #067e6a;
+            color: $color-blue;
           }
 
           .message-date {
@@ -937,7 +937,7 @@ nav {
             font-size: 0.9em;
             padding-bottom: 5px;
             font-weight: bold;
-            color: #067e6a;
+            color: $color-blue;
             text-align: end;
           }
 
@@ -964,11 +964,14 @@ nav {
       width: 100%;
       margin: 5px;
       padding: 10px;
-      border: 2px solid #067e6a;
+      border: 2px solid $color-blue;
       border-radius: 1.25rem;
 
       &:focus {
         outline: none;
+      }
+      &::placeholder {
+        color: #8b8b8b;
       }
     }
 
@@ -976,25 +979,25 @@ nav {
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #067e6a;
+      background-color: $color-blue;
       padding: 0.25rem;
-      border: 1px solid #067e6a;
+      border: 1px solid $color-blue;
       border-radius: 50%;
       margin: 5px;
       transition-duration: 0.2s;
 
       .send-icon {
         width: 28px;
-        color: #ffffff;
+        color: $color-white;
       }
 
       &:hover {
-        background-color: #ffffff;
-        border: 1px solid #067e6a;
+        background-color: $color-white;
+        border: 1px solid $color-blue;
         box-shadow: 0 2px 4px #0000003d;
 
         .send-icon {
-          color: #067e6a;
+          color: $color-blue;
         }
       }
     }
