@@ -114,6 +114,9 @@
             transition: 1s;
             object-fit: cover;
         }
+        @media (max-width:768px) {
+            max-height: 100%;
+        }
     }
 
     &-group {
