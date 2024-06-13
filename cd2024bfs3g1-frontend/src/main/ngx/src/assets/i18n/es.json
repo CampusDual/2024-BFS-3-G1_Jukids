@@ -287,6 +287,8 @@
   "SEARCH_ON_MAP": "Buscar en mapa",
   "SELECT_PRODUCT_LOCATION": "Selecciona el punto en el mapa donde se encuentra el juguete",
   "WE_ARE_SORRY": "Sentimos las molestias",
+  "TEXT_CONFIRM_DELETE": "¿Está seguro de que quiere borrar los items seleccionados?",
+  "SAVE_TOY": "Guardar Cambios",
   "BACK_BUTTON": "Volver",
   "myInfo": "Mis datos",
   "userNameProfile": "Nombre",

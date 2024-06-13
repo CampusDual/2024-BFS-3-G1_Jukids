@@ -287,6 +287,8 @@
   "SEARCH_ON_MAP": "Search on map",
   "SELECT_PRODUCT_LOCATION": "Select the point on the map where the toy is located",
   "WE_ARE_SORRY": "We are sorry for the inconvenience",
+  "TEXT_CONFIRM_DELETE": "Are you sure you want to delete the selected items?",
+  "SAVE_TOY": "Save changes",
   "myInfo": "My info",
   "userNameProfile": "Name",
   "lastnameProfile": "Surname",
