@@ -29,15 +29,20 @@
       background-color: #fff;
       //border: 2px solid #999;
       //box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
+      //border-radius: 8px;
 
       .image-header {
-        width: 100%;
-        max-width: 100%;
+        width: 70%;
+        height: 60%;
+        //max-width: 100%;
         object-fit: cover;
-        border-radius: 50%;
+        //border-radius: 50%;
       }
     }
+  }
+
+  .alignColumn {
+    margin-top: 15px;
   }
 
 
@@ -83,18 +88,6 @@
     gap: 15px;
     padding: 0!important;
 
-    img{
-      margin-top: 25px;
-      height: 75px!important;
-      margin-bottom: 0!important;
-    }
-    #myToys{
-      width: 70px;
-    }
-    #myPurchases{
-      height: 80px!important;
-    }
-
     .card {
       background-color: #ffffff;
       padding: 20px;
@@ -108,8 +101,8 @@
       min-width: 0; // Ensure cards don't overflow
 
       .icon-image {
-        width: 50px;
-        height: 50px;
+        width: 75px;
+        height: 75px;
         margin: 0 auto; // Esto centrará los iconos horizontalmente
         display: block; // Asegura que los márgenes automáticos se apliquen correctamente
         margin-bottom: 10px;
