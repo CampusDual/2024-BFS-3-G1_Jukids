@@ -114,8 +114,6 @@ export class ToysDetailComponent implements OnInit {
       this.customer_id = data.data.usr_id;
     });
 
-    this.setStripe();
-
     const filter = {
       usr_id: this.usr_id.getValue(),
     }
@@ -130,25 +128,18 @@ export class ToysDetailComponent implements OnInit {
           this.totalSurveys = resp.data[0].total_surveys;
         }
       });
-    }
+  }
 
-  redirect(){
+  redirect() {
     this.router.navigateByUrl("/main/toys");
   }
 
 
   searchCategory(category): void {
     this.router.navigate(['/main/toys'], { queryParams: { category: category } });
-  redirectProfile(){
+  }
+  redirectProfile() {
     this.router.navigateByUrl("/main/user-profile");
-  }
-
-  checkout() {
-    this.stripe.ckeckout();
-  }
-
-  searchCategory(category):void {
-    this.router.navigate(['/main/toys'], {queryParams:{category: category}});
   }
 
   chatSeller() {
