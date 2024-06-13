@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: row;
     max-width: 960px;
-    margin: auto;
+    margin: 0.5rem auto;
+    line-height: 32px;
 
     .back-category {
         width: 60%;
@@ -70,11 +71,12 @@
             }
 
             .div-img {
-                max-height: 400px;
+                max-height: 500px;
 
                 .image {
                     scale: 1;
                     max-width: 95%;
+                    max-height: 95%;
                     overflow: hidden;
                     transition: 1s;
                     object-fit: cover;
@@ -117,6 +119,9 @@
 
                 .inf-text {
                     margin-bottom: 15px;
+                    white-space: normal;  
+                    word-wrap: break-word;  
+                    word-break: break-word;
 
                     @media screen and (max-width: 600px) {
                         margin-top: 10px;
@@ -134,6 +139,12 @@
                         font-size: 16px;
                         height: fit-content;
                         margin-bottom: 10px;
+                    }
+
+                    .price {
+                        font-size: 32px;
+                        font-weight: bold;
+                        margin: 12px 0;
                     }
 
                     .characteristics {
@@ -216,8 +227,8 @@ button{
 
     &-photo {
         width: 100%;
-        max-width: 3.25rem;
-        max-height: 3.25rem;
+        max-width: 2.65rem;
+        max-height: 2.65rem;
         border-radius: 2rem;
     }
 

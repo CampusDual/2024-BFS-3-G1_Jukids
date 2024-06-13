@@ -28,7 +28,7 @@ export class ToysDetailComponent implements OnInit {
   sellerPhoto: string;
   percentageRate: number = 0;
   totalSurveys: number = 0;
-  
+
 
   isLogged: boolean = this.jkAuthService.isLoggedIn();
   isNotTheSeller: boolean;
@@ -114,6 +114,8 @@ export class ToysDetailComponent implements OnInit {
       this.customer_id = data.data.usr_id;
     });
 
+    this.setStripe();
+
     const filter = {
       usr_id: this.usr_id.getValue(),
     }
@@ -121,22 +123,32 @@ export class ToysDetailComponent implements OnInit {
     const columns = ["usr_name", "usr_photo", "rating", "total_surveys"];
     this.service
       .query(filter, columns, "userAverageRating")
-      .subscribe((resp) => {        
+      .subscribe((resp) => {
         if (resp.code === 0 && resp.data.length > 0) {
           this.sellerRate = resp.data[0].rating.toFixed(1);
           this.percentageRate = this.sellerRate * 100 / 5;
           this.totalSurveys = resp.data[0].total_surveys;
         }
       });
-  }
+    }
 
-  redirect() {
+  redirect(){
     this.router.navigateByUrl("/main/toys");
   }
 
- 
+
   searchCategory(category): void {
     this.router.navigate(['/main/toys'], { queryParams: { category: category } });
+  redirectProfile(){
+    this.router.navigateByUrl("/main/user-profile");
+  }
+
+  checkout() {
+    this.stripe.ckeckout();
+  }
+
+  searchCategory(category):void {
+    this.router.navigate(['/main/toys'], {queryParams:{category: category}});
   }
 
   chatSeller() {

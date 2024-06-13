@@ -283,6 +283,8 @@
   "UPLOAD_PRODUCT_IMAGE": "Upload an image of your product",
   "DATA_ABOUT_PRODUCT": "Necessary data about your product",
   "SELECT_PRODUCT_LOCATION": "Select the point on the map where the toy is located",
+  "TEXT_CONFIRM_DELETE": "Are you sure you want to delete the selected items?",
+  "SAVE_TOY": "Save changes",
   "myInfo": "My info",
   "userNameProfile": "Name",
   "lastnameProfile": "Surname",
