@@ -58,15 +58,15 @@
     <!-- Cards -->
     <div class="card-container">
         <div class="card user-profile-home-listcard" (click)="toToyList()">
-            <img class="icon-image" src="assets/images/svg/chucky2.svg">
+            <img id="myToys" class="icon-image" src="assets/images/svg/pikachu.svg">
             <h2>{{ 'MY_TOYS' | oTranslate }}</h2>
         </div>
         <div class="card user-profile-home-listcard" (click)="toBuyList()">
-            <img class="icon-image" src="assets/images/shoppingbag.png">
+            <img id="myPurchases" class="icon-image" src="assets/images/svg/gremlin.svg">
             <h2>{{ 'PURCHASED_TOYS' | oTranslate }}</h2>
         </div>
         <div class="card user-profile-home-listcard" (click)="toMyRatings()">
-            <img class="icon-image" src="assets/icons/star-fill.svg">
+            <img id="myRatings" class="icon-image" src="assets/images/svg/pac-man.svg">
             <h2>{{ 'MY_RATINGS' | oTranslate }}</h2>
         </div>
     </div>

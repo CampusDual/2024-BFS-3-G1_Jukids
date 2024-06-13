@@ -10,6 +10,7 @@
   .card-container {
     width: 100%;
     box-sizing: border-box;
+   
   }
 
   .container-user{ 
@@ -80,6 +81,19 @@
     justify-content: space-between;
     width: 100%;
     gap: 15px;
+    padding: 0!important;
+
+    img{
+      margin-top: 25px;
+      height: 75px!important;
+      margin-bottom: 0!important;
+    }
+    #myToys{
+      width: 70px;
+    }
+    #myPurchases{
+      height: 80px!important;
+    }
 
     .card {
       background-color: #ffffff;
@@ -100,6 +114,7 @@
         display: block; // Asegura que los márgenes automáticos se apliquen correctamente
         margin-bottom: 10px;
       }
+
 
       // Media Query para ocultar el texto en resoluciones menores a 750px
       @media (max-width: 750px) {
