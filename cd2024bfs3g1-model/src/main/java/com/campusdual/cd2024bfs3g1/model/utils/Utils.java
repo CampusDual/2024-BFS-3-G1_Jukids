@@ -60,7 +60,6 @@ public class Utils {
 
         return response;
     }
-
     public static String getRole(){
         if(SecurityContextHolder.getContext() == null) {
             return null;
