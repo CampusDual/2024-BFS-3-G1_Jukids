@@ -121,33 +121,36 @@
 
               <!-- email  -->
 
-              <ng-container *ngIf="isLogged && isNotTheSeller">
-                <div class="email-container" *ngIf="transactionStatus.getValue() == 0">
-                  <a class="link" href="mailto:{{ emailInput.getValue() }}
+
+              <div class="email-container" *ngIf="transactionStatus.getValue() == 0">
+                <a class="link" href="mailto:{{ emailInput.getValue() }}
                 ?Subject=¡Quiero tu juguete {{ nameInput.getValue() }} de JUKIDS!
                 &body=Hola!%20Me%20gustaría%20comprar%20tu%20juguete%20{{ nameInput.getValue() }}">
-                    {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}
-                    <!--{{ emailInput.getValue() }}-->
-                  </a>
+                  {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}
+                  <!--{{ emailInput.getValue() }}-->
+                </a>
+              </div>
+              <!-- buy button  -->
+              <ng-container *ngIf="isLogged && isNotTheSeller">
+                <div>
                   <button class="button btn-outline-light" (click)="chatSeller()">
                     {{ 'CONTACT_CHAT' | oTranslate}}
                   </button>
                 </div>
               </ng-container>
-              <!-- buy button  -->
-              <ng-container *ngIf="isLogged && isNotTheSeller">
 
+              <ng-container *ngIf="!isLogged || (isLogged && isNotTheSeller)">
                 <div>
                   <button *ngIf="transactionStatus.getValue() == 0" class="button btn-solid buttonBuy"
                     (click)="openBuy(toyId.getValue())">
                     {{ "BUY" | oTranslate }}
                   </button>
                 </div>
+
               </ng-container>
+              
             </div>
           </div>
-
-
 
         </div>
       </o-column>

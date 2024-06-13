@@ -76,9 +76,12 @@ export class ToysDetailComponent implements OnInit {
     this.toysMapService.getLocation().subscribe(data => {
       this.location = data;
 
-      this.mainService.getUserInfo().subscribe((result: ServiceResponse) => {
-        this.mainInfo = result.data;
-      })
+      if (this.isLogged) {
+
+        this.mainService.getUserInfo().subscribe((result: ServiceResponse) => {
+          this.mainInfo = result.data;
+        })
+      }
 
       this.baseUrl = window.location.origin;
 
@@ -108,11 +111,15 @@ export class ToysDetailComponent implements OnInit {
   onFormDataLoaded(data: any) {
     this.toysMapService.setLocation(this.lat.getValue(), this.lon.getValue())
 
-    this.mainService.getUserInfo().subscribe((data: ServiceResponse) => {
+    if (this.isLogged) { 
+      this.mainService.getUserInfo().subscribe((data: ServiceResponse) => {
+          
+        this.isNotTheSeller = (data.data.usr_id != this.usr_id.getValue());
+        this.customer_id = data.data.usr_id;
+      });
+    }
 
-      this.isNotTheSeller = (data.data.usr_id != this.usr_id.getValue());
-      this.customer_id = data.data.usr_id;
-    });
+    
 
     const filter = {
       usr_id: this.usr_id.getValue(),
