@@ -13,10 +13,8 @@ export class AdminHomeComponent implements OnInit{
     this.dateFormat = this.dateFormat.bind(this);
   }
 
-  public dateFormat(date: number): string {
-    console.log('dateFormat called with:', date);
+  public dateFormat(date: number): string {    
     const formattedDate = (date !== undefined) ? new Date(date).toLocaleDateString('es-ES', { month: '2-digit', year: '2-digit' }) : '';
-    console.log('Formatted date:', formattedDate);
     return formattedDate;
   }
 

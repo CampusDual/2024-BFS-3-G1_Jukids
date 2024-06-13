@@ -38,6 +38,7 @@
     "@stripe/stripe-js": "^3.3.0",
     "core-js": "^3.6.4",
     "ngx-material-timepicker": "5.4.3",
+    "ngx-socket-io": "^4.4.0",
     "ngx-stripe": "^15.8.1",
     "ontimize-web-ngx": "15.0.2",
     "ontimize-web-ngx-charts": "^15.1.0",

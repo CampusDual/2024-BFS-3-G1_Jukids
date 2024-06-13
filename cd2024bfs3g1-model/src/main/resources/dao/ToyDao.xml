@@ -79,5 +79,21 @@
     ]]>
             </Sentence>
         </Query>
+        <Query id="getToysSellerData">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="usr_id" prefix="t"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        toys t
+                    JOIN
+                        usr_user u_seller on t.usr_id = u_seller.usr_id
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

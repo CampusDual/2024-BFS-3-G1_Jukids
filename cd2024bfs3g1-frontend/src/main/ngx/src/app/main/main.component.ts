@@ -21,7 +21,7 @@ export class MainComponent implements OnInit {
   en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
   @ViewChild('appLayout')
   public appLayout: OAppLayoutComponent;
-  public rolename : string;
+  public rolename: string;
   protected userInfo;
 
   @ViewChild('userConfiguration')
@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
   // public logoutItem: OUserInfoConfigurationItemDirective;
 
   //TODO: Ver la redireccion con el nuevo flujo
-  adminRedirect(){
+  adminRedirect() {
     this.router.navigateByUrl('/main/admin');
   }
 
@@ -50,20 +50,23 @@ export class MainComponent implements OnInit {
     if (this.jkAuthService.isLoggedIn() && this.dialog.getDialogById('login')) {
       this.dialog.closeAll();
 
-     // Se obtiene la información del usuario logueado
-     this.userInfo = this.userInfoService.getUserInfo();
-     this.rolename = this.userInfo.rolename;
+      // Se obtiene la información del usuario logueado
+      this.userInfo = this.userInfoService.getUserInfo();
+      this.rolename = this.userInfo.rolename;
     }
     return this.jkAuthService.isLoggedIn();
   }
 
   //Con este metodo verificamos que el usuario que se ha logueado, tenga una propiedad rolename y su valor sea el de admin
-  validAdmin(){
+  validAdmin() {
     return (this.rolename && this.rolename == "admin");
    }
 
   ngOnInit() {
-    this.loadUserInfo();
+    //Si el usuario ya ha iniciado sesion, cargamos sus datos
+    if ( this.jkAuthService.isLoggedIn() ) {
+      this.loadUserInfo();
+    }
   }
 
   private loadUserInfo() {

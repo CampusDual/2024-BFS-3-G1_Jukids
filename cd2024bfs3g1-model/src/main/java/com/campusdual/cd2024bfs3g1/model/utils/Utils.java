@@ -1,5 +1,6 @@
 package com.campusdual.cd2024bfs3g1.model.utils;
 
+import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import org.springframework.security.core.Authentication;

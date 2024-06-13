@@ -35,8 +35,10 @@ public class MainRestController {
 
 	@Autowired
 	private IToyService toyService;
+
 	@Autowired
 	private UserDao userDao;
+
 	@Autowired
 	private DefaultOntimizeDaoHelper daoHelper;
 
@@ -76,19 +78,20 @@ public class MainRestController {
 
 				dataResponse = (HashMap<String, Object>) result.getRecordValues(0);
 			} else {
+
 				//Consulta a la DB para obtener la imagen.
-				//Where
-				Map<String, Object> keyMap = new HashMap<>();
-				keyMap.put(UserDao.USR_ID, userId );
+					//Where
+					Map<String, Object> keyMap = new HashMap<>();
+					keyMap.put(UserDao.USR_ID, userId );
 
-				//Columns
-				List<String> attrList = Arrays.asList(
-						UserDao.NAME,
-						UserDao.PHOTO
-				);
+					//Columns
+					List<String> attrList = Arrays.asList(
+							UserDao.NAME,
+							UserDao.PHOTO
+					);
 
-				//Consulta
-				EntityResult result = this.daoHelper.query( this.userDao,keyMap, attrList );
+					//Consulta
+					EntityResult result = this.daoHelper.query( this.userDao,keyMap, attrList );
 
 				dataResponse = (HashMap<String, Object>) result.getRecordValues(0);
 			}
@@ -118,4 +121,8 @@ public class MainRestController {
 
 
 	}
+
+
+
+
 }
