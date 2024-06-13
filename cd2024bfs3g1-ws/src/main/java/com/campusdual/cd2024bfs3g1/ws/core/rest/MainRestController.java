@@ -28,6 +28,7 @@ public class MainRestController {
 			"  window.__env = window.__env || {};\n" +
 			"  // API url\n" +
 			"  window.__env.apiUrl = '%API_URL%';\n" +
+			"  window.__env.chatUrl = '%CHAT_URL%';\n" +
 			"}(this));";
 
 	@Autowired
@@ -49,7 +50,9 @@ public class MainRestController {
 
 	@GetMapping(value = "/app/env/env.js", produces = "application/javascript")
 	public @ResponseBody String env() {
-		return ENV_JS.replace("%API_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() : "");
+		String env =  ENV_JS.replace("%API_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() : "");
+		env = env.replace("%CHAT_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() + ":4443" : "");
+		return env;
 	}
 
 	@GetMapping("/restapi/get-image")
