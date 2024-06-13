@@ -136,32 +136,39 @@ nav {
 }
 
 //==================================== CLASS COLORS ====================================
-.color-orange{
+.color-orange {
   color: $color-orange;
 }
-.color-dark-orange{
+
+.color-dark-orange {
   color: $color-dark-orange;
 }
-.color-red{
+
+.color-red {
   color: $color-red;
 }
-.color-blue{
+
+.color-blue {
   color: $color-blue;
 }
 
-.bg-color-orange{
+.bg-color-orange {
   background-color: $color-orange;
 }
-.bg-color-dark-orange{
+
+.bg-color-dark-orange {
   background-color: $color-dark-orange;
 }
-.bg-color-orange-transparent{
+
+.bg-color-orange-transparent {
   background-color: $color-orange-bg;
 }
-.bg-color-red{
+
+.bg-color-red {
   background-color: $color-red-bg;
 }
-.bg-color-blue{
+
+.bg-color-blue {
   background-color: $color-blue-bg;
 }
 
@@ -356,7 +363,8 @@ nav {
     }
   }
 }
-.card-n{
+
+.card-n {
   position: relative;
   width: 90%;
   height: 90%;
@@ -539,12 +547,14 @@ nav {
     &:hover {
       box-shadow: 0 2px 4px #0000003d;
     }
+
     &.reverse {
       border-color: $color-orange;
       color: $color-black;
       background-color: $color-orange;
     }
   }
+
   &.btn-solid-list {
     border-color: $color-blue;
     color: $color-white;
@@ -588,6 +598,17 @@ nav {
       color: $color-white;
       background-color: $color-orange;
       border-color: $color-orange;
+    }
+  }
+
+  &.btn-delete {
+    border-color: $color-red;
+    color: $color-white !important;
+    background-color: $color-red;
+    padding: .5rem 1.2rem !important;
+
+    &:hover {
+      box-shadow: 0 2px 4px #0000003d;
     }
   }
 
@@ -681,12 +702,14 @@ nav {
 
 }
 
-.logo-header{
-  display:none;
+.logo-header {
+  display: none;
+
   img {
     display: inline-block;
     width: 100%;
   }
+
   @include respond-to(small) {
     display: inline-block;
     width: 50%;
@@ -784,8 +807,9 @@ o-app-sidenav.o-app-sidenav .o-app-sidenav-container mat-sidenav.mat-drawer.o-ap
 o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container mat-sidenav.mat-drawer.o-app-sidenav-sidenav {
   background: $color-orange;
 }
+
 // ==================================== BORDER MAP ====================================
-o-map mat-sidenav-container{
+o-map mat-sidenav-container {
   border-radius: 8px;
 }
 
