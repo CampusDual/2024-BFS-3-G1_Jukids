@@ -7,6 +7,7 @@ import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
+import com.ontimize.jee.server.security.SecurityTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
@@ -104,11 +105,15 @@ public class UserOwnerService implements IUserOwnerService {
                 String encodedPassword = userAndRoleService.encryptPassword(password);
                 attrMap.put("usr_password", encodedPassword);
             }
-
+            this.invalidateSecurityManager();
             return this.daoHelper.update(this.userDao, attrMap, keyMap);
         } else {
             return createError("No estás logueado");
         }
+    }
+
+    private void invalidateSecurityManager() {
+        SecurityTools.invalidateSecurityManager(this.daoHelper.getApplicationContext());
     }
 
     private EntityResult createError(String mensaje) {
