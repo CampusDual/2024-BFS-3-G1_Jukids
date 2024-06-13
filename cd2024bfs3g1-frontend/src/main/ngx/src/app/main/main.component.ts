@@ -101,6 +101,9 @@ export class MainComponent implements OnInit {
     if(searchValue && searchValue.trim().length > 0){
       this.router.navigate(['/main/toys'], {queryParams:{keyword: searchValue}});
     }
+    else{
+      this.router.navigate(['/main/toys']);
+    }
   }
 
   clearInput(searcherInput: HTMLInputElement) {
