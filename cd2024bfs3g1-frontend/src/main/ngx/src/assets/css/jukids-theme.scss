@@ -817,3 +817,50 @@ o-map mat-sidenav-container{
   margin-top: -3rem;
   margin-bottom: 2rem;
 }
+
+// ==================================== BREADCRUMS ====================================
+
+.navigation-tree-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 960px;
+  margin: auto;
+  margin-bottom: 20px;
+
+  .back-category {
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    margin-bottom: 10px;
+    background-color: $color-white;
+
+    @media screen and (max-width: 1200px) {
+      .back-category {
+          width: 80%;
+      }
+    }
+    
+    @media screen and (max-width: 600px) {
+      .back-category {
+          width: 100%;
+      }
+    }
+    
+    .category {
+      scale: 100%;
+      align-content: center;
+      padding-right: 30px;
+      font-weight: 400;
+      height: 100%;
+      color: #0000009c;
+      font-size: 16px;
+    }
+  }
+
+}
+
+
+
+
+
