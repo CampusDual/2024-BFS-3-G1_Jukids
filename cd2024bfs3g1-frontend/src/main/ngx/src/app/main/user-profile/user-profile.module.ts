@@ -16,7 +16,6 @@ import { UserProfileRatingsComponent } from './user-profile-ratings/user-profile
     UserPurchasedToylistComponent,
     EditToyComponent,
     UserProfileRatingsComponent
-
   ],
   imports: [
     CommonModule,

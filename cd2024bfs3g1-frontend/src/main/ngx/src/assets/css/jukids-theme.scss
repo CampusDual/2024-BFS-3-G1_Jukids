@@ -220,6 +220,16 @@ nav {
 }
 
 //==================================== CARD PRODUCT DESIGN ====================================
+.grid-container {
+    margin-bottom: 10px;
+    min-width: 350px;
+}
+
+.grid-toys-search-container {
+    margin: auto;
+    width: 90%;
+    min-width: 350px;
+}
 
 .card {
   position: relative;
@@ -356,17 +366,18 @@ nav {
 
 .card-n {
   position: relative;
-  width: 95%;
-  height: 95%;
+  width: 90%;
+  height: 90%;
   display: flex;
-  padding: .2em;
   flex-direction: column;
   justify-content: space-between;
+  // padding: .5em;
+  padding: .5em .5em 0 .5em;
   background-color: white;
   color: #333;
   font-family: Arial, sans-serif;
   border: .1rem solid rgba(205, 204, 204, 0.638);
-  border-radius: .75rem;
+  border-radius: .6rem;
   transition: all .2s ease;
 
   &:hover {
@@ -375,35 +386,44 @@ nav {
   }
 
   > {
-    .image-header {
+    .img-container {
+      margin-top: .8rem;
       width: 100%;
+      max-height: 80%;
       height: 80%;
-      min-height: 80% !important;
-      border-radius: .75rem;
-      object-fit: contain !important;
+      margin: 0;
+      
+      .image-header {
+        width: 100%; 
+        border-radius: 7%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 
   .card-distance {
     position: absolute;
-    top: 12px;
-    left: 12px;
+    top: 16px;
+    right: 16px;
     z-index: 10;
-    background-color: $color-white;
-    border-radius: 0.75rem;
+    background-color: $color-orange;
+    color: $color-white;
+    font-weight: 550;
+    border-radius: 0.65rem;
     padding: 10px;
-    box-shadow: 0px 0px 5px 0px #5a5a5a;
+    // box-shadow: 0px 0px 5px 0px #5a5a5a;
   }
 
 
   .card-body {
     flex: 1 1 auto;
-    padding: 1rem;
     justify-self: center;
     display: flex;
+    padding: .4rem;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 0.5rem;
+    justify-content: end;
+    gap: 0.1rem;
 
 
     @include respond-to(small) {
@@ -432,11 +452,15 @@ nav {
 
 
     h4 {
-      width: 70%;
+      width: 100%;
+      height: fit-content;
+      // background-color: $color-dark-orange;
       margin: 0;
+      font-weight:normal;
       font-size: 1.1em;
       white-space: nowrap;
       overflow: hidden;
+      text-overflow: ellipsis;
 
       @include respond-to(small) {
         width: 100%;
@@ -462,7 +486,10 @@ nav {
 
     .price {
       margin: 0;
+      height: fit-content;
+      // background-color: $color-dark-orange;
       font-size: 1.1rem;
+      color: #a5a5a5;
 
       @include respond-to(small) {
         width: 100%;
@@ -791,11 +818,26 @@ o-map mat-sidenav-container {
   scrollbar-width: thin;
   scrollbar-color: $color-orange $color-orange-bg;
 }
+.editProfile{
+  color: #ffa366;
+  background-color: #fff;
+  border-radius: 0.4rem;
+  border: 2px solid;
+  padding: 0.2rem 1rem;
 
 ::-webkit-scrollbar-thumb {
   background-color: $color-orange;
 }
+}
 
 ::-webkit-scrollbar-track {
   display: none;
+}
+.header-user-profile h2{
+    max-width: 15%;
+}
+.header-user-profile div{
+  margin-left: 15rem;
+  margin-top: -3rem;
+  margin-bottom: 2rem;
 }

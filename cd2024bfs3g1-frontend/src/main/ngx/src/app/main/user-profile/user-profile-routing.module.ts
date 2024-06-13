@@ -16,7 +16,6 @@ const routes: Routes = [
   { path: 'buylist/toysDetail/:toyid', component: ToysDetailComponent },
   { path: 'toylist/:toyid', component: EditToyComponent },
   { path: 'edit-toy/:toyid', component: EditToyComponent }
-
 ]
 
 @NgModule({

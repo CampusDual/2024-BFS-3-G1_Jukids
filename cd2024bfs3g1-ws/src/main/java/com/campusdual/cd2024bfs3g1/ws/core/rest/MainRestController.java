@@ -2,8 +2,10 @@ package com.campusdual.cd2024bfs3g1.ws.core.rest;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyService;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
+import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import com.campusdual.cd2024bfs3g1.api.core.service.IMainService;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class MainRestController {
@@ -31,6 +35,10 @@ public class MainRestController {
 
 	@Autowired
 	private IToyService toyService;
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private DefaultOntimizeDaoHelper daoHelper;
 
 	@GetMapping(value = "/main", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String main() {
@@ -44,27 +52,51 @@ public class MainRestController {
 
 	@GetMapping("/restapi/get-image")
 	@ResponseBody
-	public ResponseEntity<?> getImageDynamicType(@RequestParam("toyId") int toyId) throws IOException {
+	public ResponseEntity<?> getImageDynamicType(
+			@RequestParam( required = false, value = "toyId") Integer toyId,
+			@RequestParam( required = false, value = "userId") Integer userId
+
+	) throws IOException {
 
 		HashMap<String, Object> imageServiceResponse = null;
 
 		try {
+			HashMap<String, Object> dataResponse = new HashMap<>();
+			if( toyId != null ) {
+				//Consulta a la DB para obtener la imagen.
+				HashMap<String, Object> getProdQuery = new HashMap<>();
 
-			//Consulta a la DB para obtener la imagen.
-			HashMap<String, Object> getProdQuery = new HashMap<>();
+				getProdQuery.put( ToyDao.ATTR_ID, toyId);
 
-			getProdQuery.put( ToyDao.ATTR_ID, toyId);
+				//Consulta
+				EntityResult result = toyService.toyQuery(
+						getProdQuery,
+						Arrays.asList( ToyDao.ATTR_NAME, ToyDao.ATTR_PHOTO )
+				);
 
-			//Consulta
-			EntityResult result = toyService.toyQuery(
-					getProdQuery,
-					Arrays.asList( ToyDao.ATTR_NAME, ToyDao.ATTR_PHOTO )
-			);
+				dataResponse = (HashMap<String, Object>) result.getRecordValues(0);
+			} else {
+				//Consulta a la DB para obtener la imagen.
+				//Where
+				Map<String, Object> keyMap = new HashMap<>();
+				keyMap.put(UserDao.USR_ID, userId );
 
-			HashMap<String, Object> toyData = (HashMap<String, Object>) result.getRecordValues(0);
+				//Columns
+				List<String> attrList = Arrays.asList(
+						UserDao.NAME,
+						UserDao.PHOTO
+				);
 
-			if(!toyData.isEmpty() ){
-				imageServiceResponse = Utils.imageService( toyData );
+				//Consulta
+				EntityResult result = this.daoHelper.query( this.userDao,keyMap, attrList );
+
+				dataResponse = (HashMap<String, Object>) result.getRecordValues(0);
+			}
+
+
+
+			if(!dataResponse.isEmpty() ){
+				imageServiceResponse = Utils.imageService( dataResponse );
 			}
 
 			MediaType contType = (MediaType) imageServiceResponse.get("contentType");
