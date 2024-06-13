@@ -1,86 +1,157 @@
-.backBtn {
-    background-color: transparent !important;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.box {
+.Toy {
+    width: 100%;
+    max-width: 90rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 1rem;
+    padding-top: .75rem;
     margin: auto;
-    padding: 0.75em;
-    background-color: white;
-    overflow: hidden;
-    transition: box-shadow 0.3s;
-    height: 80%;
-    margin-bottom: auto;
-}
 
-.form{
-    width: 100%;
-}
-
-.form .o-form-toolbar-header {
-    box-shadow: none !important;
-}
-
-@media screen and (max-width: 1000px) {
-    .toys-detail-column {
-        flex-direction: column !important;
+    &-title {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
     }
 
-    .total-column {
-        max-width: 100% !important;
-        margin-right: 0 !important;
+    &-h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
     }
 
-    .descInput{
-        height: auto !important;
+    &-svg {
+        color: #3C7F72;
+    }
+}
+
+.Form {
+    width: 100%;
+
+    &-row {
+
+        &--fields {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-areas: 'image information location';
+            gap: .75rem;
+
+            @media (max-width:1280px) {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-areas: 'image information'
+                    'location location'
+                ;
+            }
+
+            @media (max-width:768px) {
+                grid-template-columns: repeat(1, 1fr);
+                grid-template-areas: 'image'
+                    'information'
+                    'location';
+            }
+        }
+
+        &--buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1rem;
+
+            &-save {
+                display: flex;
+                justify-content: flex-end;
+                gap: 1rem;
+            }
+        }
+
     }
 
-}
+    &-column {
+        width: 100%;
 
-.image-container {
-    margin: auto;
-}
+        &--image {
+            grid-area: image;
+        }
 
-.inf-column {
-    margin-right: 1.5em;
-    width: 100%;
-}
+        &--information {
+            grid-area: information;
+        }
 
-.title {
-    width: 100%;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-color: rgba(0, 0, 0, 0.12);
-    color: rgba(0, 0, 0, 0.75);
-    margin-bottom: 0.5em;
-}
+        &--location {
+            grid-area: location;
 
-.divInput {
-    margin-top: 0.5em;
-    margin-bottom: 1em;
-}
+        }
+    }
 
-.descInput{
-    height: 250px;
-}
+    &-subtitle {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
 
-#saveButton:hover{
-    border-style: none;
-}
+    &-h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
 
-h2{
-    display: flex;
-    justify-content: center;
-}
-.target{
-    justify-content: space-between;
-    margin-bottom: .75rem;
-    margin-top: .5rem;
-}
+    &-p {
+        font-size: .75rem;
+    }
 
-::ng-deep .no-resize textarea {
-    resize: none !important;
-  }
+    &-spec {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: .75rem;
+        margin-top: 1rem;
+        padding: .75rem;
+        border: 1px solid #d1d1d1;
+        border-radius: .25rem;
+        max-height: 480px;
+
+        .image {
+            scale: 1;
+            max-width: 95%;
+            max-height: 95%;
+            overflow: hidden;
+            transition: 1s;
+            object-fit: cover;           
+        }
+    }
+
+    &-group {
+
+        &--priceAndCategory {
+            display: flex;
+            gap: .75rem;
+
+            @media (max-width:640px) {
+                width: 100%;
+                flex-direction: column;
+            }
+        }
+
+        &--status {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &-price {
+        flex-grow: 1;
+    }
+
+    &-category {
+        flex-grow: 1;
+    }
+
+    &-shipping {
+        margin-top: .6rem;
+    }
+}
