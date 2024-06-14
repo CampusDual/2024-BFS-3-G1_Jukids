@@ -1,13 +1,13 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { OAppLayoutComponent, OUserInfoConfigurationDirective, OUserInfoService, ServiceResponse } from 'ontimize-web-ngx';
-import { MainService } from '../shared/services/main.service';
-import { UserInfoService } from '../shared/services/user-info.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from '../login/login.component';
-import { JukidsAuthService } from '../shared/services/jukids-auth.service';
-
+import { Component, Injector, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Router } from "@angular/router";
+import { OAppLayoutComponent, OUserInfoConfigurationDirective, OUserInfoService, ServiceResponse, OTextInputComponent, } from "ontimize-web-ngx";
+import { MainService } from "../shared/services/main.service";
+import { UserInfoService } from "../shared/services/user-info.service";
+import { DomSanitizer } from "@angular/platform-browser";
+import { MatDialog } from "@angular/material/dialog";
+import { LoginComponent } from "../login/login.component";
+import { JukidsAuthService } from "../shared/services/jukids-auth.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-main',
@@ -15,6 +15,7 @@ import { JukidsAuthService } from '../shared/services/jukids-auth.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+  @ViewChild("searcherkey") searcherkey: ElementRef;
 
   /*Se importa el modulo padre APPLayour con la anoticacion ViewChild para poder acceder al método ShowUserInfo y analizar en cliente si tras logearse, se recibe o no
   en la etiqueta "o-user-info-configuration" datos de usuario y por cuanto tiempo antes del Bug de borrar perfil al refrescar. */
@@ -40,7 +41,8 @@ export class MainComponent implements OnInit {
     private userInfoService: UserInfoService,
     private domSanitizer: DomSanitizer,
     private oUserInfoService: OUserInfoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private location: Location
   ) { }
 
   isLogged() {
@@ -52,7 +54,6 @@ export class MainComponent implements OnInit {
       this.userInfo = this.userInfoService.getUserInfo();
       this.rolename = this.userInfo.rolename;
     }
-
     return this.jkAuthService.isLoggedIn();
   }
 
@@ -97,6 +98,24 @@ export class MainComponent implements OnInit {
     });
   }
 
+  searchNameAndDescription(searcherInput: HTMLInputElement){
+    const searchValue = searcherInput.value;
+
+    if(searchValue.trim().length > 0){
+      this.router.navigate(['/main/toys'], {queryParams:{keyword: searchValue}});
+    }
+    else{
+      this.router.navigate(['/main/toys']);
+    }
+  }
+
+  clearInput(searcherInput: HTMLInputElement) {
+    searcherInput.value = '';
+    this.router.navigate(['/main/toys']).then(() =>{
+      window.location.reload();
+    });
+  }
+
   newToy(){
     if(this.jkAuthService.isLoggedIn()){
       const redirect = '/main/toys/new';
@@ -105,5 +124,4 @@ export class MainComponent implements OnInit {
       this.modal('login');
     }
   }
-
 }

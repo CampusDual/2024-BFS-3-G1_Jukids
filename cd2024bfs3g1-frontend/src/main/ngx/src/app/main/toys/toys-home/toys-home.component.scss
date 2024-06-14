@@ -1,11 +1,28 @@
 .btn-container {
     margin: 0 0.5rem;
+    background: none;
 }
 
-.searchFilters{
+.collapsible-container{
+background-color: #FDF8F5;
+
+.collapsible-container-items {
+    display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+&-items{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 }
 
 .titleMap{

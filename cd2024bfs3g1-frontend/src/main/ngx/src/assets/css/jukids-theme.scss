@@ -422,7 +422,6 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  // padding: .5em;
   padding: .5em .5em 0 .5em;
   background-color: white;
   color: #333;
@@ -432,7 +431,6 @@ nav {
 
   &:hover {
     border: .1rem solid $color-orange;
-    // box-shadow: 0px 0px 5px 0px $color-orange;
   }
 
   > {
@@ -462,7 +460,6 @@ nav {
     font-weight: 550;
     border-radius: 0.65rem;
     padding: 10px;
-    // box-shadow: 0px 0px 5px 0px #5a5a5a;
   }
 
 
@@ -504,7 +501,6 @@ nav {
     h4 {
       width: 100%;
       height: fit-content;
-      // background-color: $color-dark-orange;
       margin: 0;
       font-weight:normal;
       font-size: 1.1em;
@@ -537,7 +533,6 @@ nav {
     .price {
       margin: 0;
       height: fit-content;
-      // background-color: $color-dark-orange;
       font-size: 1.1rem;
       color: #a5a5a5;
 
@@ -592,7 +587,6 @@ nav {
     border-color: $color-blue;
     color: $color-white !important;
     background-color: $color-blue;
-    padding: .5rem 1.2rem !important;
 
     &:hover {
       box-shadow: 0 2px 4px #0000003d;
@@ -636,7 +630,6 @@ nav {
     border-color: $color-orange;
     color: $color-orange;
     background-color: $color-white;
-    padding: .5rem 1.2rem !important;
 
     &:hover {
       color: $color-white;
