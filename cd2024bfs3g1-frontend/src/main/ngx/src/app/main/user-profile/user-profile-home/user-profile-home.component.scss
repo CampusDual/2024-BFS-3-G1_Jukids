@@ -6,57 +6,45 @@
   flex-direction: column;
   align-items: center;
 
-  .header-user-profile,
   .info-user,
   .card-container {
     width: 100%;
     box-sizing: border-box;
+   
   }
 
-  .header-user-profile {
+  .container-user{ 
+    gap: 15px;
+    @media screen and (max-width: 600px) { 
+      display: inline-block !important; 
+    } 
+  }
+
+  .user-info {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #f5f5f5;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 20px;
 
-    .user-info {
-      display: flex;
-      align-items: center;
+    .marco4 {
+      padding: 10px;
+      background-color: #fff;
+      //border: 2px solid #999;
+      //box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      //border-radius: 8px;
 
-      .marco4 {
-        padding: 10px;
-        background-color: #fff;
-        border: 2px solid #999;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-
-        .image-header {
-          width: 100%;
-          height: auto;
-          max-width: 100px;
-          max-height: 100px;
-          object-fit: cover;
-          border-radius: 50%;
-        }
-      }
-    }
-
-    .edit-profile-button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-
-      &:hover {
-       // background-color: #0056b3;
+      .image-header {
+        width: 70%;
+        height: 60%;
+        //max-width: 100%;
+        object-fit: cover;
+        //border-radius: 50%;
       }
     }
   }
+
+  .alignColumn {
+    margin-top: 15px;
+  }
+
 
   .info-user {
     background-color: #ffffff;
@@ -80,8 +68,17 @@
     .no-rating {
         display: flex;
         align-items: center;
+        justify-content: space-between;
       padding: 10px 0;
     }
+
+    .button-edit {
+      margin-top: 45px;
+    }
+  }
+
+  .svg-star{
+    margin-left: 5px;
   }
 
   .card-container {
@@ -89,6 +86,7 @@
     justify-content: space-between;
     width: 100%;
     gap: 15px;
+    padding: 0!important;
 
     .card {
       background-color: #ffffff;
@@ -99,23 +97,30 @@
       cursor: pointer;
       transition: transform 0.2s;
       flex: 1;
-      margin: 0 10px;
+      //margin: 0 10px;
       min-width: 0; // Ensure cards don't overflow
 
+      span{
+        font-size: 18px;
+        font-weight: bold;
+      }
+
       .icon-image {
-        width: 50px;
-        height: 50px;
+        width: 75px;
+        height: 75px;
         margin: 0 auto; // Esto centrará los iconos horizontalmente
         display: block; // Asegura que los márgenes automáticos se apliquen correctamente
         margin-bottom: 10px;
       }
 
+
       // Media Query para ocultar el texto en resoluciones menores a 750px
       @media (max-width: 750px) {
-        h2 {
+        span {
           display: none;
         }
       }
+
       // Media Query para reducir el tamaño de las tarjetas y su contenido en resoluciones menores a 450px
       @media (max-width: 450px) {
         padding: 10px; // Ajusta el espacio interior de las tarjetas

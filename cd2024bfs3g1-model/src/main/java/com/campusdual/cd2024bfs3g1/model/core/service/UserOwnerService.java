@@ -7,6 +7,7 @@ import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
+import com.ontimize.jee.server.security.SecurityTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
@@ -83,17 +84,36 @@ public class UserOwnerService implements IUserOwnerService {
             Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
             keyMap.put(UserDao.USR_ID, idUser);
 
+            // Comprobar si el nuevo email ya existe en otro usuario
+            if (attrMap.containsKey(UserDao.LOGIN)) {
+                String newEmail = (String) attrMap.get(UserDao.LOGIN);
+                HashMap<String, Object> emailCheckMap = new HashMap<>();
+                emailCheckMap.put(UserDao.LOGIN, newEmail);
+                EntityResult emailCheckResult = this.daoHelper.query(userDao, emailCheckMap, attrList);
+
+                if (!emailCheckResult.isEmpty()) {
+                    Integer existingUserId = (Integer) emailCheckResult.getRecordValues(0).get(UserDao.USR_ID);
+                    if (!existingUserId.equals(idUser)) {
+                        return createError("El email introducido ya existe en otro usuario: " + newEmail);
+                    }
+                }
+            }
+
             // Encriptar la contraseña si está presente en los atributos
             if (attrMap.containsKey("usr_password")) {
                 String password = (String) attrMap.get("usr_password");
                 String encodedPassword = userAndRoleService.encryptPassword(password);
                 attrMap.put("usr_password", encodedPassword);
             }
-
+            this.invalidateSecurityManager();
             return this.daoHelper.update(this.userDao, attrMap, keyMap);
         } else {
             return createError("No estás logueado");
         }
+    }
+
+    private void invalidateSecurityManager() {
+        SecurityTools.invalidateSecurityManager(this.daoHelper.getApplicationContext());
     }
 
     private EntityResult createError(String mensaje) {

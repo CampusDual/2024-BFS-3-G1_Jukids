@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { OFormComponent, OTextInputComponent, OntimizeService, ServiceResponse } from 'ontimize-web-ngx';
 import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
 import { MainService } from 'src/app/shared/services/main.service';
+
 import { UserInfoService } from 'src/app/shared/services/user-info.service';
 
 @Component({
@@ -77,7 +78,7 @@ export class UserProfileHomeComponent implements OnInit {
     this.service.configureService(confUser);
 
     // consulta para rating
-    const confSurveys = this.service.getDefaultServiceConfiguration('surveys');
+    const confSurveys = this.service.getDefaultServiceConfiguration('toys');
     this.service.configureService(confSurveys);
     
     const columns = ['usr_name', 'usr_photo', 'rating'];
@@ -92,6 +93,9 @@ export class UserProfileHomeComponent implements OnInit {
     });
   }
 
+  toHome(){
+    this.router.navigate(['/main/home']);
+  }
   toToyList() {
     this.router.navigate(['/main/user-profile/toylist']);
   }

@@ -1,0 +1,124 @@
+<svg width="214" xmlns="http://www.w3.org/2000/svg" height="215" id="screenshot-759f96bd-bdb6-8028-8004-7e6013254137" viewBox="-32 -122 214 215" style="-webkit-print-color-adjust::exact" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1">
+  <g id="shape-759f96bd-bdb6-8028-8004-7e6013254137">
+    <g fill="none">
+      <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e6013254137">
+        <rect rx="0" ry="0" x="-32" y="-122" width="214" height="214" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" class="frame-background">
+        </rect>
+      </g>
+      <g class="frame-children">
+        <g id="shape-759f96bd-bdb6-8028-8004-7e5ce4d6f1e4">
+          <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e5ce4d6f1e4">
+            <ellipse cx="75" cy="-14" rx="107" ry="107" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" style="fill:#fd8f35;fill-opacity:1">
+            </ellipse>
+          </g>
+          <g id="strokes-759f96bd-bdb6-8028-8004-7e5ce4d6f1e4" class="strokes">
+            <g class="inner-stroke-shape" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)">
+              <defs>
+                <clipPath id="inner-stroke-render-2124-759f96bd-bdb6-8028-8004-7e5ce4d6f1e4-0">
+                  <use href="#stroke-shape-render-2124-759f96bd-bdb6-8028-8004-7e5ce4d6f1e4-0">
+                  </use>
+                </clipPath>
+                <ellipse cx="75" cy="-14" rx="107" ry="107" style="fill:none;fill-opacity:none;stroke-width:10;stroke:#d34a24;stroke-opacity:1" id="stroke-shape-render-2124-759f96bd-bdb6-8028-8004-7e5ce4d6f1e4-0">
+                </ellipse>
+              </defs>
+              <use href="#stroke-shape-render-2124-759f96bd-bdb6-8028-8004-7e5ce4d6f1e4-0" clip-path="url(&#x27;#inner-stroke-render-2124-759f96bd-bdb6-8028-8004-7e5ce4d6f1e4-0&#x27;)">
+              </use>
+            </g>
+          </g>
+        </g>
+        <g id="shape-759f96bd-bdb6-8028-8004-7e5e71c9de14" style="fill:#000000" width="512" height="512" rx="0" ry="0">
+          <g id="shape-759f96bd-bdb6-8028-8004-7e5e71c9de16" style="opacity:0.973">
+            <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e5e71c9de16">
+              <path d="M101.345,-46.558C100.298,-46.014,99.429,-46.219,98.738,-47.171C92.996,-58.963,87.169,-70.718,81.260,-82.435C79.700,-84.155,78.013,-84.360,76.200,-83.048C75.718,-82.914,75.360,-82.607,75.127,-82.128C69.199,-70.067,63.270,-58.005,57.342,-45.944C56.409,-44.296,55.029,-43.222,53.202,-42.725C39.161,-40.748,25.158,-38.602,11.192,-36.285C9.470,-34.726,9.215,-32.937,10.426,-30.919C20.332,-21.524,30.144,-12.019,39.863,-2.401C41.122,-0.875,41.633,0.863,41.396,2.812C39.148,15.895,36.899,28.978,34.650,42.062C34.406,42.840,34.458,43.555,34.804,44.208C35.013,45.287,35.626,46.054,36.644,46.508C37.797,46.734,38.921,46.632,40.017,46.201C52.078,39.864,64.139,33.527,76.200,27.189C77.862,26.932,79.498,27.034,81.106,27.496C93.168,33.833,105.229,40.170,117.290,46.508C120.105,47.046,121.740,45.921,122.196,43.135C119.979,29.883,117.679,16.646,115.297,3.425C114.866,1.388,115.274,-0.451,116.523,-2.095C126.540,-11.907,136.557,-21.720,146.574,-31.532C147.651,-33.924,146.986,-35.611,144.581,-36.592C131.813,-38.460,119.037,-40.299,106.251,-42.111C105.213,-42.381,104.702,-43.046,104.718,-44.104C104.807,-45.179,105.421,-45.690,106.558,-45.638C119.439,-43.761,132.318,-41.870,145.194,-39.965C149.188,-38.575,150.874,-35.764,150.254,-31.532C150.032,-30.781,149.725,-30.066,149.334,-29.386C139.317,-19.573,129.300,-9.761,119.283,0.052C118.967,0.692,118.712,1.357,118.517,2.045C120.926,15.781,123.278,29.529,125.569,43.288C125.454,46.643,123.818,48.840,120.663,49.881C119.001,50.138,117.365,50.036,115.757,49.574C104.104,43.441,92.452,37.309,80.800,31.176C79.164,30.154,77.529,30.154,75.894,31.176C64.241,37.309,52.589,43.441,40.937,49.574C36.669,50.982,33.552,49.705,31.584,45.741C31.333,44.942,31.180,44.124,31.124,43.288C33.359,29.519,35.710,15.771,38.177,2.045C37.981,1.357,37.726,0.692,37.410,0.052C27.393,-9.761,17.376,-19.573,7.359,-29.386C5.359,-33.379,6.126,-36.701,9.659,-39.352C23.511,-41.754,37.413,-43.901,51.362,-45.791C52.586,-45.917,53.557,-46.480,54.275,-47.478C60.325,-59.883,66.458,-72.251,72.674,-84.581C75.263,-87.470,78.381,-88.134,82.026,-86.574C82.733,-85.942,83.398,-85.278,84.020,-84.581C90.031,-72.660,95.960,-60.701,101.805,-48.704C102.060,-47.885,101.907,-47.170,101.345,-46.558ZZ" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;fill-rule:evenodd;clip-rule:evenodd;fill:#000000;fill-opacity:1">
+              </path>
+            </g>
+          </g>
+        </g>
+        <g id="shape-759f96bd-bdb6-8028-8004-7e5d160ada43">
+          <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e5d160ada43">
+            <ellipse cx="75.5" cy="-14.500000000000014" rx="96.5" ry="96.50000000000001" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" style="fill:#b1b2b5;fill-opacity:0">
+            </ellipse>
+          </g>
+          <g id="strokes-759f96bd-bdb6-8028-8004-7e5d160ada43" class="strokes">
+            <g class="inner-stroke-shape" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)">
+              <defs>
+                <clipPath id="inner-stroke-render-2127-759f96bd-bdb6-8028-8004-7e5d160ada43-0">
+                  <use href="#stroke-shape-render-2127-759f96bd-bdb6-8028-8004-7e5d160ada43-0">
+                  </use>
+                </clipPath>
+                <ellipse cx="75.5" cy="-14.500000000000014" rx="96.5" ry="96.50000000000001" style="fill:none;fill-opacity:none;stroke-width:6;stroke:#d34a24;stroke-opacity:1" id="stroke-shape-render-2127-759f96bd-bdb6-8028-8004-7e5d160ada43-0">
+                </ellipse>
+              </defs>
+              <use href="#stroke-shape-render-2127-759f96bd-bdb6-8028-8004-7e5d160ada43-0" clip-path="url(&#x27;#inner-stroke-render-2127-759f96bd-bdb6-8028-8004-7e5d160ada43-0&#x27;)">
+              </use>
+            </g>
+          </g>
+        </g>
+        <g id="shape-759f96bd-bdb6-8028-8004-7e61a1273aa4">
+          <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e61a1273aa4">
+            <ellipse cx="75.5" cy="-14.500000000000043" rx="96.5" ry="96.50000000000001" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" style="fill:#b1b2b5;fill-opacity:0">
+            </ellipse>
+          </g>
+          <g id="strokes-759f96bd-bdb6-8028-8004-7e61a1273aa4" class="strokes">
+            <g class="inner-stroke-shape" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)">
+              <defs>
+                <clipPath id="inner-stroke-render-2128-759f96bd-bdb6-8028-8004-7e61a1273aa4-0">
+                  <use href="#stroke-shape-render-2128-759f96bd-bdb6-8028-8004-7e61a1273aa4-0">
+                  </use>
+                </clipPath>
+                <ellipse cx="75.5" cy="-14.500000000000043" rx="96.5" ry="96.50000000000001" style="fill:none;fill-opacity:none;stroke-width:2;stroke:#000000;stroke-opacity:1" id="stroke-shape-render-2128-759f96bd-bdb6-8028-8004-7e61a1273aa4-0">
+                </ellipse>
+              </defs>
+              <use href="#stroke-shape-render-2128-759f96bd-bdb6-8028-8004-7e61a1273aa4-0" clip-path="url(&#x27;#inner-stroke-render-2128-759f96bd-bdb6-8028-8004-7e61a1273aa4-0&#x27;)">
+              </use>
+            </g>
+          </g>
+        </g>
+        <g id="shape-759f96bd-bdb6-8028-8004-7e5ed32eeaaa">
+          <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e5ed32eeaaa">
+            <path d="M62.000,-38.000C62.000,-38.000,63.316,-41.500,66.000,-41.500C68.650,-41.500,70.000,-38.000,70.000,-38.000L70.000,-8.000C70.000,-8.000,68.655,-5.000,66.000,-5.000C63.321,-5.000,62.000,-8.000,62.000,-8.000L62.000,-38.000ZM66.000,-22.000" style="fill:#000000;fill-opacity:1">
+            </path>
+          </g>
+        </g>
+        <g id="shape-759f96bd-bdb6-8028-8004-7e5fae341bc3">
+          <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e5fae341bc3">
+            <path d="M65.000,-38.630C65.000,-38.630,65.740,-40.500,67.250,-40.500C68.740,-40.500,69.500,-38.630,69.500,-38.630L69.500,-22.603C69.500,-22.603,68.743,-21.000,67.250,-21.000C65.743,-21.000,65.000,-22.603,65.000,-22.603L65.000,-38.630ZM67.250,-30.082" style="fill:#ffffff;fill-opacity:1">
+            </path>
+          </g>
+        </g>
+        <g id="shape-759f96bd-bdb6-8028-8004-7e5fd8a04466">
+          <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e5fd8a04466">
+            <path d="M88.000,-38.000C88.000,-38.000,89.316,-41.500,92.000,-41.500C94.650,-41.500,96.000,-38.000,96.000,-38.000L96.000,-8.000C96.000,-8.000,94.655,-5.000,92.000,-5.000C89.321,-5.000,88.000,-8.000,88.000,-8.000L88.000,-38.000ZM92.000,-22.000" style="fill:#000000;fill-opacity:1">
+            </path>
+          </g>
+        </g>
+        <g id="shape-759f96bd-bdb6-8028-8004-7e5fd8a04467">
+          <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e5fd8a04467">
+            <path d="M91.000,-38.630C91.000,-38.630,91.740,-40.500,93.250,-40.500C94.740,-40.500,95.500,-38.630,95.500,-38.630L95.500,-22.603C95.500,-22.603,94.743,-21.000,93.250,-21.000C91.743,-21.000,91.000,-22.603,91.000,-22.603L91.000,-38.630ZM93.250,-30.082" style="fill:#ffffff;fill-opacity:1">
+            </path>
+          </g>
+        </g>
+        <g id="shape-759f96bd-bdb6-8028-8004-7e614ed58854">
+          <g class="fills" id="fills-759f96bd-bdb6-8028-8004-7e614ed58854">
+            <ellipse cx="75" cy="-14" rx="107" ry="107" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)" style="fill:#fd8f35;fill-opacity:0">
+            </ellipse>
+          </g>
+          <g id="strokes-759f96bd-bdb6-8028-8004-7e614ed58854" class="strokes">
+            <g class="inner-stroke-shape" transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000)">
+              <defs>
+                <clipPath id="inner-stroke-render-2133-759f96bd-bdb6-8028-8004-7e614ed58854-0">
+                  <use href="#stroke-shape-render-2133-759f96bd-bdb6-8028-8004-7e614ed58854-0">
+                  </use>
+                </clipPath>
+                <ellipse cx="75" cy="-14" rx="107" ry="107" style="fill:none;fill-opacity:none;stroke-width:2;stroke:#000000;stroke-opacity:1" id="stroke-shape-render-2133-759f96bd-bdb6-8028-8004-7e614ed58854-0">
+                </ellipse>
+              </defs>
+              <use href="#stroke-shape-render-2133-759f96bd-bdb6-8028-8004-7e614ed58854-0" clip-path="url(&#x27;#inner-stroke-render-2133-759f96bd-bdb6-8028-8004-7e614ed58854-0&#x27;)">
+              </use>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
