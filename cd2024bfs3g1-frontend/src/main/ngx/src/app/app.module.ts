@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { APP_CONFIG, ONTIMIZE_PROVIDERS, OntimizeWebModule, O_MAT_ERROR_OPTIONS, O_AUTH_SERVICE } from 'ontimize-web-ngx';
+import { CONFIG, CHAT_CONFIG } from './app.config'
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CONFIG } from './app.config';
 import { MainService } from './shared/services/main.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,7 +17,7 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 
 //Socket io configuration
-const config: SocketIoConfig = { url: environment.socketIoEnpoint, options: {} };
+const config: SocketIoConfig = { url: CHAT_CONFIG.chatEndpoint, options: {} };
 
 
 
