@@ -283,10 +283,20 @@
   "UPLOAD_PRODUCT_IMAGE": "Upload an image of your product",
   "DATA_ABOUT_PRODUCT": "Necessary data about your product",
   "SELECT_PRODUCT_LOCATION": "Select the point on the map where the toy is located",
+  "TEXT_CONFIRM_DELETE": "Are you sure you want to delete the selected items?",
+  "SAVE_TOY": "Save changes",
   "myInfo": "My info",
   "userNameProfile": "Name",
   "lastnameProfile": "Surname",
   "emailProfile": "Email",
-  "noRating": "No rating yet"
+  "noRating": "No rating yet",
+  "MESSAGES": "Messages",
+  "SELECT_CHAT": "Select a chat",
+  "LOADING_MESSAGES": "Loading messages...",
+  "MY_CHATS": "My chats",
+  "WRITE_MESSAGE": "Your message here",
+  "CONTACT_CHAT": "Contact by chat",
+  "SEND_CHAT": "Send message",
+  "UPDATE_CHATS": "Update chats"
 
 }

@@ -51,19 +51,19 @@ export class StripeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log("STRIPE TOYID:", this.toyId);
+    
   }
 
 
   //====================== STRIPE CHECKOUT JS =======================
 
   checkoutStripe(shipment: boolean): void {
-    console.log('shipment status', shipment);
+    
     this.baseUrl = window.location.origin;
     if( this.baseUrl.includes('localhost') ) {
       this.baseUrl = 'http://localhost:8080';
     }
-    console.log( "this.baseUrl: ", this.baseUrl);
+    
 
     this.isCheckingOut = true;
     this.loading = true;
@@ -74,8 +74,6 @@ export class StripeComponent implements OnInit, OnDestroy {
       'toyUrl': this.baseUrl + '/main/toys/toysDetail/' + this.toyId
     }
 
-    console.log("CheckoutElement:", this.checkoutElement);
-    console.log("data:", data);
 
     this.ontimizeService.doRequest({
       method: 'POST',
@@ -89,12 +87,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     }).subscribe({
       next: async (session: ServiceResponse) => {
 
-        console.log("session:", session);
-
         let sesiondata = JSON.parse(session.data.session);
-
-        console.log("session:", session.data);
-        console.log("sesiondata:", sesiondata);
 
         await this.stripeService.getInstance().initEmbeddedCheckout({
           clientSecret: sesiondata.client_secret
@@ -105,7 +98,7 @@ export class StripeComponent implements OnInit, OnDestroy {
           );
           this.loading = false;
         }).catch((err) => {
-          console.log(err);
+          console.error(err);
           this.showCustom('error', 'OK', 'Error en embedded checkout', err);
 
         });
@@ -114,7 +107,7 @@ export class StripeComponent implements OnInit, OnDestroy {
 
       },
       error: (err: any) => {
-        console.log(err);
+        console.error(err);
         this.showCustom('error', 'OK', 'Error en endpoint', err.error.data.error, "/");
 
       }
@@ -126,7 +119,7 @@ export class StripeComponent implements OnInit, OnDestroy {
     try {
       this.checkout.destroy();
     } catch (e ){
-      // console.log("ERROR: ngOnDestory: ", e)
+      
     }
 
   }
@@ -147,8 +140,7 @@ export class StripeComponent implements OnInit, OnDestroy {
       };
 
       this.dialogService.alert(dialogTitle, dialogText, config);
-      this.dialogService.dialogRef.afterClosed().subscribe( result => {
-        console.log("result:", result);
+      this.dialogService.dialogRef.afterClosed().subscribe( result => {        
         if(result) {
           this.router.navigate(["main"], { replaceUrl: true });          
         }

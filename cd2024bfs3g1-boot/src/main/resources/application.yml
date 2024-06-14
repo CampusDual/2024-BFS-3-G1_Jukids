@@ -95,3 +95,6 @@ stripe:
   secret-key: sk_test_51PDhh3RsFWaWOlVnF8S5tDq18o7ykWpLQnXfLs22lyhTp0v5nJoXSkP3OByPm0cvtLoc1k8RNPdkOrsvbLAq94hc00215SLYb5
 environment:
   profile: ${ENVIRONMENT_PROFILE:#{'production'}}
+socketio:
+  host: "localhost"
+  port: 1337
