@@ -100,6 +100,11 @@
       //margin: 0 10px;
       min-width: 0; // Ensure cards don't overflow
 
+      span{
+        font-size: 18px;
+        font-weight: bold;
+      }
+
       .icon-image {
         width: 75px;
         height: 75px;
@@ -111,10 +116,11 @@
 
       // Media Query para ocultar el texto en resoluciones menores a 750px
       @media (max-width: 750px) {
-        h2 {
+        span {
           display: none;
         }
       }
+
       // Media Query para reducir el tamaño de las tarjetas y su contenido en resoluciones menores a 450px
       @media (max-width: 450px) {
         padding: 10px; // Ajusta el espacio interior de las tarjetas

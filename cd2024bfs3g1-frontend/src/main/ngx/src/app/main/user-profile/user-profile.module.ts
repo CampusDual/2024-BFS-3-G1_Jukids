@@ -18,8 +18,7 @@ import { UserProfileChatsComponent } from './user-profile-chats/user-profile-cha
     UserPurchasedToylistComponent,
     EditToyComponent,
     UserProfileRatingsComponent,
-    UserProfileChatsComponent
-    UserProfileRatingsComponent,
+    UserProfileChatsComponent,
     EditUserComponent
 
   ],

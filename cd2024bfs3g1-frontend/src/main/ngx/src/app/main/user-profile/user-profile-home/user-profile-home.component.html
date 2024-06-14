@@ -61,19 +61,19 @@
     <div class="card-container">
         <div class="card user-profile-home-listcard" (click)="toToyList()">
             <img id="myToys" class="icon-image" src="assets/images/svg/pikachu.svg">
-            <h2>{{ 'MY_TOYS' | oTranslate }}</h2>
+            <span>{{ 'MY_TOYS' | oTranslate }}</span>
         </div>
         <div class="card user-profile-home-listcard" (click)="toBuyList()">
             <img id="myPurchases" class="icon-image" src="assets/images/svg/gremlin.svg">
-            <h2>{{ 'PURCHASED_TOYS' | oTranslate }}</h2>
+            <span>{{ 'PURCHASED_TOYS' | oTranslate }}</span>
         </div>
         <div class="card user-profile-home-listcard" (click)="toMyRatings()">
             <img id="myRatings" class="icon-image" src="assets/images/svg/pac-man.svg">
-            <h2>{{ 'MY_RATINGS' | oTranslate }}</h2>
+            <span>{{ 'MY_RATINGS' | oTranslate }}</span>
         </div>
         <div class="card  user-profile-home-listcard" style="cursor: pointer;" routerLink="/main/user-profile/chats">            
             <img class="icon-image" src="assets/icons/groot-chat 1.svg">
-            <h2>{{ 'MY_CHATS' | oTranslate }}</h2>
+            <span>{{ 'MY_CHATS' | oTranslate }}</span>
         </div>
     </div>
     
