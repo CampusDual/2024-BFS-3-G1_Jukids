@@ -54,16 +54,13 @@ export class StripeComponent implements OnInit, OnDestroy {
 
   }
 
-
   //====================== STRIPE CHECKOUT JS =======================
 
   checkoutStripe(shipment: boolean): void {
-
     this.baseUrl = window.location.origin;
     if( this.baseUrl.includes('localhost') ) {
       this.baseUrl = 'http://localhost:8080';
     }
-
 
     this.isCheckingOut = true;
     this.loading = true;
@@ -103,8 +100,6 @@ export class StripeComponent implements OnInit, OnDestroy {
 
         });
 
-
-
       },
       error: (err: any) => {
         console.error(err);
@@ -112,7 +107,6 @@ export class StripeComponent implements OnInit, OnDestroy {
 
       }
     })
-
   }
 
   ngOnDestroy(): void {
@@ -121,7 +115,6 @@ export class StripeComponent implements OnInit, OnDestroy {
     } catch (e ){
 
     }
-
   }
 
   // =============================  DIALOGS =============================
@@ -145,11 +138,6 @@ export class StripeComponent implements OnInit, OnDestroy {
           this.router.navigate(["main"], { replaceUrl: true });
         }
       });
-
     }
   }
-
-
-
-
 }
