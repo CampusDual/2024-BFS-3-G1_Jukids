@@ -27,7 +27,8 @@
         max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
         currency-symbol-position="right" tooltip="yes"></o-table-column>
         <o-table-column class="button btn-solid" attr="edit-btn" title="{{ 'PAY' | oTranslate }}">
-          <o-table-cell-renderer-action attr="edit" class="action" (onClick)="pay($event)"
+          <o-table-cell-renderer-action attr="edit" class="action" min-width="100px"
+          max-width="300px" (onClick)="pay($event)"
             text="{{ 'PAY' | oTranslate }}"></o-table-cell-renderer-action>
         </o-table-column>
     </o-table>

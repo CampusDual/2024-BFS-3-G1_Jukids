@@ -20,7 +20,7 @@ export class ToysShippingComponent implements OnInit {
   public warrantyPrice: number;
   // Se contemplan 3 euros de gastos de envio
   public priceSend: number = 3.00;
-  public issetSend: boolean = true;
+  public issetSend: boolean = false;
   // Compañias de envio
   public dataCompany = [{
     code: 'Correos',
@@ -133,6 +133,8 @@ export class ToysShippingComponent implements OnInit {
   }
   newBuy() {
     //Comentarios de este metodo para logeado
+    this.toyId.setValue(this.toyId.getValue());
+    
     if (!this.isLogged()) {
       this.buyButton.nativeElement.classList.add("hidden")
       this.emailForm.nativeElement.classList.remove("hidden")
@@ -159,6 +161,9 @@ export class ToysShippingComponent implements OnInit {
   }
 
   paySubmit() {
+
+    this.toyId.setValue(this.toyId.getValue());
+
     const conf = this.oServiceToy.getDefaultServiceConfiguration('toys');
     this.oServiceToy.configureService(conf);
 
@@ -198,6 +203,9 @@ export class ToysShippingComponent implements OnInit {
   }
 
   newSubmit() {
+
+    this.toyId.setValue(this.toyId.getValue());
+    this.price.setValue(this.priceSend);
 
     let arrayErrores: any[] = [];
 
