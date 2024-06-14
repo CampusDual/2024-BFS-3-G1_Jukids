@@ -14,7 +14,7 @@ import { catchError, throwError } from 'rxjs';
 })
 export class ToysShippingComponent implements OnInit {
 
-
+  public baseUrl: string;
   // En commission ponemos el tanto por ciento de comision
   public commission: number = 7;
   public warrantyPrice: number;
@@ -78,7 +78,10 @@ export class ToysShippingComponent implements OnInit {
 
     const conf2 = this.oServiceOrder.getDefaultServiceConfiguration('orders');
     this.oServiceOrder.configureService(conf2);
-
+    this.baseUrl = window.location.origin;
+    if (this.baseUrl.includes("localhost")) {
+      this.baseUrl = "http://localhost:8080";
+    }
   }
 
   showFormShipments() {
