@@ -1079,3 +1079,16 @@ o-map mat-sidenav-container {
   margin-top: -3rem;
   margin-bottom: 2rem;
 }
+
+.nameLong { 
+  display: inline-block; 
+  max-width: 100px; 
+  height: -moz-fit-content; 
+  height: fit-content; 
+  margin: 0; 
+  font-weight: 400; 
+  font-size: 1.1em; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
