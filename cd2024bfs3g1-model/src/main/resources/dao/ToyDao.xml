@@ -31,6 +31,42 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="toyOrder">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="toyid" prefix="t"/>
+                <AmbiguousColumn name="order_id" prefix="o"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                 SELECT
+                     #COLUMNS#
+                 FROM
+                     ${mainschema}.toys t
+                 INNER JOIN
+                     ${mainschema}.orders o ON t.toyid = o.toyid
+                 #WHERE#
+            ]]>
+            </Sentence>
+        </Query>
+        <Query id="toyUserOrder">
+            <AmbiguousColumns>
+                <AmbiguousColumn name="toyid" prefix="t"/>
+                <AmbiguousColumn name="usr_id" prefix="t"/>
+            </AmbiguousColumns>
+            <Sentence>
+                <![CDATA[
+                 SELECT
+                     #COLUMNS#
+                 FROM
+                     ${mainschema}.toys t
+                 LEFT JOIN
+                     ${mainschema}.usr_user u ON t.usr_id = u.usr_id
+                 LEFT JOIN
+                    ${mainschema}.orders o ON t.toyid = o.toyid
+            #WHERE#
+        ]]>
+            </Sentence>
+        </Query>
         <Query id="toyJoin">
             <AmbiguousColumns>
                 <AmbiguousColumn name="price" prefix="t" />

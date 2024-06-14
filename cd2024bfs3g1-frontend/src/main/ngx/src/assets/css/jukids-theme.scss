@@ -1037,7 +1037,7 @@ nav {
     width: 2rem;
     height: 2rem;
     font-size: 1.5rem;
-    color: #ff5349;
+    color: $color-red;
   }
 }
 
@@ -1080,15 +1080,51 @@ o-map mat-sidenav-container {
   margin-bottom: 2rem;
 }
 
-.nameLong { 
-  display: inline-block; 
-  max-width: 100px; 
-  height: -moz-fit-content; 
-  height: fit-content; 
-  margin: 0; 
-  font-weight: 400; 
-  font-size: 1.1em; 
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
+.nameLong {
+  display: inline-block;
+  max-width: 100px;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ==================================== BREADCRUMB ====================================
+.navigation-tree-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 960px;
+  margin: auto;
+  margin-bottom: 20px;
+
+
+  .back-category {
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    margin-bottom: 10px;
+
+    @include respond-to(xlarge) {
+      width: 80%;
+    }
+
+    @include respond-to(medium) {
+      width: 100%;
+    }
+
+    .category {
+      scale: 100%;
+      align-content: center;
+      padding-right: 30px;
+      font-weight: 400;
+      height: 100%;
+      color: #0000009c;
+      font-size: 16px;
+    }
+  }
 }

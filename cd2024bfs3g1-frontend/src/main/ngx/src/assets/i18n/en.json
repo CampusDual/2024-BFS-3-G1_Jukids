@@ -301,6 +301,7 @@
   "WRITE_MESSAGE": "Your message here",
   "CONTACT_CHAT": "Contact by chat",
   "SEND_CHAT": "Send message",
-  "UPDATE_CHATS": "Update chats"
+  "UPDATE_CHATS": "Update chats",
+  "RESERVER_TOY": "Toys pending payment"
 
 }

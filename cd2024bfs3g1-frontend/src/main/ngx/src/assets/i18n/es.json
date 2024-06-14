@@ -303,5 +303,6 @@
   "WRITE_MESSAGE": "Escribe tu mensaje",
   "CONTACT_CHAT": "Contactar por chat",
   "SEND_CHAT": "Enviar mensaje",
-  "UPDATE_CHATS": "Actualizar chats"
+  "UPDATE_CHATS": "Actualizar chats",
+  "RESERVER_TOY": "Juguetes pendientes de pago"
 }
