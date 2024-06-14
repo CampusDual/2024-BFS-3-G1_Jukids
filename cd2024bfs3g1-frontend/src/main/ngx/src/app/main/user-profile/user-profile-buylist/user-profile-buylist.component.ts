@@ -135,4 +135,8 @@ export class UserPurchasedToylistComponent {
     // Aquí redirigimos a la ruta de detalle de juguete y pasamos el ID como parámetro
     this.router.navigate(["./main/user-profile/buylist/toysDetail", data]);
   }
+
+  public pay(e: any){
+    this.router.navigate(["./main/toys/toysDetail/toysBuy", e.toyid]);
+  }
 }

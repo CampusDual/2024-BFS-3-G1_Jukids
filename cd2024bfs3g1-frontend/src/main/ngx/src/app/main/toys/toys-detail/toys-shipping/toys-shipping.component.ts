@@ -46,7 +46,6 @@ export class ToysShippingComponent implements OnInit {
   @ViewChild('emailInput') toyEmail: OEmailInputComponent;
   @ViewChild('priceInput') priceToy: OCurrencyInputComponent;
   @ViewChild('formShipments') formShipments: OFormComponent;
-  @ViewChild('orderId') order_id: OTextInputComponent;
   @ViewChild('price') price: OTextInputComponent;
   @ViewChild('onlyBuy') buyOption;
   @ViewChild('BuySend') buySendOption;
@@ -88,7 +87,6 @@ export class ToysShippingComponent implements OnInit {
   showFormShipments() {
     if (this.buyOption._checked) {
       this.issetSend = false;
-  
       this.buyButton.nativeElement.classList.remove("hidden")
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
@@ -96,7 +94,6 @@ export class ToysShippingComponent implements OnInit {
 
     if (this.buySendOption._checked) {
       this.issetSend = true;
-      
       this.buyInfo.nativeElement.classList.remove("hidden")
       this.emailForm.nativeElement.classList.add("hidden")
       this.buyButton.nativeElement.classList.add("hidden")
@@ -110,7 +107,7 @@ export class ToysShippingComponent implements OnInit {
     this.stripe.product = this.toyName.getValue();
     this.stripe.email = this.toyEmail.getValue();
     this.warrantyPrice = (Number)(((this.priceToy.getValue() / (1 - this.commission / 100)) - this.priceToy.getValue()).toFixed(2));
-    this.order_id.setValue(this.toyId.getValue());
+    this.toyId.setValue(this.toyId.getValue());
     this.price.setValue(this.priceSend);
 
     //Formulario de envio deshabilitado
@@ -139,6 +136,8 @@ export class ToysShippingComponent implements OnInit {
   }
   newBuy() {
     //Comentarios de este metodo para logeado
+    this.toyId.setValue(this.toyId.getValue());
+    
     if (!this.isLogged()) {
       this.buyButton.nativeElement.classList.add("hidden")
       this.emailForm.nativeElement.classList.remove("hidden")
@@ -165,6 +164,9 @@ export class ToysShippingComponent implements OnInit {
   }
 
   paySubmit() {
+
+    this.toyId.setValue(this.toyId.getValue());
+
     const conf = this.oServiceToy.getDefaultServiceConfiguration('toys');
     this.oServiceToy.configureService(conf);
 
@@ -205,6 +207,9 @@ export class ToysShippingComponent implements OnInit {
 
   newSubmit() {
 
+    this.toyId.setValue(this.toyId.getValue());
+    this.price.setValue(this.priceSend);
+
     let arrayErrores: any[] = [];
 
     const getFieldValues = this.formShipments.getFieldValues(['order_id', 'price', 'shipping_address', 'buyer_phone', 'shipment_company']);
@@ -237,7 +242,7 @@ export class ToysShippingComponent implements OnInit {
 
       const avOrder =  {
 
-        "order_id": this.orderId.getValue(),
+        "toyid": this.toyId.getValue(),
         "shipping_address": this.shippingAddress.getValue(),
         "buyer_phone": this.buyerPhone.getValue(),
         "shipment_company": this.shipmentCompany.getValue(),

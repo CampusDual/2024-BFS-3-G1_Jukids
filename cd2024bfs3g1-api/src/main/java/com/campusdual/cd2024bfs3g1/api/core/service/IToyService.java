@@ -42,7 +42,7 @@ public interface IToyService {
 
     EntityResult toyCardsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
-    EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException;
+    EntityResult toyDetailQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
     AdvancedEntityResult toyPaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
 

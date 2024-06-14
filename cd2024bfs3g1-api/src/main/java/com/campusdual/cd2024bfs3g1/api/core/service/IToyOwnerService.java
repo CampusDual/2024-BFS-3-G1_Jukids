@@ -10,11 +10,11 @@ public interface IToyOwnerService {
     //TOYOWNER
     EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
-    EntityResult saleToyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
-
     EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
     EntityResult pendingConfirmQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+
+    EntityResult reservedQuery(Map<String, Object> keyMap, List<String> attrList);
 
     EntityResult toySoldQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
