@@ -307,5 +307,6 @@
   "UPDATE_CHATS": "Actualizar chats",
   "RESERVER_TOY": "Juguetes pendientes de pago",
   "noRating": "No hay valoración todavía",
-  "VALIDATE_ERROR": "Algo ha salido mal"
+  "VALIDATE_ERROR": "Algo ha salido mal",
+  "TITLE_MAP_HOME": "Encuentra juguetes cerca de ti"
 }
