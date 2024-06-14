@@ -34,6 +34,7 @@
         <Query id="toyOrder">
             <AmbiguousColumns>
                 <AmbiguousColumn name="toyid" prefix="t"/>
+                <AmbiguousColumn name="order_id" prefix="o"/>
             </AmbiguousColumns>
             <Sentence>
                 <![CDATA[
