@@ -88,11 +88,11 @@ a.o-app-sidenav-viewer-sidenav-item-selected,
   mat-toolbar {
     box-shadow: none !important;
   }
-  
+
   .o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base{
     color: #FD8F35 !important;
   }
-  
+
   #saveButton .mat-mdc-button-persistent-ripple{
     width: 30px;
     left: 9px !important;
@@ -113,6 +113,7 @@ app-toys-detail o-map {
 //Ajustar accion click en las acciones de las tablas buylist
 app-user-profile-buylist .button.btn-solid {
   width: 100%;
+  margin: 5px 0px;
   padding: 0 !important;
   div {
     width: 100%;
@@ -134,5 +135,11 @@ app-toys-new .mat-mdc-form-field-flex, .ng-tns-c40-7 {
   // Quitar color por defecto en o-image
   background: transparent !important;
 }
-
-
+//Necesario para que las fotos no desborden cuando son muy altas
+app-toys-detail,
+app-toys-new,
+app-edit-toy {
+  .o-image-content.o-image-auto-fit {
+    height: auto !important;
+  }
+}

@@ -37,5 +37,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'surveys': {
     'path': '/surveys'
+  },
+  'chat': {
+    'path': '/chat'
   }
 };

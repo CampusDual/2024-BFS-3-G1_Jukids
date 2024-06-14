@@ -16,7 +16,7 @@
                         <p class="Form-p">{{ 'UPLOAD_PRODUCT_IMAGE'  | oTranslate }}</p>
                     </div>
                     <div class="Form-spec">
-                        <o-image id="toy_photo" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo"
+                        <o-image id="toy_photo" class="image" title="{{ 'MAX_SIZE'  | oTranslate }}" attr="photo"
                             empty-image="assets/images/no-image.png" max-file-size="4194304" sql-type="OTHER"
                             required="yes" accept=".jpg,.jpeg,.png" appearance="outline">
                         </o-image>
@@ -76,7 +76,7 @@
                 <button class="button btn-outline-light" (click)="cancel()">
                     <span>{{ 'cancel' | oTranslate }}</span>
                 </button>
-                <button class="button btn-solid reverse" attr="submit" (click)="newSubmit()">
+                <button class="button btn-solid " attr="submit" (click)="newSubmit()">
                     <span>{{ 'PUBLISH_TOY' | oTranslate }}</span>
                 </button>
             </div>

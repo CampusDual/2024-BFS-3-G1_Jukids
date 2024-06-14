@@ -28,10 +28,10 @@ export class EditToyComponent implements OnInit {
     private translate: OTranslateService,
     protected dialogService: DialogService,
   ) {
-      if (!this.jukidsAuthService.isLoggedIn()) {
-        const self = this;
-        self.router.navigate(["/toys"]);
-      }
+    if (!this.jukidsAuthService.isLoggedIn()) {
+      const self = this;
+      self.router.navigate(["/toys"]);
+    }
 
   }
 
@@ -56,9 +56,9 @@ export class EditToyComponent implements OnInit {
     this.isMapLatLongSelected = true;
   }
 
-  redirectList(){
+  redirectList() {
     const self = this;
-      self.router.navigate([this.redirect]);
+    self.router.navigate([this.redirect]);
   }
 
   showCustom(
@@ -86,7 +86,7 @@ export class EditToyComponent implements OnInit {
     let errorDescription = "ERROR_DESCRIPTION_VALIDATION";
     let errorPrice = "ERROR_PRICE_VALIDATION";
     let errorNegativePrice = "ERROR_NEGATIVE_PRICE_VALIDATION";
-    let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION";
+    let errorHigherThanTenMillionPrice = "ERROR_HIGHER_MILLION_VALIDATION"
     let errorEmail = "ERROR_EMAIL_VALIDATION";
     let errorLocation = "ERROR_LOCATION_VALIDATION";
     let errorCategory = "ERROR_CATEGORY_VALIDATION";
@@ -105,7 +105,7 @@ export class EditToyComponent implements OnInit {
     if(getFieldValues.price === undefined){
       arrayErrores.push(this.translate.get(errorPrice));
     }
-    if(getFieldValues.price < 0){
+    if(getFieldValues.price < 1){
       arrayErrores.push(this.translate.get(errorNegativePrice));
     }
     if(getFieldValues.price > 9999999){
@@ -118,12 +118,14 @@ export class EditToyComponent implements OnInit {
       this.isMapLatLongSelected = false;
       arrayErrores.push(this.translate.get(errorLocation));
     }
-    if(getFieldValues.category === undefined){
+    if(getFieldValues.category === ""){
       arrayErrores.push(this.translate.get(errorCategory));
     }
-    if(getFieldValues.status === undefined){
+
+    if(getFieldValues.status === undefined ){
       arrayErrores.push(this.translate.get(errorStatus));
     }
+    
     if(arrayErrores.length > 0 ) {
       let stringErrores = "";
       for(let i = 0; i < arrayErrores.length; i++){
@@ -132,6 +134,22 @@ export class EditToyComponent implements OnInit {
       this.showCustom("error", "Ok", this.translate.get("COMPLETE_FIELDS_VALIDATION"), stringErrores);
     }else{
       this.formToyEdit.update();
+    }
+  }
+
+  delete(){
+    if (this.dialogService) {
+      const config: ODialogConfig = {
+        okButtonText: "OK",
+        cancelButtonText: "cancel"
+      };
+      this.dialogService.confirm( "CONFIRM", "TEXT_CONFIRM_DELETE", config).then((data=>{
+        if(data){
+          this.formToyEdit.delete().subscribe(data=>{
+            this.redirectList();
+          });
+        }
+      }))
     }
   }
 

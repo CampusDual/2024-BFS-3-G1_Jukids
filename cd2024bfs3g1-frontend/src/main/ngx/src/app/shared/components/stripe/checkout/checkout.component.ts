@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OTranslatePipe, OTranslateService } from 'ontimize-web-ngx';
-import { Subscription } from 'rxjs';
+import { OTranslateService, OntimizeService } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-checkout',
@@ -14,22 +13,35 @@ export class CheckoutComponent implements OnInit {
   protected DONT_HESITATE: string;
   protected THANK_YOU_PURCHASE: string;
   protected TOY_BUTTON: string;
-
-
+  @Input('toyId') toyId: string;
 
   constructor(
     private actRoute: ActivatedRoute,
     private translateService: OTranslateService,
+    private oService: OntimizeService,
     private router: Router
   ) {
 
+    this.actRoute.queryParams.subscribe({
+      next: (params) => {
+        const kv = { "session_id": params.session_id };
+        const av = { "toyid": params.toyId };
+        this.configureUpdateService();
+        this.oService.update(kv, av, "sessionStatus").subscribe({
+          next: (response) => {
+            console.log('Response from sessionStatusUpdate:', response);
+          },
+          error: (error) => {
+            console.error('Error calling sessionStatusUpdate:', error);
+          }
+        });
+      }
+    });
+  }
 
-  //   this.actRoute.queryParams.subscribe({
-  //     next: (params) => {
-  //       console.log( "params: ", params );
-  //     }
-  //   });
-
+  public configureUpdateService() {
+    const paymentsConf = this.oService.getDefaultServiceConfiguration('payments');
+    this.oService.configureService(paymentsConf);
   }
 
   ngOnInit(): void {
@@ -39,45 +51,7 @@ export class CheckoutComponent implements OnInit {
     this.TOY_BUTTON = this.translateService.get('TOY_BUTTON');
   }
 
-
-
-
-
-  /*
-  REFERENCIA
-
-    initialize();
-
-    async function initialize() {
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const sessionId = urlParams.get('session_id');
-
-
-      // ================  GENERAR ENDPOINT EN BACK PARA RECUPERAR ESTADO DE SESSION ================
-      const response = await fetch(`/session-status?session_id=${sessionId}`);
-
-      const session = await response.json();
-
-      if (session.status == 'open') {
-
-
-        // ================Esto no seria necesario si esta en embedded. ================
-        window.replace('http://localhost:4242/checkout.html')
-      } else if (session.status == 'complete') {
-
-        //   ================Al completarse el checkout se pondria la info aqui================
-        //   ================Ya sea un diseño ocutlo y mostrarlo si es complete, y sino mostrar otra cosa.================
-        document.getElementById('success').classList.remove('hidden');
-        document.getElementById('customer-email').textContent = session.customer_email
-      }
-    }
-
-  */
-    redirect(): void {
-      this.router.navigate(["/"], {replaceUrl: true});
-    }
-
-
-
+  redirect(): void {
+    this.router.navigate(["/"], {replaceUrl: true});
+  }
 }

@@ -1,12 +1,12 @@
 package com.campusdual.cd2024bfs3g1.model.core.service;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IToyOwnerService;
+import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ShipmentDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
-import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.gui.SearchValue;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 @Service("ToyOwnerService")
@@ -31,231 +32,74 @@ public class ToyOwnerService implements IToyOwnerService {
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
 
+    //Muestra juguetes del estado 0 al vendedor
     @Override
-    public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        if (email != null) {
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-            if (userData.isWrong()) {
-                return userData;
-            }
-
-            if (userData.isEmpty()) {
-
-                return createError("No se encuentra el usuario: " + email);
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put(UserDao.USR_ID, idUser);
-
-            return this.daoHelper.query(this.toyDao, keyMap, attrList);
-
-        }else{
-
-            return createError("No estas logueado");
-        }
+    public EntityResult toyQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_AVAILABLE, null);
     }
 
-    //Muestra juguetes del estado 0
-    @Override
-    public EntityResult saleToyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        if (email != null) {
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-            if (userData.isWrong()) {
-                return userData;
-            }
-
-            if (userData.isEmpty()) {
-
-                return createError("No se encuentra el usuario: " + email);
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put(UserDao.USR_ID, idUser);
-            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_AVAILABLE);
-
-            return this.daoHelper.query(this.toyDao, keyMap, attrList);
-
-        }else{
-
-            return createError("No estas logueado");
-        }
+    //Muestra juguetes del estado 1 al vendedor
+    public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) {
+        keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
+        return Utils.queryByStatusSeller(daoHelper, toyDao, userDao, keyMap, attrList, ToyDao.STATUS_PENDING_SHIPMENT, ToyDao.QUERY_TOY_JOIN);
     }
 
-    //Muestra juguetes del estado 1
+    //Muestra juguetes del estado 2 al vendedor
     @Override
-    public EntityResult pendingSendQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
+    public EntityResult pendingConfirmQuery(Map<String, Object> keyMap, List<String> attrList) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
+        Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
+        keyMap.put(ToyDao.ATTR_USR_ID, idUser);
+        keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_SENT, ToyDao.STATUS_RECEIVED)));
 
-        if (email != null) {
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-            if (userData.isWrong()) {
-                return userData;
-            }
-
-            if (userData.isEmpty()) {
-
-                return createError("No se encuentra el usuario: " + email);
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put(UserDao.USR_ID, idUser);
-            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PENDING_SHIPMENT);
-
-            return this.daoHelper.query(this.toyDao, keyMap, attrList, "toyJoin");
-
-        }else{
-
-            return createError("No estas logueado");
-        }
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, ToyDao.QUERY_TOY_JOIN);
     }
 
-    //Muestra juguetes del estado 2
+    //Muestra juguetes del estado 4 y 5 al vendedor
     @Override
-    public EntityResult pendingConfirmQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
+    public EntityResult toySoldQuery(Map<String, Object> keyMap, List<String> attrList) {
+        Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
+        keyMap.put(ToyDao.ATTR_USR_ID, idUser);
+        keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NOT_NULL, null));
+        keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_PURCHASED, ToyDao.STATUS_RATED)));
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        if (email != null) {
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-            if (userData.isWrong()) {
-                return userData;
-            }
-
-            if (userData.isEmpty()) {
-
-                return createError("No se encuentra el usuario: " + email);
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-
-            keyMap.put(UserDao.USR_ID, idUser);
-            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS,
-                    new SearchValue (SearchValue.IN, Arrays.asList(ToyDao.STATUS_SENT, ToyDao.STATUS_RECEIVED)));
-
-            return this.daoHelper.query(this.toyDao, keyMap, attrList);
-
-        }else{
-
-            return createError("No estas logueado");
-        }
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, ToyDao.QUERY_TOY_ORDER);
     }
 
-    //Muestra juguetes del estado 4
+    //Muestra juguetes reservados (pendientes de pago) al vendedor
     @Override
-    public EntityResult toySoldQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException{
+    public EntityResult reservedQuery(Map<String, Object> keyMap, List<String> attrList) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-
-        if (email != null) {
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-            if (userData.isWrong()) {
-                return userData;
-            }
-
-            if (userData.isEmpty()) {
-
-                return createError("No se encuentra el usuario: " + email);
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put(UserDao.USR_ID, idUser);
-            keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS, ToyDao.STATUS_PURCHASED);
-
-            return this.daoHelper.query(this.toyDao, keyMap, attrList);
-
-        }else{
-
-            return createError("No estas logueado");
-        }
+        Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
+        keyMap.put(ToyDao.ATTR_USR_ID, idUser);
+        keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NULL, null));
+        keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS,
+                new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_PENDING_SHIPMENT, ToyDao.STATUS_PURCHASED)));
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, ToyDao.QUERY_TOY_ORDER);
     }
 
     @Override
-    public EntityResult toyInsert(Map<String, Object> attrMap) throws OntimizeJEERuntimeException {
+    public EntityResult toyInsert(Map<String, Object> attrMap) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userLogin = auth.getName();
-
-        if (userLogin != null) {
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, userLogin);
-            List<String> attrList = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attrList);
-
-            if (userData.isWrong()) {
-                return userData;
-            }
-
-            if (userData.isEmpty()) {
-
-                return createError("No se encuentra el usuario: " + userLogin);
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            attrMap.put(UserDao.USR_ID, idUser);
-
-            return this.daoHelper.insert(this.toyDao, attrMap);
-
-        } else {
-
-            return createError("No estas logueado");
-        }
+        Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
+        attrMap.put(UserDao.USR_ID, idUser);
+        return this.daoHelper.insert(this.toyDao, attrMap);
     }
 
     @Override
-    public EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
-        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
-            return createError("No tienes permisos para actualizar este juguete: ");
+    public EntityResult toyUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
+        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))) {
+            return Utils.createError("No tienes permisos para actualizar este juguete: ");
         }
         return this.daoHelper.update(this.toyDao, attrMap, keyMap);
-     }
-
-    @Override
-    public EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException{
-        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))){
-            return createError("No tienes permisos para borrar este juguete: ");
-        }
-        return this.daoHelper.delete(this.toyDao, keyMap);
     }
 
-    private EntityResult createError(String mensaje){
-
-        EntityResult errorEntityResult = new EntityResultMapImpl();
-        errorEntityResult.setCode(EntityResult.OPERATION_WRONG);
-        errorEntityResult.setMessage(mensaje);
-
-        return errorEntityResult;
+    @Override
+    public EntityResult toyDelete(Map<String, Object> keyMap) throws OntimizeJEERuntimeException {
+        if (!isOwnerOrAdmin((Integer) keyMap.get(ToyDao.ATTR_ID))) {
+            return Utils.createError("No tienes permisos para borrar este juguete: ");
+        }
+        return this.daoHelper.delete(this.toyDao, keyMap);
     }
 
     private boolean isOwnerOrAdmin(Integer toyId){

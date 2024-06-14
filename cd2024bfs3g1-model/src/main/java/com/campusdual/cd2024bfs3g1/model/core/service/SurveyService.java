@@ -5,6 +5,7 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.OrderDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.SurveyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
+import com.campusdual.cd2024bfs3g1.model.utils.Utils;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -37,29 +38,10 @@ public class SurveyService implements ISurveyService {
     @Override
     public EntityResult surveyQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
+        Integer idUser = (Integer) Utils.idGetter(daoHelper, userDao);
+        keyMap.put(SurveyDao.ATTR_SELLER_ID, idUser);
 
-        if (email != null) {
-
-            HashMap<String, Object> keysValues = new HashMap<>();
-            keysValues.put(UserDao.LOGIN, email);
-            List<String> attributes = Arrays.asList(UserDao.USR_ID);
-            EntityResult userData = this.daoHelper.query(userDao, keysValues, attributes);
-
-            if (userData.isEmpty() || userData.isWrong()) {
-
-                return createError("Error al recuperar el usuario");
-            }
-
-            Integer idUser = (Integer) userData.getRecordValues(0).get(UserDao.USR_ID);
-            keyMap.put(SurveyDao.ATTR_SELLER_ID, idUser);
-
-            return this.daoHelper.query(this.surveyDao, keyMap, attrList, SurveyDao.QUERY_JOIN_SURVEYS_USER);
-
-        } else {
-            return createError("No estas logueado");
-        }
+        return this.daoHelper.query(this.surveyDao, keyMap, attrList, SurveyDao.QUERY_JOIN_SURVEYS_USER);
     }
 
     @Override
@@ -79,13 +61,5 @@ public class SurveyService implements ISurveyService {
         result.setMessage("Gracias por valorar");
 
         return result;
-    }
-
-    private EntityResult createError(String mensaje) {
-        EntityResult errorEntityResult = new EntityResultMapImpl();
-        errorEntityResult.setCode(EntityResult.OPERATION_WRONG);
-        errorEntityResult.setMessage(mensaje);
-
-        return errorEntityResult;
     }
 }

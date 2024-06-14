@@ -19,5 +19,6 @@ public class ShipmentDao extends OntimizeJdbcDaoSupport {
     public static final String ATTR_SENDER_ADDRESS      = "sender_address";
     public static final String ATTR_BUYER_PHONE         = "buyer_phone";
     public static final String ATTR_SHIPPING_ADDRESS    = "shipping_address";
+    public static final String QUERY_SHIP_ORDER_TOY = "shipmentJoin";
 
 }
