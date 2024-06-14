@@ -106,10 +106,64 @@ $theme: ontimize-style.o-mat-light-theme($primary, $accent);
 /* Dark theme */
 $dark-theme: ontimize-style.o-mat-dark-theme($primary-dark, $accent-dark);
 
+/* Lato: CSS classes */
+.lato-thin {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.lato-light {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.lato-regular {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.lato-bold {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lato-black {
+  font-family: "Lato", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.lato-thin-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.lato-light-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.lato-regular-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.lato-bold-italic {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
 
 * {
-  font-family: Arial, Helvetica, sans-serif !important;
-  /* Establece la tipografía para todo el texto */
+  font-family: "Lato", sans-serif !important;
+  /* Establece la tipografía para todo el texto - cambiado a Lato - según nuevo diseño */
 }
 
 .o-app-header nav {
@@ -195,7 +249,6 @@ nav {
 .o-grid .o-column {
   background-color: $color-white;
   color: #333;
-  font-family: Arial, sans-serif;
   border-radius: .75rem;
   box-shadow: 0.1rem 0.1rem 0.15rem $color-orange;
   transition: transform .4s ease;
@@ -241,7 +294,6 @@ nav {
   margin-top: 10px;
   background-color: $color-orange-bg;
   color: #333;
-  font-family: Arial, sans-serif;
   border-radius: .75rem;
 
   transition: all .2s ease;
@@ -373,7 +425,6 @@ nav {
   padding: .5em .5em 0 .5em;
   background-color: white;
   color: #333;
-  font-family: Arial, sans-serif;
   border: .1rem solid rgba(205, 204, 204, 0.638);
   border-radius: .6rem;
   transition: all .2s ease;
