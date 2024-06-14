@@ -119,10 +119,6 @@ export class ToysDetailComponent implements OnInit {
         this.customer_id = data.data.usr_id;
 
         this.isReserved = (data.data.usr_id == this.buyer_id.getValue() && this.session_id.getValue() == undefined);
-        console.log(" data user id : " + data.data.usr_id);
-        console.log(" data buyer id : " + this.buyer_id.getValue());
-        console.log(" data session id : " + this.session_id.getValue());
-        console.log(this.isReserved);
       });
     }
 

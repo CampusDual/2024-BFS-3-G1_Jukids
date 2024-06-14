@@ -51,19 +51,19 @@ export class StripeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log("STRIPE TOYID:", this.toyId);
+
   }
 
 
   //====================== STRIPE CHECKOUT JS =======================
 
   checkoutStripe(shipment: boolean): void {
-    console.log('shipment status', shipment);
+
     this.baseUrl = window.location.origin;
     if( this.baseUrl.includes('localhost') ) {
       this.baseUrl = 'http://localhost:8080';
     }
-    console.log( "this.baseUrl: ", this.baseUrl);
+
 
     this.isCheckingOut = true;
     this.loading = true;
