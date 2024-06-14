@@ -39,17 +39,17 @@
             grid-template-columns: repeat(3, 1fr);
             grid-template-areas: 'image information location';
             gap: .75rem;
-        
+
             @media (max-width:1280px) {
                 grid-template-columns: repeat(2, 1fr);
-                grid-template-areas: 'image information' 
+                grid-template-areas: 'image information'
                                      'location location'
                                      ;
             }
 
             @media (max-width:768px) {
                 grid-template-columns: repeat(1, 1fr);
-                grid-template-areas: 'image' 
+                grid-template-areas: 'image'
                                      'information'
                                      'location';
             }
@@ -59,13 +59,13 @@
             display: flex;
             justify-content: flex-end;
             gap: 1rem;
-            margin-top: 1.75rem; 
+            margin-top: 1.75rem;
         }
     }
 
     &-column {
         width: 100%;
-        
+
         &--image {
             grid-area: image;
         }
@@ -76,7 +76,7 @@
 
         &--location {
             grid-area: location;
-       
+
         }
     }
 
@@ -112,7 +112,7 @@
             max-height: 95%;
             overflow: hidden;
             transition: 1s;
-            object-fit: cover;           
+            object-fit: cover;
         }
         @media (max-width:768px) {
             max-height: 100%;
@@ -120,7 +120,7 @@
     }
 
     &-group {
-       
+
         &--priceAndCategory {
             display: flex;
             gap: .75rem;
@@ -149,4 +149,8 @@
     &-shipping {
        margin-top: .6rem;
     }
+}
+
+.btn-outline-light{
+  padding: .5rem 1.2rem !important;
 }

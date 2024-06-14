@@ -1,18 +1,21 @@
 package com.campusdual.cd2024bfs3g1.ws.core.rest;
 
 import com.campusdual.cd2024bfs3g1.api.core.service.IPaymentService;
+
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
+import com.ontimize.jee.server.rest.ORestController;
 import com.stripe.exception.StripeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 
 @RestController
 @RequestMapping("/payments")
-public class PaymentController {
+public class PaymentController extends ORestController<IPaymentService> {
 
     @Autowired
     IPaymentService paymentService;
@@ -30,7 +33,6 @@ public class PaymentController {
 
         } catch ( StripeException stripeException ) {
 
-            //System.out.println("ERROR: =============> " + stripeException.getStripeError().getMessage() );
 
             EntityResult exception = new EntityResultMapImpl();
             exception.put( "error", stripeException.getStripeError().getMessage() );
@@ -47,4 +49,8 @@ public class PaymentController {
         return new ResponseEntity<>(paymentService.checkSessionStatus(session_id), HttpStatus.OK);
     }
 
+    @Override
+    public IPaymentService getService() {
+        return this.paymentService;
+    }
 }

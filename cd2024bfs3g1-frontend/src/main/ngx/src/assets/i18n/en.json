@@ -101,7 +101,7 @@
   "SLOGAN": "Find whatever you're missing",
   "Search": "Search",
   "Clear": "Clear",
-  "SEARCH_BAR": "Search bar",
+  "SEARCH_BAR": "Find your toy",
   "REGISTER": "Register",
   "MAX_SIZE": "Maximum size allowed 4MB",
   "VIEW_MAP": "View map",
@@ -228,7 +228,8 @@
   "SHIPMENT_AVAILABLE": "SHIPMENT AVAILABLE",
   "STATUS": "STATUS",
   "UNREGISTERED_SELLER_WARNING": "WARNING* This toy has been published by an unregistered user. It can't be bought directly from JUKIDS. You can contact the seller by email.",
-  "TITLE_MAP_HOME": "Find toys near you (mark your location to get their distance)",
+  "TITLE_MAP_HOME": "Find toys near you",
+  "SEARCH_MAP_HOME": "Mark your location to get the distance they are from you",
   "shipment": "With delivery (%)",
   "noshipment": "Without delivery (%)",
   "CON_ENVIO": "to buy with shipping.",
@@ -241,6 +242,7 @@
   "BY_RATED": "By ",
   "MY_RATINGS": "My ratings",
   "BACK_BUTTON": "Back",
+  "FILTERS_TOYS": "Advanced search",
   "AVAILABLE_MONEY": "You have sold: ",
   "TOY_UNAVAILABLE": "This product is not longer available!",
   "WE_ARE_SORRY": "We are sorry for the inconvenience",
@@ -286,6 +288,7 @@
   "LOCATION": "Location",
   "UPLOAD_PRODUCT_IMAGE": "Upload an image of your product",
   "DATA_ABOUT_PRODUCT": "Necessary data about your product",
+  "SEARCH_ON_MAP": "Search on map",
   "SELECT_PRODUCT_LOCATION": "Select the point on the map where the toy is located",
   "TEXT_CONFIRM_DELETE": "Are you sure you want to delete the selected items?",
   "SAVE_TOY": "Save changes",
@@ -302,5 +305,7 @@
   "CONTACT_CHAT": "Contact by chat",
   "SEND_CHAT": "Send message",
   "UPDATE_CHATS": "Update chats",
-  "VALIDATE_ERROR": "Something went wrong"
+  "VALIDATE_ERROR": "Something went wrong",
+  "RESERVER_TOY": "Toys pending payment"
+
 }

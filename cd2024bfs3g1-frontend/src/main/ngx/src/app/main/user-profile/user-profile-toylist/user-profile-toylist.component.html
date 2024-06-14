@@ -15,7 +15,7 @@
 <mat-tab-group #toysTabs [selectedIndex]="currentToysTabIndex">
 
   <mat-tab label="{{ 'SALE_TOY' | oTranslate }}">
-    <o-table #tableSale fxFlex attr="tableSale" service="toyowner" entity="saleToy" keys="toyid"
+    <o-table #tableSale fxFlex attr="tableSale" service="toyowner" entity="toy" keys="toyid"
       title="{{ 'SALE_TOY' | oTranslate }}" columns="toyid;photo;name;price" visible-columns="photo;name;price"
       show-title="true" pagination-controls="no" show-filter-option="no" quick-filter="false" insert-button="false"
       export-button="false" delete-button="false" edit-button="false" refresh-button="false" horizontal-scroll="true"
@@ -29,6 +29,25 @@
       <o-table-column attr="price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px" max-width="300px"
         type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
         currency-symbol-position="right" tooltip="yes"></o-table-column>
+    </o-table>
+  </mat-tab>
+
+  <mat-tab #tabSend attr="tabSend" label="{{ 'RESERVER_TOY' | oTranslate }}">
+    <o-table #tableSend fxFlex attr="tableReserve" service="toyowner" entity="reserved" keys="toyid"
+      title="{{ 'RESERVER_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
+      visible-columns="photo;name;total_price" show-title="true" pagination-controls="no" show-filter-option="no"
+      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
+      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table"
+      detail-form-route="toysDetail">
+      <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
+        <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
+        </o-table-cell-renderer-image>
+      </o-table-column>
+      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
+        tooltip="yes"></o-table-column>
+      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
+        max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
+        currency-symbol-position="right" tooltip="yes"></o-table-column>        
     </o-table>
   </mat-tab>
 

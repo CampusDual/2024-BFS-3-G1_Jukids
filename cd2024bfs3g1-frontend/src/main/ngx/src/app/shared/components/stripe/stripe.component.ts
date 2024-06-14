@@ -12,7 +12,7 @@ import { DialogService, OButtonComponent, ODialogConfig, OFormComponent, Ontimiz
 export class StripeComponent implements OnInit, OnDestroy {
   [x: string]: any;
 
-  // ====================== Variables ======================  
+  // ====================== Variables ======================
   public loading: boolean = false;
   public isCheckingOut: boolean = false;
   private baseUrl: string;
@@ -51,19 +51,16 @@ export class StripeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    
-  }
 
+  }
 
   //====================== STRIPE CHECKOUT JS =======================
 
   checkoutStripe(shipment: boolean): void {
-    
     this.baseUrl = window.location.origin;
     if( this.baseUrl.includes('localhost') ) {
       this.baseUrl = 'http://localhost:8080';
     }
-    
 
     this.isCheckingOut = true;
     this.loading = true;
@@ -103,8 +100,6 @@ export class StripeComponent implements OnInit, OnDestroy {
 
         });
 
-
-
       },
       error: (err: any) => {
         console.error(err);
@@ -112,16 +107,14 @@ export class StripeComponent implements OnInit, OnDestroy {
 
       }
     })
-
   }
 
   ngOnDestroy(): void {
     try {
       this.checkout.destroy();
     } catch (e ){
-      
-    }
 
+    }
   }
 
   // =============================  DIALOGS =============================
@@ -140,16 +133,11 @@ export class StripeComponent implements OnInit, OnDestroy {
       };
 
       this.dialogService.alert(dialogTitle, dialogText, config);
-      this.dialogService.dialogRef.afterClosed().subscribe( result => {        
+      this.dialogService.dialogRef.afterClosed().subscribe( result => {
         if(result) {
-          this.router.navigate(["main"], { replaceUrl: true });          
+          this.router.navigate(["main"], { replaceUrl: true });
         }
       });
-
     }
   }
-
-
-
-
 }

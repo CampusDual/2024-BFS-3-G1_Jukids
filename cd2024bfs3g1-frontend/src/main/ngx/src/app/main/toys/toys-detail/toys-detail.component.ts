@@ -32,6 +32,7 @@ export class ToysDetailComponent implements OnInit {
 
   isLogged: boolean = this.jkAuthService.isLoggedIn();
   isNotTheSeller: boolean;
+  isReserved: boolean;
   customer_id: number;
   public baseUrl: string;
   mainInfo: any = {};
@@ -46,8 +47,8 @@ export class ToysDetailComponent implements OnInit {
   @ViewChild('longitude') lon: OTextInputComponent;
   @ViewChild('LocationMap') oMapBasic: OMapComponent;
   @ViewChild('statusInput') toyStatus: OTextInputComponent;
-
-
+  @ViewChild('buyer_id') buyer_id: OTextInputComponent;
+  @ViewChild('session_id') session_id: OTextInputComponent;
 
 
   constructor(
@@ -116,6 +117,8 @@ export class ToysDetailComponent implements OnInit {
           
         this.isNotTheSeller = (data.data.usr_id != this.usr_id.getValue());
         this.customer_id = data.data.usr_id;
+
+        this.isReserved = (data.data.usr_id == this.buyer_id.getValue() && this.session_id.getValue() == undefined);
       });
     }
 

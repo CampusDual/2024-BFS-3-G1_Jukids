@@ -8,7 +8,7 @@
       </a>
     ></div>
     <div class="category">
-      <a class="category" [routerLink]="['/main/toys/toysDetail/', toyId.getValue()]">
+      <a class="category nameLong" [routerLink]="['/main/toys/toysDetail/', toyId.getValue()]">
         {{ nameInput.getValue() | oTranslate }}
       </a>
     </div>
@@ -42,10 +42,9 @@
     <o-text-input #longitude attr="longitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #status attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #transactionStatus attr="transaction_status" fxFlex="100" read-only="yes" oHidden></o-text-input>
-    
-    <mat-button-toggle-group *ngIf="shippingInput.getValue()" #buyOption class="radioGroup" layout-padding (change)="showFormShipments()">
-      <mat-button-toggle #BuySend value="1" class="custom-button"><mat-icon>local_shipping</mat-icon>{{'BUY_AND_SEND' | oTranslate}}</mat-button-toggle>
-      <mat-button-toggle #onlyBuy value="2" class="custom-button"><mat-icon>diversity_3</mat-icon>{{'BUY' | oTranslate}}</mat-button-toggle>
+    <mat-button-toggle-group *ngIf="shippingInput.getValue()" #buyOption="matButtonToggleGroup" class="radioGroup" layout-padding (change)="showFormShipments()">
+      <mat-button-toggle #BuySend [value]="1" class="custom-btn"><mat-icon>local_shipping</mat-icon>{{'BUY_AND_SEND' | oTranslate}}</mat-button-toggle>
+      <mat-button-toggle #onlyBuy [value]="2" class="custom-btn" checked><mat-icon>diversity_3</mat-icon>{{'BUY' | oTranslate}}</mat-button-toggle>
     </mat-button-toggle-group>
     
     <div class="cardShipments">
@@ -56,7 +55,7 @@
         <h2>{{'TITLE_FORM_SHIPMENTS' | oTranslate}}</h2>
         <o-column class="shipmentFormulary">
           <div class="divLabel">
-            <o-text-input #orderId attr="order_id" sql-type="INTEGER" read-only="no" oHidden></o-text-input>
+            <o-text-input #toyId attr="toyid" oHidden sql-type="INTEGER" enabled="yes"></o-text-input>
             <o-text-input id="price" #price attr="price" read-only="no" sql-type="DOUBLE" oHidden></o-text-input>
           </div>
           <div class="divLabel">
