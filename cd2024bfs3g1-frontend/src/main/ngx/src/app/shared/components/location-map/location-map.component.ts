@@ -69,7 +69,7 @@ export class LocationMapComponent {
   //Método para crear un marker con un icono custom - según nuevo diseño
   createMarker(lat: number, lng: number): void {
     this.clearMarkers(); //se limpian los anteriores
-    const iconUrl = '../assets/icons/pin-mapa.png';
+    const iconUrl = 'assets/icons/pin-mapa.png';
     //se crea instancia del icono custom
     const locationIcon = L.icon({
       iconUrl: iconUrl,
