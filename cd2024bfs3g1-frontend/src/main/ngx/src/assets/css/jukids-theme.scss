@@ -598,16 +598,7 @@ nav {
       background-color: $color-orange;
     }
   }
-
-  &.btn-solid-list {
-    border-color: $color-blue;
-    color: $color-white;
-    background-color: $color-blue;
-
-    &:hover {
-      box-shadow: 0 2px 4px #0000003d;
-    }
-  }
+  
 
   &.btn-outline-dark {
     border-color: $color-white;
@@ -627,20 +618,14 @@ nav {
   }
 
   &.btn-outline-light {
-    border-color: $color-orange;
-    color: $color-orange;
+    border-color: $color-blue;
+    color: $color-blue;
     background-color: $color-white;
 
     &:hover {
       color: $color-white;
-      background-color: $color-orange;
-      border-color: $color-orange;
-    }
-
-    &.reverse {
-      color: $color-white;
-      background-color: $color-orange;
-      border-color: $color-orange;
+      background-color: $color-blue;
+      border-color: $color-blue;
     }
   }
 
