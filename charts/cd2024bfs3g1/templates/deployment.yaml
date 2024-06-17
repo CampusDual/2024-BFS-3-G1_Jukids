@@ -69,6 +69,10 @@ spec:
           - name: DATABASE_SERVICE
             value: {{ .Values.database.service }}
         {{- end }}
+          - name: SOCKETIO_HOST
+            value: {{ .Values.socketio.host }}
+          - name: SOCKETIO_PORT
+            value: {{ .Values.socketio.port }}
           - name: DATABASE_URL
             value: {{ .Values.database.url }}
           - name: DATABASE_USER
