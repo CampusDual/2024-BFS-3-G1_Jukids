@@ -1,10 +1,21 @@
 .undecided {
     position: absolute;
-    right: 10em;
+    right: 5vh;
     top: 5em;
     z-index: 1000;
     width: 10em;
-    padding: 5em;
+    padding: 1em;
     border: 2px solid rgba(128, 128, 128, 0.57);
+    background-color: white;
     border-radius: 20px;
+}
+
+.title-undecided {
+    text-align: center;
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
+
+.undecided-btn {
+    font-size: smaller;
 }
