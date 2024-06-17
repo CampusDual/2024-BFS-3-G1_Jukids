@@ -4,6 +4,8 @@ import { DialogService, OGridComponent, OTranslateService, OntimizeService } fro
 import { ToysMapService } from 'src/app/shared/services/toys-map.service';
 import { OMapComponent } from 'ontimize-web-ngx-map';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { JukidsAuthService } from 'src/app/shared/services/jukids-auth.service';
+import { UserInfoService } from 'src/app/shared/services/user-info.service';
 @Component({
   selector: 'home',
   templateUrl: './home.component.html',
@@ -42,6 +44,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   public hasAntiques: boolean;
   public hasCardGames: boolean;
 
+  public isReserved: boolean = true;
+  public userInfo;
   private latitude: any;
   private longitude: any;
   private location: any;
@@ -69,13 +73,29 @@ export class HomeComponent implements OnInit, OnDestroy {
     private toysMapService: ToysMapService,
     private breakpointObserver: BreakpointObserver,
     private translate: OTranslateService,
+    private jukidsAuthService: JukidsAuthService,
+    public userInfoService: UserInfoService,
   ) {
     //Configuración del servicio para poder ser usado
     const conf = this.ontimizeService.getDefaultServiceConfiguration('toys');
     this.ontimizeService.configureService(conf);
     this.language = translate.getStoredLanguage();
+
+    this.userInfo = this.userInfoService.getUserInfo();
+    console.log(this.userInfo.usr_id)
+    if (this.jukidsAuthService.isLoggedIn()) {
+      const conf = this.ontimizeService.getDefaultServiceConfiguration('orders');
+      this.ontimizeService.configureService(conf);
+      this.ontimizeService.query({},["toyid"],"reserved").subscribe (data => {
+        this.isReserved = data.data.length > 0;
+        console.log( data.data)
+      } 
+      );
+    }else {
+      this.isReserved = false;
+    }
   }
-  
+
 
   ngOnInit() {
     //Se escuchan los cambios del servicio
@@ -120,13 +140,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.translate.onLanguageChanged.subscribe(data => {
       this.language = data;
-      
+
     });
 
     setTimeout(() => {
       // Iniciar autoplay con un intervalo de 5 segundos.
       this.startAutoplay(5000)
     }, 5);
+
+
   }
 
   navigate() {
@@ -179,11 +201,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(["./toys/toysDetail", toyId]);
   }
 
-  searchCategory(category):void {
-      this.router.navigate(['/main/toys'], {queryParams:{category: category}});
-    }
+  searchCategory(category): void {
+    this.router.navigate(['/main/toys'], { queryParams: { category: category } });
+  }
 
-  checkHasToys(category: string):void {
+  checkHasToys(category: string): void {
     ((category === 'cat_Figures') && (this.figuresGrid.dataArray.length == 0)) && (this.hasFigures = false);
     ((category === 'cat_Plushies') && (this.plushiesGrid.dataArray.length == 0)) && (this.hasPlushies = false);
     ((category === 'cat_ChildrensToys') && (this.childrensToysGrid.dataArray.length == 0)) && (this.hasChildGames = false);
@@ -227,7 +249,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
 
-  ngOnDestroy(): void {    
+  ngOnDestroy(): void {
     clearInterval(this.autoplayInterval);
   }
 }

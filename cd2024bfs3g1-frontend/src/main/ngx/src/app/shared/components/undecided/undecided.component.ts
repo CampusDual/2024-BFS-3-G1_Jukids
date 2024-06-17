@@ -9,7 +9,6 @@ import { OGridComponent } from 'ontimize-web-ngx';
 })
 export class UndecidedComponent implements OnInit {
   
-  public isReserved: boolean = false;
   public baseUrl: string;
   @ViewChild('reservedGrid') reservedGrid: OGridComponent;
   
@@ -21,10 +20,6 @@ export class UndecidedComponent implements OnInit {
     if (this.baseUrl.includes('localhost')) {
       this.baseUrl = 'http://localhost:8080';
     }
-  }
-
-  hasReserved(){
-    (this.reservedGrid.dataArray.length == 0) ? (this.isReserved = false): (this.isReserved = true);
   }
 
   public openDetail(data: any): void {

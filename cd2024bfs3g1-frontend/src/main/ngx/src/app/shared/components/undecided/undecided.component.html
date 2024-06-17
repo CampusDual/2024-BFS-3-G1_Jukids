@@ -1,4 +1,4 @@
-<div class="undecided"*ngIf="isReserved">
+<div class="undecided">
     <h5 class="title-undecided">{{ 'UNDECIDED' | oTranslate }}</h5>
     <o-grid
         #undecidedGrid
@@ -8,7 +8,6 @@
         keys="toyid"
         columns="toyid;name;price"
         query-rows="1"
-        (onDataLoaded)="hasReserved()"
         refresh-button="no"
         quick-filter="no"
         cols="1"
