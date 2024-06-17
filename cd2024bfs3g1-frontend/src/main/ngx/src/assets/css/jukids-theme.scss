@@ -568,11 +568,7 @@ nav {
   justify-content: space-between;
   padding: 1em 1em 1em 1em;
   background-color: white;
-  height: fit-content;
-  color: #333;
-  border: .1rem solid rgba(205, 204, 204, 0.638);
-  border-radius: .6rem;
-  transition: all .2s ease;
+  width: 100%;
 
   &:hover {
     border: .1rem solid $color-orange;
