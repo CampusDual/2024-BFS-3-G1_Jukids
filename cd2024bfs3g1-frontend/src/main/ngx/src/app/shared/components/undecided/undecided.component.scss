@@ -8,6 +8,12 @@
     border: 1px solid rgba(128, 128, 128, 0.57);
     background-color: white;
     border-radius: 0.65rem;
+    &:hover {
+        scale: 1.05;
+      }
+    @media (max-width: 700px) {
+        display: none;
+    }
 }
 
 .title-undecided {
@@ -23,6 +29,9 @@
 .close-modal{
     top: 0.3rem;
     right: 0rem;
+    &:hover {
+        scale: 1.2;
+      }
 }
 
 .hidden{
