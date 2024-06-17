@@ -43,8 +43,8 @@
     <o-text-input #status attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #transactionStatus attr="transaction_status" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <mat-button-toggle-group *ngIf="shippingInput.getValue()" #buyOption="matButtonToggleGroup" class="radioGroup" layout-padding (change)="showFormShipments()">
-      <mat-button-toggle #BuySend [value]="1" class="custom-btn"><mat-icon>local_shipping</mat-icon>{{'BUY_AND_SEND' | oTranslate}}</mat-button-toggle>
-      <mat-button-toggle #onlyBuy [value]="2" class="custom-btn" checked><mat-icon>diversity_3</mat-icon>{{'BUY' | oTranslate}}</mat-button-toggle>
+      <mat-button-toggle #BuySend [value]="1" class="custom-btn">{{'BUY_AND_SEND' | oTranslate}}</mat-button-toggle>
+      <mat-button-toggle #onlyBuy [value]="2" class="custom-btn" checked>{{'BUY' | oTranslate}}</mat-button-toggle>
     </mat-button-toggle-group>
     
     <div class="cardShipments">
@@ -104,7 +104,7 @@
             <ng-template #sendPrice><o-row class="price">{{(priceInput.getValue()*1) + this.warrantyPrice +
                 this.priceSend | number: '1.2-2' }} <span class="currency"> €</span></o-row>
             </ng-template>
-            <div class="titleName"><span class="toy-title">{{nameInput.getValue()}}</span></div>
+            <div class="titleName"><h4 class="toy-title">{{nameInput.getValue()}}</h4></div>
           </div>
           <div class="priceInfo">
             <div>
