@@ -1,5 +1,39 @@
 <div class="undecided">
-    <o-grid>
-    
-    </o-grid>
+    <h4>{{ 'UNDECIDED' | oTranslate }}</h4>
+    <o-grid
+        #undecidedGrid
+        attr="undecidedGrid"
+        service="orders"
+        entity="reserved"
+        keys="toyid"
+        columns="toyid;name;price"
+        query-rows="1"
+        refresh-button="no"
+        quick-filter="no"
+        cols="1"
+        gutter-size="0"
+        grid-item-height="1:1.3"
+        show-footer="no"
+        controls="false"
+
+  >
+    <o-grid-item
+      *ngFor="let data of undecidedGrid.getDataArray()"
+    >
+      <div class="card-undecided">
+        <div class="img-container">
+          <img class="image-header"
+          src="{{ baseUrl }}/restapi/get-image?toyId={{ data.toyid }}"
+        />
+        </div>
+        <div class="card-body">
+          <h4>{{ data.name }}</h4>
+          <p class="price">
+            {{ data.price | number : "1.2-2" }}<span>€</span>
+        </p>
+        <button>COMPRAR AHORA</button>
+        </div>
+      </div>
+    </o-grid-item>
+  </o-grid>
 </div>
