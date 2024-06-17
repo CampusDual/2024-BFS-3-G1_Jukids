@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -103,6 +102,10 @@ public class OrderService implements IOrderService {
 
         }
 
+        //Comprobamos si existen reservas previas de este usuario y las borramos
+
+        deletePreviousReserves(idUser);
+
         EntityResult orderResult = Utils.insertOrder(daoHelper, orderDao, orderData);
 
         if (orderResult.isWrong()) {
@@ -173,6 +176,10 @@ public class OrderService implements IOrderService {
 
         }
 
+        //Comprobamos si existen reservas previas de este usuario y las borramos
+
+        deletePreviousReserves(idUser);
+
         EntityResult orderResult = Utils.insertOrder(daoHelper, orderDao, orderData);
 
         if (orderResult.isWrong()) {
@@ -225,6 +232,49 @@ public class OrderService implements IOrderService {
         EntityResult queryResult = daoHelper.query(orderDao, keyMap, attrList);
 
         return !queryResult.isEmpty();
+    }
+
+    private void deletePreviousReserves(Integer idUser) {
+
+        //Recuperamos Orders de este usuario sin finalizar
+
+        Map<String, Object> searchValues = new HashMap<>();
+        searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
+        searchValues.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NULL, null));
+
+        List<String> resultAttributes = List.of(OrderDao.ATTR_ID, OrderDao.ATTR_TOY_ID);
+        EntityResult idData = this.daoHelper.query(this.orderDao, searchValues, resultAttributes);
+
+        Integer previousOrderId = (Integer) idData.getRecordValues(0).get(OrderDao.ATTR_ID);
+        Integer previousToyId = (Integer) idData.getRecordValues(0).get(OrderDao.ATTR_TOY_ID);
+
+        //Comprobamos si hay SHIPMENT asociado y recuperamos su ID en caso afirmativo
+
+        Map<String, Object> shipmentSearchValues = new HashMap<>();
+        shipmentSearchValues.put(ShipmentDao.ATTR_ORDER_ID, previousOrderId);
+        List<String> shipmentResultAttributes = List.of(ShipmentDao.ATTR_ID);
+        EntityResult shipmentIdData = this.daoHelper.query(this.shipmentDao, shipmentSearchValues, shipmentResultAttributes);
+
+        if (!shipmentIdData.isEmpty()) {
+
+            //Borramos el SHIPMENT si existe
+
+            Integer shipmentId = (Integer) shipmentIdData.getRecordValues(0).get(ShipmentDao.ATTR_ID);
+
+            Map<String, Object> deleteShipKeyMap = new HashMap<>();
+            deleteShipKeyMap.put(ShipmentDao.ATTR_ID, shipmentId);
+            this.daoHelper.delete(this.shipmentDao, deleteShipKeyMap);
+        }
+
+        //Borramos el ORDER antiguo
+
+        Map<String, Object> deleteKeyMap = new HashMap<>();
+        deleteKeyMap.put(OrderDao.ATTR_ID, previousOrderId);
+        this.daoHelper.delete(this.orderDao, deleteKeyMap);
+
+        //Ponemos el juguete en disponible
+
+        Utils.updateToyStatus(daoHelper, toyDao, previousToyId, ToyDao.STATUS_AVAILABLE);
     }
 
     public void shipmentAndOrderDelete(int toyId, int idUser) {
