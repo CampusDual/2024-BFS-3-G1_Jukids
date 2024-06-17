@@ -161,7 +161,7 @@ storage:
 jvmOptions: "-Xmx300m -Xms100m"  ## adjust according to pod requests
 
 socketio:
-  host: "localhost"
+  host: "0.0.0.0"
   port: 8082
 
 postgresql:
