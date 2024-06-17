@@ -201,6 +201,8 @@ spec:
           ports:
           - name: http
             containerPort: {{ .Values.service.internalPort }}
+          - name: ws
+            containerPort: {{ .Values.socketio.port }}            
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessProbe.probePath | default .Values.probePath }}
