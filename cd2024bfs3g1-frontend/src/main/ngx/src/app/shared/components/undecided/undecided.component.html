@@ -32,7 +32,7 @@
             {{ data.price | number : "1.2-2" }}<span>€</span>
           </p>
         </div>
-        <button class="button btn-outline-light undecided-btn" (click)="pay(data.toyid)">COMPRAR AHORA</button>
+        <button class="button btn-outline-light undecided-btn" (click)="pay(data.toyid)">{{ 'BUY' | oTranslate }}</button>
     </div>
     </o-grid-item>
   </o-grid>
