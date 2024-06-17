@@ -274,14 +274,14 @@ nav {
 
 //==================================== CARD PRODUCT DESIGN ====================================
 .grid-container {
-    margin-bottom: 10px;
-    min-width: 350px;
+  margin-bottom: 10px;
+  min-width: 350px;
 }
 
 .grid-toys-search-container {
-    margin: auto;
-    width: 90%;
-    min-width: 350px;
+  margin: auto;
+  width: 90%;
+  min-width: 350px;
 }
 
 .card {
@@ -502,7 +502,7 @@ nav {
       width: 100%;
       height: fit-content;
       margin: 0;
-      font-weight:normal;
+      font-weight: normal;
       font-size: 1.1em;
       white-space: nowrap;
       overflow: hidden;
@@ -562,6 +562,7 @@ nav {
   }
 
 }
+
 .card-undecided {
   display: flex;
   flex-direction: column;
@@ -569,20 +570,21 @@ nav {
   padding: 1em 1em 1em 1em;
   background-color: white;
   width: 100%;
+
   > {
     .img-container {
       margin-top: .8rem;
       margin-bottom: .2rem;
-      width: 100%;
       max-height: 170px;
       height: 70%;
-      margin: 0;
+      margin: auto;
 
       .image-header {
-        width: 100%;
+        max-width: 100%;
         border-radius: 7%;
         height: 100%;
         object-fit: cover;
+        max-height: 170px;
       }
     }
   }
@@ -639,7 +641,7 @@ nav {
       width: 100%;
       height: fit-content;
       margin: 0;
-      font-weight:normal;
+      font-weight: normal;
       font-size: 1.1em;
       white-space: nowrap;
       overflow: hidden;
@@ -735,7 +737,7 @@ nav {
       background-color: $color-orange;
     }
   }
-  
+
 
   &.btn-outline-dark {
     border-color: $color-white;
@@ -1058,7 +1060,7 @@ nav {
           display: flex;
           flex-direction: column;
           box-sizing: border-box;
-          margin:0 0.5rem 0.5rem 0;
+          margin: 0 0.5rem 0.5rem 0;
           padding: 0.5rem;
           border-radius: 0 0.75rem 0.75rem 0.75rem;
           background-color: $color-white;
@@ -1117,7 +1119,7 @@ nav {
           margin-left: 0.5rem;
           padding: 0.5rem;
           border-radius: 0.75rem 0 0.75rem 0.75rem;
-          border: 2px solid #ffa366 ;
+          border: 2px solid #ffa366;
           background-color: #ffa366;
           transform: translateY(1rem);
 
@@ -1140,7 +1142,7 @@ nav {
     }
   }
 
-.chat-container-footer {
+  .chat-container-footer {
     display: flex;
     align-items: center;
     padding: 0.75rem 0.5rem;
@@ -1158,6 +1160,7 @@ nav {
       &:focus {
         outline: none;
       }
+
       &::placeholder {
         color: #8b8b8b;
       }
@@ -1229,25 +1232,28 @@ o-map mat-sidenav-container {
   scrollbar-width: thin;
   scrollbar-color: $color-orange $color-orange-bg;
 }
-.editProfile{
+
+.editProfile {
   color: #ffa366;
   background-color: #fff;
   border-radius: 0.4rem;
   border: 2px solid;
   padding: 0.2rem 1rem;
 
-::-webkit-scrollbar-thumb {
-  background-color: $color-orange;
-}
+  ::-webkit-scrollbar-thumb {
+    background-color: $color-orange;
+  }
 }
 
 ::-webkit-scrollbar-track {
   display: none;
 }
-.header-user-profile h2{
-    max-width: 15%;
+
+.header-user-profile h2 {
+  max-width: 15%;
 }
-.header-user-profile div{
+
+.header-user-profile div {
   margin-left: 15rem;
   margin-top: -3rem;
   margin-bottom: 2rem;
