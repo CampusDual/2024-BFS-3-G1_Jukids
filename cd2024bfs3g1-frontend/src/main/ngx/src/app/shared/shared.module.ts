@@ -18,7 +18,6 @@ const config: SocketIoConfig = { url: environment.apiEndpoint, options: {} };
 
 import { ToysDetailComponent } from '../main/toys/toys-detail/toys-detail.component';
 import { RouterModule } from '@angular/router';
-import { UndecidedComponent } from './components/undecided/undecided.component';
 
 @NgModule({
   imports: [
@@ -37,8 +36,7 @@ import { UndecidedComponent } from './components/undecided/undecided.component';
     CheckoutComponent,
     SurveyComponent,
     ChatComponent,
-    ToysDetailComponent,
-    UndecidedComponent
+    ToysDetailComponent
   ],
   exports: [
     CommonModule,
@@ -48,8 +46,7 @@ import { UndecidedComponent } from './components/undecided/undecided.component';
     LocationMapComponent,
     OMapModule,
     StripeComponent,
-    ChatComponent, 
-    UndecidedComponent
+    ChatComponent
   ]
 })
 export class SharedModule {

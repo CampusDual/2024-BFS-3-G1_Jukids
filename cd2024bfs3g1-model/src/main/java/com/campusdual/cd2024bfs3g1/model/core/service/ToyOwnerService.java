@@ -75,7 +75,7 @@ public class ToyOwnerService implements IToyOwnerService {
         keyMap.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NULL, null));
         keyMap.put(ToyDao.ATTR_TRANSACTION_STATUS,
                 new SearchValue(SearchValue.IN, Arrays.asList(ToyDao.STATUS_PENDING_SHIPMENT, ToyDao.STATUS_PURCHASED)));
-        return this.daoHelper.query(this.toyDao, keyMap, attrList, ToyDao.QUERY_TOY_ORDER_USER);
+        return this.daoHelper.query(this.toyDao, keyMap, attrList, ToyDao.QUERY_TOY_ORDER);
     }
 
     @Override

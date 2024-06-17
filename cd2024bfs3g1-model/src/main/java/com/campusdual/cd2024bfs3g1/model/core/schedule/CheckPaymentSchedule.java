@@ -31,6 +31,8 @@ public class CheckPaymentSchedule {
 
         //Query de todas las Orders con Session_id nulo (no pagadas)
 
+        System.out.println("Hola, soy un borrador periodico. Nos vemos en un minuto!" + LocalDateTime.now());
+
         LocalDateTime now = LocalDateTime.now();
 
         Map<String, Object> keyMap = new HashMap<>();
@@ -39,11 +41,13 @@ public class CheckPaymentSchedule {
         EntityResult queryResult = daoHelper.query(orderDao, keyMap, attrList, OrderDao.QUERY_UNPAID_ORDERS);
 
         int numeroDeObjetos = queryResult.calculateRecordNumber();
+        System.out.println("Numero de ordenes encontradas: " + numeroDeObjetos);
 
         for (int i = 0; i < numeroDeObjetos; i++) {
             Map<String, Object> order = queryResult.getRecordValues(i);
             Timestamp orderTimestamp = (Timestamp) order.get(OrderDao.ATTR_ORDER_DATE);
             LocalDateTime orderDate = orderTimestamp.toLocalDateTime();
+            System.out.println("Order ID: " + order.get(OrderDao.ATTR_ID) + ", Order Date: " + orderDate);
 
             //De las orders sin pagar comprobamos las que lleven creadas mas de 31 minutos sin pagarse
 
@@ -53,24 +57,28 @@ public class CheckPaymentSchedule {
                 int orderId = (int) order.get(OrderDao.ATTR_ID);
                 Integer shipmentId = (Integer) order.get(ShipmentDao.ATTR_ID);
 
+                System.out.println("Borrando order ID: " + orderId + ", toy ID: " + toyId);
                 if (shipmentId != null) {
-
-                    //Borramos el shipment asociado a order_id si existe
-
-                    Map<String, Object> shipmentKeyMap = new HashMap<>();
-                    shipmentKeyMap.put(ShipmentDao.ATTR_ID, shipmentId);
-                    daoHelper.delete(shipmentDao, shipmentKeyMap);
+                    System.out.println(", shipment ID: " + shipmentId);
                 }
+
+                //Devolvemos toy transaction_status a 0
+
+                Utils.updateToyStatus(daoHelper, toyDao, toyId, ToyDao.STATUS_AVAILABLE);
+
+                //Borramos el shipment asociado a order_id si existe
+
+                Map<String, Object> shipmentKeyMap = new HashMap<>();
+                shipmentKeyMap.put(ShipmentDao.ATTR_ID, shipmentId);
+                EntityResult deleteShipmentResult = daoHelper.delete(shipmentDao, shipmentKeyMap);
+                System.out.println("Shipment deleted: " + shipmentId);
 
                 //Borramos el order asociado al toyId
 
                 Map<String, Object> orderKeyMap = new HashMap<>();
                 orderKeyMap.put(OrderDao.ATTR_ID, orderId);
-                daoHelper.delete(orderDao, orderKeyMap);
-
-                //Devolvemos toy transaction_status a 0
-
-                Utils.updateToyStatus(daoHelper, toyDao, toyId, ToyDao.STATUS_AVAILABLE);
+                EntityResult deleteOrderResult = daoHelper.delete(orderDao, orderKeyMap);
+                System.out.println("Order delete: " + orderId);
             }
         }
     }

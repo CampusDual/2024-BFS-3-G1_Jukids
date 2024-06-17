@@ -20,7 +20,6 @@ export class UserProfileToylistComponent implements OnInit{
   private STATUS_RECEIVED: Number = 3;
   private STATUS_PURCHASED: Number = 4;
   infoToysSold: string;
-  public baseUrl: string;
 
   //Indice inicial para pestañas de tablas
   public currentToysTabIndex = 0; //First Tab
@@ -52,10 +51,6 @@ export class UserProfileToylistComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.baseUrl = window.location.origin;
-    if (this.baseUrl.includes('localhost')) {
-      this.baseUrl = 'http://localhost:8080';
-    }
 
     const filter = {
       usr_id: this.userInfo.usr_id
