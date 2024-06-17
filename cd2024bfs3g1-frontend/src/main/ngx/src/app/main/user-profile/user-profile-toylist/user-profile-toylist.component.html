@@ -116,7 +116,7 @@
     <div class="list" fxLayout="column">
       <o-list #tableReserved fxFlex attr="tableReserved" service="toyowner" entity="reserved" keys="toyid"
       columns="t.toyid;photo;name;price;transaction_status;t.usr_id;usr_name;buyer_id"
-      refresh-button="none" delete-button="none" quick-filter="none" sort-columns="order_id">
+      refresh-button="none" delete-button="none" quick-filter="none" sort-columns="order_id" detail-form-route="false">
       <mat-card *ngFor="let row of tableReserved.dataArray" [o-list-item]="row">      
           <div fxLayout="row" fxLayoutGap="2.25rem">
             <o-column>
