@@ -51,7 +51,7 @@ public class MainRestController {
 	@GetMapping(value = "/app/env/env.js", produces = "application/javascript")
 	public @ResponseBody String env() {
 		String env =  ENV_JS.replace("%API_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() : "");
-		env = env.replace("%CHAT_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() + ":4443" : "");
+		env = env.replace("%CHAT_URL%", this.mainService.getMainUrl() != null ? this.mainService.getMainUrl() + " : "");
 		return env;
 	}
 
