@@ -82,13 +82,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.language = translate.getStoredLanguage();
 
     this.userInfo = this.userInfoService.getUserInfo();
-    console.log(this.userInfo.usr_id)
     if (this.jukidsAuthService.isLoggedIn()) {
       const conf = this.ontimizeService.getDefaultServiceConfiguration('orders');
       this.ontimizeService.configureService(conf);
       this.ontimizeService.query({},["toyid"],"reserved").subscribe (data => {
         this.isReserved = data.data.length > 0;
-        console.log( data.data)
       } 
       );
     }else {

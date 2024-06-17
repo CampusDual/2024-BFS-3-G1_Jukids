@@ -1,4 +1,7 @@
-<div class="undecided">
+<div #toyUndecided class="undecided">
+  <div class="close-modal" (click)="close()">
+    <mat-icon class="btn-close">close</mat-icon>
+  </div>
     <h5 class="title-undecided">{{ 'UNDECIDED' | oTranslate }}</h5>
     <o-grid
         #undecidedGrid

@@ -1,3 +1,4 @@
+import { Element } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OGridComponent } from 'ontimize-web-ngx';
@@ -11,6 +12,7 @@ export class UndecidedComponent implements OnInit {
   
   public baseUrl: string;
   @ViewChild('reservedGrid') reservedGrid: OGridComponent;
+  @ViewChild('toyUndecided') toyUndecided: any;
   
   constructor(
     private router: Router,){}
@@ -28,6 +30,10 @@ export class UndecidedComponent implements OnInit {
   }
   public pay(toyid: any){
     this.router.navigate(["./main/toys/toysDetail/toysBuy", toyid]);
+  }
+
+  close(){
+    this.toyUndecided.nativeElement.classList.add("hidden")
   }
 
 

@@ -7,7 +7,7 @@
     padding: 1em;
     border: 1px solid rgba(128, 128, 128, 0.57);
     background-color: white;
-    border-radius: 20px;
+    border-radius: 0.65rem;
 }
 
 .title-undecided {
@@ -18,4 +18,13 @@
 
 .undecided-btn {
     font-size: smaller;
+}
+
+.close-modal{
+    top: 0.3rem;
+    right: 0rem;
+}
+
+.hidden{
+    display: none;
 }
