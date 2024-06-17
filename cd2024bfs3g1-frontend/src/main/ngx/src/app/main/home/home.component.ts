@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public hasAntiques: boolean;
   public hasCardGames: boolean;
 
-  public isReserved: boolean = true;
+  public isReserved: boolean = false;
   public userInfo;
   private latitude: any;
   private longitude: any;
