@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
   ## provided as basic setup. replace as needed
   repository: ghcr.io/campusdual/cd2024bfs3g1
-  version: dev1ad8f15
+  version: devc3a60ba
 imagePullSecrets: 
   - name: "github-ecr-cred" 
 nameOverride: ""
@@ -159,6 +159,10 @@ storage:
   mountPath: "/opt/cd2024bfs3g1/"
 
 jvmOptions: "-Xmx300m -Xms100m"  ## adjust according to pod requests
+
+socketio:
+  host: "localhost"
+  port: 8082
 
 postgresql:
   enabled: false
