@@ -32,25 +32,6 @@
     </o-table>
   </mat-tab>
 
-  <mat-tab #tabSend attr="tabSend" label="{{ 'RESERVER_TOY' | oTranslate }}">
-    <o-table #tableSend fxFlex attr="tableReserve" service="toyowner" entity="reserved" keys="toyid"
-      title="{{ 'RESERVER_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
-      visible-columns="photo;name;total_price" show-title="true" pagination-controls="no" show-filter-option="no"
-      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
-      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table"
-      detail-form-route="toysDetail">
-      <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
-        <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
-        </o-table-cell-renderer-image>
-      </o-table-column>
-      <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
-        tooltip="yes"></o-table-column>
-      <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
-        max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
-        currency-symbol-position="right" tooltip="yes"></o-table-column>        
-    </o-table>
-  </mat-tab>
-
   <mat-tab label="{{ 'PENDING_SEND_TOY' | oTranslate }}">
     <o-table #tableSend fxFlex attr="tableSend" service="toyowner" entity="pendingSend" keys="toyid"
       title="{{ 'PENDING_SEND_TOY' | oTranslate }}" columns="toyid;photo;name;price;shipping_address;shipment_company"
@@ -129,6 +110,32 @@
       thousand-separator="." decimal-separator="," currency-symbol="€"
       currency-symbol-position="right" tooltip="yes"></o-table-column>
     </o-table>
+  </mat-tab>
+
+  <mat-tab label="{{ 'RESERVER_TOY' | oTranslate }}">
+    <div class="list" fxLayout="column">
+      <o-list #tableReserved fxFlex attr="tableReserved" service="toyowner" entity="reserved" keys="toyid"
+      columns="t.toyid;photo;name;price;transaction_status;t.usr_id;usr_name;buyer_id"
+      refresh-button="none" delete-button="none" quick-filter="none" sort-columns="order_id">
+      <mat-card *ngFor="let row of tableReserved.dataArray" [o-list-item]="row">      
+          <div fxLayout="row" fxLayoutGap="2.25rem">
+            <o-column>
+              <div class="photo-container">
+                <img src="{{baseUrl}}/restapi/get-image?toyId={{row.toyid}}">
+              </div>
+            </o-column>
+            <div class="info-row">
+              <div class="info-container">
+                <div class="info-text">
+                  <mat-card-title>{{ row.name }}</mat-card-title>
+                  <mat-card-subtitle>{{ row.price }} €</mat-card-subtitle>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </o-list>
+    </div>
   </mat-tab>
 
 </mat-tab-group>
