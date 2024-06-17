@@ -91,15 +91,9 @@ public class OrderService implements IOrderService {
 
         //Verificamos disponibilidad del juguete e insertamos en ORDERS
 
-        if (!Utils.isToyAvailable(toyData)) {
-            if (!isReserved(toyId, idUser)) {
-                return Utils.createError("El producto no se encuentra disponible");
-            }
+        if (!Utils.isToyAvailable(toyData) && !isReserved(toyId, idUser)) {
 
-            //En caso de que esté reservado, borramos la Order y Shipment anterior para crear la nueva.
-
-            shipmentAndOrderDelete(toyId, idUser);
-
+            return Utils.createError("El producto no se encuentra disponible");
         }
 
         //Comprobamos si existen reservas previas de este usuario y las borramos
@@ -165,15 +159,9 @@ public class OrderService implements IOrderService {
 
         //Verificamos disponibilidad del juguete e insertamos en ORDERS
 
-        if (!Utils.isToyAvailable(toyData)) {
-            if (!isReserved(toyId, idUser)) {
-                return Utils.createError("El producto no se encuentra disponible");
-            }
+        if (!Utils.isToyAvailable(toyData) && !isReserved(toyId, idUser)) {
 
-            //En caso de que esté reservado, borramos la Order y Shipment anterior para crear la nueva.
-
-            shipmentAndOrderDelete(toyId, idUser);
-
+            return Utils.createError("El producto no se encuentra disponible");
         }
 
         //Comprobamos si existen reservas previas de este usuario y las borramos
@@ -275,42 +263,5 @@ public class OrderService implements IOrderService {
         //Ponemos el juguete en disponible
 
         Utils.updateToyStatus(daoHelper, toyDao, previousToyId, ToyDao.STATUS_AVAILABLE);
-    }
-
-    public void shipmentAndOrderDelete(int toyId, int idUser) {
-
-        //Recuperamos ORDER_ID
-
-        Map<String, Object> searchValues = new HashMap<>();
-        searchValues.put(OrderDao.ATTR_TOY_ID, toyId);
-        searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
-
-        List<String> resultAttributes = List.of(OrderDao.ATTR_ID);
-        EntityResult idData = this.daoHelper.query(this.orderDao, searchValues, resultAttributes);
-        Integer orderId = (Integer) idData.getRecordValues(0).get(OrderDao.ATTR_ID);
-
-        //Comprobamos si hay SHIPMENT asociado y recuperamos su ID en caso afirmativo
-
-        Map<String, Object> shipmentSearchValues = new HashMap<>();
-        shipmentSearchValues.put(ShipmentDao.ATTR_ORDER_ID, orderId);
-        List<String> shipmentResultAttributes = List.of(ShipmentDao.ATTR_ID);
-        EntityResult shipmentIdData = this.daoHelper.query(this.shipmentDao, shipmentSearchValues, shipmentResultAttributes);
-
-        if (!shipmentIdData.isEmpty()) {
-
-            //Borramos el SHIPMENT si existe
-
-            Integer shipmentId = (Integer) shipmentIdData.getRecordValues(0).get(ShipmentDao.ATTR_ID);
-
-            Map<String, Object> deleteShipKeyMap = new HashMap<>();
-            deleteShipKeyMap.put(ShipmentDao.ATTR_ID, shipmentId);
-            this.daoHelper.delete(this.shipmentDao, deleteShipKeyMap);
-        }
-
-        //Borramos el ORDER
-
-        Map<String, Object> deleteKeyMap = new HashMap<>();
-        deleteKeyMap.put(OrderDao.ATTR_ID, orderId);
-        this.daoHelper.delete(this.orderDao, deleteKeyMap);
     }
 }
