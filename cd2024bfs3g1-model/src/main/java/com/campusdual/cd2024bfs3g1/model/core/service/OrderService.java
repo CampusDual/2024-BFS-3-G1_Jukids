@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -92,16 +91,14 @@ public class OrderService implements IOrderService {
 
         //Verificamos disponibilidad del juguete e insertamos en ORDERS
 
-        if (!Utils.isToyAvailable(toyData)) {
-            if (!isReserved(toyId, idUser)) {
-                return Utils.createError("El producto no se encuentra disponible");
-            }
+        if (!Utils.isToyAvailable(toyData) && !isReserved(toyId, idUser)) {
 
-            //En caso de que esté reservado, borramos la Order y Shipment anterior para crear la nueva.
-
-            shipmentAndOrderDelete(toyId, idUser);
-
+            return Utils.createError("El producto no se encuentra disponible");
         }
+
+        //Comprobamos si existen reservas previas de este usuario y las borramos
+
+        deletePreviousReserves(idUser);
 
         EntityResult orderResult = Utils.insertOrder(daoHelper, orderDao, orderData);
 
@@ -162,16 +159,14 @@ public class OrderService implements IOrderService {
 
         //Verificamos disponibilidad del juguete e insertamos en ORDERS
 
-        if (!Utils.isToyAvailable(toyData)) {
-            if (!isReserved(toyId, idUser)) {
-                return Utils.createError("El producto no se encuentra disponible");
-            }
+        if (!Utils.isToyAvailable(toyData) && !isReserved(toyId, idUser)) {
 
-            //En caso de que esté reservado, borramos la Order y Shipment anterior para crear la nueva.
-
-            shipmentAndOrderDelete(toyId, idUser);
-
+            return Utils.createError("El producto no se encuentra disponible");
         }
+
+        //Comprobamos si existen reservas previas de este usuario y las borramos
+
+        deletePreviousReserves(idUser);
 
         EntityResult orderResult = Utils.insertOrder(daoHelper, orderDao, orderData);
 
@@ -227,22 +222,24 @@ public class OrderService implements IOrderService {
         return !queryResult.isEmpty();
     }
 
-    public void shipmentAndOrderDelete(int toyId, int idUser) {
+    private void deletePreviousReserves(Integer idUser) {
 
-        //Recuperamos ORDER_ID
+        //Recuperamos Orders de este usuario sin finalizar
 
         Map<String, Object> searchValues = new HashMap<>();
-        searchValues.put(OrderDao.ATTR_TOY_ID, toyId);
         searchValues.put(OrderDao.ATTR_BUYER_ID, idUser);
+        searchValues.put(OrderDao.ATTR_SESSION_ID, new SearchValue(SearchValue.NULL, null));
 
-        List<String> resultAttributes = List.of(OrderDao.ATTR_ID);
+        List<String> resultAttributes = List.of(OrderDao.ATTR_ID, OrderDao.ATTR_TOY_ID);
         EntityResult idData = this.daoHelper.query(this.orderDao, searchValues, resultAttributes);
-        Integer orderId = (Integer) idData.getRecordValues(0).get(OrderDao.ATTR_ID);
+
+        Integer previousOrderId = (Integer) idData.getRecordValues(0).get(OrderDao.ATTR_ID);
+        Integer previousToyId = (Integer) idData.getRecordValues(0).get(OrderDao.ATTR_TOY_ID);
 
         //Comprobamos si hay SHIPMENT asociado y recuperamos su ID en caso afirmativo
 
         Map<String, Object> shipmentSearchValues = new HashMap<>();
-        shipmentSearchValues.put(ShipmentDao.ATTR_ORDER_ID, orderId);
+        shipmentSearchValues.put(ShipmentDao.ATTR_ORDER_ID, previousOrderId);
         List<String> shipmentResultAttributes = List.of(ShipmentDao.ATTR_ID);
         EntityResult shipmentIdData = this.daoHelper.query(this.shipmentDao, shipmentSearchValues, shipmentResultAttributes);
 
@@ -257,10 +254,14 @@ public class OrderService implements IOrderService {
             this.daoHelper.delete(this.shipmentDao, deleteShipKeyMap);
         }
 
-        //Borramos el ORDER
+        //Borramos el ORDER antiguo
 
         Map<String, Object> deleteKeyMap = new HashMap<>();
-        deleteKeyMap.put(OrderDao.ATTR_ID, orderId);
+        deleteKeyMap.put(OrderDao.ATTR_ID, previousOrderId);
         this.daoHelper.delete(this.orderDao, deleteKeyMap);
+
+        //Ponemos el juguete en disponible
+
+        Utils.updateToyStatus(daoHelper, toyDao, previousToyId, ToyDao.STATUS_AVAILABLE);
     }
 }

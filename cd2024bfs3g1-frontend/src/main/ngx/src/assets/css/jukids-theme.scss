@@ -17,7 +17,7 @@ $color-red: #F11F43;
 $color-blue: #3C7F72;
 $color-orange-bg: #FD8F3514;
 $color-red-bg: rgba(241, 31, 66, 0.8);
-$color-blue-bg: hsla(169, 36%, 37%, 0.60);
+$color-blue-bg: hsla(169, 36%, 37%, 0.80);
 $color-white: #fff;
 $color-black: #000;
 
@@ -274,14 +274,14 @@ nav {
 
 //==================================== CARD PRODUCT DESIGN ====================================
 .grid-container {
-    margin-bottom: 10px;
-    min-width: 350px;
+  margin-bottom: 10px;
+  min-width: 350px;
 }
 
 .grid-toys-search-container {
-    margin: auto;
-    width: 90%;
-    min-width: 350px;
+  margin: auto;
+  width: 90%;
+  min-width: 350px;
 }
 
 .card {
@@ -502,7 +502,146 @@ nav {
       width: 100%;
       height: fit-content;
       margin: 0;
-      font-weight:normal;
+      font-weight: normal;
+      font-size: 1.1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      @include respond-to(small) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(medium) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(large) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+      @include respond-to(xlarge) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+    }
+
+    .price {
+      margin: 0;
+      height: fit-content;
+      font-size: 1.1rem;
+      color: #a5a5a5;
+
+      @include respond-to(small) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(medium) {
+        width: 100%;
+        font-size: 0.8em;
+      }
+
+      @include respond-to(large) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+      @include respond-to(xlarge) {
+        width: 100%;
+        font-size: 1.05em;
+      }
+
+    }
+
+
+  }
+
+}
+
+.card-undecided {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1em 1em 1em 1em;
+  background-color: white;
+  width: 100%;
+
+  > {
+    .img-container {
+      margin-top: .8rem;
+      margin-bottom: .2rem;
+      max-height: 170px;
+      height: 70%;
+      margin: auto;
+
+      .image-header {
+        max-width: 100%;
+        border-radius: 7%;
+        height: 100%;
+        object-fit: cover;
+        max-height: 170px;
+      }
+    }
+  }
+
+  .card-distance {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    background-color: $color-orange;
+    color: $color-white;
+    font-weight: 550;
+    border-radius: 0.65rem;
+    padding: 10px;
+  }
+
+
+  .card-body {
+    flex: 1 1 auto;
+    justify-self: center;
+    display: flex;
+    padding: .4rem;
+    flex-direction: column;
+    justify-content: end;
+    gap: 0.1rem;
+
+
+    @include respond-to(small) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    @include respond-to(medium) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    @include respond-to(large) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    @include respond-to(xlarge) {
+      padding: 5px;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+
+    h4 {
+      width: 100%;
+      height: fit-content;
+      margin: 0;
+      font-weight: normal;
       font-size: 1.1em;
       white-space: nowrap;
       overflow: hidden;
@@ -599,15 +738,6 @@ nav {
     }
   }
 
-  &.btn-solid-list {
-    border-color: $color-blue;
-    color: $color-white;
-    background-color: $color-blue;
-
-    &:hover {
-      box-shadow: 0 2px 4px #0000003d;
-    }
-  }
 
   &.btn-outline-dark {
     border-color: $color-white;
@@ -627,20 +757,14 @@ nav {
   }
 
   &.btn-outline-light {
-    border-color: $color-orange;
-    color: $color-orange;
+    border-color: $color-blue;
+    color: $color-blue;
     background-color: $color-white;
 
     &:hover {
       color: $color-white;
-      background-color: $color-orange;
-      border-color: $color-orange;
-    }
-
-    &.reverse {
-      color: $color-white;
-      background-color: $color-orange;
-      border-color: $color-orange;
+      background-color: $color-blue;
+      border-color: $color-blue;
     }
   }
 
@@ -807,7 +931,7 @@ nav {
     width: 2rem;
     height: 2rem;
     font-size: 2rem;
-    color: $color-dark-orange;
+    color: $color-red;
   }
 
 }
@@ -936,7 +1060,7 @@ nav {
           display: flex;
           flex-direction: column;
           box-sizing: border-box;
-          margin:0 0.5rem 0.5rem 0;
+          margin: 0 0.5rem 0.5rem 0;
           padding: 0.5rem;
           border-radius: 0 0.75rem 0.75rem 0.75rem;
           background-color: $color-white;
@@ -995,7 +1119,7 @@ nav {
           margin-left: 0.5rem;
           padding: 0.5rem;
           border-radius: 0.75rem 0 0.75rem 0.75rem;
-          border: 2px solid #ffa366 ;
+          border: 2px solid #ffa366;
           background-color: #ffa366;
           transform: translateY(1rem);
 
@@ -1018,7 +1142,7 @@ nav {
     }
   }
 
-.chat-container-footer {
+  .chat-container-footer {
     display: flex;
     align-items: center;
     padding: 0.75rem 0.5rem;
@@ -1036,6 +1160,7 @@ nav {
       &:focus {
         outline: none;
       }
+
       &::placeholder {
         color: #8b8b8b;
       }
@@ -1107,25 +1232,28 @@ o-map mat-sidenav-container {
   scrollbar-width: thin;
   scrollbar-color: $color-orange $color-orange-bg;
 }
-.editProfile{
+
+.editProfile {
   color: #ffa366;
   background-color: #fff;
   border-radius: 0.4rem;
   border: 2px solid;
   padding: 0.2rem 1rem;
 
-::-webkit-scrollbar-thumb {
-  background-color: $color-orange;
-}
+  ::-webkit-scrollbar-thumb {
+    background-color: $color-orange;
+  }
 }
 
 ::-webkit-scrollbar-track {
   display: none;
 }
-.header-user-profile h2{
-    max-width: 15%;
+
+.header-user-profile h2 {
+  max-width: 15%;
 }
-.header-user-profile div{
+
+.header-user-profile div {
   margin-left: 15rem;
   margin-top: -3rem;
   margin-bottom: 2rem;

@@ -306,6 +306,7 @@
   "SEND_CHAT": "Send message",
   "UPDATE_CHATS": "Update chats",
   "VALIDATE_ERROR": "Something went wrong",
-  "RESERVER_TOY": "Toys pending payment"
+  "RESERVER_TOY": "Toys pending payment",
+  "UNDECIDED": "NOT SO SURE?"
 
 }

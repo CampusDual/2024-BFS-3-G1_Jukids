@@ -39,10 +39,12 @@
     padding: 0px;
     margin-top: 0px;
   }
+
   @media screen and (max-width: 600px) {
     flex-direction: column;
     width: 100%;
   }
+
   .custom-btn {
     border-radius: 10px;
     width: 12rem;
@@ -50,18 +52,27 @@
     mat-icon {
       margin-right: 0.3rem;
     }
+
     @media screen and (max-width: 600px) {
       width: 10rem;
     }
   }
 
-  .custom-btn:hover{
+  .custom-btn:hover {
     background-color: #3c7f72;
-}
+  }
 
-    .mat-button-toggle-checked{
+  .mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle {
+    border-left: 0px;
+  }
+
+  .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    color: #fff;
+  }
+
+  .mat-button-toggle-checked {
     background-color: #3c7f72;
-}
+  }
 
   .button {
     &:hover {
@@ -69,9 +80,13 @@
     }
   }
 
+  .formToy {
+    width: 100%;
+  }
+
   .radioGroup {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     border: none;
     gap: 0.5rem;
   }
@@ -85,10 +100,12 @@
     @media screen and (max-width: 900px) {
       flex-direction: column;
     }
+
     @media screen and (max-width: 600px) {
       flex-direction: column;
       gap: 1rem;
     }
+
     .cardInfo {
       display: flex;
       flex-direction: column;
@@ -98,28 +115,12 @@
       padding: 2rem 1.5rem;
       border-radius: 1em;
       min-height: 425px;
-      max-width: 80%;
+      max-width: 40%;
       align-self: center;
 
-      @media screen and (max-width: 600px) {
-        width: 100%;
-      }
-
-      @media screen and (min-width: 600px) {
-        width: 90%;
-      }
-
-      @media screen and (min-width: 700px) {
-        width: 85%;
-      }
-
-      @media screen and (min-width: 800px) {
-        width: 80%;
-      }
-
-      @media screen and (min-width: 900px) {
+      @media screen and (max-width: 960px) {
         width: 75%;
-        max-width: 80%;
+        max-width: 960px;
       }
 
       .titleName {
@@ -129,11 +130,23 @@
         margin-top: 10px;
         text-transform: capitalize;
         background-color: transparent;
+
+        h4 {
+          width: 100%;
+          height: -moz-fit-content;
+          height: fit-content;
+          margin: 0;
+          font-weight: 400;
+          font-size: 1.1em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
 
       .divDetail {
         width: 100%;
-        margin: 2.5rem 0.75rem 0 0.75rem;
+        margin: 0 0.75rem;
         overflow: hidden;
 
         .containerPrice {
@@ -160,7 +173,7 @@
 
           div {
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-between;
             padding: 0.5rem 0;
 
             .mat-icon {
@@ -210,6 +223,7 @@
       }
     }
   }
+
   .divLabel {
     margin-bottom: 1rem;
     border-radius: 10px;
@@ -273,9 +287,11 @@
     background-color: transparent;
     text-decoration-line: underline;
     color: rgb(0, 102, 204);
+
     &:hover {
       color: rgb(85, 26, 139);
     }
+
     &:visited {
       color: rgb(85, 26, 139);
     }
