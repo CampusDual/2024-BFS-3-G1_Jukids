@@ -23,11 +23,12 @@ $color-orange: #FD8F35;
 $color-dark-orange: #D34A24;
 $color-red: #F11F43;
 $color-blue: #3C7F72;
-$color-orange-bg: #FD8F3514;
+$color-orange-bg: rgba(253, 143, 53, 0.25);
 $color-red-bg: rgba(241, 31, 66, 0.8);
 $color-blue-bg: hsla(169, 36%, 37%, 0.80);
 $color-white: #fff;
 $color-black: #000;
+$color-gray: rgb(26, 17, 32, 0.20);
 
 // Override theme settings (see ../template/settings.scss)
 $mainFont: 'Lato', sans-serif;
@@ -51,3 +52,35 @@ $overlayElementFgColor: 240, 240, 240;
 // Theme template ------------------------------
 @import "../template/theme";
 // ---------------------------------------------
+
+// Class Jukids --------------------------------
+.slides-container{
+    max-width: 1200px;
+    max-height: 700px;
+    width: 100% !important;
+    height: 100% !important;
+}
+.section{
+    display: flex !important;
+}
+.container {
+    display: flex !important;
+    height: 77%;
+    max-width: 1200px;
+    width: 90%;
+    gap: 1.75rem;
+    margin: auto;
+}
+
+.colum2-3{
+    width: 65%;
+    background-color: $color-orange-bg;
+    border-radius: 1.5rem;
+}
+
+.colum1-3{
+    width: 35%;
+    background-color: $color-gray;
+    border-radius: 3rem;
+    border-radius: 1.5rem;
+}
