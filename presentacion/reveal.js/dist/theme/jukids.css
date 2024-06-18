@@ -360,35 +360,69 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
     background-color: var(--r-background-color);
   }
 }
+.color-orange {
+  color: #FD8F35;
+}
+
+.color-dark-orange {
+  color: #D34A24;
+}
+
+.color-red {
+  color: #F11F43;
+}
+
+.color-blue {
+  color: #3C7F72;
+}
+
+.bg-color-orange {
+  background-color: #FD8F35;
+}
+
+.bg-color-dark-orange {
+  background-color: #D34A24;
+}
+
+.bg-color-red {
+  background-color: #F11F43;
+}
+
+.bg-color-blue {
+  background-color: #3C7F72;
+}
+
 .slides-container {
-  max-width: 1200px;
-  max-height: 700px;
-  width: 100% !important;
-  height: 100% !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  transform: scale(1) !important;
+  translate: 0 !important;
+  inset: 0 !important;
 }
 
 .section {
-  display: flex !important;
+  height: 100%;
 }
 
 .container {
   display: flex !important;
-  height: 77%;
-  max-width: 1200px;
-  width: 90%;
-  gap: 1.75rem;
-  margin: auto;
+  height: 100%;
+  width: 100%;
+  gap: 1.5rem;
 }
 
-.colum2-3 {
-  width: 65%;
+.div-barras {
+  display: flex;
+  gap: 16px;
+}
+.div-barras .color {
+  width: 30px;
+  height: 100%;
+}
+
+.content {
+  width: 100%;
   background-color: rgba(253, 143, 53, 0.25);
   border-radius: 1.5rem;
-}
-
-.colum1-3 {
-  width: 35%;
-  background-color: rgba(26, 17, 32, 0.2);
-  border-radius: 3rem;
-  border-radius: 1.5rem;
+  margin: 1.5rem 8rem 1.5rem 0;
 }

@@ -39,7 +39,7 @@ $headingTextShadow: none;
 $headingTextTransform: none;
 $backgroundColor: $color-white;
 $linkColor: $color-orange;
-$linkColorHover: lighten( $linkColor, 20% );
+$linkColorHover: lighten($linkColor, 20%);
 $selectionBackgroundColor: $color-dark-orange;
 
 $overlayElementBgColor: 0, 0, 0;
@@ -54,33 +54,72 @@ $overlayElementFgColor: 240, 240, 240;
 // ---------------------------------------------
 
 // Class Jukids --------------------------------
-.slides-container{
-    max-width: 1200px;
-    max-height: 700px;
-    width: 100% !important;
-    height: 100% !important;
+//CLASS COLORS
+.color-orange {
+    color: $color-orange;
 }
-.section{
-    display: flex !important;
+
+.color-dark-orange {
+    color: $color-dark-orange;
 }
+
+.color-red {
+    color: $color-red;
+}
+
+.color-blue {
+    color: $color-blue;
+}
+
+.bg-color-orange {
+    background-color: $color-orange;
+}
+
+.bg-color-dark-orange {
+    background-color: $color-dark-orange;
+}
+
+.bg-color-red {
+    background-color: $color-red;
+}
+
+.bg-color-blue {
+    background-color: $color-blue;
+}
+
+.slides-container {
+    width: 100vw !important;
+    height: 100vh !important;
+    transform: scale(1) !important;
+    translate: 0 !important;
+    inset: 0 !important;
+}
+
+.section {
+    height: 100%;
+}
+
 .container {
     display: flex !important;
-    height: 77%;
-    max-width: 1200px;
-    width: 90%;
-    gap: 1.75rem;
-    margin: auto;
+    height: 100%;
+    width: 100%;
+    gap: 1.5rem;
 }
 
-.colum2-3{
-    width: 65%;
-    background-color: $color-orange-bg;
-    border-radius: 1.5rem;
+.div-barras {
+    display: flex;
+    gap: 16px;
+
+    .color {
+        width: 30px;
+        height: 100%;
+    }
+
 }
 
-.colum1-3{
-    width: 35%;
-    background-color: $color-gray;
-    border-radius: 3rem;
+.content {
+    width: 100%;
+    background-color: rgba(253, 143, 53, 0.25);
     border-radius: 1.5rem;
+    margin: 1.5rem 8rem 1.5rem 0;
 }
