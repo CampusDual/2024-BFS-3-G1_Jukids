@@ -17,7 +17,7 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 
 //Socket io configuration
-const config: SocketIoConfig = { url: CHAT_CONFIG.chatEndpoint, options: {} };
+const config: SocketIoConfig = { url: CHAT_CONFIG.chatEndpoint, options: { transports: ['websocket'] } };
 
 
 
