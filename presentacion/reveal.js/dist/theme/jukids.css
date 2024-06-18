@@ -17,7 +17,7 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 :root {
   --r-background-color: #fff;
   --r-main-font: Lato, sans-serif;
-  --r-main-font-size: 40px;
+  --r-main-font-size: 32px;
   --r-main-color: #000;
   --r-block-margin: 20px;
   --r-heading-margin: 0 0 20px 0;
@@ -416,9 +416,37 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   width: 30px;
   height: 100%;
 }
+.slides-container .section .container .title {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 4rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  padding-left: 46px;
+}
+.slides-container .section .container .title h2 {
+  color: #fff;
+  word-spacing: 0.5em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.slides-container .section .container .title img {
+  margin: auto 2rem;
+  height: 100px;
+}
 .slides-container .section .container .content {
   width: 100%;
   background-color: rgba(253, 143, 53, 0.25);
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   margin: 1.5rem 8rem 1.5rem 0;
+  padding: 2rem;
+  padding-top: 210px;
+  display: flex;
+  justify-content: center;
+}
+.slides-container .section .container .content .portada {
+  align-self: center;
+  text-align: start;
+  margin-left: 2rem;
 }
