@@ -1,0 +1,39 @@
+.undecided {
+    position: absolute;
+    right: 5vh;
+    top: 5em;
+    z-index: 1000;
+    width: 10em;
+    padding: 1em;
+    border: 1px solid rgba(128, 128, 128, 0.57);
+    background-color: white;
+    border-radius: 0.65rem;
+    &:hover {
+        scale: 1.05;
+      }
+    @media (max-width: 700px) {
+        display: none;
+    }
+}
+
+.title-undecided {
+    text-align: center;
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
+
+.undecided-btn {
+    font-size: smaller;
+}
+
+.close-modal{
+    top: 0.3rem;
+    right: 0rem;
+    &:hover {
+        scale: 1.2;
+      }
+}
+
+.hidden{
+    display: none;
+}

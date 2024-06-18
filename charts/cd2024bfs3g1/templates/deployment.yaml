@@ -69,6 +69,10 @@ spec:
           - name: DATABASE_SERVICE
             value: {{ .Values.database.service }}
         {{- end }}
+          - name: SOCKETIO_HOST
+            value: {{ .Values.socketio.host }}
+          - name: SOCKETIO_PORT
+            value: {{ .Values.socketio.port | quote }}
           - name: DATABASE_URL
             value: {{ .Values.database.url }}
           - name: DATABASE_USER
@@ -197,6 +201,8 @@ spec:
           ports:
           - name: http
             containerPort: {{ .Values.service.internalPort }}
+          - name: ws
+            containerPort: {{ .Values.socketio.port }}            
           livenessProbe:
             httpGet:
               path: {{ .Values.livenessProbe.probePath | default .Values.probePath }}

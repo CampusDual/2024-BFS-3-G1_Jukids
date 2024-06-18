@@ -1,24 +1,23 @@
-<button class="backBtn" (click)="redirect()"
-routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat-flat-button>
+<button *ngIf="false || transactionStatus.getValue() != 0; else navigation" class="backBtn" (click)="redirectProfile()"
+  routerLinkActive="router-link-active" routerLinkActive="router-link-active" mat-flat-button>
   <mat-icon>arrow_back_ios_new</mat-icon>
   {{'BACKBTN' | oTranslate}}
 </button>
 
-<div class="navigation-tree-container">
-  <div class="back-category">
-    <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
-    <div class="category">></div>
-    <a *ngIf="false || transactionStatus.getValue() != 0" class="category" href="/main/user-profile">{{ "MY_PROFILE" |
-      oTranslate }}</a>
-    <div *ngIf="false || transactionStatus.getValue() != 0" class="category"></div>
-    <a class="category" [routerLink]="['/main/toys']" [queryParams]="{category: category.getValue()}">
-      {{ category.getValue() | oTranslate }}</a>
+<ng-template #navigation>
+  <div class="navigation-tree-container">
+    <div class="back-category">
+      <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
+      <div class="category">></div>
+      <a class="category" [routerLink]="['/main/toys']" [queryParams]="{category: category.getValue()}">
+        {{ category.getValue() | oTranslate }}</a>
+    </div>
   </div>
-</div>
+</ng-template>
 
 <!-- main container -->
 <div class="box">
-  <o-form attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no" show-header="no"
+  <o-form attr="toysDetail" service="toys" entity="toyDetail" keys="toyid" show-header-navigation="no" show-header="no"
     layout-direction="column" (onDataLoaded)="onFormDataLoaded($event)">
     <!-- hidden inputs for data recovery -->
     <o-text-input #toyId attr="toyid" oHidden sql-type="INTEGER" enabled="yes"></o-text-input>
@@ -34,9 +33,11 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
     <o-text-input #longitude attr="longitude" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #status attr="status" fxFlex="100" read-only="yes" oHidden></o-text-input>
     <o-text-input #transactionStatus attr="transaction_status" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #buyer_id attr="buyer_id" fxFlex="100" read-only="yes" oHidden></o-text-input>
+    <o-text-input #session_id attr="session_id" fxFlex="100" read-only="yes" oHidden></o-text-input>
 
     <o-form attr="toysDetail" service="toys" entity="toy" keys="toyid" show-header-navigation="no"
-      detail-form-route="toysBuy" show-header="no" layout-direction="column" (onDataLoaded)="setStripe()">
+      detail-form-route="toysBuy" show-header="no" layout-direction="column">
       <o-text-input #toyId attr="toyid" hidden="true" sql-type="INTEGER" enabled="yes"></o-text-input>
 
       <!-- main column & div -->
@@ -51,13 +52,39 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
                 empty-image="assets/images/no-image.png" sql-type="OTHER" show-controls="no"></o-image>
             </div>
             <!-- seller's average -->
-            <div *ngIf="ratingData != undefined" class="rating-div">
-              <span>{{ "SELLER" | oTranslate }} {{ ratingData }}</span>
-              <svg class=" color-orange" xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem"
-                fill="currentColor" viewBox="0 0 16 16">
-                <path
-                  d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
-              </svg>
+            <div class="Rating">
+              <div class="Rating-photo">
+                <img *ngIf="sellerPhoto != undefined;else noAvatar" class="Rating-img"
+                  src="{{baseUrl}}/restapi/get-image?userId={{sellerId}}">
+                <ng-template #noAvatar>
+                  <img class="Rating-img" src="assets/images/user_profile.png">
+                </ng-template>
+              </div>
+              <div class="Rating-column">
+                <strong class="Rating-seller">{{sellerName}}</strong>
+                <div class="Rating-row">
+                  <div class="Rating-stars">
+                    <div class="Rating-base">
+                      <svg class="Rating-svg" *ngFor="let i of [5,4,3,2,1]" xmlns="http://www.w3.org/2000/svg"
+                        width="1.25rem" height="1.25rem" fill="currentColor" viewBox="0 0 16 16">
+                        <path
+                          d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                      </svg>
+                    </div>
+                    <div class="Rating-overlay" [ngStyle]="{'width.%': percentageRate}">
+                      <svg class="color-orange" *ngFor="let i of [5,4,3,2,1]" xmlns="http://www.w3.org/2000/svg"
+                        width="1.25rem" height="1.25rem" fill="currentColor" viewBox="0 0 16 16">
+                        <path
+                          d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="Rating-rates">
+                    <span class="Rating-average">{{sellerRate}} </span>
+                    <span class="Rating-total">({{totalSurveys}})</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </o-column>
 
@@ -69,28 +96,34 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
                 <o-row class="title">{{ nameInput.getValue() }}</o-row>
                 <o-row class="description">{{ descInput.getValue() }}</o-row>
 
-                <div class="characteristics">
-                  <p class="shippable status">{{ status.getValue() | oTranslate }}</p>
-                  <o-row>
-                    <p *ngIf="shipping.getValue(); else noShipping" class="shippable bg-color-blue">
-                      {{ "SHIPMENT_AVAILABLE" | oTranslate }}
-                    </p>
-                    <ng-template #noShipping>
-                      <p class="shippable bg-color-dark-orange">{{ "SALE_IN_PERSON_ONLY" | oTranslate }}</p>
-                    </ng-template>
-                  </o-row>
-                </div>
+                <ng-container *ngIf="status.getValue()">
+
+                  <div class="characteristics">
+                    <p class="shippable status">{{ status.getValue() | oTranslate }}</p>
+                    <o-row>
+
+                      <p class="shippable" [ngClass]="{
+                      'bg-color-blue': shipping.getValue(),
+                      'bg-color-dark-orange': !shipping.getValue() }">
+                        {{ (( shipping.getValue() ) ? "SHIPMENT_AVAILABLE" : "SALE_IN_PERSON_ONLY" )| oTranslate }}
+                      </p>
+
+                    </o-row>
+                  </div>
+
+                </ng-container>
 
                 <o-row class="price">{{ priceInput.getValue() | number: '1.2-2'}}
                   <span>€</span></o-row>
               </div>
-
               <!-- map -->
               <div class="container-border" fxLayout="column" fxLayoutGap="4px">
                 <location-map [isEditable]="isEditable" attr="detailMap" #detailMap style="width:100%"></location-map>
               </div>
 
               <!-- email  -->
+
+
               <div class="email-container" *ngIf="transactionStatus.getValue() == 0">
                 <a class="link" href="mailto:{{ emailInput.getValue() }}
                 ?Subject=¡Quiero tu juguete {{ nameInput.getValue() }} de JUKIDS!
@@ -98,23 +131,30 @@ routerLinkActive="router-link-active" routerLinkActive="router-link-active"  mat
                   {{ "CONTACT_SELLER_BY_EMAIL" | oTranslate }}
                   <!--{{ emailInput.getValue() }}-->
                 </a>
-                <ng-container *ngIf="isLogged && isNotTheSeller">
-                  <button class="button btn-outline-light" (click)="openBuy(toyId.getValue())">
-                    CONTACTA POR CHAT
-                  </button>
-                </ng-container>
               </div>
-            </div>
-            <!-- buy button  -->
-            <div>
-              <button *ngIf="transactionStatus.getValue() == 0" class="button btn-solid buttonBuy"
-                (click)="openBuy(toyId.getValue())">
-                {{ "BUY" | oTranslate }}
-              </button>
+              <!-- buy button  -->
+              <ng-container *ngIf="isLogged && isNotTheSeller">
+                <div>
+                  <button class="button btn-outline-light" (click)="chatSeller()">
+                    {{ 'CONTACT_CHAT' | oTranslate}}
+                  </button>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="!isLogged || (isLogged && isNotTheSeller)">
+                <div>
+                  <button *ngIf="transactionStatus.getValue() == 0  || (isLogged && isReserved) " class="button btn-solid buttonBuy"
+                    (click)="openBuy(toyId.getValue())">
+                    {{ "BUY" | oTranslate }}
+                  </button>
+                </div>
+              </ng-container>
+              
             </div>
           </div>
+
         </div>
       </o-column>
     </o-form>
-
-    <app-stripe #stripe></app-stripe>
+  </o-form>
+</div>

@@ -11,5 +11,9 @@ spec:
     targetPort: {{ .Values.service.internalPort }}
     protocol: TCP
     name: http
+  - port: {{ .Values.socketio.port }}
+    targetPort: {{ .Values.socketio.port }}
+    protocol: TCP
+    name: ws
   selector:
     {{- include "selectorLabels" . | nindent 4 }}

@@ -106,6 +106,28 @@ By default the application provides two users. Adapt as needed:
     - Role: `User`
     - Username: `demo`
     - Password: `demouser`
+      
+## Testing application users
+
+Users created with products to test the application:
+
+| User                          | Password         | Role     |
+|:------------------------------|:----------------:|---------:|
+| `jukids`                      | `adminuser`      | admin    |
+| `carlos@gmail.com`            | `demouser`       | user     |
+| `elpete@gmail.com`            | `12pete12`       | user     |
+| `danielarenas@hotmail.com`    | `demouser`       | user     |
+| `anaramirez@hotmail.com`      | `demouser`       | user     |
+| `anabelgomez@hotmail.com`     | `demouser`       | user     |
+| `monicamarchante@gmail.es`    | `demouser`       | user     |
+| `jorge.perez@outlook.com`     | `demouser`       | user     |
+| `laurafg@yahoo.es`            | `demouser`       | user     |
+| `patricialema@gmail.com`      | `demouser`       | user     |
+| `manolo_sanch@gmail.com`      | `demouser`       | user     |
+| `irisvicat@gmail.es`          | `demouser`       | user     |
+| `jimenafrg@gmail.es`          | `11223344`       | user     |
+| `cristinafondo@gmail.com`     | `demouser`       | user     |
+
 
 ## Ontimize Boot
 

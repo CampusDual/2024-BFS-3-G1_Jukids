@@ -1,13 +1,12 @@
 <div class="navigation-tree-container">
-  <div class="back-category">
-    <a class="category" style="padding-left:20px;color: rgb(145, 145, 145);" href="/main">{{ "ALL_TOYS" | oTranslate }}</a>
-    <div>></div>
-    <a class="category" style="margin-left:20px;color:rgb(145, 145, 145);" href="/main/user-profile">{{ "MY_PROFILE" | oTranslate }}</a>
-    <div>></div>
-      <span class="category" style="padding-left: 20px;">
-      {{ "MY_RATINGS" | oTranslate }}</span>
+	<div class="back-category">
+	  <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
+	  <div class="category">></div>
+	  <a class="category" href="/main/user-profile">{{ "MY_PROFILE" | oTranslate }}</a>
+	  <div class="category">></div>
+		<span class="category">{{ "MY_RATINGS" | oTranslate }}</span>
+	</div>
   </div>
-</div>
 
 <mat-tab-group>
   <mat-tab label="{{ 'MY_RATINGS' | oTranslate }}" mat-align-tabs="start">

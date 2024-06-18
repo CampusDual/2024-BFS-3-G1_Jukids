@@ -1,22 +1,22 @@
 <div class="navigation-tree-container">
   <div class="back-category">
-    <a class="category" href="/main">{{ "ALL_TOYS" | oTranslate }}</a>
+    <a class="category" href="/main/toys">{{ "ALL_TOYS" | oTranslate }}</a>
     <div class="category">></div>
     <a class="category" href="/main/user-profile">{{ "MY_PROFILE" | oTranslate }}</a>
     <div class="category">></div>
-      <span class="category">
-      {{ "PURCHASED_TOYS" | oTranslate }}</span>
+    <span class="category">{{ "PURCHASED_TOYS" | oTranslate }}</span>
   </div>
 </div>
 
 <mat-tab-group #tabs [selectedIndex]="currentTabIndex">
+
   <mat-tab #tabSend attr="tabSend" label="{{ 'PENDING_SEND_TOY' | oTranslate }}">
     <o-table #tableSend fxFlex attr="tableSend" service="shipments" entity="pendingSend" keys="toyid"
       title="{{ 'PENDING_SEND_TOY' | oTranslate }}" columns="toyid;photo;name;total_price"
-      visible-columns="photo;name;total_price" show-title="true" pagination-controls="no"
-      show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
-      edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
-      class="table" detail-form-route="toysDetail">
+      visible-columns="photo;name;total_price" show-title="true" pagination-controls="no" show-filter-option="no"
+      quick-filter="false" insert-button="false" export-button="false" delete-button="false" edit-button="false"
+      refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true" class="table"
+      detail-form-route="toysDetail">
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
         </o-table-cell-renderer-image>
@@ -46,8 +46,8 @@
       </o-table-column>
       <o-table-column attr="name" title="{{ 'name' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
         tooltip="yes"></o-table-column>
-      <o-table-column attr="tracking_number" title="{{ 'TRACKING_NUMBER' | oTranslate }}" multiline="yes" min-width="100px" max-width="900px"
-        tooltip="yes"></o-table-column>
+      <o-table-column attr="tracking_number" title="{{ 'TRACKING_NUMBER' | oTranslate }}" multiline="yes"
+        min-width="100px" max-width="900px" tooltip="yes"></o-table-column>
       <o-table-column attr="total_price" title="{{ 'price' | oTranslate }}" multiline="no" min-width="100px"
         max-width="300px" type="currency" thousand-separator="." decimal-separator="," currency-symbol="€"
         currency-symbol-position="right" tooltip="yes"></o-table-column>
@@ -65,7 +65,7 @@
       visible-columns="photo;name;total_price;edit-btn" show-title="true" pagination-controls="no"
       show-filter-option="no" quick-filter="false" insert-button="false" export-button="false" delete-button="false"
       edit-button="false" refresh-button="false" horizontal-scroll="true" virtual-scroll="no" auto-adjust="true"
-      class="table"  detail-form-route="toysDetail">
+      class="table" detail-form-route="toysDetail">
 
       <o-table-column attr="photo" orderable="no" searchable="no" width="64px">
         <o-table-cell-renderer-image image-type="base64" empty-image="assets/images/no-image.png" avatar="yes">
@@ -85,14 +85,14 @@
 
   <mat-tab #tabPurchased attr="tabPurchased" label="{{ 'SHOPPING_HISTORY_TOY' | oTranslate }}" mat-align-tabs="start">
     <div class="list" fxLayout="column">
-      <o-list #list attr="list" service="orders" entity="ordersWithToys" key="order_id"
-          columns="t.toyid;photo;name;price;transaction_status;t.usr_id;usr_name;buyer_id"
-          detail-form-route="toysDetail" refresh-button="none" delete-button="none" quick-filter="none">
+      <o-list #list attr="list" service="orders" entity="purchased" key="order_id"
+        columns="t.toyid;photo;name;price;transaction_status;t.usr_id;usr_name;buyer_id" detail-form-route="toysDetail"
+        refresh-button="none" delete-button="none" quick-filter="none" sort-columns="order_id">
         <mat-card *ngFor="let row of list.dataArray" [o-list-item]="row">
           <div fxLayout="row" fxLayoutGap="2.25rem">
             <o-column (click)="openDetail(row.toyid)">
               <div class="photo-container">
-                <img src="{{baseUrl}}/restapi/get-image?toyId={{row.toyid}}" >
+                <img src="{{baseUrl}}/restapi/get-image?toyId={{row.toyid}}">
               </div>
             </o-column>
             <div class="info-row">
@@ -102,7 +102,8 @@
                   <mat-card-subtitle>{{ row.price }} €</mat-card-subtitle>
                 </div>
                 <div fxLayout="row" class="container-survey">
-                  <button class="button btn-outline-light" *ngIf="row.transaction_status == 4" (click)="onRate(row.toyid, row.photo, row.name, row.usr_id, row.usr_name, row.buyer_id)">
+                  <button class="button btn-outline-light" *ngIf="row.transaction_status == 4"
+                    (click)="onRate(row.toyid, row.photo, row.name, row.usr_id, row.usr_name, row.buyer_id)">
                     <span>Valorar</span>
                   </button>
                 </div>
@@ -112,5 +113,6 @@
         </mat-card>
       </o-list>
     </div>
-  </mat-tab>
+  </mat-tab>  
+
 </mat-tab-group>

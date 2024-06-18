@@ -26,6 +26,9 @@ export const SERVICE_CONFIG: Object = {
   'statuses':{
     'path': '/statuses'
   },
+  'userowner': {
+    'path': '/userowner'
+  },
   permissions: {
     'path': '/permissions'
   },
@@ -34,5 +37,8 @@ export const SERVICE_CONFIG: Object = {
   },
   'surveys': {
     'path': '/surveys'
+  },
+  'chat': {
+    'path': '/chat'
   }
 };
