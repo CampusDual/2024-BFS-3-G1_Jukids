@@ -111,75 +111,22 @@ By default the application provides two users. Adapt as needed:
 
 Users created with products to test the application:
 
- - Admin:
-    - Role: `Admin`
-    - Username: `jukids`
-    - Password: `adminuser`
-
- - User:
-    - Role: `User`
-    - Username: `carlos@gmail.com`
-    - Password: `demouser`
-
- - User:
-    - Role: `User`
-    - Username: `elpete@gmail.com`
-    - Password: `12pete12`
-   
- - User:
-    - Role: `User`
-    - Username: `danielarenas@hotmail.com`
-    - Password: `demouser`
-      
- - User:
-    - Role: `User`
-    - Username: `anaramirez@hotmail.com`
-    - Password: `demouser`
-
- - User:
-    - Role: `User`
-    - Username: `anabelgomez@hotmail.com`
-    - Password: `demouser`
-   
- - User:
-    - Role: `User`
-    - Username: `monicamarchante@gmail.es`
-    - Password: `demouser`
-  
- - User:
-    - Role: `User`
-    - Username: `jorge.perez@outlook.com`
-    - Password: `demouser`
-
- - User:
-    - Role: `User`
-    - Username: `laurafg@yahoo.es`
-    - Password: `demouser`
-   
- - User:
-    - Role: `User`
-    - Username: `patricialema@gmail.com`
-    - Password: `demouser`
-
- - User:
-    - Role: `User`
-    - Username: `manolo_sanch@gmail.com`
-    - Password: `demouser`
-
- - User:
-    - Role: `User`
-    - Username: `irisvicat@gmail.es`
-    - Password: `demouser`
-   
- - User:
-    - Role: `User`
-    - Username: `jimenafrg@gmail.es`
-    - Password: `11223344`
-  
- - User:
-    - Role: `User`
-    - Username: `cristinafondo@gmail.com`
-    - Password: `demouser`
+| User                          | Password         | Role     |
+|:------------------------------|:----------------:|---------:|
+| `jukids`                      | `adminuser`      | admin    |
+| `carlos@gmail.com`            | `demouser`       | user     |
+| `elpete@gmail.com`            | `12pete12`       | user     |
+| `danielarenas@hotmail.com`    | `demouser`       | user     |
+| `anaramirez@hotmail.com`      | `demouser`       | user     |
+| `anabelgomez@hotmail.com`     | `demouser`       | user     |
+| `monicamarchante@gmail.es`    | `demouser`       | user     |
+| `jorge.perez@outlook.com`     | `demouser`       | user     |
+| `laurafg@yahoo.es`            | `demouser`       | user     |
+| `patricialema@gmail.com`      | `demouser`       | user     |
+| `manolo_sanch@gmail.com`      | `demouser`       | user     |
+| `irisvicat@gmail.es`          | `demouser`       | user     |
+| `jimenafrg@gmail.es`          | `11223344`       | user     |
+| `cristinafondo@gmail.com`     | `demouser`       | user     |
 
 
 ## Ontimize Boot
