@@ -1,0 +1,53 @@
+/**
+ * A simple theme for reveal.js presentations, similar
+ * to the default theme. The accent color is darkblue.
+ *
+ * This theme is Copyright (C) 2012 Owen Versteeg, https://github.com/StereotypicalApps. It is MIT licensed.
+ * reveal.js is Copyright (C) 2011-2012 Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+
+// Include theme-specific fonts
+@import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+// Jukids colors
+$color-orange: #FD8F35;
+$color-dark-orange: #D34A24;
+$color-red: #F11F43;
+$color-blue: #3C7F72;
+$color-orange-bg: #FD8F3514;
+$color-red-bg: rgba(241, 31, 66, 0.8);
+$color-blue-bg: hsla(169, 36%, 37%, 0.80);
+$color-white: #fff;
+$color-black: #000;
+
+// Override theme settings (see ../template/settings.scss)
+$mainFont: 'Lato', sans-serif;
+$mainColor: $color-black;
+$headingFont: 'News Cycle', Impact, sans-serif;
+$headingColor: $color-black;
+$headingTextShadow: none;
+$headingTextTransform: none;
+$backgroundColor: $color-white;
+$linkColor: $color-orange;
+$linkColorHover: lighten( $linkColor, 20% );
+$selectionBackgroundColor: $color-dark-orange;
+
+$overlayElementBgColor: 0, 0, 0;
+$overlayElementFgColor: 240, 240, 240;
+
+// Change text colors against dark slide backgrounds
+@include dark-bg-text-color(#fff);
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
