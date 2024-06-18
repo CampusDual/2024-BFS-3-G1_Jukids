@@ -5,7 +5,7 @@
         <a class="title" href="/"><img src="assets/images/jukids_logo.png" width="100%"/></a>
       </div>
       <div class="nav-center-side">
-        <input class="input-search" #searcherkey type="search" placeholder="  {{ 'SEARCH_BAR' | oTranslate }}">
+        <input class="input-search" #searcherkey type="search" placeholder="  {{ 'SEARCH_BAR' | oTranslate }}" (keyup.enter)="searchNameAndDescription(searcherkey)">
           <button class="clear-button"
           [ngStyle]="{'visibility': searcherkey.value ? 'visible' : 'hidden'}"
           (click)="clearInput(searcherkey)">&#x2716;</button>
