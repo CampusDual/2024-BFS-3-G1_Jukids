@@ -106,6 +106,81 @@ By default the application provides two users. Adapt as needed:
     - Role: `User`
     - Username: `demo`
     - Password: `demouser`
+      
+## Testing application users
+
+Users created with products to test the application:
+
+ - Admin:
+    - Role: `Admin`
+    - Username: `jukids`
+    - Password: `adminuser`
+
+ - User:
+    - Role: `User`
+    - Username: `carlos@gmail.com`
+    - Password: `demouser`
+
+ - User:
+    - Role: `User`
+    - Username: `elpete@gmail.com`
+    - Password: `12pete12`
+   
+ - User:
+    - Role: `User`
+    - Username: `danielarenas@hotmail.com`
+    - Password: `demouser`
+      
+ - User:
+    - Role: `User`
+    - Username: `anaramirez@hotmail.com`
+    - Password: `demouser`
+
+ - User:
+    - Role: `User`
+    - Username: `anabelgomez@hotmail.com`
+    - Password: `demouser`
+   
+ - User:
+    - Role: `User`
+    - Username: `monicamarchante@gmail.es`
+    - Password: `demouser`
+  
+ - User:
+    - Role: `User`
+    - Username: `jorge.perez@outlook.com`
+    - Password: `demouser`
+
+ - User:
+    - Role: `User`
+    - Username: `laurafg@yahoo.es`
+    - Password: `demouser`
+   
+ - User:
+    - Role: `User`
+    - Username: `patricialema@gmail.com`
+    - Password: `demouser`
+
+ - User:
+    - Role: `User`
+    - Username: `manolo_sanch@gmail.com`
+    - Password: `demouser`
+
+ - User:
+    - Role: `User`
+    - Username: `irisvicat@gmail.es`
+    - Password: `demouser`
+   
+ - User:
+    - Role: `User`
+    - Username: `jimenafrg@gmail.es`
+    - Password: `11223344`
+  
+ - User:
+    - Role: `User`
+    - Username: `cristinafondo@gmail.com`
+    - Password: `demouser`
+
 
 ## Ontimize Boot
 
