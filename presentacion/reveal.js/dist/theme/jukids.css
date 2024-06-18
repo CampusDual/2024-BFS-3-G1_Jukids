@@ -399,28 +399,24 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   translate: 0 !important;
   inset: 0 !important;
 }
-
-.section {
+.slides-container .section {
   height: 100%;
 }
-
-.container {
+.slides-container .section .container {
   display: flex !important;
   height: 100%;
   width: 100%;
   gap: 1.5rem;
 }
-
-.div-barras {
+.slides-container .section .container .div-barras {
   display: flex;
   gap: 16px;
 }
-.div-barras .color {
+.slides-container .section .container .div-barras .color {
   width: 30px;
   height: 100%;
 }
-
-.content {
+.slides-container .section .container .content {
   width: 100%;
   background-color: rgba(253, 143, 53, 0.25);
   border-radius: 1.5rem;

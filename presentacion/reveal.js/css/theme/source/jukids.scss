@@ -87,39 +87,40 @@ $overlayElementFgColor: 240, 240, 240;
     background-color: $color-blue;
 }
 
+//CLASS SLIDES
 .slides-container {
     width: 100vw !important;
     height: 100vh !important;
     transform: scale(1) !important;
     translate: 0 !important;
     inset: 0 !important;
-}
 
-.section {
-    height: 100%;
-}
-
-.container {
-    display: flex !important;
-    height: 100%;
-    width: 100%;
-    gap: 1.5rem;
-}
-
-.div-barras {
-    display: flex;
-    gap: 16px;
-
-    .color {
-        width: 30px;
+    .section {
         height: 100%;
+
+        .container {
+            display: flex !important;
+            height: 100%;
+            width: 100%;
+            gap: 1.5rem;
+
+            .div-barras {
+                display: flex;
+                gap: 16px;
+
+                .color {
+                    width: 30px;
+                    height: 100%;
+                }
+            }
+
+            .content {
+                width: 100%;
+                background-color: rgba(253, 143, 53, 0.25);
+                border-radius: 1.5rem;
+                margin: 1.5rem 8rem 1.5rem 0;
+            }
+
+        }
     }
-
-}
-
-.content {
-    width: 100%;
-    background-color: rgba(253, 143, 53, 0.25);
-    border-radius: 1.5rem;
-    margin: 1.5rem 8rem 1.5rem 0;
 }
