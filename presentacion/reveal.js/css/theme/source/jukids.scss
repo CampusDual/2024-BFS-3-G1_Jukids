@@ -235,25 +235,39 @@ $overlayElementFgColor: 240, 240, 240;
                         border: 1px solid $color-gray;
                         box-shadow: 0 2px 2px 1px $color-gray;
                         border-radius: 3rem;
-                        padding: 0.25rem 1rem;
+                        padding: 0.5rem 1rem;
                         font-size: 1.5rem;
                         min-width: 60%;
                         text-align: center;
                         display: flex;
                         justify-content: space-between;
+                        color: $color-black;
+                        text-decoration: underline;
+                        position: relative;
 
-                        .lupa{
-                            width: 22px;
+                        .lupa {
+                            width: 28px;
+                            height: auto;
                             margin: 0.1rem;
                         }
                     }
+
+                    .raton {
+                        position: absolute;
+                        bottom: 26%;
+                        right: 33%;
+                        width: 60px;
+                        height: auto;
+                        margin: 0.1rem;
+                    }
                 }
             }
-            .title-end{
+
+            .title-end {
                 position: absolute;
                 display: flex;
                 align-items: center;
-                left: 0; 
+                left: 0;
                 bottom: 3rem;
                 padding: .25rem 2rem;
                 border-radius: 1rem;
