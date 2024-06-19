@@ -409,6 +409,12 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   width: 100%;
   gap: 1.5rem;
 }
+.slides-container .section .container .pag {
+  position: absolute;
+  right: 100px;
+  height: 8%;
+  top: 20px;
+}
 .slides-container .section .container .div-barras {
   display: flex;
   gap: 16px;
@@ -458,30 +464,20 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 }
 .slides-container .section .container .content ul {
   padding: 1rem 2rem;
+  width: 70%;
 }
 .slides-container .section .container .content ul li {
   padding-bottom: 2rem;
   padding-left: 1rem;
   font-size: 2.25rem;
 }
-.slides-container .section .container .slide1 {
-  justify-content: center;
-}
-.slides-container .section .container .slide1 .portada {
-  align-self: center;
-  margin-left: 2rem;
+.slides-container .section .container .portada {
+  margin-top: 50px;
 }
 .slides-container .section .container .icon {
   position: absolute;
   right: 60px;
 }
-
-.slides-container .section .container .icon2 {
-  position: absolute;
-  right: 600px;
-  max-width: 140px;
-}
-
 .slides-container .section .container .window {
   width: 100%;
   height: 65%;
@@ -570,7 +566,3 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   text-transform: uppercase;
   font-size: 5.5rem;
 }
-
-
-
-

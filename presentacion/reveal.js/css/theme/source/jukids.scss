@@ -105,6 +105,13 @@ $overlayElementFgColor: 240, 240, 240;
             width: 100%;
             gap: 1.5rem;
 
+            .pag {
+                position: absolute;
+                right: 100px;
+                height: 8%;
+                top: 20px;
+            }
+
             .div-barras {
                 display: flex;
                 gap: 16px;
@@ -160,6 +167,7 @@ $overlayElementFgColor: 240, 240, 240;
 
                 ul {
                     padding: 1rem 2rem;
+                    width: 70%;
 
                     li {
                         padding-bottom: 2rem;
@@ -170,13 +178,8 @@ $overlayElementFgColor: 240, 240, 240;
 
             }
 
-            .slide1 {
-                justify-content: center;
-
-                .portada {
-                    align-self: center;
-                    margin-left: 2rem;
-                }
+            .portada {
+                margin-top: 50px;
             }
 
             .icon {
