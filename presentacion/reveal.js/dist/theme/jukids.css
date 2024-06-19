@@ -475,6 +475,13 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   position: absolute;
   right: 60px;
 }
+
+.slides-container .section .container .icon2 {
+  position: absolute;
+  right: 600px;
+  max-width: 140px;
+}
+
 .slides-container .section .container .window {
   width: 100%;
   height: 65%;
@@ -551,3 +558,7 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   text-transform: uppercase;
   font-size: 5.5rem;
 }
+
+
+
+
