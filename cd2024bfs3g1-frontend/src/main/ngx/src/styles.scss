@@ -143,3 +143,29 @@ app-edit-toy {
     height: auto !important;
   }
 }
+
+//Color de deslizador y radio-button verde corporativo
+app-toys-new,
+app-edit-toy {
+  .mat-mdc-slide-toggle.mat-accent {
+    --mdc-switch-selected-focus-state-layer-color: #3C7F72;
+    --mdc-switch-selected-handle-color: #3C7F72;
+    --mdc-switch-selected-hover-state-layer-color: ##3C7F72;
+    --mdc-switch-selected-pressed-state-layer-color: #3C7F72;
+    --mdc-switch-selected-focus-handle-color: #0b665d;
+    --mdc-switch-selected-hover-handle-color: #0b665d;
+    --mdc-switch-selected-pressed-handle-color: #0b665d;
+    --mdc-switch-selected-focus-track-color: #6ab7ad;
+    --mdc-switch-selected-hover-track-color: #6ab7ad;
+    --mdc-switch-selected-pressed-track-color: #6ab7ad;
+    --mdc-switch-selected-track-color: #6ab7ad;
+  }
+
+  .mat-mdc-radio-button.mat-accent {
+    --mdc-radio-selected-focus-icon-color: #3C7F72;
+    --mdc-radio-selected-hover-icon-color: #3C7F72;
+    --mdc-radio-selected-icon-color: #3C7F72;
+    --mdc-radio-selected-pressed-icon-color: #3C7F72;
+    --mat-mdc-radio-checked-ripple-color: #3C7F72;
+  }
+}
