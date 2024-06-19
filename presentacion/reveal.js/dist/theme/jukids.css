@@ -7,6 +7,7 @@
  */
 @import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap);
 section.has-dark-background, section.has-dark-background h1, section.has-dark-background h2, section.has-dark-background h3, section.has-dark-background h4, section.has-dark-background h5, section.has-dark-background h6 {
   color: #fff;
 }
@@ -421,19 +422,22 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   display: flex;
   align-items: center;
   top: 4rem;
-  padding: 1rem;
+  padding: 1rem 2rem;
   border-radius: 1rem;
   padding-left: 46px;
 }
 .slides-container .section .container .title h2 {
+  font-family: "Geo", sans-serif;
   color: #fff;
-  word-spacing: 0.5em;
+  word-spacing: 0.25em;
   margin: 0;
   text-transform: uppercase;
+  font-size: 5.5rem;
 }
 .slides-container .section .container .title img {
-  margin: auto 2rem;
-  height: 100px;
+  margin: auto;
+  margin-left: 2.5rem;
+  height: 75px;
 }
 .slides-container .section .container .content {
   width: 100%;
@@ -441,12 +445,29 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   border-radius: 1rem;
   margin: 1.5rem 8rem 1.5rem 0;
   padding: 2rem;
-  padding-top: 210px;
+  padding-top: 200px;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: start;
+  justify-content: start;
+}
+.slides-container .section .container .content ul {
+  padding: 1rem 2rem;
+}
+.slides-container .section .container .content ul li {
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  font-size: 2.25rem;
+}
+.slides-container .section .container .slide1 {
   justify-content: center;
 }
-.slides-container .section .container .content .portada {
+.slides-container .section .container .slide1 .portada {
   align-self: center;
-  text-align: start;
   margin-left: 2rem;
+}
+.slides-container .section .container .icon {
+  position: absolute;
+  right: 60px;
 }

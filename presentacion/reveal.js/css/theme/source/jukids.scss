@@ -17,6 +17,7 @@
 // Include theme-specific fonts
 @import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap);
 
 // Jukids colors
 $color-orange: #FD8F35;
@@ -111,28 +112,31 @@ $overlayElementFgColor: 240, 240, 240;
                 .color {
                     width: 30px;
                     height: 100%;
-                }
+                }                
             }
 
-            .title{
+            .title {
                 position: absolute;
                 display: flex;
                 align-items: center;
                 top: 4rem;
-                padding: 1rem;
+                padding: 1rem 2rem;
                 border-radius: 1rem;
                 padding-left: 46px;
 
-                h2{
+                h2 {
+                    font-family: "Geo", sans-serif;
                     color: $color-white;
-                    word-spacing: 0.5em;
+                    word-spacing: 0.25em;
                     margin: 0;
                     text-transform: uppercase;
+                    font-size: 5.5rem;
                 }
 
-                img{
-                    margin: auto 2rem;
-                    height: 100px;
+                img {
+                    margin: auto;
+                    margin-left: 2.5rem;
+                    height: 75px;
                 }
             }
 
@@ -142,17 +146,37 @@ $overlayElementFgColor: 240, 240, 240;
                 border-radius: 1rem;
                 margin: 1.5rem 8rem 1.5rem 0;
                 padding: 2rem;
-                padding-top: 210px;
+                padding-top: 200px;
                 display: flex;
+                flex-direction: column;
                 justify-content: center;
+                text-align: start;
+                justify-content: start;
 
-                .portada{
+                ul {
+                    padding: 1rem 2rem;
+
+                    li {
+                        padding-bottom: 2rem;
+                        padding-left: 1rem;
+                        font-size: 2.25rem;
+                    }
+                }
+                
+            }
+            .slide1 {
+                justify-content: center;
+                .portada {
                     align-self: center;
-                    text-align: start;
                     margin-left: 2rem;
                 }
             }
 
+            .icon {
+                position: absolute;
+                right: 60px;
+            }
+           
         }
     }
 }
