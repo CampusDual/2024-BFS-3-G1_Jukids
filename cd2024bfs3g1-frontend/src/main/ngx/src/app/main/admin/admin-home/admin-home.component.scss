@@ -1,27 +1,25 @@
-.admin-body{
+.admin-body {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.o-image{
+.o-image {
   width: 13rem;
 }
 
-.graficas{
+.graficas {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  background-color: #ECE3D8;
   padding: 1rem;
   border-radius: 0.8rem;
 }
 
 //La leyenda de la piechart es inaccesible, este div se superpone a ella y la oculta, es su unica funcion
-.format-legend{
+.format-legend {
   height: 4rem;
   opacity: 1;
-  background-color:#ECE3D8 ;
+  background-color: #fff;
 }
-
