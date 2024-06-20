@@ -286,5 +286,17 @@ $overlayElementFgColor: 240, 240, 240;
                 }
             }
         }
+    }   
+}
+
+.people{
+    margin-top: 20px;
+    width: 100%;
+    gap: 10px;
+    display: flex;
+    justify-content: space-evenly;
+    div{
+        display: flex;
+        flex-direction: column;
     }
 }
