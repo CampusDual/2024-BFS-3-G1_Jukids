@@ -307,6 +307,7 @@
   "UPDATE_CHATS": "Update chats",
   "VALIDATE_ERROR": "Something went wrong",
   "RESERVER_TOY": "Toys pending payment",
-  "UNDECIDED": "NOT SO SURE?"
+  "UNDECIDED": "NOT SO SURE?",
+  "PANEL": "Panel"
 
 }
