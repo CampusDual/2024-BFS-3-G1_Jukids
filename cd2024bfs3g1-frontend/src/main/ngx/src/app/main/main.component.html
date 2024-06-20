@@ -15,7 +15,7 @@
       </div>
       <div class="nav-right-side">
         <button *ngIf="validAdmin()" class="button btn-outline-dark" type="button" (click)="adminRedirect()">
-          {{ 'ADMIN' | oTranslate }}
+          {{ 'PANEL' | oTranslate }}
         </button>
         <button *ngIf="!isLogged()" class="button btn-outline-dark " type="button" (click)="modal('login')">
           {{ 'LOGIN' | oTranslate}}
