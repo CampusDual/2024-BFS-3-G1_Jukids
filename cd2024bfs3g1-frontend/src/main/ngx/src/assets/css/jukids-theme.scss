@@ -532,6 +532,10 @@ nav {
     }
 
     .price {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
       margin: 0;
       height: fit-content;
       font-size: 1.1rem;
@@ -1333,6 +1337,7 @@ o-map mat-sidenav-container {
   flex-direction: column;
   margin: auto;
   margin-top: 1em;
+  align-self: flex-start;
   width: 60%;
   height: 90%;
   h3{
@@ -1384,7 +1389,7 @@ o-map mat-sidenav-container {
 
 .about-paragraphs {
   margin-top: 2em;
-  margin-bottom: 5em;
+  margin-bottom: 2.5em;
 }
 
 .paragraph {
@@ -1399,6 +1404,14 @@ o-map mat-sidenav-container {
       color: $color-orange;
     }
   }
+}
 
-
+.shipment-in-card {
+  color: $color-white;
+  align-content: center;
+  font-size: x-small;
+  padding: .4em;
+  border: 1px solid $color-blue;
+  border-radius: 10px;
+  background-color: rgba(0, 128, 0, 0.34);
 }
