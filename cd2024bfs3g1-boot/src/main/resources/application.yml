@@ -96,5 +96,5 @@ stripe:
 environment:
   profile: ${ENVIRONMENT_PROFILE:#{'production'}}
 socketio:
-  host: 'localhost'
-  port: 8882
+  host: ${SOCKETIO_HOST}
+  port: ${SOCKETIO_PORT}
