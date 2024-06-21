@@ -16,6 +16,7 @@ $color-dark-orange: #D34A24;
 $color-red: #F11F43;
 $color-blue: #3C7F72;
 $color-orange-bg: #FD8F3514;
+$color-orange-bg-new: rgba(253, 143, 53, 0.12);
 $color-red-bg: rgba(241, 31, 66, 0.8);
 $color-blue-bg: hsla(169, 36%, 37%, 0.80);
 $color-white: #fff;
@@ -274,7 +275,7 @@ nav {
 
 //==================================== CARD PRODUCT DESIGN ====================================
 .grid-container {
-  margin-bottom: 10px;
+  margin-bottom: 2em;
   min-width: 350px;
 }
 
@@ -1322,4 +1323,82 @@ o-map mat-sidenav-container {
     color: #000000b0;
     text-decoration: none;
   }
+  .logo-footer {
+    height: 3em;
+  }
+}
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 1em;
+  width: 60%;
+  height: 90%;
+  h3{
+    text-align: center;
+  }
+  p {
+    text-align: center;
+  }
+  span {
+    color: $color-orange;
+  }
+}
+
+.left {
+  text-align: left !important;
+
+}
+
+.right {
+  text-align: right !important;
+
+}
+
+.names-container {
+  margin-bottom: 4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2em;
+  height: 3em;
+
+  a {
+    color: #000;
+    text-decoration: none;
+    font-size: large;
+    padding: .7em;
+    align-self: center;
+    border: 1px solid rgba(0, 0, 0, 0.587);
+    border-radius: 10px;
+    background-color: #dedede;
+    &:hover {
+      color: $color-white;
+      border: 1px solid rgba(0, 0, 0, 0.587);
+      border-radius: 10px;
+      background-color: $color-blue-bg;
+    }
+  }
+}
+
+.about-paragraphs {
+  margin-top: 2em;
+  margin-bottom: 5em;
+}
+
+.paragraph {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3em;
+
+  h3 {
+    text-align: center;
+    margin: 0 !important;
+    span {
+      color: $color-orange;
+    }
+  }
+
+
 }

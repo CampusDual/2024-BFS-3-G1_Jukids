@@ -39,6 +39,8 @@
 .title-box {
     display: flex;
     flex-direction: row;
+    height: 2em;
+    align-items: center;
 
     @media screen and (max-width: 550px) {
         margin-top: 20px;
@@ -63,7 +65,9 @@
 
 .row-title {
     font-weight: bolder;
-    color: rgb(0, 0, 0);
+    font-size: large;
+    // color: rgb(0, 0, 0);
+    color:  #FD8F35;
     padding-left: .3em;
     text-transform: uppercase;
 
