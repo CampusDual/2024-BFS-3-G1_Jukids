@@ -14,23 +14,36 @@
 
 .total {
     width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
     margin: 0.5rem 0;
-    padding: 0 1rem;
-    border: 1px solid #d4d4d4;
-    border-radius: .25rem;
+    padding: .75rem 1.25rem;
+    border-radius: .4rem;
+    box-shadow: 0 0 .45rem #777;
+}
+
+.total.has-sells {
+  box-shadow: 0 0 .45rem #3C7F72;
 }
 
 .total-price {
     font-weight: 500;
+    font-size: .875rem;
 }
 
 .total-amount {
-    font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.total-amount.has-money {
+  color: #3C7F72;
 }
 
 .list {
-    margin-left: -100%;
-  }
+  margin-left: -100%;
+}
 
   .photo-container img {
     width: 100%;
