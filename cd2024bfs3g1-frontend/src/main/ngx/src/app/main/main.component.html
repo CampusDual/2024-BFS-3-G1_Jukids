@@ -21,11 +21,11 @@
         <button *ngIf="validAdmin()" class="button btn-outline-dark" type="button" (click)="adminRedirect()">
           {{ 'PANEL' | oTranslate }}
         </button>
-        <button *ngIf="!isLogged()" class="button btn-outline-dark " type="button" (click)="modal('login')">
-          {{ 'LOGIN' | oTranslate}}
-        </button>
         <button class="button btn-outline-dark reverse" (click)="newToy()">
           {{ 'SELL_YOUR_TOY' | oTranslate}}
+        </button>
+        <button *ngIf="!isLogged()" class="button btn-outline-dark " type="button" (click)="modal('login')">
+          {{ 'LOGIN' | oTranslate}}
         </button>
       </div>
     </div>

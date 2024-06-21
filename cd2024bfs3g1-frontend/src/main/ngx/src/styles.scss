@@ -143,3 +143,8 @@ app-edit-toy {
     height: auto !important;
   }
 }
+
+// Eliminar bloque que ocupa un espacio
+app-user-profile-ratings o-data-toolbar {
+  display: none !important;
+}
