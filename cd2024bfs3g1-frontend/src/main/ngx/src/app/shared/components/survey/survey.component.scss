@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    caret-color: #000;
   }
   
   .Survey {
@@ -70,7 +71,7 @@
     }
   
     &-p {
-      color: #12c12e;
+      color: #3C7F72;
       font-size: 1.75em;
       font-weight: 700;
       text-align: center;
@@ -176,7 +177,6 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        gap: .75rem;
         gap: 1rem;
       }
   
@@ -189,11 +189,12 @@
       width: 100%;
       padding: 1rem;
       border: 1px solid #ccc;
-      border-radius: 1rem;
+      border-radius: .4rem;
       outline: none;
       resize: none;
   
       &::placeholder {
+        color: #777;
         font-size: .9em;
   
         @media (max-width: 480px) {
@@ -241,15 +242,16 @@
       margin: 1rem 0 0;
       padding: 1rem 2rem;
       border: none;
-      border-radius: 2rem;
+      border-radius: .4rem;
       outline: none;
       color: #fff; 
-      background-color: #ff943f;
+      background-color: #3C7F72;
       font-weight: 600;
+      text-transform: uppercase;
 
       @media (hover:hover) AND (pointer:fine) {
         &:hover {
-          background-color: #f8913c;
+          background-color: #34796a;
         }
       }
     }
