@@ -282,6 +282,7 @@ nav {
 .grid-toys-search-container {
   margin: auto;
   width: 90%;
+  min-height: 75%;
   min-width: 350px;
 }
 
@@ -1322,6 +1323,7 @@ o-map mat-sidenav-container {
   height: 5em; 
   background-color: $color-orange;
   border-radius: 10px 10px 0 0;
+  min-width: 4em;
   // border-radius: 0 0 10px 10px;
   .footer-links {
     color: #000000b0;
@@ -1329,6 +1331,9 @@ o-map mat-sidenav-container {
   }
   .logo-footer {
     height: 3em;
+    @include respond-to(small) {
+      display: none;
+    }
   }
 }
 
@@ -1339,7 +1344,7 @@ o-map mat-sidenav-container {
   margin-top: 1em;
   align-self: flex-start;
   width: 60%;
-  height: 90%;
+  // height: 90%; liber
   h3{
     text-align: center;
   }
@@ -1353,16 +1358,14 @@ o-map mat-sidenav-container {
 
 .left {
   text-align: left !important;
-
 }
 
 .right {
   text-align: right !important;
-
 }
 
 .names-container {
-  margin-bottom: 4em;
+  margin-bottom: 1.5em;
   display: flex;
   flex-direction: row;
   justify-content: center;
