@@ -65,7 +65,8 @@ GROUP BY t.total_orders;
 	            ROUND(SUM(t.price) * 5.5 / 107, 2) AS "Comision"
                 FROM toys t
                 GROUP BY t.category
-                ORDER BY t.category;
+                ORDER BY t.category
+                where t.transaction_status = 4 or t.transaction_status = 5;
             ]]>
             </Sentence>
         </Query>
