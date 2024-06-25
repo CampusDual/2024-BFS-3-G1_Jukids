@@ -8,8 +8,9 @@
       {{ "MY_TOYS" | oTranslate }}</span>
   </div>
 </div>
-<div class="total">
-  <p class="total-price">{{ "AVAILABLE_MONEY" | oTranslate }}<span class="total-amount">{{infoToysSold}}</span></p>
+<div class="total" [ngClass]="infoToysSold !== 0 ? 'has-sells' : ''">
+  <span class="total-price">{{ "AVAILABLE_MONEY" | oTranslate }}</span>
+  <span class="total-amount" [ngClass]="infoToysSold !== 0 ? 'has-money' : ''">{{infoToysSold}} €</span>
 </div>
 
 <mat-tab-group #toysTabs [selectedIndex]="currentToysTabIndex">

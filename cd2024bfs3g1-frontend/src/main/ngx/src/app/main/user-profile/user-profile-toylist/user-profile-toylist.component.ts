@@ -19,7 +19,7 @@ export class UserProfileToylistComponent implements OnInit{
   private STATUS_SENT: Number = 2;
   private STATUS_RECEIVED: Number = 3;
   private STATUS_PURCHASED: Number = 4;
-  infoToysSold: string;
+  infoToysSold: number = 0;
   public baseUrl: string;
 
   //Indice inicial para pestañas de tablas
@@ -69,9 +69,7 @@ export class UserProfileToylistComponent implements OnInit{
       .subscribe({
         next: (resp:any) => {
           if (resp.code === 0 && resp.data.length > 0) {
-            this.infoToysSold = resp.data[0].price.toFixed(1) + " €";
-          } else {
-            this.infoToysSold = "0 €";
+            this.infoToysSold = resp.data[0].price.toFixed(1);
           }
         }
       });
