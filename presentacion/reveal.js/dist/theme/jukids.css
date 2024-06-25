@@ -464,7 +464,7 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 }
 .slides-container .section .container .content ul {
   padding: 1rem 2rem;
-  width: 70%;
+  width: 60%;
 }
 .slides-container .section .container .content ul li {
   padding-bottom: 2rem;
@@ -568,7 +568,7 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 }
 
 .people {
-  margin-top: 50px;
+  margin-top: 20px;
   width: 100%;
   gap: 10px;
   display: flex;
@@ -577,4 +577,22 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 .people div {
   display: flex;
   flex-direction: column;
+}
+.people .div-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+.people .div-name .div-img {
+  width: 70px !important;
+  height: 70px;
+}
+.people .div-name .div-img img {
+  width: 70px !important;
+  height: 70px;
+  border-radius: 50%;
+}
+.people .div-name span {
+  font-size: 0.75rem;
 }

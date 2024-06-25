@@ -167,7 +167,7 @@ $overlayElementFgColor: 240, 240, 240;
 
                 ul {
                     padding: 1rem 2rem;
-                    width: 70%;
+                    width: 60%;
 
                     li {
                         padding-bottom: 2rem;
@@ -175,7 +175,6 @@ $overlayElementFgColor: 240, 240, 240;
                         font-size: 2.25rem;
                     }
                 }
-
             }
 
             .portada {
@@ -290,7 +289,7 @@ $overlayElementFgColor: 240, 240, 240;
 }
 
 .people{
-    margin-top: 50px;
+    margin-top: 20px;
     width: 100%;
     gap: 10px;
     display: flex;
@@ -299,4 +298,24 @@ $overlayElementFgColor: 240, 240, 240;
         display: flex;
         flex-direction: column;
     }
+
+
+.div-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    .div-img{    
+        width: 70px !important;
+        height: 70px;
+        img{
+            width: 70px !important;
+            height: 70px;
+            border-radius: 50%;
+        }
+    }
+    span{
+        font-size: .75rem;
+    }
+}
 }
