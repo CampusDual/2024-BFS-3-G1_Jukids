@@ -720,6 +720,7 @@ nav {
   border: 2px solid;
   margin: .5rem .25rem;
   padding: .2rem 1rem;
+  text-wrap: nowrap;
 
   @include respond-to(small) {
     font-size: 0.8em;
