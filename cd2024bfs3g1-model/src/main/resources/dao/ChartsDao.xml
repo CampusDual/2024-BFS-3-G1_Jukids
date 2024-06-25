@@ -60,12 +60,13 @@ GROUP BY t.total_orders;
         <Query id = "category_revenue">
             <Sentence>
                 <![CDATA[
-                SELECT
+                ;SELECT
 	            t.category as "Categoria",
 	            ROUND(SUM(t.price) * 5.5 / 107, 2) AS "Comision"
                 FROM toys t
                 GROUP BY t.category
-                ORDER BY t.category;
+                ORDER BY t.category
+                where t.transaction_status = 4 or t.transaction_status = 5;
             ]]>
             </Sentence>
         </Query>
