@@ -66,8 +66,7 @@ GROUP BY t.total_orders;
                 FROM toys t
                 WHERE t.transaction_status = 4 or t.transaction_status = 5
                 GROUP BY t.category
-                ORDER BY t.category
-                ;
+                ORDER BY t.category;
             ]]>
             </Sentence>
         </Query>
