@@ -13,6 +13,11 @@ export class ChatService {
   private userProfileChatData$ = new BehaviorSubject<ChatUserProfileInterfaceResponse| null>( null );
   private userProfileChatData =  this.userProfileChatData$.asObservable();
 
+  private chatJR$ = new BehaviorSubject<ChatJoinRoomInterface| null>( null );
+  private chatJR =  this.chatJR$.asObservable();
+
+
+
   constructor(private socket: Socket) { }
 
   setUserProfileChatData(data: ChatUserProfileInterfaceResponse) {   
@@ -24,6 +29,14 @@ export class ChatService {
     return this.userProfileChatData;
   }
 
+
+  setChatJR(data: ChatJoinRoomInterface) {
+    this.chatJR$.next(data);
+  }
+
+  getChatJR(): Observable<any> {
+    return this.chatJR;
+  }
 
 
 
@@ -46,8 +59,8 @@ export class ChatService {
     this.socket.emit('joinRoom', chatJR);
   }
 
-  disconnectRoom() {
-    this.socket.disconnect();
+  disconnectRoom( chatJR: ChatJoinRoomInterface ) {
+    this.socket.emit('leaveRoom', chatJR);
   }
 
 }

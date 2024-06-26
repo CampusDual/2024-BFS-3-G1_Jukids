@@ -29,24 +29,24 @@ public class SocketIOConfig {
         config.setPort(SOCKETPORT);
         server = new SocketIOServer(config);
         server.start();
-        server.addConnectListener(new ConnectListener() {
-            @Override
-            public void onConnect(SocketIOClient client) {
-
-                System.out.println( "new user connected with socket " + client.getSessionId() );
-
-
-            }
-        });
-
-        server.addDisconnectListener(new DisconnectListener() {
-            @Override
-            public void onDisconnect(SocketIOClient client) {
-                client.getNamespace().getAllClients().stream().forEach(data-> {
-                    System.out.println( "user disconnected " + data.getSessionId() );
-                });
-            }
-        });
+//        server.addConnectListener(new ConnectListener() {
+//            @Override
+//            public void onConnect(SocketIOClient client) {
+//
+//                System.out.println( "new user connected with socket " + client.getSessionId() );
+//
+//
+//            }
+//        });
+//
+//        server.addDisconnectListener(new DisconnectListener() {
+//            @Override
+//            public void onDisconnect(SocketIOClient client) {
+//                client.getNamespace().getAllClients().stream().forEach(data-> {
+//                    System.out.println( "user disconnected " + data.getSessionId() );
+//                });
+//            }
+//        });
         return server;
     }
 
