@@ -129,6 +129,7 @@ Users created with products to test the application:
 | `cristinafondo@gmail.com`     | `demouser`       | user     |
 
 
+
 ## Ontimize Boot
 
 - Go to the application folder and run an install:
