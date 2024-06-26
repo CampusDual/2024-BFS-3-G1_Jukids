@@ -66,22 +66,22 @@
 .row-title {
     font-weight: bolder;
     font-size: large;
-    // color: rgb(0, 0, 0);
     color:  #FD8F35;
     padding-left: .3em;
     text-transform: uppercase;
-
+    
     @media screen and (max-width: 550px) {
         display: none;
     }
 }
 
 .row-title-small {
-    display: none;
     font-weight: bolder;
-    color: rgb(0, 0, 0);
+    font-size: large;
+    color:  #FD8F35;
     padding-left: .3em;
     text-transform: uppercase;
+    display: none;
 
     @media screen and (max-width: 550px) {
         display: contents;
