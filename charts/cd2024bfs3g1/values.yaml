@@ -51,7 +51,7 @@ resources:
     memory: 512Mi
   requests:
     cpu: 100m
-    memory: 512Mi
+    memory: 256Mi
 
 database:
 ## Provided as basic setup. Configure as needed. Provided instance is dev environment instance
@@ -158,7 +158,7 @@ storage:
   capacity: 5G
   mountPath: "/opt/cd2024bfs3g1/"
 
-jvmOptions: "-Xmx370m -Xms100m"  ## adjust according to pod requests
+jvmOptions: "-Xmx350m -Xms100m"  ## adjust according to pod requests
 
 socketio:
   host: "0.0.0.0"
