@@ -8,6 +8,7 @@ import com.campusdual.cd2024bfs3g1.model.core.dao.ToyDao;
 import com.campusdual.cd2024bfs3g1.model.core.dao.UserDao;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
+
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
@@ -37,7 +38,7 @@ public class SocketIOService {
     private SocketIOServer socketServer;
 
 
-    SocketIOService(SocketIOServer socketServer){
+    SocketIOService(SocketIOServer socketServer) {
         this.socketServer=socketServer;
 
         this.socketServer.addConnectListener(onUserConnectWithSocket);
@@ -52,6 +53,8 @@ public class SocketIOService {
         this.socketServer.addEventListener("messageSendToUser", RecieveMessage.class, onSendMessage);
 
         this.socketServer.addEventListener("joinRoom", UserInfoDataConnect.class, onCreateRoom);
+
+        this.socketServer.addEventListener( "leaveRoom", UserInfoDataConnect.class, leaveRoom );
 
     }
 
@@ -69,13 +72,8 @@ public class SocketIOService {
 
              /** INICIO Parametros de Consulta para el SellerData **/
 
-            System.out.println("Client DATA: " + client.getNamespace().getName() );
-            System.out.println("Client DATA: " + client.getHandshakeData() );
-            System.out.println("Client DATA: " + client.getNamespace().getName() );
+            System.out.println("Client DATA: " + client.getSessionId() );
 
-            //client.joinRoom("test");
-
-            System.out.println("CLIENT GET ALL ROOMS: " + client.getAllRooms() );
             System.out.println("Perform operation on user connect in controller");
         }
     };
@@ -84,10 +82,27 @@ public class SocketIOService {
         @Override
         public void onDisconnect(SocketIOClient client) {
 
-            System.out.println("USUARIO : " + client.getSessionId() + " Desconectado. ");
+            try {
+                System.out.println("USUARIO : " + client.getSessionId() + " Desconectado. ");
+                System.out.println("USUARIO ROOM: " + client.getAllRooms());
 
 
-            System.out.println("Perform operation on user disconnect in controller");
+                socketServer.getAllClients().forEach( c -> {
+                    System.out.println(" socketServer client sessionId: " + c.getSessionId() );
+                    System.out.println(" socketServer client rooms: " + c.getAllRooms() );
+
+                });
+
+
+
+
+                System.out.println("Perform operation on user disconnect in controller");
+            } catch (Exception ex ){
+                System.out.println("Error: " + ex.getMessage() );
+            } finally {
+                client.disconnect();
+            }
+
         }
     };
 
@@ -141,8 +156,6 @@ public class SocketIOService {
              */
         }
     };
-
-
 
     public DataListener<UserInfoDataConnect> onCreateRoom = new DataListener<>() {
         @Override
@@ -215,6 +228,20 @@ public class SocketIOService {
         }
     };
 
+    public DataListener<UserInfoDataConnect> leaveRoom = new DataListener<UserInfoDataConnect>() {
+        @Override
+        public void onData(SocketIOClient client, UserInfoDataConnect userInfoDataConnect, AckRequest ackRequest) throws Exception {
+            try {
+                System.out.println("LEAVE ROOM");
+                //Generación de codigo de Sala -/ CustomerID + "C" + ToyID /-
+                String room = userInfoDataConnect.getCustomerId() + "C" + userInfoDataConnect.getToyId();
+                client.leaveRoom(room);
+            }catch ( Exception ex ) {
+
+                System.out.println("ERROR LEAVEROOM: " + ex.getMessage() );
+            }
+        }
+    };
 
     private SendMessage convertToMessage(Map recordValues ) {
 
@@ -239,9 +266,8 @@ public class SocketIOService {
                          recordValues.get( ChatLogDao.ATTR_SELLER_AVATAR).toString()
                          : ""
          );
-
         return  msg;
-    }
+    };
 
 
     private SendMessage createMessageResponse(RecieveMessage recieveMessage) {
@@ -390,5 +416,7 @@ public class SocketIOService {
 
 
     }
+
+
 
 }

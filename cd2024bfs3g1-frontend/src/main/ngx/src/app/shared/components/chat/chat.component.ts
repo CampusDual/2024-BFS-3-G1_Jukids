@@ -40,6 +40,7 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked, O
 
   //============================= CHAT ARRAY =============================
   messages: ChatMessageResponseInterface[] = [];
+  chatJR: ChatJoinRoomInterface;
 
   msgCount: number = -1;
 
@@ -56,7 +57,19 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked, O
         this.currentUserId = data.data.usr_id;
       }
     })
-    this.chatService.connect();
+
+    this.chatService.getChatJR().subscribe({
+      next: (data: ChatJoinRoomInterface) => {
+        this.chatJR = data;
+      }
+    });
+    
+    this.chatService.setChatJR({
+      customerId: this.currentUserId,
+      toyId: this.toyId
+    });
+
+    // this.chatService.connect();
 
   }
 
@@ -97,15 +110,19 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked, O
           if (this.currentProfileChatData != data) {
             this.currentProfileChatData = data;
 
-            this.chatService.disconnectRoom();
+            this.chatService.disconnectRoom(
+              this.chatJR
+            );
             this.messages = [];
             this.msgCount = -1;
-            this.chatService.connect();
+            // this.chatService.connect();
 
-            this.chatService.joinRoom({
+            this.chatService.setChatJR({
               customerId: data.customer_id,
               toyId: data.toy_id
             });
+
+            this.chatService.joinRoom(this.chatJR);
 
           }
 
@@ -196,7 +213,9 @@ export class ChatComponent implements OnInit, AfterViewInit, AfterViewChecked, O
     this.dialog.getDialogById('Chat').close();
     this.messages = [];
     this.msgCount = -1;
-    this.chatService.disconnectRoom();
+    this.chatService.disconnectRoom(
+      this.chatJR
+    );
   }
 
   sendMessage(message: string) {
