@@ -1319,22 +1319,28 @@ o-map mat-sidenav-container {
 }
 
 .footer {
+  width: 100%;
+  position: absolute;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 5em;
   align-items: center;
-  height: 5em; 
+  height: 4em;
   background-color: $color-orange;
   border-radius: 10px 10px 0 0;
   min-width: 4em;
+
   // border-radius: 0 0 10px 10px;
   .footer-links {
     color: #000000b0;
     text-decoration: none;
   }
+
   .logo-footer {
     height: 2.5em;
+
     @include respond-to(small) {
       display: none;
     }
@@ -1353,12 +1359,15 @@ o-map mat-sidenav-container {
   background-color: #fff;
   padding: 2em;
   border-radius: 15px;
-  h3{
+
+  h3 {
     text-align: center;
   }
+
   p {
     text-align: center;
   }
+
   span {
     color: $color-orange;
   }
@@ -1374,16 +1383,12 @@ o-map mat-sidenav-container {
 
 .names-container-grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(
-      150px,
-      1fr
-    )
-  );
+  grid-template-columns: repeat(auto-fit,
+      minmax(150px,
+        1fr));
   margin-bottom: 1.5em;
   gap: 2em;
-  height: 3em;
+  // height: 3em;
 
   a {
     color: #000;
@@ -1395,6 +1400,7 @@ o-map mat-sidenav-container {
     border: 1px solid rgba(0, 0, 0, 0.587);
     border-radius: 10px;
     background-color: #dedede;
+
     &:hover {
       color: $color-white;
       border: 1px solid rgba(0, 0, 0, 0.587);
@@ -1417,6 +1423,7 @@ o-map mat-sidenav-container {
   h3 {
     text-align: center;
     margin: 0 !important;
+
     span {
       color: $color-orange;
     }
