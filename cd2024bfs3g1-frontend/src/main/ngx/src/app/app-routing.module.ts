@@ -11,6 +11,7 @@ export const routes: Routes = [
   { path: 'chat', component: ChatComponent},
   { path: 'checkout', component: CheckoutComponent },
   { path: 'survey', component: SurveyComponent },
+  { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) },
   { path: '**', redirectTo: 'main', pathMatch: 'full' },
   { path: '', redirectTo: 'main', pathMatch: 'full' },
 ];

@@ -1,0 +1,32 @@
+  .nav {
+    width: 100%;
+    display: flex;
+    background-color: #FD8F35;
+    height: 3em;
+    margin-bottom: 2em;
+  }
+  
+  .nav-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .nav-left-side {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .title {
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: x-large;
+    cursor: pointer;
+    max-width: 100px;
+  }
+  
+  

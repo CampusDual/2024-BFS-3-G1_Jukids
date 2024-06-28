@@ -1,6 +1,4 @@
-<!-- <o-form class="form" editable-detail="yes" show-header="no" parent-keys="category-route"> -->
-  <!-- <o-form class="form" editable-detail="yes" show-header="no"> -->
-  <o-form class="form" attr="toysHomeForm" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()">
+<o-form class="form" attr="toysHomeForm" editable-detail="yes" show-header="no" (onInitialMode)="searchReceivedParams()">
 
   <o-column-collapsible class="collapsible-container" attr="container" title="{{ 'FILTERS_TOYS' | oTranslate }}" icon="filter_list"  expanded="no">
     <div class="collapsible-container-items">
@@ -50,7 +48,7 @@
 </o-form>
 
 <div class="grid-toys-search-container">
-  <o-grid #toysGrid attr="toysGrid" service="toys" entity="toyAvailable" keys="toyid" detail-form-route="toysDetail" columns="toyid;name;price;latitude;longitude;distance"
+  <o-grid #toysGrid attr="toysGrid" service="toys" entity="toyAvailable" keys="toyid" detail-form-route="toysDetail" columns="toyid;name;price;latitude;longitude;distance;shipping"
     pageable="yes" query-rows="20" query-on-init="false" refresh-button="no" quick-filter="no" pagination-controls="yes" show-page-size="yes" show-footer="yes" page-size-options="20;30;40"
     [cols]="cols" gutter-size="2.5em" grid-item-height="1:1.3" sortable-columns="distance" orderable="no" sort-column="distance">
     <o-grid-item
@@ -66,11 +64,17 @@
         </div>
         <div class="card-body">
           <h4>{{ data.name }}</h4>
-          <p class="price">
-            {{ data.price | number : "1.2-2" }}<span>€</span>
-          </p>
+          <div class="price">
+            <div>{{ data.price | number : "1.2-2" }}<span>€</span></div>
+            <mat-icon
+              title="{{ 'SHIPMENT_AVAILABLE' | oTranslate }}"
+              class="color-blue"
+              *ngIf="data.shipping"
+              >local_shipping</mat-icon>
+          </div>
         </div>
       </div>
     </o-grid-item>
   </o-grid>
+  <app-footer></app-footer>
 </div>
